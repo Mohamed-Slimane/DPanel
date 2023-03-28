@@ -28,19 +28,22 @@
 </head>
 <body>
 
-<div class="container py-3 my-4 bg-white rounded shadow-sm">
-    {% include 'header.html' %}
+<div class="container">
+    <div class="bg-white rounded shadow-sm p-3 my-4 ">
+        {% include 'header.html' %}
+    </div>
 </div>
 <div id="main-content" class="container">
-
-    <div class="row g-3 mb-3">
-        <div class="col">
-            <div class="h4">
-                {% block page_title%}{% endblock %}
+    <div class="bg-white rounded shadow-sm p-3 mb-3">
+        <div class="row g-3">
+            <div class="col">
+                <div class="h4 mb-0">
+                    {% block page_title%}{% endblock %}
+                </div>
             </div>
-        </div>
-        <div class="col-auto">
-            {% block title_button %}{% endblock %}
+            <div class="col-auto">
+                {% block title_button %}{% endblock %}
+            </div>
         </div>
     </div>
 
@@ -55,8 +58,8 @@
     {% block content %}{% endblock %}
 
     <div class="row mt-4">
-        <div class="col-md text-center text-md-start mb-3">{% translate 'All rights reserved' %} &copy; DPanel - {% now 'Y' %}</div>
-        <div class="col-md text-center text-md-end"><b>DPanel 3.1</b> With <i class="far fa-heart text-danger"></i> proud by Dever </div>
+        <div class="col-md text-center text-md-start mb-3">{% translate 'All rights reserved' %} &copy; DJpanel  - {% now 'Y' %}</div>
+        <div class="col-md text-center text-md-end"><b>DJpanel  3.1</b> With <i class="far fa-heart text-danger"></i> proud by Dever </div>
     </div>
 </div>
 
@@ -70,7 +73,7 @@
         document.execCommand('copy')
         const Toast = Swal.mixin({
           toast: true,
-          position: 'top-end',
+          position: 'top',
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,

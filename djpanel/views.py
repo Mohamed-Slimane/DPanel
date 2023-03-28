@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from djpanel.forms import AppForm
 from djpanel.functions import create_app_server_block, create_venv, create_app, create_uwsgi_config
 from djpanel.models import App
-from engine.settings import WWW_FOLDER, VENV_FOLDER
+
 
 
 class apps(View):
@@ -24,7 +24,9 @@ class app_new(View):
         form = AppForm(request.POST)
         if form.is_valid():
             app = form.save(commit=False)
+            from engine.settings import WWW_FOLDER
             app.www_path = f'{WWW_FOLDER}{app.domain}'
+            from engine.settings import VENV_FOLDER
             app.venv_path = f'{VENV_FOLDER}{app.domain}'
 
             pathlib.Path(app.www_path).mkdir(parents=True, exist_ok=True)

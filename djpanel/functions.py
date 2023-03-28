@@ -107,7 +107,7 @@ def create_app(app):
         {app.venv_path}/bin/pip install uwsgi        
         cd {app.www_path}
         django-admin startproject {app.uwsgi_path} .   
-        {app.venv_path}/bin/python manage.py migrate   
+        sudo {app.venv_path}/bin/python manage.py migrate   
         '''.format(app=app))
     except Exception as e:
         print(str(e))

@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+
+
 body{
     background: #f4f5fb;
+    font-family: 'Nunito', sans-serif;
+    font-family: 'Tajawal', sans-serif;
 }
 
 a{
