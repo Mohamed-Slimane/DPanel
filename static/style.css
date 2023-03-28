@@ -1,0 +1,41 @@
+body{
+    background: #f4f5fb;
+}
+
+a{
+    color: #01204e;
+    text-decoration: none;
+}
+
+.boxed-image{
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.last-child:last-child{
+    display: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #d6d6d6;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #2d4095;
+}

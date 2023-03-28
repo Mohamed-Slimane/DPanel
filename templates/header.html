@@ -1,0 +1,39 @@
+{% load i18n %}
+<div class="row g-3">
+    <div class="col">
+        <div class="row gx-3">
+            <a class="col-auto" href="{% url 'apps' %}">{% trans 'Apps' %}</a>
+            <a class="col-auto" href="">{% trans 'SSL' %}</a>
+            <a class="col-auto" href="">{% trans 'Databases' %}</a>
+            <div class="dropdown col-auto" title="{% trans 'Language' %}">
+                    <div class="pointer" id="dropdownLanguage" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-translate"></i>
+                    </div>
+
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                        {% for language in languages %}
+                        <li>
+                            <a class="dropdown-item {% if language.code == LANGUAGE_CODE %} active{% endif %}" href="/{{ language.code }}/{{request.get_full_path_info|slice:'4:'}}">
+                                {{ language.name_local }} ({{ language.code }})
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+        </div>
+    </div>
+    <div class="col-auto">
+        {% if user.is_authenticated %}
+        <div class="d-flex">
+            {{request.user}}
+            <a href="{% url 'logout' %}" class="ms-2">
+                <i class="bi bi-door-closed"></i>
+            </a>
+        </div>
+        {% else %}
+        <div class="btn btn-outline-primary">
+            {% trans 'Login' %}
+        </div>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} {% translate 'Apps' %} {% endblock%}
+{% block page_title %}{% trans 'All apps' %}{% endblock %}
+
+{% block title_button %}
+<a class="btn btn-primary btn-sm" href="{% url 'app_new' %}">
+    {% translate 'New' %}
+    <i class="bi bi-plus"></i>
+</a>
+{% endblock %}

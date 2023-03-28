@@ -1,0 +1,3576 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Dever stoke\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-24 17:29+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: .\account\ajax.py:24
+msgid "Username must be less than {} characters"
+msgstr "يجب أن يكون اسم المستخدم أقل من {} أحرف"
+
+#: .\account\ajax.py:29
+msgid "Username must be more than {} characters"
+msgstr "إسم المستخدم يجب أن يكون أكثر من {} أحرف"
+
+#: .\account\ajax.py:34
+msgid "Username is not available"
+msgstr "إسم المستخدم غير متاح"
+
+#: .\account\ajax.py:37
+msgid "Username is available"
+msgstr "إسم المستخدم متاح"
+
+#: .\account\ajax.py:57
+msgid "Login successful"
+msgstr "تم الدخول بنجاح"
+
+#: .\account\ajax.py:61
+msgid "User is not active"
+msgstr "المستخدم غير مفعل"
+
+#: .\account\ajax.py:64
+msgid "Username or Password is invalid"
+msgstr "إسم المستخدم أو كلمة المرور غير صحيحة"
+
+#: .\account\ajax.py:67
+msgid "Enter username and password"
+msgstr "قم بإدخال إسم المستخدم وكلمة المرور"
+
+#: .\account\views.py:35
+msgid "Password Reset Requested"
+msgstr "تم طلب إعادة تعيين كلمة المرور"
+
+#: .\dpanel\models.py:9 .\dpanel\models.py:28 .\dpanel\models.py:55
+msgid "Serial"
+msgstr "الرقم التسلسي"
+
+#: .\dpanel\models.py:10 .\dpanel\models.py:30
+#: .\templates\superuser\domain\config.html:5
+#: .\templates\superuser\domain\domain.html:6
+#: .\templates\superuser\domain\domain.html:72
+#: .\templates\superuser\domain\domains-list.html:12
+msgid "Domain"
+msgstr "الدومين"
+
+#: .\dpanel\models.py:12 .\dpanel\models.py:32
+msgid "The domain format should look like this (domain.com, sub.domain.com)"
+msgstr "يجب أن يبدو تنسيق النطاق مثل هذا (domain.com ، sub.domain.com)"
+
+#: .\dpanel\models.py:12 .\dpanel\models.py:32
+msgid "Invalid Entry"
+msgstr "النموذج غير صحيح"
+
+#: .\dpanel\models.py:13 .\dpanel\models.py:34
+#: .\templates\superuser\django\app.html:93
+#: .\templates\superuser\domain\domain.html:78
+#: .\templates\superuser\domain\domains-list.html:13
+msgid "Path"
+msgstr "المسار"
+
+#: .\dpanel\models.py:14
+msgid "config"
+msgstr "التكوين"
+
+#: .\dpanel\models.py:15 .\dpanel\models.py:39
+#: .\templates\superuser\domain\domains-list.html:14
+msgid "Force HTTPS"
+msgstr "فرض HTTPS"
+
+#: .\dpanel\models.py:29 .\dpanel\models.py:56
+#: .\templates\superuser\database\postgres\databases-list.html:12
+msgid "Name"
+msgstr "الإسم"
+
+#: .\dpanel\models.py:33 .\templates\superuser\django\app.html:99
+#: .\templates\superuser\setting\smtp.html:21
+msgid "Port"
+msgstr "البوابة"
+
+#: .\dpanel\models.py:35
+#, fuzzy
+#| msgid "Start date"
+msgid "Startup path"
+msgstr "تاريخ البدء"
+
+#: .\dpanel\models.py:36
+msgid "Environment Path"
+msgstr ""
+
+#: .\dpanel\models.py:37
+#, fuzzy
+#| msgid "config"
+msgid "Nginx config"
+msgstr "التكوين"
+
+#: .\dpanel\models.py:38
+#, fuzzy
+#| msgid "config"
+msgid "Uwsgi config"
+msgstr "التكوين"
+
+#: .\dpanel\models.py:40 .\templates\superuser\django\app.html:104
+msgid "Activated"
+msgstr "مفعل"
+
+#: .\dpanel\models.py:57 .\templates\account\email\new-user.html:7
+#: .\templates\account\email\new-user.txt:7 .\templates\account\login.html:18
+#: .\templates\superuser\setting\smtp.html:26
+#: .\templates\superuser\user\users-list.html:12
+msgid "Username"
+msgstr "إسم المستخدم"
+
+#: .\dpanel\models.py:58 .\templates\account\login.html:23
+#: .\templates\superuser\database\postgres\databases-list.html:14
+#: .\templates\superuser\setting\smtp.html:31
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: .\dpanel\superuser\database\postgres\views.py:44
+#: .\dpanel\superuser\database\postgres\views.py:62
+#, fuzzy
+#| msgid "Domain successfully created"
+msgid "Database successfully created"
+msgstr "تم إنشاء الدومين بنجاح"
+
+#: .\dpanel\superuser\database\postgres\views.py:47
+#: .\dpanel\superuser\django\views.py:84 .\dpanel\superuser\domain\views.py:72
+msgid "Form validation error"
+msgstr "خطأ في التحقق من صحة النموذج"
+
+#: .\dpanel\superuser\django\views.py:45
+#, fuzzy
+#| msgid "Domain configuration updated successfully"
+msgid "DjangoApp configuration updated successfully"
+msgstr "تم تحديث تكوين النطاق بنجاح"
+
+#: .\dpanel\superuser\django\views.py:47
+#, fuzzy
+#| msgid "Error in updating domain configuration"
+msgid "Error in updating django_app configuration"
+msgstr "خطأ في تحديث تكوين النطاق"
+
+#: .\dpanel\superuser\django\views.py:63
+msgid "The domain already exists in domains"
+msgstr ""
+
+#: .\dpanel\superuser\django\views.py:81 .\dpanel\superuser\django\views.py:99
+#, fuzzy
+#| msgid "Domain successfully created"
+msgid "DjangoApp successfully created"
+msgstr "تم إنشاء الدومين بنجاح"
+
+#: .\dpanel\superuser\domain\views.py:41
+msgid "Domain configuration updated successfully"
+msgstr "تم تحديث تكوين النطاق بنجاح"
+
+#: .\dpanel\superuser\domain\views.py:43
+msgid "Error in updating domain configuration"
+msgstr "خطأ في تحديث تكوين النطاق"
+
+#: .\dpanel\superuser\domain\views.py:59
+msgid "The domain already exists in django apps"
+msgstr ""
+
+#: .\dpanel\superuser\domain\views.py:69 .\dpanel\superuser\domain\views.py:87
+msgid "Domain successfully created"
+msgstr "تم إنشاء الدومين بنجاح"
+
+#: .\dpanel\superuser\forms.py:10 .\dpanel\superuser\forms.py:21
+msgid "Date Of Birth"
+msgstr "تاريخ الولادة"
+
+#: .\dpanel\superuser\profile\views.py:20
+msgid "Your profile has been updated"
+msgstr "تم تحديث ملفك الشخصي"
+
+#: .\dpanel\superuser\profile\views.py:33
+msgid "Password fields do not match"
+msgstr "حقول كلمة المرور غير متطابقة"
+
+#: .\dpanel\superuser\profile\views.py:40
+msgid "Your password has been updated"
+msgstr "تم تحديث كلمة المرور الخاصة"
+
+#: .\engine\settings.py:121
+msgid "Arabic"
+msgstr "العربية"
+
+#: .\engine\settings.py:122
+msgid "English"
+msgstr "الإنجليزية"
+
+#: .\setting\models.py:6 .\templates\superuser\setting\social-login.html:19
+msgid "Key"
+msgstr "المفتاح"
+
+#: .\setting\models.py:7
+msgid "Value"
+msgstr "القيمة"
+
+#: .\templates\account\email\new-user.html:5
+#: .\templates\account\email\new-user.txt:5
+msgid "Hi administration"
+msgstr "مرحبًا يا مشرف"
+
+#: .\templates\account\email\new-user.html:6
+msgid "There is a new member registered in DPanel"
+msgstr "يوجد عضو جديد مسجل في DPanel"
+
+#: .\templates\account\email\new-user.html:8
+#: .\templates\account\email\new-user.txt:8
+#: .\templates\superuser\setting\general.html:31
+#: .\templates\superuser\user\user.html:55
+msgid "Email"
+msgstr "الإيميل"
+
+#: .\templates\account\email\new-user.html:9
+#: .\templates\account\email\new-user.txt:9
+#: .\templates\account\email\token.html:7 .\templates\account\email\token.txt:7
+msgid "Please go to the link below to complete the process"
+msgstr "يرجى الذهاب إلى الرابط أدناه لإكمال العملية"
+
+#: .\templates\account\email\new-user.html:12
+#: .\templates\account\email\new-user.txt:12
+msgid "Review"
+msgstr "إعادة النظر"
+
+#: .\templates\account\email\new-user.txt:6
+msgid "There is a new member registered in Robostock"
+msgstr "هناك عضو جديد مسجل في Robostock"
+
+#: .\templates\account\email\token.html:5 .\templates\account\email\token.txt:5
+msgid "Hi"
+msgstr "مرحبا"
+
+#: .\templates\account\email\token.html:6 .\templates\account\email\token.txt:6
+msgid "You have requested to confirm your email in our platform"
+msgstr "لقد طلبت تأكيد بريدك الإلكتروني في منصتنا"
+
+#: .\templates\account\email\token.html:10
+#: .\templates\account\email\token.txt:10
+msgid "Confirm your email"
+msgstr "تاكيد بريدك اإلكتروني"
+
+#: .\templates\account\login.html:5 .\templates\account\login.html:10
+#: .\templates\account\login.html:28
+#: .\templates\account\password\reset-password-complete.html:15
+msgid "Login"
+msgstr "دخول"
+
+#: .\templates\account\login.html:12
+msgid "Login with your data that you entered during registration"
+msgstr "سجل الدخول باستخدام بياناتك التي أدخلتها أثناء التسجيل"
+
+#: .\templates\account\login.html:33
+msgid "Forget your password?"
+msgstr "هل نسيت كلمة السر؟"
+
+#: .\templates\account\password\forgot-password.html:6
+msgid "Forgot Password"
+msgstr "نسيت كلمة المرور"
+
+#: .\templates\account\password\forgot-password.html:10
+msgid "Reset Password"
+msgstr "تغيير كلمة المرور"
+
+#: .\templates\account\password\forgot-password.html:14
+msgid "Please enter your email address"
+msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#: .\templates\account\password\forgot-password.html:15
+msgid "You will receive a link to create a new password via email"
+msgstr "ستتلقى رابطا لإنشاء كلمة مرور جديدة عبر البريد الإلكتروني"
+
+#: .\templates\account\password\forgot-password.html:20
+msgid "Send reset URL"
+msgstr "إرسال عنوان URL لإعادة التعيين"
+
+#: .\templates\account\password\forgot-password.html:25
+msgid "Login to your account"
+msgstr "تسجيل الدخول إلى حسابك"
+
+#: .\templates\account\password\password_reset_email.txt:3
+msgid "Hello"
+msgstr "مرحبا"
+
+#: .\templates\account\password\password_reset_email.txt:5
+msgid ""
+"We received a request to reset the password for your account for this email "
+"address. To initiate the password reset process for your account, click the "
+"link below."
+msgstr ""
+"تلقينا طلبا لإعادة تعيين كلمة المرور لحسابك لعنوان البريد الإلكتروني هذا. "
+"لبدء عملية إعادة تعيين كلمة المرور لحسابك، انقر على الرابط أدناه."
+
+#: .\templates\account\password\password_reset_email.txt:9
+msgid ""
+"This link can only be used once. If you need to reset your password again, "
+"please visit {{ protocol }}://{{domain}} and request another reset."
+msgstr ""
+"يمكن استخدام هذا الرابط مرة واحدة فقط. إذا كنت بحاجة إلى إعادة تعيين كلمة "
+"المرور الخاصة بك مرة أخرى، يرجى زيارة {{ protocol }}://{{domain}} وطلب إعادة "
+"تعيين أخرى."
+
+#: .\templates\account\password\password_reset_email.txt:11
+msgid "If you did not make this request, you can simply ignore this email."
+msgstr "إذا لم تقدم هذا الطلب ، فيمكنك ببساطة تجاهل هذا البريد الإلكتروني."
+
+#: .\templates\account\password\password_reset_email.txt:13
+msgid "Sincerely"
+msgstr "تحياتنا"
+
+#: .\templates\account\password\password_reset_email.txt:15
+msgid "The Website Team"
+msgstr "فريق الموقع"
+
+#: .\templates\account\password\reset-password-complete.html:6
+#: .\templates\account\password\reset-password-complete.html:10
+msgid "Password reset complete"
+msgstr "إكمال إعادة تعيين كلمة المرور"
+
+#: .\templates\account\password\reset-password-complete.html:13
+msgid "Your password has been set. You may go ahead and log in now"
+msgstr "تم تعيين كلمة المرور الخاصة بك. بالامكان الاستمرار وتسجيل الدخول"
+
+#: .\templates\account\password\reset-password-confirm.html:6
+msgid "Password reset confirmation"
+msgstr "تأكيد إعادة تعيين كلمة المرور"
+
+#: .\templates\account\password\reset-password-confirm.html:11
+msgid "Password Reset Confirm"
+msgstr "تأكيد تغيير كلمة المرور"
+
+#: .\templates\account\password\reset-password-confirm.html:17
+msgid "Set new password"
+msgstr "تعيين كلمة مرور جديدة"
+
+#: .\templates\account\password\reset-password-confirm.html:23
+msgid "You have an account?"
+msgstr "هل لديك حساب؟"
+
+#: .\templates\account\password\reset-password-confirm.html:28
+msgid "Don't have an account?"
+msgstr "ليس لديك حساب؟"
+
+#: .\templates\account\password\reset-password-done.html:6
+msgid "Forgot password"
+msgstr "نسيت كلمة السر"
+
+#: .\templates\account\password\reset-password-done.html:10
+msgid "Password reset sent"
+msgstr "تم إرسال إعادة تعيين كلمة المرور"
+
+#: .\templates\account\password\reset-password-done.html:13
+msgid "An email has been sent with instructions to reset your password"
+msgstr "تم إرسال بريد إلكتروني مع تعليمات لإعادة تعيين كلمة المرور الخاصة بك"
+
+#: .\templates\account\password\reset-password-done.html:15
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly"
+msgstr ""
+"لقد أرسلنا إليك عبر البريد الإلكتروني تعليمات حول تعيين كلمة المرور الخاصة "
+"بك ، إذا كان هناك حساب موجود بالبريد الإلكتروني الذي أدخلته. يجب أن تستقبلهم "
+"قريبًا"
+
+#: .\templates\account\password\reset-password-done.html:17
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder"
+msgstr ""
+"إذا لم تستلم بريدًا إلكترونيًا ، فيرجى التأكد من إدخال العنوان الذي سجلت به ، "
+"وتحقق من مجلد الرسائل غير المرغوب فيها"
+
+#: .\templates\inc\overlay-absolute.html:7 .\templates\inc\overlay-fixed.html:7
+msgid "Please waite"
+msgstr "الرجاء الإنتظار"
+
+#: .\templates\inc\scripts.html:7
+msgid "URL copied"
+msgstr "تم نسخ الرابط"
+
+#: .\templates\inc\scripts.html:8
+msgid "Url was copied to clipboard"
+msgstr "تم نسخ الرابط للحافظة"
+
+#: .\templates\inc\scripts.html:10 .\templates\inc\scripts.html:20
+msgid "Okay"
+msgstr "حسنا"
+
+#: .\templates\inc\scripts.html:17
+msgid "Text copied"
+msgstr "تم نسخ الرابط"
+
+#: .\templates\inc\scripts.html:18
+msgid "Text was copied to clipboard"
+msgstr "تم نسخ الرابط للحافظة"
+
+#: .\templates\superuser\dashboard\dashboard.html:7
+#: .\templates\superuser\dashboard\dashboard.html:8
+#: .\templates\superuser\inc\header.html:21
+#: .\templates\superuser\inc\header.html:56
+#: .\templates\superuser\inc\sidebar.html:25
+msgid "Dashboard"
+msgstr "لوحة البيانات"
+
+#: .\templates\superuser\database\postgres\databases-list.html:13
+#: .\templates\superuser\user\user.html:6
+msgid "User"
+msgstr "المستخدم"
+
+#: .\templates\superuser\database\postgres\databases-list.html:27
+#: .\templates\superuser\database\postgres\edit.html:4
+#: .\templates\superuser\database\postgres\edit.html:5
+#: .\templates\superuser\django\app.html:15
+#: .\templates\superuser\django\apps-grid.html:26
+#: .\templates\superuser\django\edit.html:4
+#: .\templates\superuser\django\edit.html:5
+#: .\templates\superuser\domain\domain.html:15
+#: .\templates\superuser\domain\domains-grid.html:27
+#: .\templates\superuser\domain\edit.html:4
+#: .\templates\superuser\domain\edit.html:5
+#: .\templates\superuser\user\edit.html:4
+#: .\templates\superuser\user\edit.html:5
+#: .\templates\superuser\user\user.html:12
+#: .\templates\superuser\user\users-list.html:48
+msgid "Edit"
+msgstr "تعديل"
+
+#: .\templates\superuser\database\postgres\databases-list.html:29
+#: .\templates\superuser\django\app.html:24
+#: .\templates\superuser\django\app.html:29
+#: .\templates\superuser\django\apps-grid.html:39
+#: .\templates\superuser\django\apps-grid.html:44
+#: .\templates\superuser\domain\domain.html:24
+#: .\templates\superuser\domain\domain.html:29
+#: .\templates\superuser\domain\domains-grid.html:40
+#: .\templates\superuser\domain\domains-grid.html:45
+msgid "Do you wand delete!\\n This step cannot be undo"
+msgstr "هل تريد الحذف!\\n لا يمكن التراجع عن هذه الخطوة"
+
+#: .\templates\superuser\database\postgres\databases-list.html:31
+#: .\templates\superuser\django\app.html:20
+#: .\templates\superuser\django\apps-grid.html:35
+#: .\templates\superuser\domain\domain.html:20
+#: .\templates\superuser\domain\domains-grid.html:36
+#: .\templates\superuser\file\list.html:19
+#: .\templates\superuser\file\list.html:64
+#: .\venv_win\Lib\site-packages\django\forms\formsets.py:496
+msgid "Delete"
+msgstr "حذف"
+
+#: .\templates\superuser\database\postgres\databases.html:4
+#: .\templates\superuser\inc\sidebar.html:51
+msgid "Databases"
+msgstr ""
+
+#: .\templates\superuser\database\postgres\databases.html:5
+#, fuzzy
+#| msgid "All users"
+msgid "All databases"
+msgstr "جميع المستخدمين"
+
+#: .\templates\superuser\database\postgres\databases.html:9
+#: .\templates\superuser\django\apps.html:9
+#: .\templates\superuser\domain\domains.html:9
+#: .\templates\superuser\user\users.html:10
+msgid "New"
+msgstr "جديد"
+
+#: .\templates\superuser\database\postgres\databases.html:20
+#: .\templates\superuser\django\apps.html:20
+#: .\templates\superuser\domain\domains.html:20
+#: .\templates\superuser\file\files.html:16
+#: .\templates\superuser\file\inc\ajax-files.html:6
+#: .\templates\superuser\user\users.html:31
+msgid "Nothing was found"
+msgstr "لم يتم العثور على أي شيء"
+
+#: .\templates\superuser\database\postgres\edit.html:13
+#: .\templates\superuser\django\edit.html:13
+#: .\templates\superuser\domain\edit.html:13
+#: .\templates\superuser\user\edit.html:13
+msgid "Update"
+msgstr "تحديث"
+
+#: .\templates\superuser\database\postgres\new.html:4
+#: .\templates\superuser\database\postgres\new.html:5
+#, fuzzy
+#| msgid "New article"
+msgid "New database"
+msgstr "مقالة جديدة"
+
+#: .\templates\superuser\database\postgres\new.html:16
+#: .\templates\superuser\django\config.html:15
+#: .\templates\superuser\django\new.html:16
+#: .\templates\superuser\domain\config.html:15
+#: .\templates\superuser\domain\new.html:16
+#: .\templates\superuser\setting\codes.html:26
+#: .\templates\superuser\setting\ecommerce.html:56
+#: .\templates\superuser\setting\general.html:98
+#: .\templates\superuser\setting\smtp.html:47
+#: .\templates\superuser\setting\social-login.html:42
+#: .\templates\superuser\user\new.html:16
+msgid "Submit"
+msgstr "إرسال"
+
+#: .\templates\superuser\django\app.html:6
+#: .\templates\superuser\django\app.html:87
+#: .\templates\superuser\django\config.html:5
+msgid "App"
+msgstr ""
+
+#: .\templates\superuser\django\app.html:7
+#: .\templates\superuser\django\apps.html:4
+#: .\templates\superuser\django\config.html:6
+msgid "Apps"
+msgstr ""
+
+#: .\templates\superuser\django\app.html:11
+#: .\templates\superuser\django\apps-grid.html:30
+#: .\templates\superuser\domain\domain.html:11
+#: .\templates\superuser\domain\domains-grid.html:31
+msgid "Config"
+msgstr "تهيئة"
+
+#: .\templates\superuser\django\app.html:25
+#: .\templates\superuser\django\apps-grid.html:40
+#, fuzzy
+#| msgid "Supplier only"
+msgid "App only"
+msgstr "المورد فقط"
+
+#: .\templates\superuser\django\app.html:30
+#: .\templates\superuser\django\apps-grid.html:45
+#, fuzzy
+#| msgid "Domain and files"
+msgid "App and files"
+msgstr "النطاق والملفات"
+
+#: .\templates\superuser\django\app.html:41
+msgid "Modify the application via the terminal"
+msgstr ""
+
+#: .\templates\superuser\django\app.html:46
+msgid "Copy"
+msgstr ""
+
+#: .\templates\superuser\django\app.html:60
+#: .\templates\superuser\domain\domain.html:48
+msgid "HTTPS activated"
+msgstr "HTTPS مفعل"
+
+#: .\templates\superuser\django\app.html:62
+#: .\templates\superuser\domain\domain.html:50
+msgid "HTTPS is disabled"
+msgstr "HTTPS معطل"
+
+#: .\templates\superuser\django\app.html:72
+#: .\templates\superuser\domain\domain.html:60
+msgid "SSL activated"
+msgstr "SSL مفعل"
+
+#: .\templates\superuser\django\app.html:74
+#: .\templates\superuser\domain\domain.html:62
+msgid "SSL is disabled"
+msgstr "SSL معطل"
+
+#: .\templates\superuser\django\app.html:84
+msgid "App info"
+msgstr ""
+
+#: .\templates\superuser\django\app.html:96
+msgid "Project"
+msgstr ""
+
+#: .\templates\superuser\django\app.html:102
+msgid "Status"
+msgstr "الحالة"
+
+#: .\templates\superuser\django\app.html:107
+msgid "Disabled"
+msgstr "معطل"
+
+#: .\templates\superuser\django\apps.html:5
+#, fuzzy
+#| msgid "All suppliers"
+msgid "All apps"
+msgstr "الموردون"
+
+#: .\templates\superuser\django\new.html:4
+#: .\templates\superuser\django\new.html:5
+#, fuzzy
+#| msgid "New page"
+msgid "New app"
+msgstr "صفحة جديدة"
+
+#: .\templates\superuser\domain\config.html:6
+#: .\templates\superuser\domain\domain.html:7
+#: .\templates\superuser\domain\domains.html:4
+#: .\templates\superuser\inc\sidebar.html:43
+msgid "Domains"
+msgstr "النطاقات"
+
+#: .\templates\superuser\domain\domain.html:25
+#: .\templates\superuser\domain\domains-grid.html:41
+msgid "Domain only"
+msgstr "نطاق فقط"
+
+#: .\templates\superuser\domain\domain.html:30
+#: .\templates\superuser\domain\domains-grid.html:46
+msgid "Domain and files"
+msgstr "النطاق والملفات"
+
+#: .\templates\superuser\domain\domains.html:5
+msgid "All domains"
+msgstr "جميع النطاقات"
+
+#: .\templates\superuser\domain\new.html:4
+#: .\templates\superuser\domain\new.html:5
+msgid "New domain"
+msgstr "نطاق جديد"
+
+#: .\templates\superuser\file\files.html:4
+#: .\templates\superuser\inc\sidebar.html:68
+msgid "Files"
+msgstr ""
+
+#: .\templates\superuser\file\files.html:5
+#, fuzzy
+#| msgid "All users"
+msgid "All Files"
+msgstr "جميع المستخدمين"
+
+#: .\templates\superuser\file\inc\text-edit-modal.html:8
+msgid "Edit text file"
+msgstr ""
+
+#: .\templates\superuser\file\inc\text-edit-modal.html:15
+msgid "Save"
+msgstr "حفظ"
+
+#: .\templates\superuser\file\inc\text-edit-modal.html:16
+#: .\templates\superuser\file\inc\upload-modal.html:18
+msgid "Close"
+msgstr "غلق"
+
+#: .\templates\superuser\file\inc\upload-modal.html:6
+msgid "Upload file"
+msgstr ""
+
+#: .\templates\superuser\file\list.html:31
+msgid "Type"
+msgstr "النوع"
+
+#: .\templates\superuser\file\list.html:46
+msgid "Extract here"
+msgstr ""
+
+#: .\templates\superuser\file\list.html:51
+msgid "Extract to folder"
+msgstr ""
+
+#: .\templates\superuser\file\list.html:58
+msgid "Edit as text"
+msgstr ""
+
+#: .\templates\superuser\inc\footer.html:7
+msgid "All rights reserved"
+msgstr "جميع الحقوق محفوظة"
+
+#: .\templates\superuser\inc\header.html:27
+msgid "Language"
+msgstr "اللغة"
+
+#: .\templates\superuser\inc\header.html:51
+msgid "Profile"
+msgstr "الملف الشخصي"
+
+#: .\templates\superuser\inc\header.html:61
+#: .\templates\superuser\inc\sidebar.html:115
+msgid "Logout"
+msgstr "تسجيل الخروج"
+
+#: .\templates\superuser\inc\sidebar.html:34
+msgid "Django"
+msgstr ""
+
+#: .\templates\superuser\inc\sidebar.html:56
+msgid "Postgres"
+msgstr ""
+
+#: .\templates\superuser\inc\sidebar.html:59
+msgid "MySql"
+msgstr ""
+
+#: .\templates\superuser\inc\sidebar.html:77
+#: .\templates\superuser\terminal\terminal.html:4
+#: .\templates\superuser\terminal\terminal.html:5
+msgid "Terminal"
+msgstr ""
+
+#: .\templates\superuser\inc\sidebar.html:85
+msgid "Administration"
+msgstr "الإدارة"
+
+#: .\templates\superuser\inc\sidebar.html:90
+#: .\templates\superuser\user\user.html:7
+#: .\templates\superuser\user\users.html:4
+msgid "Users"
+msgstr "المستخدمون"
+
+#: .\templates\superuser\inc\sidebar.html:98
+msgid "Settings"
+msgstr "الإعدادات"
+
+#: .\templates\superuser\inc\sidebar.html:103
+#: .\templates\superuser\setting\general.html:7
+#: .\templates\superuser\setting\general.html:8
+msgid "General"
+msgstr "عام"
+
+#: .\templates\superuser\inc\sidebar.html:106
+#: .\templates\superuser\setting\smtp.html:7
+#: .\templates\superuser\setting\smtp.html:8
+msgid "SMTP"
+msgstr "البريد الإلكتروني"
+
+#: .\templates\superuser\setting\codes.html:7
+#: .\templates\superuser\setting\codes.html:8
+msgid "Shortener"
+msgstr "تقصير"
+
+#: .\templates\superuser\setting\codes.html:16
+msgid "Codes"
+msgstr "الأكواد"
+
+#: .\templates\superuser\setting\codes.html:20
+msgid "General head"
+msgstr "الرأس العام"
+
+#: .\templates\superuser\setting\ecommerce.html:9
+#: .\templates\superuser\setting\ecommerce.html:10
+msgid "Ecommerce"
+msgstr "التجارة الإلكترونية"
+
+#: .\templates\superuser\setting\ecommerce.html:18
+msgid "Currency"
+msgstr "العملة"
+
+#: .\templates\superuser\setting\ecommerce.html:25
+msgid "Paypal"
+msgstr "بايبال"
+
+#: .\templates\superuser\setting\ecommerce.html:38
+msgid "Enable"
+msgstr "تمكين"
+
+#: .\templates\superuser\setting\ecommerce.html:48
+msgid "Disable"
+msgstr "تعطيل"
+
+#: .\templates\superuser\setting\ecommerce.html:50
+msgid "Paypal Email"
+msgstr "إيميل بايبال"
+
+#: .\templates\superuser\setting\general.html:17
+msgid "Company name"
+msgstr "إسم الشركة"
+
+#: .\templates\superuser\setting\general.html:24
+msgid "Company description"
+msgstr "وصف الشركة"
+
+#: .\templates\superuser\setting\general.html:38
+msgid "Number of items in lists"
+msgstr "عدد العناصر في القوائم"
+
+#: .\templates\superuser\setting\general.html:45
+msgid "Primary font"
+msgstr "الخط الأساسي"
+
+#: .\templates\superuser\setting\general.html:55
+msgid "Secondary font"
+msgstr "الخط الثانوي"
+
+#: .\templates\superuser\setting\general.html:65
+msgid "Admin logo"
+msgstr "شعار الإدارة"
+
+#: .\templates\superuser\setting\general.html:76
+msgid "Front logo"
+msgstr "شعار الواجهة"
+
+#: .\templates\superuser\setting\general.html:87
+msgid "Favicon"
+msgstr "الرمز"
+
+#: .\templates\superuser\setting\smtp.html:16
+msgid "Host"
+msgstr "المضيف"
+
+#: .\templates\superuser\setting\smtp.html:38
+msgid "SSL"
+msgstr "إتصال آمن"
+
+#: .\templates\superuser\setting\social-login.html:7
+#: .\templates\superuser\setting\social-login.html:8
+msgid "Social login"
+msgstr "تسجيل الدخول الاجتماعي"
+
+#: .\templates\superuser\setting\social-login.html:15
+msgid "Google"
+msgstr "جوجل"
+
+#: .\templates\superuser\setting\social-login.html:24
+msgid "Secret"
+msgstr "Secret"
+
+#: .\templates\superuser\setting\social-login.html:31
+msgid "Active"
+msgstr "نشط"
+
+#: .\templates\superuser\user\new.html:4 .\templates\superuser\user\new.html:5
+msgid "New user"
+msgstr "مستخدم جديد"
+
+#: .\templates\superuser\user\user.html:25
+msgid "User is active"
+msgstr "المستخدم نشط"
+
+#: .\templates\superuser\user\user.html:27
+msgid "User is disabled"
+msgstr "المستخدم معطل"
+
+#: .\templates\superuser\user\user.html:37
+msgid "User is admin"
+msgstr "المستخدم مدير"
+
+#: .\templates\superuser\user\user.html:39
+msgid "User is not admin"
+msgstr "المستخدم ليس مديرا"
+
+#: .\templates\superuser\user\user.html:49
+msgid "First Name"
+msgstr "الإسم الأول"
+
+#: .\templates\superuser\user\user.html:52
+msgid "Last Name"
+msgstr "الإسم الأخير"
+
+#: .\templates\superuser\user\user.html:58
+msgid "Birth date"
+msgstr "تاريخ الميلاد"
+
+#: .\templates\superuser\user\user.html:61
+msgid "Country"
+msgstr "الدولة"
+
+#: .\templates\superuser\user\user.html:64
+msgid "State"
+msgstr "الولاية (المدينة)"
+
+#: .\templates\superuser\user\user.html:67
+msgid "Address"
+msgstr "العنوان"
+
+#: .\templates\superuser\user\user.html:70
+msgid "Phone"
+msgstr "الهاتف"
+
+#: .\templates\superuser\user\user.html:73
+#: .\templates\superuser\user\users-list.html:16
+msgid "Last login"
+msgstr "آخر دخول"
+
+#: .\templates\superuser\user\user.html:76
+msgid "Date joined"
+msgstr "تاريخ الإنضمام"
+
+#: .\templates\superuser\user\users-list.html:13
+msgid "First name"
+msgstr "الإسم الأول"
+
+#: .\templates\superuser\user\users-list.html:14
+msgid "Last name"
+msgstr "الإسم الأخير"
+
+#: .\templates\superuser\user\users-list.html:15
+msgid "Date join"
+msgstr "تاريخ الإنضمام"
+
+#: .\templates\superuser\user\users-list.html:17
+msgid "Sales"
+msgstr "المبيعات"
+
+#: .\templates\superuser\user\users-list.html:18
+msgid "Purchases"
+msgstr "المشتريات"
+
+#: .\templates\superuser\user\users-list.html:43
+msgid "View"
+msgstr "عرض"
+
+#: .\templates\superuser\user\users.html:5
+msgid "All users"
+msgstr "جميع المستخدمين"
+
+#: .\templates\superuser\user\users.html:15
+msgid "Show disabled users"
+msgstr "عرض المستخدمين المعطلين"
+
+#: .\templates\superuser\user\users.html:19
+msgid "Hide disabled users"
+msgstr "إخفاء المستخدمين المعطلين"
+
+#: .\venv_win\Lib\site-packages\django\contrib\messages\apps.py:15
+msgid "Messages"
+msgstr "الرسائل"
+
+#: .\venv_win\Lib\site-packages\django\contrib\sitemaps\apps.py:8
+msgid "Site Maps"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\contrib\staticfiles\apps.py:9
+#, fuzzy
+#| msgid "Statistics"
+msgid "Static Files"
+msgstr "الإحصائيات"
+
+#: .\venv_win\Lib\site-packages\django\contrib\syndication\apps.py:7
+#, fuzzy
+#| msgid "Edit vacation"
+msgid "Syndication"
+msgstr "تعديل الإجازة"
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: .\venv_win\Lib\site-packages\django\core\paginator.py:30
+msgid "…"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\core\paginator.py:50
+msgid "That page number is not an integer"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\core\paginator.py:52
+msgid "That page number is less than 1"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\core\paginator.py:57
+msgid "That page contains no results"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:22
+#, fuzzy
+#| msgid "Please enter your email address"
+msgid "Enter a valid value."
+msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:104
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:751
+#, fuzzy
+#| msgid "Please enter your email address"
+msgid "Enter a valid URL."
+msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:164
+#, fuzzy
+#| msgid "Please enter your email address"
+msgid "Enter a valid integer."
+msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:175
+#, fuzzy
+#| msgid "Please enter your email address"
+msgid "Enter a valid email address."
+msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: .\venv_win\Lib\site-packages\django\core\validators.py:256
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:264
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:276
+#: .\venv_win\Lib\site-packages\django\core\validators.py:284
+#: .\venv_win\Lib\site-packages\django\core\validators.py:313
+#, fuzzy
+#| msgid "Please enter your email address"
+msgid "Enter a valid IPv4 address."
+msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:293
+#: .\venv_win\Lib\site-packages\django\core\validators.py:314
+#, fuzzy
+#| msgid "Please enter your email address"
+msgid "Enter a valid IPv6 address."
+msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:305
+#: .\venv_win\Lib\site-packages\django\core\validators.py:312
+#, fuzzy
+#| msgid "Please enter your email address"
+msgid "Enter a valid IPv4 or IPv6 address."
+msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:348
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:354
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:389
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:398
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:407
+#, python-format
+msgid "Ensure this value is a multiple of step size %(limit_value)s."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:417
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:435
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:458
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:347
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:386
+#, fuzzy
+#| msgid "Account number"
+msgid "Enter a number."
+msgstr "رقم الحساب"
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:460
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:465
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:470
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:539
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\core\validators.py:600
+msgid "Null characters are not allowed."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\base.py:1401
+#: .\venv_win\Lib\site-packages\django\forms\models.py:899
+#, fuzzy
+#| msgid "Brand"
+msgid "and"
+msgstr "ماركة"
+
+#: .\venv_win\Lib\site-packages\django\db\models\base.py:1403
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\constraints.py:17
+#, python-format
+msgid "Constraint “%(name)s” is violated."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:129
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:130
+msgid "This field cannot be null."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:131
+msgid "This field cannot be blank."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:132
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or
+#. 'month'. Eg: "Title must be unique for pub_date year"
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:136
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:174
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1065
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1066
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1068
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1118
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1222
+msgid "Comma-separated integers"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1323
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1327
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1462
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1331
+msgid "Date (without time)"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1458
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1466
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1471
+msgid "Date (with time)"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1595
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1597
+#, fuzzy
+#| msgid "December"
+msgid "Decimal number"
+msgstr "ديسمبر"
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1754
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1758
+#, fuzzy
+#| msgid "Quotation"
+msgid "Duration"
+msgstr "عرض أسعار"
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1810
+#, fuzzy
+#| msgid "email address"
+msgid "Email address"
+msgstr "الإيميل"
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1835
+msgid "File path"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1913
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1915
+msgid "Floating point number"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1955
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:1957
+msgid "Integer"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2049
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2066
+msgid "Small integer"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2074
+#, fuzzy
+#| msgid "email address"
+msgid "IPv4 address"
+msgstr "الإيميل"
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2105
+#, fuzzy
+#| msgid "Address"
+msgid "IP address"
+msgstr "العنوان"
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2198
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2199
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2201
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2252
+msgid "Positive big integer"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2267
+msgid "Positive integer"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2282
+msgid "Positive small integer"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2298
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2334
+msgid "Text"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2409
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2413
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2417
+msgid "Time"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2525
+msgid "URL"
+msgstr "الرابط"
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2549
+msgid "Raw binary data"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2614
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\__init__.py:2616
+msgid "Universally unique identifier"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\files.py:231
+msgid "File"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\files.py:391
+msgid "Image"
+msgstr "الصورة"
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\json.py:18
+msgid "A JSON object"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\json.py:20
+msgid "Value must be valid JSON."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\related.py:918
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\related.py:920
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\related.py:1227
+msgid "One-to-one relationship"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\related.py:1284
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\related.py:1286
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\db\models\fields\related.py:1334
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: .\venv_win\Lib\site-packages\django\forms\boundfield.py:176
+msgid ":?.!"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:91
+msgid "This field is required."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:298
+#, fuzzy
+#| msgid "Account number"
+msgid "Enter a whole number."
+msgstr "رقم الحساب"
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:467
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:1240
+#, fuzzy
+#| msgid "Please enter your email address"
+msgid "Enter a valid date."
+msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:490
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:1241
+#, fuzzy
+#| msgid "Please enter your email address"
+msgid "Enter a valid time."
+msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:517
+#, fuzzy
+#| msgid "Please enter your email address"
+msgid "Enter a valid date/time."
+msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:551
+#, fuzzy
+#| msgid "Please enter your email address"
+msgid "Enter a valid duration."
+msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:552
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:618
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:619
+msgid "No file was submitted."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:620
+msgid "The submitted file is empty."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:622
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:627
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:693
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:856
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:948
+#: .\venv_win\Lib\site-packages\django\forms\models.py:1572
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:950
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:1069
+#: .\venv_win\Lib\site-packages\django\forms\models.py:1570
+#, fuzzy
+#| msgid "Please enter your email address"
+msgid "Enter a list of values."
+msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:1070
+msgid "Enter a complete value."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:1309
+#, fuzzy
+#| msgid "Please enter your email address"
+msgid "Enter a valid UUID."
+msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#: .\venv_win\Lib\site-packages\django\forms\fields.py:1339
+#, fuzzy
+#| msgid "Please enter your email address"
+msgid "Enter a valid JSON."
+msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#. Translators: This is the default suffix added to form field labels
+#: .\venv_win\Lib\site-packages\django\forms\forms.py:98
+msgid ":"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\forms.py:248
+#: .\venv_win\Lib\site-packages\django\forms\forms.py:332
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\formsets.py:63
+#, python-format
+msgid ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\formsets.py:67
+#, python-format
+msgid "Please submit at most %(num)d form."
+msgid_plural "Please submit at most %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\venv_win\Lib\site-packages\django\forms\formsets.py:72
+#, python-format
+msgid "Please submit at least %(num)d form."
+msgid_plural "Please submit at least %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\venv_win\Lib\site-packages\django\forms\formsets.py:483
+#: .\venv_win\Lib\site-packages\django\forms\formsets.py:490
+msgid "Order"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\models.py:892
+#, fuzzy, python-format
+#| msgid "Please check the data provided"
+msgid "Please correct the duplicate data for %(field)s."
+msgstr "يرجى التحقق من البيانات المقدمة"
+
+#: .\venv_win\Lib\site-packages\django\forms\models.py:897
+#, fuzzy, python-format
+#| msgid "Please check the data provided"
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr "يرجى التحقق من البيانات المقدمة"
+
+#: .\venv_win\Lib\site-packages\django\forms\models.py:904
+#, fuzzy, python-format
+#| msgid "Please check the data provided"
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr "يرجى التحقق من البيانات المقدمة"
+
+#: .\venv_win\Lib\site-packages\django\forms\models.py:913
+#, fuzzy
+#| msgid "Please check the data provided"
+msgid "Please correct the duplicate values below."
+msgstr "يرجى التحقق من البيانات المقدمة"
+
+#: .\venv_win\Lib\site-packages\django\forms\models.py:1344
+msgid "The inline value did not match the parent instance."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\models.py:1435
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\models.py:1574
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\utils.py:226
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\widgets.py:439
+msgid "Clear"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\widgets.py:440
+#, fuzzy
+#| msgid "Currency"
+msgid "Currently"
+msgstr "العملة"
+
+#: .\venv_win\Lib\site-packages\django\forms\widgets.py:441
+msgid "Change"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\widgets.py:769
+msgid "Unknown"
+msgstr "غير معروف"
+
+#: .\venv_win\Lib\site-packages\django\forms\widgets.py:770
+msgid "Yes"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\forms\widgets.py:771
+msgid "No"
+msgstr ""
+
+#. Translators: Please do not add spaces around commas.
+#: .\venv_win\Lib\site-packages\django\template\defaultfilters.py:853
+msgid "yes,no,maybe"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\template\defaultfilters.py:883
+#: .\venv_win\Lib\site-packages\django\template\defaultfilters.py:900
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\venv_win\Lib\site-packages\django\template\defaultfilters.py:902
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\template\defaultfilters.py:904
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\template\defaultfilters.py:906
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\template\defaultfilters.py:908
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\template\defaultfilters.py:910
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dateformat.py:77
+msgid "p.m."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dateformat.py:78
+msgid "a.m."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dateformat.py:83
+msgid "PM"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dateformat.py:84
+msgid "AM"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dateformat.py:155
+msgid "midnight"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dateformat.py:157
+msgid "noon"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:7
+msgid "Monday"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:8
+msgid "Tuesday"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:9
+msgid "Wednesday"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:10
+msgid "Thursday"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:11
+msgid "Friday"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:12
+msgid "Saturday"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:13
+msgid "Sunday"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:16
+#, fuzzy
+#| msgid "Month"
+msgid "Mon"
+msgstr "الشهر"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:17
+#, fuzzy
+#| msgid "Due"
+msgid "Tue"
+msgstr "الإستحقاق"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:18
+msgid "Wed"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:19
+#, fuzzy
+#| msgid "Due"
+msgid "Thu"
+msgstr "الإستحقاق"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:20
+msgid "Fri"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:21
+#, fuzzy
+#| msgid "State"
+msgid "Sat"
+msgstr "الولاية (المدينة)"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:22
+msgid "Sun"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:25
+msgid "January"
+msgstr "جانفي"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:26
+msgid "February"
+msgstr "فيفري"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:27
+msgid "March"
+msgstr "مارس"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:28
+msgid "April"
+msgstr "افريل"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:29
+msgid "May"
+msgstr "ماي"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:30
+msgid "June"
+msgstr "جوان"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:31
+msgid "July"
+msgstr "جويلية"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:32
+msgid "August"
+msgstr "أوت"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:33
+msgid "September"
+msgstr "سبتمبر"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:34
+msgid "October"
+msgstr "أكتوبر"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:35
+msgid "November"
+msgstr "نوفمبر"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:36
+msgid "December"
+msgstr "ديسمبر"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:39
+#, fuzzy
+#| msgid "Brand"
+msgid "jan"
+msgstr "ماركة"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:40
+msgid "feb"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:41
+#, fuzzy
+#| msgid "May"
+msgid "mar"
+msgstr "ماي"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:42
+msgid "apr"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:43
+#, fuzzy
+#| msgid "May"
+msgid "may"
+msgstr "ماي"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:44
+msgid "jun"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:45
+msgid "jul"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:46
+msgid "aug"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:47
+msgid "sep"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:48
+#, fuzzy
+#| msgid "Product"
+msgid "oct"
+msgstr "منتج"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:49
+msgid "nov"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:50
+msgid "dec"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:55
+#, fuzzy
+#| msgid "March"
+msgctxt "abbrev. month"
+msgid "March"
+msgstr "مارس"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:56
+#, fuzzy
+#| msgid "April"
+msgctxt "abbrev. month"
+msgid "April"
+msgstr "افريل"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:57
+#, fuzzy
+#| msgid "May"
+msgctxt "abbrev. month"
+msgid "May"
+msgstr "ماي"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:58
+#, fuzzy
+#| msgid "June"
+msgctxt "abbrev. month"
+msgid "June"
+msgstr "جوان"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:59
+#, fuzzy
+#| msgid "July"
+msgctxt "abbrev. month"
+msgid "July"
+msgstr "جويلية"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:67
+#, fuzzy
+#| msgid "January"
+msgctxt "alt. month"
+msgid "January"
+msgstr "جانفي"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:68
+#, fuzzy
+#| msgid "February"
+msgctxt "alt. month"
+msgid "February"
+msgstr "فيفري"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:69
+#, fuzzy
+#| msgid "March"
+msgctxt "alt. month"
+msgid "March"
+msgstr "مارس"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:70
+#, fuzzy
+#| msgid "April"
+msgctxt "alt. month"
+msgid "April"
+msgstr "افريل"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:71
+#, fuzzy
+#| msgid "May"
+msgctxt "alt. month"
+msgid "May"
+msgstr "ماي"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:72
+#, fuzzy
+#| msgid "June"
+msgctxt "alt. month"
+msgid "June"
+msgstr "جوان"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:73
+#, fuzzy
+#| msgid "July"
+msgctxt "alt. month"
+msgid "July"
+msgstr "جويلية"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:74
+#, fuzzy
+#| msgid "August"
+msgctxt "alt. month"
+msgid "August"
+msgstr "أوت"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:75
+#, fuzzy
+#| msgid "September"
+msgctxt "alt. month"
+msgid "September"
+msgstr "سبتمبر"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:76
+#, fuzzy
+#| msgid "October"
+msgctxt "alt. month"
+msgid "October"
+msgstr "أكتوبر"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:77
+#, fuzzy
+#| msgid "November"
+msgctxt "alt. month"
+msgid "November"
+msgstr "نوفمبر"
+
+#: .\venv_win\Lib\site-packages\django\utils\dates.py:78
+#, fuzzy
+#| msgid "December"
+msgctxt "alt. month"
+msgid "December"
+msgstr "ديسمبر"
+
+#: .\venv_win\Lib\site-packages\django\utils\ipv6.py:8
+#, fuzzy
+#| msgid "Please enter your email address"
+msgid "This is not a valid IPv6 address."
+msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#: .\venv_win\Lib\site-packages\django\utils\text.py:76
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\text.py:252
+msgid "or"
+msgstr "أو"
+
+#. Translators: This string is used as a separator between list elements
+#: .\venv_win\Lib\site-packages\django\utils\text.py:271
+#: .\venv_win\Lib\site-packages\django\utils\timesince.py:94
+msgid ", "
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\utils\timesince.py:9
+#, python-format
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\venv_win\Lib\site-packages\django\utils\timesince.py:10
+#, python-format
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\venv_win\Lib\site-packages\django\utils\timesince.py:11
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\venv_win\Lib\site-packages\django\utils\timesince.py:12
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\venv_win\Lib\site-packages\django\utils\timesince.py:13
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\venv_win\Lib\site-packages\django\utils\timesince.py:14
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#: .\venv_win\Lib\site-packages\django\views\csrf.py:111
+msgid "Forbidden"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\csrf.py:112
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\csrf.py:116
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\csrf.py:122
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\csrf.py:127
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a rel=\"noreferrer"
+"\" …> for links to third-party sites."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\csrf.py:136
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\csrf.py:142
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\csrf.py:148
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\generic\dates.py:44
+msgid "No year specified"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\generic\dates.py:64
+#: .\venv_win\Lib\site-packages\django\views\generic\dates.py:115
+#: .\venv_win\Lib\site-packages\django\views\generic\dates.py:214
+msgid "Date out of range"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\generic\dates.py:94
+msgid "No month specified"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\generic\dates.py:147
+msgid "No day specified"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\generic\dates.py:194
+msgid "No week specified"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\generic\dates.py:349
+#: .\venv_win\Lib\site-packages\django\views\generic\dates.py:380
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\generic\dates.py:652
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\generic\dates.py:692
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\generic\detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\generic\list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\generic\list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\generic\list.py:169
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\static.py:38
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\static.py:40
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\static.py:79
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\templates\default_urlconf.html:7
+#: .\venv_win\Lib\site-packages\django\views\templates\default_urlconf.html:221
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\templates\default_urlconf.html:207
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\templates\default_urlconf.html:222
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
+"\">DEBUG=True</a> is in your settings file and you have not configured any "
+"URLs."
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\templates\default_urlconf.html:230
+msgid "Django Documentation"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\templates\default_urlconf.html:231
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\templates\default_urlconf.html:239
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\templates\default_urlconf.html:240
+msgid "Get started with Django"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\templates\default_urlconf.html:248
+msgid "Django Community"
+msgstr ""
+
+#: .\venv_win\Lib\site-packages\django\views\templates\default_urlconf.html:249
+msgid "Connect, get help, or contribute"
+msgstr ""
+
+#~ msgid "Email is not available"
+#~ msgstr "الإيميل غير صالح"
+
+#~ msgid "Password does not match"
+#~ msgstr "كلمة المرور غير متطابقة"
+
+#~ msgid "Email format is not correct"
+#~ msgstr "الإيميل غير صالح"
+
+#~ msgid "Registration successful"
+#~ msgstr "تم التسجيل بنجاح"
+
+#~ msgid "New member registered in Robostock"
+#~ msgstr "عضو جديد مسجل في Robostock"
+
+#~ msgid "Please fill all fields"
+#~ msgstr "يرجى ملئ جميع الحقول المطلوبة"
+
+#~ msgid "username"
+#~ msgstr "إسم المستخدم"
+
+#~ msgid ""
+#~ "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+#~ msgstr "مطلوب. 150 حرفًا أو أقل. أحرف وأرقام و @ /. / + / - / _ فقط."
+
+#~ msgid "A user with that username already exists."
+#~ msgstr "اسم المستخدم موجود مسبقا."
+
+#~ msgid "first name"
+#~ msgstr "الإسم الأول"
+
+#~ msgid "last name"
+#~ msgstr "الإسم الأخير"
+
+#~ msgid "Superuser status"
+#~ msgstr "حالة المستخدم المتميز"
+
+#~ msgid ""
+#~ "Designates that this user has all permissions without explicitly "
+#~ "assigning them."
+#~ msgstr "يعيّن أن هذا المستخدم لديه كافة الأذونات دون تعيينها بشكل صريح."
+
+#~ msgid "staff status"
+#~ msgstr "وضع الموظفين"
+
+#~ msgid "Designates whether the user can log into this admin site."
+#~ msgstr "يحدد ما إذا كان يمكن للمستخدم تسجيل الدخول إلى موقع المسؤول هذا."
+
+#~ msgid "active"
+#~ msgstr "نشط"
+
+#~ msgid ""
+#~ "Designates whether this user should be treated as active. Unselect this "
+#~ "instead of deleting accounts."
+#~ msgstr ""
+#~ "يحدد ما إذا كان يجب معاملة هذا المستخدم على أنه نشط أم لا. قم بإلغاء "
+#~ "تحديد هذا بدلاً من حذف الحسابات."
+
+#~ msgid "Avatar"
+#~ msgstr "الأفاتار"
+
+#~ msgid "The profile picture of the account"
+#~ msgstr "الصورة الشخصية للحساب"
+
+#~ msgid "date joined"
+#~ msgstr "تاريخ الإنضمام"
+
+#~ msgid "user"
+#~ msgstr "مستخدم جديد"
+
+#~ msgid "users"
+#~ msgstr "المستخدمون"
+
+#~ msgid "User can view"
+#~ msgstr "يمكن للمستخدم العرض"
+
+#~ msgid "User can add"
+#~ msgstr "يمكن للمستخدم الإضافة"
+
+#~ msgid "User can edit"
+#~ msgstr "يمكن للمستخدم التحرير"
+
+#~ msgid "User can delete"
+#~ msgstr "يمكن للمستخدم الحذف"
+
+#~ msgid "You dont have permission to access"
+#~ msgstr "ليس لديك إذن للوصول"
+
+#~ msgid "Your account is already activated"
+#~ msgstr "حسابك مفعل بالفعل"
+
+#~ msgid ""
+#~ "You already have an order waiting for confirmation. Please try again 30 "
+#~ "minutes after the last email confirmation request."
+#~ msgstr ""
+#~ "لديك بالفعل طلب ينتظر التأكيد. يرجى المحاولة مرة أخرى بعد 30 دقيقة من آخر "
+#~ "طلب تأكيد بالبريد الإلكتروني."
+
+#~ msgid "{} {} - account confirmation"
+#~ msgstr "{} {} - تأكيد الحساب"
+
+#~ msgid "A confirmation link was sent to your account email"
+#~ msgstr "تم إرسال رابط تأكيد إلى البريد الإلكتروني لحسابك"
+
+#~ msgid "Complete your profile"
+#~ msgstr "أكمل ملفك الشخصي"
+
+#~ msgid "Unknown error"
+#~ msgstr "خطأ غير معروف"
+
+#~ msgid "This account is already activated ,This link has expired"
+#~ msgstr "تم تنشيط هذا الحساب بالفعل ، انتهت صلاحية هذا الرابط"
+
+#~ msgid "Your email confirmed successfully"
+#~ msgstr "تم تأكيد بريدك الإلكتروني بنجاح"
+
+#~ msgid "Email confirmation failed"
+#~ msgstr "فشل في تأكيد البريد الإلكتروني"
+
+#~ msgid "Head menu"
+#~ msgstr "قائمة الرأس"
+
+#~ msgid "Footer"
+#~ msgstr "الفوتر"
+
+#~ msgid "Side"
+#~ msgstr "جانبية"
+
+#~ msgid "Publish"
+#~ msgstr "منشور"
+
+#~ msgid "Private"
+#~ msgstr "خاص"
+
+#~ msgid "Draft"
+#~ msgstr "مسودة"
+
+#~ msgid "Pending"
+#~ msgstr "معلق"
+
+#~ msgid "Home header"
+#~ msgstr "رأس الرئيسية"
+
+#~ msgid "Home footer"
+#~ msgstr "تذييل الرئيسية"
+
+#~ msgid "Footer header"
+#~ msgstr "رأس الفوتر"
+
+#~ msgid "Title"
+#~ msgstr "العنوان"
+
+#~ msgid "Slug"
+#~ msgstr "الاسم اللطيف"
+
+#~ msgid "Description"
+#~ msgstr "الوصف"
+
+#~ msgid "Content"
+#~ msgstr "المحتوى"
+
+#~ msgid "Views"
+#~ msgstr "المشاهدات"
+
+#~ msgid "Category"
+#~ msgstr "تصنيف"
+
+#~ msgid "Characters of subdomain must be more than {}"
+#~ msgstr "يجب أن تكون أحرف النطاق الفرعي أكثر من {}"
+
+#~ msgid "Domain is not available"
+#~ msgstr "الدمين غير متوفر"
+
+#~ msgid "You have reached the maximum number. You cannot add more workspaces"
+#~ msgstr "وصلت للحد الأقصى لا يمكنك إضافة أكثر المزيد من مساحات العمل"
+
+#~ msgid "Characters of name must be more than {}"
+#~ msgstr "يجب أن تكون أحرف الاسم أكثر من {}"
+
+#~ msgid "Your space created successfully"
+#~ msgstr "تم إنشاء مساحتك بنجاح"
+
+#~ msgid "Space created"
+#~ msgstr "تم إنشاء المساحة"
+
+#~ msgid "Space updated"
+#~ msgstr "تم تحديث المساحة"
+
+#~ msgid "form invalid"
+#~ msgstr "النموذج غير صحيح"
+
+#~ msgid "Images only can upload"
+#~ msgstr "يمكن رفع الصور فقط"
+
+#~ msgid "Balance"
+#~ msgstr "الرصيد"
+
+#~ msgid "You cannot delete the wallet if there is a balance in it"
+#~ msgstr "لا يمكنك حذف المحفظة إذا كان بها رصيد"
+
+#~ msgid "Wallet deleted successfully"
+#~ msgstr "تم حذف المحفظة بنجاح"
+
+#~ msgid "Barcode"
+#~ msgstr "الباركود"
+
+#~ msgid "Reference"
+#~ msgstr "الرقم المرجعي"
+
+#~ msgid "Represents the special barcode that you adopt in your store"
+#~ msgstr "يمثل الرمز الشريطي الخاص الذي تعتمده في متجرك"
+
+#~ msgid "Parent product"
+#~ msgstr "المنتج الأب"
+
+#~ msgid ""
+#~ "If the product is a father's product, for example, you sell a box of a "
+#~ "product and sell by the piece"
+#~ msgstr ""
+#~ "إذا كان المنتج منتجًا للأب ، على سبيل المثال ، فإنك تبيع علبة منتج وتبيع "
+#~ "بالقطعة"
+
+#~ msgid "Warehouse"
+#~ msgstr "مستودع"
+
+#~ msgid ""
+#~ "This option will make it easier for you to find a place to store goods if "
+#~ "you have multiple stores"
+#~ msgstr ""
+#~ "سيسهل هذا الخيار عليك العثور على مكان لتخزين البضائع إذا كان لديك العديد "
+#~ "من المتاجر"
+
+#~ msgid "Purchasing price"
+#~ msgstr "سعر الشراء"
+
+#~ msgid ""
+#~ "It is used to calculate the profit margin, you can update it on each sale "
+#~ "if you have purchased quantities at a different price"
+#~ msgstr ""
+#~ "يتم استخدامه لحساب هامش الربح ، يمكنك تحديثه في كل عملية بيع إذا كنت قد "
+#~ "اشتريت كميات بسعر مختلف"
+
+#~ msgid "Price"
+#~ msgstr "السعر"
+
+#~ msgid "Discount"
+#~ msgstr "التخفيض"
+
+#~ msgid "Tax"
+#~ msgstr "الظريبة"
+
+#~ msgid "Tax type"
+#~ msgstr "نوع الظريبة"
+
+#~ msgid "Percent"
+#~ msgstr "نسبه مئويه"
+
+#~ msgid "Fixed"
+#~ msgstr "ثابت"
+
+#~ msgid "Quantity in stock"
+#~ msgstr "الكمية في المخزون"
+
+#~ msgid "Module"
+#~ msgstr "الوحدة"
+
+#~ msgid ""
+#~ "Specify the unit of the product, for example, in kilograms or in pieces"
+#~ msgstr "حدد وحدة المنتج ، على سبيل المثال ، بالكيلوجرام أو بالقطع"
+
+#~ msgid "Pieces"
+#~ msgstr "القطع"
+
+#~ msgid "If the product is a box, you can indicate how much you spend"
+#~ msgstr "إذا كان المنتج عبارة عن صندوق ، فيمكنك تحديد المبلغ الذي تنفقه"
+
+#~ msgid "Minimum sale"
+#~ msgstr "الحد الأدنى للبيع"
+
+#~ msgid ""
+#~ "Determine the minimum quantity allowed to be sold in each transaction"
+#~ msgstr "تحديد الكمية الدنيا المسموح ببيعها في كل معاملة"
+
+#~ msgid "Maximum sale"
+#~ msgstr "الحد الأقصى للبيع"
+
+#~ msgid "Determine the quantity allowed to be sold in each"
+#~ msgstr "حدد الكمية المسموح بيعها في كل منها"
+
+#~ msgid "Alert quantity"
+#~ msgstr "كمية التنبيه"
+
+#~ msgid "Get alerts if the stock quantity reaches a limit"
+#~ msgstr "احصل على تنبيهات إذا وصلت كمية المخزون إلى حد"
+
+#~ msgid "Stock calculator"
+#~ msgstr "حاسبة المخزون"
+
+#~ msgid ""
+#~ "If this feature is activated, the calculation of the available quantity "
+#~ "in each sale will be started"
+#~ msgstr ""
+#~ "إذا تم تنشيط هذه الميزة ، فسيبدأ حساب الكمية المتاحة في كل عملية بيع"
+
+#~ msgid "Product used in sales invoices"
+#~ msgstr "المنتج مستخدم في فواتير المبيعات التالية"
+
+#~ msgid "Product used in purchases invoices"
+#~ msgstr "المنتج المستخدم في فواتير المشتريات التالية"
+
+#~ msgid "Product used in quotations"
+#~ msgstr "المنتج المستخدم في العروض التالية"
+
+#~ msgid "Product deleted successfully"
+#~ msgstr "تم حذف المنتج بنجاح"
+
+#~ msgid "Wallet"
+#~ msgstr "المحفظة"
+
+#~ msgid "Client"
+#~ msgstr "عميل"
+
+#~ msgid "Total amount"
+#~ msgstr "المبلغ الإجمالي"
+
+#~ msgid "Paid amount"
+#~ msgstr "المبلغ المدفوع"
+
+#~ msgid "Deserved amount"
+#~ msgstr "المبلغ المستحق"
+
+#~ msgid "Date"
+#~ msgstr "التاريخ"
+
+#~ msgid "due date"
+#~ msgstr "تاريخ الاستحقاق"
+
+#~ msgid "Notes"
+#~ msgstr "ملاحظات"
+
+#~ msgid "Invoice"
+#~ msgstr "فاتورة"
+
+#~ msgid "Quantity"
+#~ msgstr "الكمية"
+
+#~ msgid "Supplier"
+#~ msgstr "مورد"
+
+#~ msgid "Creditor"
+#~ msgstr "دائن"
+
+#~ msgid "Salary"
+#~ msgstr "الراتب"
+
+#~ msgid "End date"
+#~ msgstr "تاريخ الإنتهاء"
+
+#~ msgid "Current profession"
+#~ msgstr "المهنة الحالية"
+
+#~ msgid "Bank name"
+#~ msgstr "إسم البنك"
+
+#~ msgid "Swift code"
+#~ msgstr "كود السويفت"
+
+#~ msgid "Bank"
+#~ msgstr "البنك"
+
+#~ msgid "Owner name"
+#~ msgstr "إسم المالك"
+
+#~ msgid "Iban"
+#~ msgstr "ايبان"
+
+#~ msgid "Bank account"
+#~ msgstr "الحساب البنكي"
+
+#~ msgid "Payment Date"
+#~ msgstr "تاريخ الدفع"
+
+#~ msgid "The first working day"
+#~ msgstr "أول يوم عمل"
+
+#~ msgid "The last working day"
+#~ msgstr "آخر يوم عمل"
+
+#~ msgid "Cash payment"
+#~ msgstr "دفع نقدا"
+
+#~ msgid "Writing date"
+#~ msgstr "تاريخ الكتابة"
+
+#~ msgid "For month"
+#~ msgstr "لشهر"
+
+#~ msgid "The first vacation day"
+#~ msgstr "أول يوم إجازة"
+
+#~ msgid "The last vacation day"
+#~ msgstr "آخر يوم إجازة"
+
+#~ msgid "Paid vacation"
+#~ msgstr "اجازه مدفوعة"
+
+#~ msgid "Bank {} created successfully"
+#~ msgstr "تم إنشاء البنك {} بنجاح"
+
+#~ msgid "Bank create failed"
+#~ msgstr "فشل إنشاء البنك"
+
+#~ msgid "Bank {} updated successfully"
+#~ msgstr "تم تحديث البنك {} بنجاح"
+
+#~ msgid "Bank update failed"
+#~ msgstr "فشل تحديث البنك"
+
+#~ msgid "Bank deleted successfully"
+#~ msgstr "تم حذف البنك بنجاح"
+
+#~ msgid "Creditor successfully created"
+#~ msgstr "تم تحديث الدائن بنجاح"
+
+#~ msgid "Creditor deleted successfully"
+#~ msgstr "تم حذف الدائن بنجاح"
+
+#~ msgid "Debt {} created successfully"
+#~ msgstr "تم إنشاء الدَيِّنْ {} بنجاح"
+
+#~ msgid "Debt create failed"
+#~ msgstr "فشل إنشاء الدين"
+
+#~ msgid "Debt {} updated successfully"
+#~ msgstr "تم تحديث الدَيِّنْ {} بنجاح"
+
+#~ msgid "Debt update failed"
+#~ msgstr "فشل تحديث الدين"
+
+#~ msgid "Debt deleted successfully"
+#~ msgstr "تم حذف الدين  بنجاح"
+
+#~ msgid "Payment cannot be more than {} {}"
+#~ msgstr "لا يمكن أن تكون الدفعة أكثر من {} {}"
+
+#~ msgid "Payment {} created successfully"
+#~ msgstr "تم إنشاء الدفعة {} بنجاح"
+
+#~ msgid "Payment create failed"
+#~ msgstr "فشل إنشاء الدفعة"
+
+#~ msgid "Payment {} updated successfully"
+#~ msgstr "تم تحديث الدفعة {} بنجاح"
+
+#~ msgid "Payment update failed"
+#~ msgstr "فشل تحديث الدفعة"
+
+#~ msgid "Payment deleted successfully"
+#~ msgstr "تم حذف الدفعة بنجاح"
+
+#~ msgid "Bank account created successfully"
+#~ msgstr "تم إنشاء الحساب المصرفي بنجاح"
+
+#~ msgid "Bank account create failed"
+#~ msgstr "فشل إنشاء الحساب المصرفي"
+
+#~ msgid "Bank account updated successfully"
+#~ msgstr "تم تحديث الحساب المصرفي بنجاح"
+
+#~ msgid "Bank account update failed"
+#~ msgstr "فشل تحديث الحساب المصرفي"
+
+#~ msgid "Account update failed"
+#~ msgstr "فشل تحديث الحساب"
+
+#~ msgid "Profession created successfully"
+#~ msgstr "تم إنشاء المهنة بنجاح"
+
+#~ msgid "Profession create failed"
+#~ msgstr "فشل إنشاء المهنة"
+
+#~ msgid "Profession updated successfully"
+#~ msgstr "تم تحديث المهنة بنجاح"
+
+#~ msgid "Profession update failed"
+#~ msgstr "فشل تحديث المهنة"
+
+#~ msgid "Salary created successfully"
+#~ msgstr "تم إنشاء الراتب بنجاح"
+
+#~ msgid "Salary create failed"
+#~ msgstr "فشل في إنشاء الراتب بنجاح"
+
+#~ msgid "Salary updated successfully"
+#~ msgstr "تم تحديث الراتب بنجاح"
+
+#~ msgid "Salary update failed"
+#~ msgstr "فشل تحديث الراتب"
+
+#~ msgid "Salary deleted successfully"
+#~ msgstr "تم حذف الراتب بنجاح"
+
+#~ msgid "Vacation created successfully"
+#~ msgstr "تم إنشاء الإجازة بنجاح"
+
+#~ msgid "Vacation create failed"
+#~ msgstr "فشل إنشاء الإجازة"
+
+#~ msgid "Vacation update failed"
+#~ msgstr "فشل تحديث الإجازة"
+
+#~ msgid "Vacation deleted successfully"
+#~ msgstr "تم حذف الإجازة بنجاح"
+
+#~ msgid "Employee successfully created"
+#~ msgstr "تم تحديث الموظف بنجاح"
+
+#~ msgid "Employee deleted successfully"
+#~ msgstr "تم حذف الموظف بنجاح"
+
+#~ msgid "Due date"
+#~ msgstr "تاريخ الإستحقاق"
+
+#~ msgid "Deposit date"
+#~ msgstr "تاريخ الإيداع"
+
+#~ msgid "Year"
+#~ msgstr "السنة"
+
+#~ msgid "Invoice updated successfully"
+#~ msgstr "تم تحديث الفاتورة بنجاح"
+
+#~ msgid "Supplier successfully created"
+#~ msgstr "تم إنشاء المورد بنجاح"
+
+#~ msgid "Supplier deleted successfully"
+#~ msgstr "تم حذف المورد بنجاح"
+
+#~ msgid "Invoice successfully created"
+#~ msgstr "تم إنشاء الفاتورة بنجاح"
+
+#~ msgid "Invoice deleted successfully"
+#~ msgstr "تم حذف الفاتورة بنجاح"
+
+#~ msgid "{} have {} {} in stock"
+#~ msgstr "{} يتوفر عل {} قطعة فقط في المخزون"
+
+#~ msgid "Maximum sale of {} is {} {}"
+#~ msgstr "الحد الأقصى لبيع {} هو {} {}"
+
+#~ msgid "Minimum sale of {} is {} {}"
+#~ msgstr "الحد الأدنى لبيع {} هو {} {}"
+
+#~ msgid "Client deleted successfully"
+#~ msgstr "تم حذف العميل بنجاح"
+
+#~ msgid "Please provide the product barcode"
+#~ msgstr "يرجى تقديم الباركود الخاص بالمنتج"
+
+#~ msgid "Product not found in open api"
+#~ msgstr "المنتج غير موجود في Open api"
+
+#~ msgid "Product data found"
+#~ msgstr "تم العثور على بيانات المنتج"
+
+#~ msgid "Brand deleted successfully"
+#~ msgstr "تم حذف العلامة التجارية بنجاح"
+
+#~ msgid "Category deleted successfully"
+#~ msgstr "تم حذف التصنيف بنجاح"
+
+#~ msgid "Product successfully created"
+#~ msgstr "تم إنشاء المنتج"
+
+#~ msgid "Warehouse deleted successfully"
+#~ msgstr "تم حذف المستودع بنجاح"
+
+#~ msgid "Profession {} created successfully"
+#~ msgstr "تم إنشاء المهنة  {} بنجاح"
+
+#~ msgid "Profession {} updated successfully"
+#~ msgstr "تم تحديث المهنة {} بنجاح"
+
+#~ msgid "Profession deleted successfully"
+#~ msgstr "تم حذف المهنة بنجاح"
+
+#~ msgid "Quotation updated successfully"
+#~ msgstr "تم تحديث عرض الأسعار"
+
+#~ msgid "Quotation deleted successfully"
+#~ msgstr "تم حذف العرض بنجاح"
+
+#~ msgid "Wallet {} created successfully"
+#~ msgstr "تم إنشاء المحفظة {} بنجاح"
+
+#~ msgid "Wallet create failed"
+#~ msgstr "فشل في تأكيد البريد الإلكتروني"
+
+#~ msgid "Wallet {} updated successfully"
+#~ msgstr "تم تحديث المحفظة {} بنجاح"
+
+#~ msgid "Wallet update failed"
+#~ msgstr "فشل تحديث المحفظة"
+
+#~ msgid "Registry"
+#~ msgstr "تسجيل"
+
+#~ msgid "Signup"
+#~ msgstr "تسجيل"
+
+#~ msgid "Fill all fields bellow"
+#~ msgstr "املأ جميع الحقول أدناه"
+
+#~ msgid "Confirm password"
+#~ msgstr "تأكيد كلمة المرور"
+
+#~ msgid "Register"
+#~ msgstr "تسجيل"
+
+#~ msgid "Username must be more than 4 characters"
+#~ msgstr "إسم المستخدم يجب أن يكون أكثر من 4 أحرف"
+
+#~ msgid "Order payment canceled"
+#~ msgstr "تم إلغاء دفع الطلب"
+
+#~ msgid "Order payment success"
+#~ msgstr "تم إكمال الطلب بنجاح"
+
+#~ msgid "Pay with paypal"
+#~ msgstr "الدفع عن طريق PayPal"
+
+#~ msgid "Admin panel"
+#~ msgstr "لوحة الادارة"
+
+#~ msgid "Sorry"
+#~ msgstr "نعتذر"
+
+#~ msgid "Comments:"
+#~ msgstr "التعليقات:"
+
+#~ msgid "Comment"
+#~ msgstr "تعليق"
+
+#~ msgid "You must login to comment"
+#~ msgstr "يجب عليك تسجيل الدخول للتعليق"
+
+#~ msgid "Edit comment"
+#~ msgstr "التعليق"
+
+#~ msgid "Reset password"
+#~ msgstr "إعادة تعيين كلمة المرور"
+
+#~ msgid "You dont have account?"
+#~ msgstr "ليس لديك حساب؟"
+
+#~ msgid "You have account?"
+#~ msgstr "لديك حساب؟"
+
+#~ msgid "by"
+#~ msgstr "بواسطة"
+
+#~ msgid "in"
+#~ msgstr "في"
+
+#~ msgid "Blog"
+#~ msgstr "المدونة"
+
+#~ msgid "There is no article published yet"
+#~ msgstr "لا توجد مقالة منشورة  بعد"
+
+#~ msgid "Home"
+#~ msgstr "الرئيسية"
+
+#~ msgid "Factoriom"
+#~ msgstr "فاكتوريوم"
+
+#~ msgid ""
+#~ "A multilingual program to create an integrated system for managing stores "
+#~ "or warehouses and contains several tools to facilitate this"
+#~ msgstr ""
+#~ "برنامج إدارة مبيعات وفواتير متعدد اللغات لإنشاء نظام متكامل لإدارة "
+#~ "المحلات أو المخازن ويحتوى على عدة أدوات لتسهيل هذا"
+
+#~ msgid "All you need in one place"
+#~ msgstr "كل ما تحتاجه في مكان واحد"
+
+#~ msgid "Lets go"
+#~ msgstr "إنطلق"
+
+#~ msgid "Start now"
+#~ msgstr "إبدأ الآن"
+
+#~ msgid "Create space"
+#~ msgstr "إنشاء مساحة"
+
+#~ msgid ""
+#~ "With one step, you can have your own space and run your business instantly"
+#~ msgstr "بخطوة واحدة ، يمكنك الحصول على مساحة خاصة بك وتشغيل عملك على الفور"
+
+#~ msgid "Create"
+#~ msgstr "إنشاء"
+
+#~ msgid "Characters of subdomain must be more than"
+#~ msgstr "يجب أن تكون أحرف النطاق الفرعي أكثر من"
+
+#~ msgid "Characters of name must be more than"
+#~ msgstr "يجب أن تكون أحرف الاسم أكثر من"
+
+#~ msgid "Created date"
+#~ msgstr "تاريخ الإنشاء"
+
+#~ msgid "On trial"
+#~ msgstr "فترة تجريبية"
+
+#~ msgid "till"
+#~ msgstr "حتى"
+
+#~ msgid "Normale"
+#~ msgstr "نورمال"
+
+#~ msgid "Delete article"
+#~ msgstr "حذف المقالة"
+
+#~ msgid "Do you want delete this article"
+#~ msgstr "هل تريد حذف هذه المقالة"
+
+#~ msgid "Cancel"
+#~ msgstr "يلغي"
+
+#~ msgid "Show article"
+#~ msgstr "عرض المقالة"
+
+#~ msgid "Articles"
+#~ msgstr "المقالات"
+
+#~ msgid "Show category"
+#~ msgstr "عرض التصنيف"
+
+#~ msgid "Categories"
+#~ msgstr "التصنيفات"
+
+#~ msgid "Delete category"
+#~ msgstr "حذف التصنيف"
+
+#~ msgid "Do you want delete this category"
+#~ msgstr "هل تريد حذف هذا التصنيف"
+
+#~ msgid "New category"
+#~ msgstr "تصنيف جديد"
+
+#~ msgid "Menus"
+#~ msgstr "القوائم"
+
+#~ msgid "There is no pages yet"
+#~ msgstr "لا توجد صفحات بعد"
+
+#~ msgid "Delete page"
+#~ msgstr "حذف الصفحة"
+
+#~ msgid "Do you want delete this page"
+#~ msgstr "هل تريد حذف هذه الصفحة"
+
+#~ msgid "Show page"
+#~ msgstr "عرض الصفحة"
+
+#~ msgid "New widget"
+#~ msgstr "وودجت جديد"
+
+#~ msgid "Delete widget"
+#~ msgstr "حذف الوودجت"
+
+#~ msgid "Do you want delete this widget"
+#~ msgstr "هل تريد حذف هذا الوودجت"
+
+#~ msgid "Show widget"
+#~ msgstr "عرض الوودجت"
+
+#~ msgid "Widgets"
+#~ msgstr "الوودجت"
+
+#~ msgid "Spaces"
+#~ msgstr "المساحات"
+
+#~ msgid "Number of max spaces per user"
+#~ msgstr "عدد المساحات القصوى لكل مستخدم"
+
+#~ msgid "Space subdomain length"
+#~ msgstr "طول النطاق الفرعي للمساحة"
+
+#~ msgid "Space name length"
+#~ msgstr "طول الإسم للمساحة"
+
+#~ msgid "Search"
+#~ msgstr "بحث"
+
+#~ msgid "Scan barcode"
+#~ msgstr "فحص الباركود"
+
+#~ msgid "write info"
+#~ msgstr "أكتب معلومات"
+
+#~ msgid "Schema name"
+#~ msgstr "اسم المخطط"
+
+#~ msgid "Domain URL"
+#~ msgstr "رابط المجال"
+
+#~ msgid "Owner user"
+#~ msgstr "المستخدم المالك"
+
+#~ msgid "Undefined"
+#~ msgstr "غير محدد"
+
+#~ msgid "New space"
+#~ msgstr "مساحة جديدة"
+
+#~ msgid "Created by"
+#~ msgstr "بواسطة"
+
+#~ msgid "Is trial"
+#~ msgstr "فترة تجريبية"
+
+#~ msgid "Trial expire date"
+#~ msgstr "تاريخ انتهاء الفترة التجريبية"
+
+#~ msgid "Write info"
+#~ msgstr "أكتب معلومات"
+
+#~ msgid "Details"
+#~ msgstr "التفاصيل"
+
+#~ msgid "Roles"
+#~ msgstr "الصلاحيات"
+
+#~ msgid "Viewing"
+#~ msgstr "عرض"
+
+#~ msgid "Adding"
+#~ msgstr "إضافة"
+
+#~ msgid "Editing"
+#~ msgstr "تعديل"
+
+#~ msgid "Deleting"
+#~ msgstr "حذف"
+
+#~ msgid "Products"
+#~ msgstr "المنتجات"
+
+#~ msgid "Brands"
+#~ msgstr "الماركات"
+
+#~ msgid "Warehouses"
+#~ msgstr "المستودعات"
+
+#~ msgid "Invoices"
+#~ msgstr "الفواتير"
+
+#~ msgid "Quotations"
+#~ msgstr "عروض الأسعار"
+
+#~ msgid "Debts"
+#~ msgstr "الديون"
+
+#~ msgid "Wallets"
+#~ msgstr "المحافظ"
+
+#~ msgid "Professions"
+#~ msgstr "المهن"
+
+#~ msgid "Banks"
+#~ msgstr "البنوك"
+
+#~ msgid "Salaries"
+#~ msgstr "الرواتب"
+
+#~ msgid "Vacations"
+#~ msgstr "الاجازات"
+
+#~ msgid "Employee"
+#~ msgstr "الموظف"
+
+#~ msgid "Not set"
+#~ msgstr "غير محدد"
+
+#~ msgid "Summary print"
+#~ msgstr "طباعة الملخص"
+
+#~ msgid "Accounts"
+#~ msgstr "الحسابات"
+
+#~ msgid "No accounts was found"
+#~ msgstr "لم يتم العثور على حسابات"
+
+#~ msgid "New bank"
+#~ msgstr "بنك جديدة"
+
+#~ msgid "APP"
+#~ msgstr "التطبيق"
+
+#~ msgid "You can download our official app soon"
+#~ msgstr "يمكنك تنزيل تطبيقنا الرسمي قريبًا"
+
+#~ msgid ""
+#~ "The platform is currently in the beta version, and you will be able to "
+#~ "access the application updates soon, and we will inform you as soon as "
+#~ "this feature is issued and how to activate it through the packages that "
+#~ "we plan to add in the future, so that you can access the control panel "
+#~ "comfortably when you are away from your office."
+#~ msgstr ""
+#~ "المنصة حاليا في الإصدار التجريبي ستتمكن من الوصول إلى تحديثات التطبيق "
+#~ "قريبا، وسنعلمك فور صدور هاته الخاصية وكيفية تفعيلها عبر الباقات التي نخطط "
+#~ "لإضافتها مستقبلا لتتمكن من الوصول للوحة التحكم بكل أريحية حينما تكون "
+#~ "بعيدا عن مكتبك."
+
+#~ msgid "Save as image"
+#~ msgstr "حفظ كصورة"
+
+#~ msgid "Clients"
+#~ msgstr "العملاء"
+
+#~ msgid "out of"
+#~ msgstr "من أصل"
+
+#~ msgid "Creditors"
+#~ msgstr "الدائنون"
+
+#~ msgid "New debt"
+#~ msgstr "دَينْ جديد"
+
+#~ msgid "Print"
+#~ msgstr "طباعة"
+
+#~ msgid "Total deserved amount"
+#~ msgstr "إجمالي المبلغ المستحق"
+
+#~ msgid "All creditors"
+#~ msgstr "جميع الدائنين"
+
+#~ msgid "Deserved"
+#~ msgstr "مستحق"
+
+#~ msgid "Creditor only"
+#~ msgstr "الدائن فقط"
+
+#~ msgid "Creditor and debts"
+#~ msgstr "الدائن والديون"
+
+#~ msgid "New creditor"
+#~ msgstr "دائن جديد"
+
+#~ msgid "New payment"
+#~ msgstr "دفعة جديدة"
+
+#~ msgid "Full print"
+#~ msgstr "طباعة كاملة"
+
+#~ msgid "Payments"
+#~ msgstr "الدفعات"
+
+#~ msgid "No payments was found"
+#~ msgstr "لم يتم العثور على مدفوعات"
+
+#~ msgid "Done in"
+#~ msgstr "حرر في"
+
+#~ msgid "Paid"
+#~ msgstr "مدفوعة"
+
+#~ msgid "Total"
+#~ msgstr "الإجمالي"
+
+#~ msgid "Double payment"
+#~ msgstr "دفعف مضاعف"
+
+#~ msgid "Partially paid"
+#~ msgstr "مدفوعة جزئيا"
+
+#~ msgid "Not paid"
+#~ msgstr "غير مدفوعة"
+
+#~ msgid "No notes"
+#~ msgstr "لا توجد ملاحظات"
+
+#~ msgid "New payment for debt"
+#~ msgstr "دفعة جديدة للدين"
+
+#~ msgid "Number"
+#~ msgstr "الرقم"
+
+#~ msgid "Edit bank"
+#~ msgstr "تعديل البنك"
+
+#~ msgid "Employees"
+#~ msgstr "الموظفون"
+
+#~ msgid "All employees"
+#~ msgstr "الموظفون"
+
+#~ msgid "Bank accounts"
+#~ msgstr "الحسابات البنكية"
+
+#~ msgid "New employee"
+#~ msgstr "موظف  جديد"
+
+#~ msgid "Edit profession"
+#~ msgstr "تعديل  المهنة"
+
+#~ msgid "From"
+#~ msgstr "من"
+
+#~ msgid "To"
+#~ msgstr "إلى"
+
+#~ msgid "New profession"
+#~ msgstr "مهنة جديدة"
+
+#~ msgid "Back"
+#~ msgstr "عودة"
+
+#~ msgid "Edit salary"
+#~ msgstr "تعديل الراتب"
+
+#~ msgid "New salary"
+#~ msgstr "راتب  جديد"
+
+#~ msgid "Payment method"
+#~ msgstr "وسيلة الدفع"
+
+#~ msgid "Amount"
+#~ msgstr "المبلغ"
+
+#~ msgid "Cash pai"
+#~ msgstr "دفع نقدا"
+
+#~ msgid "Payments number"
+#~ msgstr "عدد الدفعات"
+
+#~ msgid "Payments amount"
+#~ msgstr "مبلغ الدفعات"
+
+#~ msgid "Last payment"
+#~ msgstr "آخر دفعة"
+
+#~ msgid "First payment"
+#~ msgstr "أول دفعة"
+
+#~ msgid "Vacation type"
+#~ msgstr "نوع الاجازة"
+
+#~ msgid "New vacation"
+#~ msgstr "اجازة جديدة"
+
+#~ msgid "Add new"
+#~ msgstr "إضافة جديد"
+
+#~ msgid "Debt"
+#~ msgstr "دين"
+
+#~ msgid "Searching"
+#~ msgstr "بحث"
+
+#~ msgid "Suppliers"
+#~ msgstr "الموردون"
+
+#~ msgid "Edit invoice"
+#~ msgstr "تعديل الفاتورة"
+
+#~ msgid "Missed product or deleted"
+#~ msgstr "المنتج المفقود أو المحذوفة"
+
+#~ msgid "Write something"
+#~ msgstr "أكتب معلومات"
+
+#~ msgid "Error"
+#~ msgstr "خطأ"
+
+#~ msgid "Please check products rows"
+#~ msgstr "الرجاء تحديد المنتجات"
+
+#~ msgid "Updated"
+#~ msgstr "تحديث"
+
+#~ msgid "Not applied"
+#~ msgstr "غير مطبق"
+
+#~ msgid "New invoice"
+#~ msgstr "فاتورة  جديدة"
+
+#~ msgid "Supplier and invoices"
+#~ msgstr "المورد والفواتير"
+
+#~ msgid "New supplier"
+#~ msgstr "مورد جديد"
+
+#~ msgid "Client only"
+#~ msgstr "العميل فقط"
+
+#~ msgid "Client and invoices"
+#~ msgstr "العميل والفواتير"
+
+#~ msgid "New client"
+#~ msgstr "عميل جديد"
+
+#~ msgid "Edit purchasing price"
+#~ msgstr "سعر الشراء"
+
+#~ msgid "No description"
+#~ msgstr "الوصف"
+
+#~ msgid "New brand"
+#~ msgstr "ماركة جديدة"
+
+#~ msgid "Edit product"
+#~ msgstr "تعديل المنتج"
+
+#~ msgid "No products"
+#~ msgstr "لا توجد منتجات"
+
+#~ msgid "Not define"
+#~ msgstr "غير محدد"
+
+#~ msgid "New product"
+#~ msgstr "منتج جديد"
+
+#~ msgid "Metadata"
+#~ msgstr "البيانات"
+
+#~ msgid "Parent"
+#~ msgstr "الأب"
+
+#~ msgid "Storage"
+#~ msgstr "تخزين"
+
+#~ msgid "Enabled"
+#~ msgstr "تمكين"
+
+#~ msgid "New warehouse"
+#~ msgstr "مستودع جديد"
+
+#~ msgid "Password changed successfully"
+#~ msgstr "تم تغيير كلمة المرور بنجاح"
+
+#~ msgid "Change password"
+#~ msgstr "تغيير كلمة المرور"
+
+#~ msgid "Edit quotation"
+#~ msgstr "تعديل العرض"
+
+#~ msgid "Debt payment"
+#~ msgstr "دفعة الدين"
+
+#~ msgid "New wallet"
+#~ msgstr "محفظة  جديدة"
+
+#~ msgid "Total sales"
+#~ msgstr "اجمالي المبيعات"
+
+#~ msgid "Total purchases"
+#~ msgstr "إجمالي المشتريات"
+
+#~ msgid "User is employee"
+#~ msgstr "المستخدم موضف"
+
+#~ msgid "User is not employee"
+#~ msgstr "المستخدم ليس موضفا"
+
+#~ msgid "User is client"
+#~ msgstr "المستخدم عميل"
+
+#~ msgid "User is not client"
+#~ msgstr "المستخدم ليس عميلا"
+
+#~ msgid "User is supplier"
+#~ msgstr "المستخدم مورد"
+
+#~ msgid "User is not supplier"
+#~ msgstr "المستخدم ليس موردا"
+
+#~ msgid "User is creditor"
+#~ msgstr "المستخدم دائن"
+
+#~ msgid "User is not creditor"
+#~ msgstr "المستخدم ليس دائنا"
+
+#~ msgid "Human resources"
+#~ msgstr "الموارد البشرية"
+
+#~ msgid "Employee status"
+#~ msgstr "موظف"
+
+#~ msgid "Employee working for you"
+#~ msgstr "موظف يعمل لديك"
+
+#~ msgid "Client status"
+#~ msgstr "عميل"
+
+#~ msgid "This user will receive invoices from you"
+#~ msgstr "سيستلم هذا المستخدم فواتير من عندك"
+
+#~ msgid "Supplier status"
+#~ msgstr "مورد"
+
+#~ msgid "This user receives invoices from him"
+#~ msgstr "ستستلم فواتير من هذا المستخدم"
+
+#~ msgid "Creditor, you borrowing money from him"
+#~ msgstr "الدائن ، أنت تقترض المال منه"
+
+#~ msgid "User is space"
+#~ msgstr "المستخدم نشط"
+
+#~ msgid "User is not space"
+#~ msgstr "المستخدم غير مفعل"
+
+#~ msgid "Domain must be less than {} characters"
+#~ msgstr "يجب أن يكون إسم الدومين  أقل من {} حرف"
+
+#~ msgid "Domain must be more than {} characters"
+#~ msgstr "إسم الدومين يجب أن يكون أكثر من {} أحرف"
+
+#~ msgid "Characters of name and subdomain must be more than {}"
+#~ msgstr "يجب أن تكون أحرف الاسم والمجال الفرعي أكثر من {}"
+
+#~ msgid "Name must be more than 4 characters"
+#~ msgstr "الإسم يجب أن يكون أكثر من {} أحرف"
+
+#~ msgid "Items"
+#~ msgstr "العناصر"
+
+#~ msgid "You are already have a space"
+#~ msgstr "لديك بالفعل عمليات سحب معلقة"
+
+#~ msgid "Robostock"
+#~ msgstr "روبوستوك"
+
+#~ msgid "French"
+#~ msgstr "فرنسي"
+
+#~ msgid "Log in"
+#~ msgstr "دخول"
+
+#~ msgid "User can new"
+#~ msgstr "يمكن للمستخدم الإضافة"
+
+#~ msgid "Loans"
+#~ msgstr "القروض"
+
+#~ msgid "N°"
+#~ msgstr "رقم"
+
+#~ msgid "Admin"
+#~ msgstr "الإدارة"
+
+#~ msgid "Links"
+#~ msgstr "الروابط"
+
+#~ msgid "Profession"
+#~ msgstr "المهنة"
+
+#~ msgid "Swift"
+#~ msgstr "Swift"
+
+#~ msgid "Banck"
+#~ msgstr "البنك"
+
+#~ msgid "User professions"
+#~ msgstr "مهن المستخدم"
+
+#~ msgid "New payment for"
+#~ msgstr "دفعة جديدة لـ"
+
+#~ msgid "For buy invoices"
+#~ msgstr "لفواتير الشراء"

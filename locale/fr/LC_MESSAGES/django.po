@@ -1,0 +1,1546 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-15 21:57+0100\n"
+"PO-Revision-Date: 2022-09-18 00:08+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.1.1\n"
+
+msgid "Username must be less than {} characters"
+msgstr "Le nom d\\'utilisateur doit comporter moins de {} caractères"
+
+msgid "Username must be more than {} characters"
+msgstr "Le nom d\\'utilisateur doit comporter plus de {} caractères"
+
+msgid "Username is not available"
+msgstr "Le nom d\\'utilisateur n\\'est pas disponible"
+
+msgid "Username is available"
+msgstr "Nom d\\'utilisateur disponible"
+
+msgid "Login successful"
+msgstr "Connexion réussie"
+
+msgid "User is not active"
+msgstr "L\\'utilisateur n\\'est pas actif"
+
+msgid "Username or Password is invalid"
+msgstr "Le nom d\\'utilisateur ou le mot de passe est invalide"
+
+msgid "Enter username and password"
+msgstr "Entrez le nom d\\'utilisateur et le mot de passe"
+
+msgid "Email is not available"
+msgstr "L\\'e-mail n\\'est pas disponible"
+
+msgid "Password does not match"
+msgstr "Le mot de passe ne correspond pas"
+
+msgid "Email format is not correct"
+msgstr "Le format de l\\'e-mail n\\'est pas correct"
+
+msgid "Registration successful"
+msgstr "inscription réussi"
+
+msgid "Please fill all fields"
+msgstr "Merci de compléter tous les champs"
+
+msgid "Date Of Birth"
+msgstr "Date de naissance"
+
+msgid "Images only can upload"
+msgstr "Seules les images peuvent être téléchargées"
+
+msgid "username"
+msgstr "Nom d\\'utilisateur"
+
+msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Obligatoire. 150 caractères ou moins. Lettres, chiffres et @/./+/-/_ "
+"uniquement."
+
+msgid "A user with that username already exists."
+msgstr "Un utilisateur avec ce pseudo existe déjà."
+
+msgid "first name"
+msgstr "Prénom"
+
+msgid "last name"
+msgstr "Nom de famille"
+
+msgid "email address"
+msgstr "Adresse"
+
+msgid "Country"
+msgstr "Pays"
+
+msgid "State"
+msgstr "État"
+
+msgid "Address"
+msgstr "Adresse"
+
+msgid "Phone"
+msgstr "Téléphoner"
+
+msgid "superuser status"
+msgstr "statut de superutilisateur"
+
+msgid ""
+"Designates that this user has all permissions without explicitly assigning "
+"them."
+msgstr ""
+"Indique que cet utilisateur dispose de toutes les autorisations sans les "
+"attribuer explicitement."
+
+msgid "staff status"
+msgstr "Changer de statut"
+
+msgid "Designates whether the user can log into this admin site."
+msgstr ""
+"Indique si l'utilisateur peut se connecter à ce site d'administration."
+
+msgid "active"
+msgstr "Actif"
+
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+"Indique si cet utilisateur doit être traité comme actif. Décochez cette "
+"option au lieu de supprimer des comptes."
+
+msgid "Avatar"
+msgstr "Avatar"
+
+msgid "date joined"
+msgstr "Date d\\'adhésion"
+
+msgid "user"
+msgstr "Nouvel utilisateur"
+
+msgid "users"
+msgstr "Utilisateurs"
+
+msgid "Key"
+msgstr "Clé"
+
+msgid "Value"
+msgstr "Évaluer"
+
+msgid "Role"
+msgstr "Rôle"
+
+msgid "Date range"
+msgstr "Plage de dates"
+
+msgid "Edit links"
+msgstr "Modifier les liens"
+
+msgid "short link field"
+msgstr "champ de lien court"
+
+msgid "Link status"
+msgstr "État du lien"
+
+msgid "Delete link"
+msgstr "Supprimer le lien"
+
+msgid "Link password"
+msgstr "Mot de passe du lien"
+
+msgid "Link packages"
+msgstr "Forfaits de liens"
+
+msgid "Link comments"
+msgstr "Commentaires de lien"
+
+msgid "Link type"
+msgstr "Type de lien"
+
+msgid "API system"
+msgstr "Système API"
+
+msgid "No ads"
+msgstr "Pas de pubs"
+
+msgid "Loading page"
+msgstr "Page de chargement"
+
+msgid "Timer"
+msgstr "Minuteur"
+
+msgid "geolocation"
+msgstr "géolocalisation"
+
+msgid "technology"
+msgstr "La technologie"
+
+msgid "language"
+msgstr "Langue"
+
+msgid "Referer"
+msgstr "Référent"
+
+msgid "Your account is already activated"
+msgstr "Votre compte est déjà activé"
+
+msgid ""
+"You already have an order waiting for confirmation. Please try again 30 "
+"minutes after the last email confirmation request."
+msgstr ""
+"Vous avez déjà une commande en attente de confirmation. Veuillez réessayer "
+"30 minutes après la dernière demande de confirmation par e-mail."
+
+msgid "{} {} - account confirmation"
+msgstr "{} {} - confirmation de compte"
+
+msgid "Hello"
+msgstr "Bonjour"
+
+msgid "A confirmation link was sent to your account email"
+msgstr "Un lien de confirmation a été envoyé à l\\'e-mail de votre compte"
+
+msgid "Complete your profile"
+msgstr "complète ton profil"
+
+msgid "Unknown error"
+msgstr "Erreur inconnue"
+
+msgid "This account is already activated ,This link has expired"
+msgstr "Ce compte est déjà activé ,Ce lien a expiré"
+
+msgid "Your email confirmed successfully"
+msgstr "Votre email confirmé avec succès"
+
+msgid "Email confirmation failed"
+msgstr "La confirmation par e-mail a échoué"
+
+msgid "Password Reset Requested"
+msgstr "Réinitialisation du mot de passe demandée"
+
+msgid "Head menu"
+msgstr "Menu principal"
+
+msgid "Footer"
+msgstr "Bas de page"
+
+msgid "User"
+msgstr "Utilisateur"
+
+msgid "Side"
+msgstr "Côté"
+
+msgid "Publish"
+msgstr "Publier"
+
+msgid "Private"
+msgstr "Privé"
+
+msgid "Draft"
+msgstr "Brouillon"
+
+msgid "Pending"
+msgstr "En attente"
+
+msgid "Home header"
+msgstr "En-tête d\\'accueil"
+
+msgid "Home footer"
+msgstr "Pied de page d\\'accueil"
+
+msgid "Footer header"
+msgstr "En-tête de pied de page"
+
+msgid "Serial"
+msgstr "En série"
+
+msgid "Title"
+msgstr "Titre"
+
+msgid "Slug"
+msgstr "Limace"
+
+msgid "Description"
+msgstr "La description"
+
+msgid "Content"
+msgstr "Contenu"
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Views"
+msgstr "Vues"
+
+msgid "Category"
+msgstr "Catégorie"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Items"
+msgstr "Articles"
+
+msgid "Arabic"
+msgstr "arabe"
+
+msgid "English"
+msgstr "Anglais"
+
+msgid "French"
+msgstr "Français"
+
+msgid "Method"
+msgstr "Méthode"
+
+msgid "Hi"
+msgstr "Salut"
+
+msgid "You have requested to confirm your email in our platform"
+msgstr "Vous avez demandé à confirmer votre email dans notre plateforme"
+
+msgid "Please go to the link below to complete the process"
+msgstr "Veuillez cliquer sur le lien ci-dessous pour terminer le processus"
+
+msgid "Confirm your email"
+msgstr "confirme ton email"
+
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+msgid "Log in"
+msgstr "Connexion"
+
+msgid "Log in with your data that you entered during registration"
+msgstr ""
+"Connectez-vous avec vos données que vous avez saisies lors de votre "
+"inscription"
+
+msgid "Username"
+msgstr "Nom d\\'utilisateur"
+
+msgid "Password"
+msgstr "Mot de passe"
+
+msgid "Don't have an account?"
+msgstr "Vous n\\'avez pas de compte ?"
+
+msgid "Forget your password?"
+msgstr "Mot de passe oublié?"
+
+msgid "Forgot Password"
+msgstr "Mot de passe oublié"
+
+msgid "Reset Password"
+msgstr "réinitialiser le mot de passe"
+
+msgid "Please enter your email address"
+msgstr "Veuillez saisir votre adresse e-mail"
+
+msgid "You will receive a link to create a new password via email"
+msgstr "Vous recevrez un lien pour créer un nouveau mot de passe par e-mail"
+
+msgid "Send reset URL"
+msgstr "Envoyer l\\'URL de réinitialisation"
+
+msgid "You have an account?"
+msgstr "Vous avez un compte ?"
+
+msgid ""
+"We received a request to reset the password for your account for this email "
+"address. To initiate the password reset process for your account, click the "
+"link below."
+msgstr ""
+"Nous avons reçu une demande de réinitialisation du mot de passe de votre "
+"compte pour cette adresse e-mail. Pour lancer le processus de "
+"réinitialisation du mot de passe pour votre compte, cliquez sur le lien ci-"
+"dessous."
+
+msgid ""
+"This link can only be used once. If you need to reset your password again, "
+"please visit {{ protocol }}://{{domain}} and request another reset."
+msgstr ""
+"Ce lien ne peut être utilisé qu\\'une seule fois. Si vous avez besoin de "
+"réinitialiser à nouveau votre mot de passe, veuillez visiter {{ protocol "
+"}}://{{domain}} et demander une autre réinitialisation."
+
+msgid "If you did not make this request, you can simply ignore this email."
+msgstr ""
+"Si vous n\\'avez pas fait cette demande, vous pouvez simplement ignorer cet "
+"e-mail."
+
+msgid "Sincerely"
+msgstr "Sincèrement"
+
+msgid "The Website Team"
+msgstr "L\\'équipe du site Web"
+
+msgid "Password reset complete"
+msgstr "Réinitialisation du mot de passe terminée"
+
+msgid "Your password has been set. You may go ahead and log in now"
+msgstr ""
+"Votre mot de passe a été défini. Vous pouvez continuer et vous connecter "
+"maintenant"
+
+msgid "Login"
+msgstr "Connexion"
+
+msgid "Password reset confirmation"
+msgstr "Confirmation de la réinitialisation du mot de passe"
+
+msgid "Password Reset Confirm"
+msgstr "Confirmer la réinitialisation du mot de passe"
+
+msgid "Set new password"
+msgstr "Definir un nouveau mot de passe"
+
+msgid "Forgot password"
+msgstr "Mot de passe oublié"
+
+msgid "Password reset sent"
+msgstr "Réinitialisation du mot de passe envoyée"
+
+msgid "An email has been sent with instructions to reset your password"
+msgstr ""
+"Un e-mail a été envoyé avec des instructions pour réinitialiser votre mot de"
+" passe"
+
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly"
+msgstr ""
+"Nous vous avons envoyé par e-mail des instructions pour définir votre mot de"
+" passe, si un compte existe avec l\\'e-mail que vous avez saisi. Vous "
+"devriez les recevoir sous peu"
+
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder"
+msgstr ""
+"Si vous ne recevez pas d\\'e-mail, assurez-vous d\\'avoir entré l\\'adresse "
+"avec laquelle vous vous êtes inscrit et vérifiez votre dossier spam"
+
+msgid "Registry"
+msgstr "Enregistrement"
+
+msgid "Signup"
+msgstr "S\\'inscrire"
+
+msgid "Fill all fields bellow"
+msgstr "Remplissez tous les champs ci-dessous"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Confirm password"
+msgstr "Confirmez le mot de passe"
+
+msgid "Register"
+msgstr "S\\'inscrire"
+
+msgid "Username must be more than 4 characters"
+msgstr "Le nom d\\'utilisateur doit comporter plus de 4 caractères"
+
+msgid "Order payment canceled"
+msgstr "Paiement de la commande annulé"
+
+msgid "Order payment success"
+msgstr "Succès du paiement de la commande"
+
+msgid "Pay with paypal"
+msgstr "Payer avec PayPal"
+
+msgid "by"
+msgstr "par"
+
+msgid "in"
+msgstr "dans"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "There is no article published yet"
+msgstr "Il n\\'y a pas encore d\\'article publié"
+
+msgid "Home"
+msgstr "Maison"
+
+msgid "Our technology"
+msgstr "Notre technologie"
+
+msgid "Advanced Analytics"
+msgstr "Analytique avancée"
+
+msgid ""
+"Track clicks by country, city, device, operating system and many more "
+"details"
+msgstr ""
+"Suivez les clics par pays, ville, appareil, système d\\'exploitation et bien"
+" d\\'autres détails"
+
+msgid "Advanced control panel"
+msgstr "Panneau de contrôle avancé"
+
+msgid ""
+"Your control panel enables you to manage your links in an indescribable way "
+"and comprehensively manage them"
+msgstr ""
+"Votre panneau de contrôle vous permet de gérer vos liens de manière "
+"indescriptible et de les gérer de manière exhaustive"
+
+msgid "Advanced API"
+msgstr "API avancée"
+
+msgid "Smart API interface to make it easier to work on your routers"
+msgstr "Interface API intelligente pour faciliter le travail sur vos routeurs"
+
+msgid "Statistics"
+msgstr "Statistiques"
+
+msgid "Links"
+msgstr "Liens"
+
+msgid "Members"
+msgstr "Membres"
+
+msgid "Clicks"
+msgstr "Clics"
+
+msgid "All rights reserved"
+msgstr "Tous les droits sont réservés"
+
+msgid "Logout"
+msgstr "Se déconnecter"
+
+msgid "Language"
+msgstr "Langue"
+
+msgid "Put URL here"
+msgstr "Mettre l\\'URL ici"
+
+msgid ""
+"Robostock - URLs Shortener is a service that takes long URLs and squeezes them "
+"into fewer characters to make a link that is easier to share tweet email to "
+"friends."
+msgstr ""
+"Robostock - URLs Shortener est un service qui prend de longues URL et les réduit "
+"en moins de caractères pour créer un lien plus facile à partager avec des "
+"amis."
+
+msgid "Error"
+msgstr "Erreur"
+
+msgid "Pleas write url"
+msgstr "Veuillez écrire l\\'url"
+
+msgid "Okay"
+msgstr "D\\'accord"
+
+msgid "Loading"
+msgstr "Chargement"
+
+msgid "Sorry"
+msgstr "Pardon"
+
+msgid "This link is disabled"
+msgstr "Ce lien est désactivé"
+
+msgid "Click here to proceed"
+msgstr "Cliquez ici pour continuer"
+
+msgid "Loading url"
+msgstr "URL de chargement"
+
+msgid "Copy url"
+msgstr "Copier le lien"
+
+msgid "Nothing was found"
+msgstr "Rien n\\'a été trouvé"
+
+msgid "Comments:"
+msgstr "Commentaires:"
+
+msgid "Edit"
+msgstr "Éditer"
+
+msgid "Comment"
+msgstr "Commentaire"
+
+msgid "You must login to comment"
+msgstr "Vous devez être connecté pour commenter"
+
+msgid "Edit comment"
+msgstr "Modifier le commentaire"
+
+msgid "Close"
+msgstr "proche"
+
+msgid "Save"
+msgstr "sauvegarder"
+
+msgid "Pleas waite"
+msgstr "Veuillez patienter"
+
+msgid "URL copied"
+msgstr "URL copiée"
+
+msgid "Url was copied to clipboard"
+msgstr "L\\'URL a été copiée dans le presse-papiers"
+
+msgid "To"
+msgstr "À"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "From"
+msgstr "De"
+
+msgid "Last 30 days"
+msgstr "Les 30 derniers jours"
+
+msgid "Clicks total"
+msgstr "Nombre total de clics"
+
+msgid "Today clicks"
+msgstr "Clics d\\'aujourd\\'hui"
+
+msgid "Packages"
+msgstr "Paquets"
+
+msgid "Link"
+msgstr "Lien"
+
+msgid "Today links"
+msgstr "Liens d\\'aujourd\\'hui"
+
+msgid "Top links"
+msgstr "Principaux liens"
+
+msgid "This week clicks"
+msgstr "Cette semaine clics"
+
+msgid "This week links"
+msgstr "Les liens de cette semaine"
+
+msgid "Please confirm your email"
+msgstr "veuillez confirmer votre email"
+
+msgid "Email confirmation"
+msgstr "Confirmation de l\\'émail"
+
+msgid "We will send you a confirmation url"
+msgstr "Nous vous enverrons une URL de confirmation"
+
+msgid "Confirm"
+msgstr "Confirmer"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Home page"
+msgstr "Page d\\'accueil"
+
+msgid "Shorten"
+msgstr "Raccourcir"
+
+msgid "Settings"
+msgstr "Réglages"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Admin"
+msgstr "Administrateur"
+
+msgid "Submit"
+msgstr "Soumettre"
+
+msgid "Browser"
+msgstr "Navigateur"
+
+msgid "Device"
+msgstr "Dispositif"
+
+msgid "Geolocation"
+msgstr "Géolocalisation"
+
+msgid "Network provider"
+msgstr "Fournisseur de réseau"
+
+msgid "Referrals"
+msgstr "Parrainages"
+
+msgid "Short, Title ,Desc, Url"
+msgstr "Court, Titre, Desc, Url"
+
+msgid "Select type"
+msgstr "Sélectionner le genre"
+
+msgid "Direct"
+msgstr "Direct"
+
+msgid "Redirect"
+msgstr "Réorienter"
+
+msgid "Filter"
+msgstr "Filtre"
+
+msgid "Please write something with more than three letters"
+msgstr "Veuillez écrire quelque chose avec plus de trois lettres"
+
+msgid "Day"
+msgstr "Jour"
+
+msgid "Created"
+msgstr "Établi"
+
+msgid "Alies"
+msgstr "Alliés"
+
+msgid "QR code"
+msgstr "QR Code"
+
+msgid "Operation system"
+msgstr "Le système d\\'exploitation"
+
+msgid "Page redirect"
+msgstr "Redirection de page"
+
+msgid "Direct redirect"
+msgstr "Redirection directe"
+
+msgid "Disable"
+msgstr "Désactiver"
+
+msgid "Enable"
+msgstr "Activer"
+
+msgid "Delete"
+msgstr "Effacer"
+
+msgid "Do you want to delete this link"
+msgstr "Voulez-vous supprimer ce lien"
+
+msgid "Delete done"
+msgstr "Effacer fait"
+
+msgid "Membership info"
+msgstr "Informations sur l\\'adhésion"
+
+msgid "Type"
+msgstr "Taper"
+
+msgid "Plan"
+msgstr "Planifier"
+
+msgid "Expired"
+msgstr "Expiré"
+
+msgid "Activated"
+msgstr "Activé"
+
+msgid "Undefined"
+msgstr "Indéfini"
+
+msgid "Order information"
+msgstr "Informations sur la commande"
+
+msgid "Price"
+msgstr "Prix"
+
+msgid "Discount"
+msgstr "Remise"
+
+msgid "Total amount"
+msgstr "Montant total"
+
+msgid "Pay date"
+msgstr "Date de paiement"
+
+msgid "Days"
+msgstr "Journées"
+
+msgid "Information"
+msgstr "Informations"
+
+msgid "Plan name"
+msgstr "Nom du régime"
+
+msgid "Plan duration"
+msgstr "Durée du forfait"
+
+msgid "Releases"
+msgstr "Communiqués"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Download"
+msgstr "Télécharger"
+
+msgid "Membership"
+msgstr "Adhésion"
+
+msgid "The plan"
+msgstr "Le plan"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Create date"
+msgstr "Créer un rendez-vous"
+
+msgid "At"
+msgstr "À"
+
+msgid "Until"
+msgstr "Jusqu\\'à"
+
+msgid "Show"
+msgstr "Spectacle"
+
+msgid "Memberships"
+msgstr "Adhésions"
+
+msgid "Client information"
+msgstr "Informations clients"
+
+msgid "First name"
+msgstr "Prénom"
+
+msgid "Last name"
+msgstr "Nom de famille"
+
+msgid "Website domain"
+msgstr "Domaine du site Web"
+
+msgid ""
+"A manual payment confirmation has been sent and is currently under review"
+msgstr ""
+"Une confirmation de paiement manuel a été envoyée et est actuellement en "
+"cours d\\'examen"
+
+msgid "This order has been confirmed"
+msgstr "Cette commande a été confirmée"
+
+msgid "Payment method"
+msgstr "Mode de paiement"
+
+msgid "Payment N:"
+msgstr "Paiement N :"
+
+msgid "Online pay"
+msgstr "Paiement en ligne"
+
+msgid "Manual pay"
+msgstr "Paiement manuel"
+
+msgid "Upload payment confirmation"
+msgstr "Télécharger la confirmation de paiement"
+
+msgid "Please attach proof of payment"
+msgstr "Veuillez joindre une preuve de paiement"
+
+msgid "You can write feedback to us"
+msgstr "Vous pouvez nous écrire vos commentaires"
+
+msgid "This order is not payable"
+msgstr "Cette commande n\\'est pas payable"
+
+msgid "Client profile"
+msgstr "Profil client"
+
+msgid "Date joined"
+msgstr "Date d\\'adhésion"
+
+msgid "No client"
+msgstr "Aucun client"
+
+msgid "Pending payment"
+msgstr "En attente de paiement"
+
+msgid "Processing"
+msgstr "Traitement"
+
+msgid "On hold"
+msgstr "En attente"
+
+msgid "Completed"
+msgstr "Complété"
+
+msgid "Cancelled"
+msgstr "Annulé"
+
+msgid "Refunded"
+msgstr "Remboursé"
+
+msgid "Failed"
+msgstr "Manqué"
+
+msgid "Order N"
+msgstr "Commande N"
+
+msgid "Amount"
+msgstr "Montant"
+
+msgid "Orders"
+msgstr "Ordres"
+
+msgid "Show package"
+msgstr "Afficher le forfait"
+
+msgid "Do you want to delete this package"
+msgstr "Voulez-vous supprimer ce package"
+
+msgid "New package"
+msgstr "Nouveau forfait"
+
+msgid "New"
+msgstr "Nouveau"
+
+msgid "You dont have any packages"
+msgstr "Vous n\\'avez pas accès au package de liens"
+
+msgid "You have not joined any plan that includes the package system"
+msgstr "Vous n\\'avez rejoint aucun plan qui inclut le système de forfait"
+
+msgid "Subscribe"
+msgstr "S\\'abonner"
+
+msgid "No thing found"
+msgstr "Rien n\\'a été trouvé"
+
+msgid "Your information"
+msgstr "Vos informations"
+
+msgid "Create order"
+msgstr "Créer une commande"
+
+msgid "Buy"
+msgstr "Acheter"
+
+msgid "Show plan"
+msgstr "Afficher le plan"
+
+msgid "Plans"
+msgstr "Des plans"
+
+msgid "Password changed successfully"
+msgstr "Le mot de passe a été changé avec succès"
+
+msgid "Put the link you want to shorten"
+msgstr "Mettez le lien que vous voulez raccourcir"
+
+msgid "Ads"
+msgstr "Les publicités"
+
+msgid "Target"
+msgstr "Cible"
+
+msgid "Exclude"
+msgstr "Exclure"
+
+msgid "Place"
+msgstr "Place"
+
+msgid "Active"
+msgstr "Actif"
+
+msgid "Disabled"
+msgstr "Handicapé"
+
+msgid "Do you want to delete this ad"
+msgstr "Voulez-vous supprimer ce lien"
+
+msgid "New ad"
+msgstr "Nouvelle page"
+
+msgid "Delete article"
+msgstr "Supprimer l\\'article"
+
+msgid "Do you want delete this article"
+msgstr "Voulez-vous supprimer cet article"
+
+msgid "Show article"
+msgstr "Afficher l\\'article"
+
+msgid "Articles"
+msgstr "Des articles"
+
+msgid "Update"
+msgstr "Mise à jour"
+
+msgid "New article"
+msgstr "Nouvel article"
+
+msgid "Show category"
+msgstr "Afficher la catégorie"
+
+msgid "Categories"
+msgstr "Catégories"
+
+msgid "Delete category"
+msgstr "Supprimer la catégorie"
+
+msgid "Do you want delete this category"
+msgstr "Voulez-vous supprimer cette catégorie"
+
+msgid "New category"
+msgstr "Nouvelle catégorie"
+
+msgid "New page"
+msgstr "Nouvelle page"
+
+msgid "Delete page"
+msgstr "Supprimer la page"
+
+msgid "Do you want delete this page"
+msgstr "Voulez-vous supprimer cette page"
+
+msgid "Show page"
+msgstr "Afficher la page"
+
+msgid "Pages"
+msgstr "pages"
+
+msgid "New widget"
+msgstr "Nouveau widget"
+
+msgid "Delete widget"
+msgstr "Supprimer le widget"
+
+msgid "Do you want delete this widget"
+msgstr "Voulez-vous supprimer ce widget"
+
+msgid "Show widget"
+msgstr "Afficher le widget"
+
+msgid "Widgets"
+msgstr "Widget"
+
+msgid "Users"
+msgstr "Utilisateurs"
+
+msgid "General"
+msgstr "Général"
+
+msgid "Menus"
+msgstr "Menus"
+
+msgid "Ecommerce"
+msgstr "Commerce électronique"
+
+msgid "Shortener"
+msgstr "Raccourcisseur"
+
+msgid "Roles"
+msgstr "Les rôles"
+
+msgid "Codes"
+msgstr "Codes"
+
+msgid "Member"
+msgstr "Membre"
+
+msgid "Plan information"
+msgstr "Renseignements sur le régime"
+
+msgid "Plan page"
+msgstr "Planifier"
+
+msgid "Excerpt"
+msgstr "Extrait"
+
+msgid "Download file"
+msgstr "Télécharger un fichier"
+
+msgid "Search"
+msgstr "Chercher"
+
+msgid "Write info"
+msgstr "Écrire des informations"
+
+msgid "Scan barcode"
+msgstr "Scanner le code-barres"
+
+msgid ""
+"This membership has expired. Please renew your subscription to view releases"
+" and updates"
+msgstr ""
+"Cette adhésion a expiré. Veuillez renouveler votre abonnement pour voir les "
+"versions et les mises à jour"
+
+msgid "End date"
+msgstr "Date de fin"
+
+msgid "New membership"
+msgstr "Nouvelle adhésion"
+
+msgid "Change status"
+msgstr "Changer de statut"
+
+msgid "No payment confirmation"
+msgstr "Aucune confirmation de paiement"
+
+msgid "Client"
+msgstr "Client"
+
+msgid "New plan"
+msgstr "Nouveau plan"
+
+msgid "Notes"
+msgstr "Remarques"
+
+msgid "General head"
+msgstr "Chef général"
+
+msgid "Member head"
+msgstr "Chef de membre"
+
+msgid "Front head"
+msgstr "Tête avant"
+
+msgid "Currency"
+msgstr "Devise"
+
+msgid "Paypal"
+msgstr "Pay Pal"
+
+msgid "Paypal Email"
+msgstr "Email Paypal"
+
+msgid "Manual methods"
+msgstr "Méthodes manuelles"
+
+msgid "Site name"
+msgstr "Nom du site"
+
+msgid "Site description"
+msgstr "Description du site"
+
+msgid "Site keywords"
+msgstr "Mots clés du site"
+
+msgid "Admin logo"
+msgstr "Logo de l\\'administrateur"
+
+msgid "Front logo"
+msgstr "Logo sur le devant"
+
+msgid "Favicon"
+msgstr "Icône de favori"
+
+msgid "Number of items in lists"
+msgstr "Nombre d\\'éléments dans les listes"
+
+msgid "Primary font"
+msgstr "Police principale"
+
+msgid "Secondary font"
+msgstr "Police secondaire"
+
+msgid "Service list style"
+msgstr "Style de liste de services"
+
+msgid "Grid"
+msgstr "Grille"
+
+msgid "List"
+msgstr "Liste"
+
+msgid "Minimum short link characters length"
+msgstr "Longueur minimale des caractères de lien court"
+
+msgid "Maximum short link characters length"
+msgstr "Longueur maximale des caractères de lien court"
+
+msgid "Maximum password length"
+msgstr "Longueur maximale du mot de passe"
+
+msgid "Maximum links per day"
+msgstr "Liens maximum par jour"
+
+msgid "Global redirect"
+msgstr "Redirection globale"
+
+msgid "New user"
+msgstr "Nouvel utilisateur"
+
+msgid "First Name"
+msgstr "Prénom"
+
+msgid "Last Name"
+msgstr "Nom de famille"
+
+msgid "Last login"
+msgstr "Connexion"
+
+msgid "Show user"
+msgstr "Nouvel utilisateur"
+
+msgid "Baridimob"
+msgstr "Baridimob"
+
+msgid "Pay via Baridimob"
+msgstr "Payer via Baridimob"
+
+msgid "This controls the title which the user sees during checkout"
+msgstr "Ceci contrôle le titre que l\\'utilisateur voit lors du paiement"
+
+msgid "This controls the description which the user sees during checkout"
+msgstr "Ceci contrôle la description que l\\'utilisateur voit lors du paiement"
+
+msgid "Pay with Baridimob transfer"
+msgstr "Payer avec le virement Baridimob"
+
+msgid "The rib of account"
+msgstr "La côte de compte"
+
+msgid "CCP"
+msgstr "PCC"
+
+msgid "Pay via CCP"
+msgstr "Payer via CCP"
+
+msgid "Pay with CCP transfer"
+msgstr "Payer par virement CCP"
+
+msgid "Pay via paypal"
+msgstr "Payer par paypal"
+
+msgid "Manual paypal transfer"
+msgstr "Virement paypal manuel"
+
+msgid "You already take this trial plan"
+msgstr "Vous prenez déjà ce plan d\\'essai"
+
+msgid "Please fill all mandatory order fields"
+msgstr "Veuillez remplir tous les champs de commande obligatoires"
+
+msgid "Please select plan"
+msgstr "Veuillez sélectionner un forfait"
+
+msgid "This order already has a membership"
+msgstr "Cette commande a déjà un abonnement"
+
+msgid "Order completed successfully"
+msgstr "Commande terminée avec succès"
+
+msgid "Membership with serial \"{}\" create successfully"
+msgstr "L\\'adhésion avec le numéro de série \"{}\" a été créée avec succès"
+
+msgid "This url is the same of host domain"
+msgstr "Cette URL est la même que celle du domaine hôte"
+
+msgid "A link with this short link found"
+msgstr "Un lien avec ce lien court trouvé"
+
+msgid "You dont have access to link types"
+msgstr "Vous n\\'avez pas accès aux types de liens"
+
+msgid "You dont have access to link short"
+msgstr "Vous n\\'avez pas accès au lien court"
+
+msgid "You dont have access to link password"
+msgstr "Vous n\\'avez pas accès au mot de passe du lien"
+
+msgid "You dont have access to link package"
+msgstr "Vous n\\'avez pas accès au package de liens"
+
+msgid "Sorry max links per day is {}"
+msgstr "Désolé, le nombre maximum de liens par jour est de {}"
+
+msgid "Password is longer than the allowed ({}) characters"
+msgstr "Le mot de passe est plus long que les caractères autorisés ({})"
+
+msgid "Short link is not unique"
+msgstr "Le lien court n\\'est pas unique"
+
+msgid "Short link characters is longer than the allowed number ({})"
+msgstr ""
+"Les caractères du lien court sont plus longs que le nombre autorisé ({})"
+
+msgid "Short link characters is lower than the allowed number ({})"
+msgstr ""
+"Le nombre de caractères du lien court est inférieur au nombre autorisé ({})"
+
+msgid "Please select correct date format"
+msgstr "Veuillez sélectionner le format de date correct"
+
+msgid "The range of the search can includes only 3 months"
+msgstr "La portée de la recherche peut inclure seulement 3 mois"
+
+msgid "No title"
+msgstr "Pas de titre"
+
+msgid "Update success"
+msgstr "Mise à jour réussie"
+
+msgid "Update error"
+msgstr "Erreur de mise à jour"
+
+msgid "<b>{}</b> <br> has been disabled"
+msgstr "<b>{}</b> <br> a été désactivé"
+
+msgid "<b>{}</b> <br> has been activated"
+msgstr "<b>{}</b> <br> a été activé"
+
+msgid "Cant change status"
+msgstr "Impossible de changer de statut"
+
+msgid "{} updated successfully"
+msgstr "{} Mis à jour avec succés"
+
+msgid "Password fields do not match"
+msgstr "Les champs de mot de passe ne correspondent pas"
+
+msgid "Africa"
+msgstr "Afrique"
+
+msgid "Asia"
+msgstr "Asie"
+
+msgid "Europe"
+msgstr "L\\'Europe "
+
+msgid "North America"
+msgstr "Amérique du Nord"
+
+msgid "South America"
+msgstr "Amérique du Sud"
+
+msgid "Oceania"
+msgstr "Océanie"
+
+msgid "Antarctica"
+msgstr "Antarctique"
+
+msgid "Public"
+msgstr "Public"
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "API"
+msgstr "API"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Domain"
+msgstr "Domaine"
+
+msgid "Short link"
+msgstr "Lien court"
+
+msgid "IP"
+msgstr "IP"
+
+msgid "Location"
+msgstr "Emplacement"
+
+msgid "Lat"
+msgstr "Lat"
+
+msgid "Lon"
+msgstr "Lon"
+
+msgid "Continent"
+msgstr "Continent"
+
+msgid "Continent code"
+msgstr "Code continent"
+
+msgid "Country code"
+msgstr "Code postal"
+
+msgid "State code"
+msgstr "Indicatif d\\'état"
+
+msgid "City"
+msgstr "Ville"
+
+msgid "Zip code"
+msgstr "Code postal"
+
+msgid "Operating system"
+msgstr "Système opérateur"
+
+msgid "Referrer"
+msgstr "Référent"
+
+msgid "Organization"
+msgstr "Organisme"
+
+msgid "ISP"
+msgstr "FAI"
+
+msgid "AS name"
+msgstr "Nom de l\\'AS"
+
+msgid "As data"
+msgstr "En tant que données"
+
+msgid "Is mobile"
+msgstr "est mobile"
+
+msgid "Is tablet"
+msgstr "Est une tablette"
+
+msgid "Is touch capable"
+msgstr "Est capable de toucher"
+
+msgid "Is pc"
+msgstr "est pc"
+
+msgid "Is bot"
+msgstr "Est un robot"
+
+msgid "Device brand"
+msgstr "Marque de l\\'appareil"
+
+msgid "Device model"
+msgstr "Modèle d\\'appareil"
+
+msgid "Device family"
+msgstr "Famille d\\'appareils"
+
+msgid "Language data"
+msgstr "Données linguistiques"
+
+msgid "Timezone"
+msgstr "Fuseau horaire"
+
+msgid "Referer domain"
+msgstr "Domaine référent"
+
+msgid "User agent"
+msgstr "Agent utilisateur"
+
+msgid "Links pere day"
+msgstr "Liens par jour"
+
+msgid "Link edit"
+msgstr "Modifier le lien"
+
+msgid "Link short"
+msgstr "Lien court"
+
+msgid "Link delete"
+msgstr "Lien supprimer"
+
+msgid "Link package"
+msgstr "Paquet de lien"
+
+msgid "Link comment"
+msgstr "Commentaire du lien"
+
+msgid "Disable ads"
+msgstr "Désactiver les publicités"
+
+msgid "Technology"
+msgstr "Technologie"
+
+msgid "Trial plan"
+msgstr "Programme d\\'essai"
+
+msgid "Tax"
+msgstr "Impôt"
+
+msgid "Order"
+msgstr "Ordre"
+
+msgid "serial"
+msgstr "en série"
+
+msgid "Link head"
+msgstr "Modifier le lien"
+
+msgid "Link footer"
+msgstr "Type de lien"
+
+msgid "Home head"
+msgstr "En-tête d\\'accueil"
+
+msgid "Image"
+msgstr "Image"
+
+msgid "Url"
+msgstr "URL"
+
+msgid "Open in new tab"
+msgstr "Ouvrir dans un nouvel onglet"
+
+msgid "In case you want the link to open in a new page"
+msgstr "Si vous souhaitez que le lien s'ouvre dans une nouvelle page"
+
+msgid "Full width"
+msgstr "Pleine largeur"
+
+msgid "In case you want this ad to be in full width"
+msgstr "Si vous souhaitez que cette annonce soit en pleine largeur"
+
+msgid "Code"
+msgstr "Codes"
+
+msgid "Text"
+msgstr "Texte"
+
+msgid "Target countries"
+msgstr "Pays cibles"
+
+msgid "Exclude countries"
+msgstr "Exclure des pays"
+
+msgid "Please try again"
+msgstr "Veuillez réessayer"
+
+msgid "Menu saved"
+msgstr "Menu enregistré"
+
+msgid "Free"
+msgstr "Libre"
+
+msgid "Previous"
+msgstr "Précédent"
+
+msgid "Next"
+msgstr "Prochain"
+
+msgid "My memberships"
+msgstr "Mes adhésions"
+
+msgid "My orders"
+msgstr "Mes commandes"
+
+msgid "General footer"
+msgstr "Pied de page général"
+
+msgid "Member footer"
+msgstr "Pied de page du membre"
+
+msgid "Front footer"
+msgstr "Pied de page avant"
+
+msgid "Loading page head"
+msgstr "Tête de page de chargement"
+
+msgid "Loading page footer"
+msgstr "Chargement du pied de page"
+
+msgid "General head ads"
+msgstr "Annonces générales"
+
+msgid "General footer ads"
+msgstr "Annonces de pied de page générales"
