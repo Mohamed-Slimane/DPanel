@@ -24,4 +24,4 @@ class App(models.Model):
             self.serial = uuid.uuid4()
         if not self.name:
             self.name = self.domain
-        super(DjangoApp, self).save(*args, **kwargs)
+        super(App, self).save(*args, **kwargs)

@@ -29,6 +29,11 @@ class app_new(View):
             pathlib.Path(app.path).mkdir(parents=True, exist_ok=True)
             pathlib.Path(app.venv_path).mkdir(parents=True, exist_ok=True)
 
+            import socket
+            sock = socket.socket()
+            sock.bind(('', 0))
+            app.port = sock.getsockname()[1]
+
             create_app_server_block(app)
             create_venv(app.venv_path)
             create_app(app)
@@ -38,7 +43,7 @@ class app_new(View):
             os.system(f'sudo systemctl restart nginx')
             os.system(f'sudo systemctl restart uwsgi.service')
             messages.add_message(request, messages.SUCCESS, _('DjangoApp successfully created'))
-            return redirect('superuser_app_app', app.serial)
+            return redirect('app', app.serial)
         else:
             messages.add_message(request, messages.ERROR, _('Form validation error'))
             return render(request, 'app/new.html', {'form': form})
