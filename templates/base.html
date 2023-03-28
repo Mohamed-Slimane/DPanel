@@ -60,9 +60,33 @@
     </div>
 </div>
 
-
+<script src="{% static 'sweetalert2.js' %}"></script>
 <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
+
+<script>
+    jQuery('.copy-input').click(function(e){
+        e.target.select()
+        document.execCommand('copy')
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+
+        Toast.fire({
+          icon: 'success',
+          title: '{% trans "Text copied" %}'
+        })
+    })
+
+</script>
 </body>
 
 </html>

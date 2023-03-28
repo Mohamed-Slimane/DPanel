@@ -10,3 +10,20 @@
     <i class="bi bi-plus"></i>
 </a>
 {% endblock %}
+{% block content %}
+
+<div class="bg-white shadow-sm rounded">
+    {% if apps %}
+    {% include 'app/list.html' %}
+    {% else %}
+    <div class="h5 text-center p-3">
+        {% trans 'You have no apps yet' %}
+        <div class="">
+            <a href="{% url 'app_new' %}">
+                <i class="bi bi-folder-plus fs-1"></i>
+            </a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

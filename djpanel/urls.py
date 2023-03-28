@@ -11,4 +11,6 @@ urlpatterns = [
 
     path('', super_required(views.apps.as_view()), name="apps"),
     path('apps/new/', super_required(views.app_new.as_view()), name="app_new"),
+    path('apps/<str:serial>/delete', super_required(views.app_delete.as_view()), name="app_delete"),
+    path('apps/<str:serial>/config', super_required(views.app_config.as_view()), name="app_config"),
 ]

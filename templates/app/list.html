@@ -1,0 +1,48 @@
+{% load i18n %}
+<table class="table">
+    <thead>
+    <tr>
+        <th>{% translate 'Name' %}</th>
+        <th>{% translate 'Domain' %}</th>
+        <th>{% translate 'Port' %}</th>
+        <th>{% translate 'Path' %}</th>
+        <th>{% translate 'Venv' %}</th>
+        <th>{% translate 'HTTPS' %}</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for app in apps %}
+        <tr>
+            <td>
+                <a href="{% url 'apps' %}" class="fw-bold">
+                    {{app.name}}
+                </a>
+            </td>
+            <td>
+                {{app.domain}}
+                <a href="http://{{app.domain}}" target="_blank">
+                    <i class="bi bi-box-arrow-up-right"></i>
+                </a>
+            </td>
+            <td>{{app.port}}</td>
+            <td>{{app.www_path}}</td>
+            <td>
+                <input type="text" class="form-control form-control-sm copy-input" value="source {{app.venv_path}}/bin/activate && cd {{app.www_path}}" readonly dir="ltr">
+            </td>
+            <td>{{app.force_https}}</td>
+            <td class="text-end">
+                <a href="{% url 'app_delete' app.serial %}" class="btn btn-danger btn-sm rounded-pill">
+                    {% trans 'Delete' %}
+                    <i class="bi bi-trash"></i>
+                </a>
+
+                <a href="{% url 'app_config' app.serial %}" class="btn btn-success btn-sm rounded-pill">
+                    {% trans 'Config' %}
+                    <i class="bi bi-gear-fill"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor  %}
+    </tbody>
+</table>

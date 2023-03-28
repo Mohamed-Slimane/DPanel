@@ -28,7 +28,7 @@ def create_app_server_block(app):
     listen [::]:80;
 
     server_name {app.domain};    
-    root {app.path};  
+    root {app.www_path};  
     
     location / {{
         include proxy_params;
@@ -73,10 +73,10 @@ def create_uwsgi_config(app):
 [uwsgi]
 processes = 1
 threads = 2
-chdir = {app.path}
+chdir = {app.www_path}
 module = {app.uwsgi_path}.wsgi:application
 http = 0.0.0.0:{app.port}
-daemonize={app.path}/log.log
+daemonize={app.www_path}/log.log
 vacuum = true
 master = true
 max-requests = 1000
@@ -102,10 +102,10 @@ def create_app(app):
         os.system('''
         cd {app.venv_path}
         chmod 755 -R {app.venv_path}
-        chmod 755 -R {app.path}
+        chmod 755 -R {app.www_path}
         {app.venv_path}/bin/pip install django
         {app.venv_path}/bin/pip install uwsgi        
-        cd {app.path}
+        cd {app.www_path}
         django-admin startproject {app.uwsgi_path} .   
         {app.venv_path}/bin/python manage.py migrate   
         '''.format(app=app))

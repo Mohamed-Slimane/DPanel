@@ -1,0 +1,12 @@
+[Unit]
+Description=DJpanel service
+After=network.target
+
+[Service]
+Group=www-data
+WorkingDirectory=/var/dpanel
+ExecStart=/var/venv/dj_venv/bin/python /mnt/d/Developing/PyProjects/pythonProject/djpanel/manage.py runserver 0.0.0.0:8040
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
