@@ -26,24 +26,11 @@ class database_new(View):
         form = PostgresDatabaseForm(request.POST, request.FILES)
         if form.is_valid():
             database = form.save(commit=False)
-            database.password = ''.join(random.choice(string.ascii_letters) for i in range(10))
-            conn = psycopg2.connect(
-                database='postgres',
-                host='127.0.0.1',
-                port='5433',
-                user='dppsql',
-                password=Path('/var/.dppsql').read_text().replace('\n', '')
-            )
-            conn.autocommit = True
-            cur = conn.cursor()
-            cur.execute(f"CREATE DATABASE {database.name}")
-            cur.execute("CREATE USER {database.username} WITH PASSWORD '{password}'".format(database=database,
-                                                                                            password=(AsIs(
-                                                                                                database.password))))
-            cur.execute(f"GRANT ALL PRIVILEGES ON DATABASE {database.name} TO {database.username}")
-            conn.commit()
-            cur.close()
-            conn.close()
+            database.password = str(uuid.uuid4()).replace('-', '')[:10]
+
+            os.system(f'sudo -u postgres psql -c "CREATE DATABASE {database.name};"')
+            os.system(f'sudo -u postgres psql -c "CREATE USER {database.username} WITH PASSWORD \'{database.password}\';"')
+            os.system(f'sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE {database.name} TO {database.username};"')
 
             database.save()
             messages.add_message(request, messages.SUCCESS, _('Database successfully created'))
@@ -64,3 +51,22 @@ class database_delete(View):
         os.system(f'sudo -u postgres dropuser {database.username} -e')
         database.delete()
         return redirect('postgres_databases')
+
+
+# conn = psycopg2.connect(
+#     database='postgres',
+#     host='127.0.0.1',
+#     port='5433',
+#     user='dppsql',
+#     password=Path('/var/.dppsql').read_text().replace('\n', '')
+# )
+# conn.autocommit = True
+# cur = conn.cursor()
+# cur.execute(f"CREATE DATABASE {database.name}")
+# cur.execute("CREATE USER {database.username} WITH PASSWORD '{password}'".format(database=database,
+#                                                                                 password=(AsIs(
+#                                                                                     database.password))))
+# cur.execute(f"GRANT ALL PRIVILEGES ON DATABASE {database.name} TO {database.username}")
+# conn.commit()
+# cur.close()
+# conn.close()
