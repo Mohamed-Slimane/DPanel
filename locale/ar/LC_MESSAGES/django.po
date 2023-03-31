@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dever stoke\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-28 21:50+0100\n"
+"POT-Creation-Date: 2023-03-29 16:29+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,63 +15,67 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: .\djpanel\models.py:6
+#: .\dpanel\models.py:6
 msgid "Serial"
 msgstr "الرقم التسلسي"
 
-#: .\djpanel\models.py:7 .\templates\app\list.html:5
+#: .\dpanel\models.py:7 .\templates\app\list.html:5
 msgid "Name"
 msgstr "الإسم"
 
-#: .\djpanel\models.py:8 .\templates\app\list.html:6
+#: .\dpanel\models.py:8 .\templates\app\list.html:6
 msgid "Domain"
 msgstr "الدومين"
 
-#: .\djpanel\models.py:9 .\templates\app\list.html:7
+#: .\dpanel\models.py:9 .\templates\app\list.html:7
 msgid "Port"
 msgstr "البوابة"
 
-#: .\djpanel\models.py:10 .\templates\app\list.html:8
+#: .\dpanel\models.py:10 .\templates\app\list.html:8
 msgid "Path"
 msgstr "المسار"
 
-#: .\djpanel\models.py:11
-msgid "Startup path"
-msgstr "مسار بدء التشغيل"
+#: .\dpanel\models.py:11
+msgid "Uwsgi path"
+msgstr "مسار Uwsgi"
 
-#: .\djpanel\models.py:12
+#: .\dpanel\models.py:11
+msgid "The folder that contains the wsgi.py file, for example: (mayproject)"
+msgstr "المجلد الذي يحتوي على ملف wsgi.py ، على سبيل المثال: (mayproject)"
+
+#: .\dpanel\models.py:12
 msgid "Environment Path"
 msgstr "مسار البيئة الإفتراضية"
 
-#: .\djpanel\models.py:13
+#: .\dpanel\models.py:13
 msgid "Nginx config"
 msgstr "التكوين"
 
-#: .\djpanel\models.py:14
+#: .\dpanel\models.py:14
 msgid "Uwsgi config"
 msgstr "تكوين Uwsgi"
 
-#: .\djpanel\models.py:15
+#: .\dpanel\models.py:15
 msgid "Force HTTPS"
 msgstr "فرض HTTPS"
 
-#: .\djpanel\models.py:16
+#: .\dpanel\models.py:16
 msgid "Activated"
 msgstr "مفعل"
 
-#: .\djpanel\views.py:48
+#: .\dpanel\views.py:48
 msgid "App successfully created"
 msgstr "تم إنشاء التطبيق بنجاح"
 
-#: .\djpanel\views.py:51
+#: .\dpanel\views.py:51
 msgid "Form validation error"
 msgstr "خطأ في التحقق من صحة النموذج"
 
-#: .\djpanel\views.py:68
+#: .\dpanel\views.py:68
 msgid "App configuration updated successfully"
 msgstr "تم تحديث تكوين التطبيق بنجاح"
 
-#: .\djpanel\views.py:70
+#: .\dpanel\views.py:70
 msgid "Error in updating django_app configuration"
 msgstr "خطأ في تحديث تكوين النطاق"
 
@@ -84,7 +88,7 @@ msgid "English"
 msgstr "الإنجليزية"
 
 #: .\templates\app\apps.html:4 .\templates\app\config.html:6
-#: .\templates\header.html:5
+#: .\templates\header.html:6
 msgid "Apps"
 msgstr "التطبيقات"
 
@@ -92,9 +96,10 @@ msgstr "التطبيقات"
 msgid "All apps"
 msgstr "جميع التطبيقات"
 
-#: .\templates\app\apps.html:9
-msgid "New"
-msgstr "جديد"
+#: .\templates\app\apps.html:9 .\templates\app\new.html:4
+#: .\templates\app\new.html:5
+msgid "New app"
+msgstr "تطبيق جديد"
 
 #: .\templates\app\apps.html:20
 msgid "You have no apps yet"
@@ -104,8 +109,7 @@ msgstr "ليس لديك أي تطبيقات بعد"
 msgid "App"
 msgstr "تطبيق"
 
-#: .\templates\app\config.html:15 .\templates\app\new.html:16
-#: .\templates\registration\login.html:16
+#: .\templates\app\config.html:15
 msgid "Submit"
 msgstr "إرسال"
 
@@ -117,7 +121,7 @@ msgstr "البيئة"
 msgid "HTTPS"
 msgstr "HTTPS"
 
-#: .\templates\app\list.html:36
+#: .\templates\app\list.html:36 .\templates\app\list.html:57
 msgid "Delete"
 msgstr "حذف"
 
@@ -125,34 +129,432 @@ msgstr "حذف"
 msgid "Config"
 msgstr "تهيئة"
 
-#: .\templates\app\new.html:4 .\templates\app\new.html:5
-msgid "New app"
-msgstr "تطبيق جديد"
+#: .\templates\app\list.html:54
+msgid "Are you sure to delete this application?"
+msgstr "هل أنت متأكد أنك تريد حذف هاذا التطبيق؟"
 
-#: .\templates\base.html:58
+#: .\templates\app\list.html:55
+msgid "This risk cannot be reversed."
+msgstr "لا يمكن التراجع عن هذه الخطوة."
+
+#: .\templates\app\list.html:58
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: .\templates\app\new.html:15
+msgid "Create"
+msgstr "إنشاء"
+
+#: .\templates\base.html:61
 msgid "All rights reserved"
 msgstr "جميع الحقوق محفوظة"
 
-#: .\templates\base.html:85
+#: .\templates\base.html:89
 msgid "Text copied"
 msgstr "تم نسخ الرابط"
 
-#: .\templates\header.html:6
+#: .\templates\header.html:7
 msgid "SSL"
 msgstr "إتصال آمن"
 
-#: .\templates\header.html:7
+#: .\templates\header.html:8
 msgid "Databases"
 msgstr "قواعد بيانات"
 
-#: .\templates\header.html:8
+#: .\templates\header.html:9
 msgid "Language"
 msgstr "اللغة"
 
-#: .\templates\header.html:35 .\templates\registration\login.html:4
-#: .\templates\registration\login.html:5
+#: .\templates\header.html:36
+msgid "Logout"
+msgstr "تسجيل الخروج"
+
+#: .\templates\header.html:44 .\templates\registration\login.html:4
+#: .\templates\registration\login.html:5 .\templates\registration\login.html:14
 msgid "Login"
 msgstr "دخول"
+
+#~ msgid "Messages"
+#~ msgstr "الرسائل"
+
+#, fuzzy
+#~| msgid "Statistics"
+#~ msgid "Static Files"
+#~ msgstr "الإحصائيات"
+
+#, fuzzy
+#~| msgid "Edit vacation"
+#~ msgid "Syndication"
+#~ msgstr "تعديل الإجازة"
+
+#, fuzzy
+#~| msgid "Please enter your email address"
+#~ msgid "Enter a valid value."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#, fuzzy
+#~| msgid "Please enter your email address"
+#~ msgid "Enter a valid URL."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#, fuzzy
+#~| msgid "Please enter your email address"
+#~ msgid "Enter a valid integer."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#, fuzzy
+#~| msgid "Please enter your email address"
+#~ msgid "Enter a valid email address."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#, fuzzy
+#~| msgid "Please enter your email address"
+#~ msgid "Enter a valid IPv4 address."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#, fuzzy
+#~| msgid "Please enter your email address"
+#~ msgid "Enter a valid IPv6 address."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#, fuzzy
+#~| msgid "Please enter your email address"
+#~ msgid "Enter a valid IPv4 or IPv6 address."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#, fuzzy
+#~| msgid "Account number"
+#~ msgid "Enter a number."
+#~ msgstr "رقم الحساب"
+
+#, fuzzy
+#~| msgid "Brand"
+#~ msgid "and"
+#~ msgstr "ماركة"
+
+#, fuzzy
+#~| msgid "December"
+#~ msgid "Decimal number"
+#~ msgstr "ديسمبر"
+
+#, fuzzy
+#~| msgid "Quotation"
+#~ msgid "Duration"
+#~ msgstr "عرض أسعار"
+
+#, fuzzy
+#~| msgid "email address"
+#~ msgid "Email address"
+#~ msgstr "الإيميل"
+
+#, fuzzy
+#~| msgid "email address"
+#~ msgid "IPv4 address"
+#~ msgstr "الإيميل"
+
+#, fuzzy
+#~| msgid "Address"
+#~ msgid "IP address"
+#~ msgstr "العنوان"
+
+#~ msgid "URL"
+#~ msgstr "الرابط"
+
+#, fuzzy
+#~| msgid "All users"
+#~ msgid "File"
+#~ msgstr "جميع المستخدمين"
+
+#~ msgid "Image"
+#~ msgstr "الصورة"
+
+#, fuzzy
+#~| msgid "Please enter your email address"
+#~ msgid "Value must be valid JSON."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#, fuzzy
+#~| msgid "Account number"
+#~ msgid "Enter a whole number."
+#~ msgstr "رقم الحساب"
+
+#, fuzzy
+#~| msgid "Please enter your email address"
+#~ msgid "Enter a valid date."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#, fuzzy
+#~| msgid "Please enter your email address"
+#~ msgid "Enter a valid time."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#, fuzzy
+#~| msgid "Please enter your email address"
+#~ msgid "Enter a valid date/time."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#, fuzzy
+#~| msgid "Please enter your email address"
+#~ msgid "Enter a valid duration."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#, fuzzy
+#~| msgid "Please enter your email address"
+#~ msgid "Enter a list of values."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#, fuzzy
+#~| msgid "Please enter your email address"
+#~ msgid "Enter a complete value."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#, fuzzy
+#~| msgid "Please enter your email address"
+#~ msgid "Enter a valid UUID."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#, fuzzy
+#~| msgid "Please enter your email address"
+#~ msgid "Enter a valid JSON."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#, fuzzy, python-format
+#~| msgid "Please check the data provided"
+#~ msgid "Please correct the duplicate data for %(field)s."
+#~ msgstr "يرجى التحقق من البيانات المقدمة"
+
+#, fuzzy, python-format
+#~| msgid "Please check the data provided"
+#~ msgid ""
+#~ "Please correct the duplicate data for %(field)s, which must be unique."
+#~ msgstr "يرجى التحقق من البيانات المقدمة"
+
+#, fuzzy, python-format
+#~| msgid "Please check the data provided"
+#~ msgid ""
+#~ "Please correct the duplicate data for %(field_name)s which must be unique "
+#~ "for the %(lookup)s in %(date_field)s."
+#~ msgstr "يرجى التحقق من البيانات المقدمة"
+
+#, fuzzy
+#~| msgid "Please check the data provided"
+#~ msgid "Please correct the duplicate values below."
+#~ msgstr "يرجى التحقق من البيانات المقدمة"
+
+#, fuzzy, python-format
+#~| msgid "Please enter your email address"
+#~ msgid "“%(pk)s” is not a valid value."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#, fuzzy
+#~| msgid "Currency"
+#~ msgid "Currently"
+#~ msgstr "العملة"
+
+#~ msgid "Unknown"
+#~ msgstr "غير معروف"
+
+#, fuzzy
+#~| msgid "Month"
+#~ msgid "Mon"
+#~ msgstr "الشهر"
+
+#, fuzzy
+#~| msgid "Due"
+#~ msgid "Tue"
+#~ msgstr "الإستحقاق"
+
+#, fuzzy
+#~| msgid "Due"
+#~ msgid "Thu"
+#~ msgstr "الإستحقاق"
+
+#, fuzzy
+#~| msgid "State"
+#~ msgid "Sat"
+#~ msgstr "الولاية (المدينة)"
+
+#~ msgid "January"
+#~ msgstr "جانفي"
+
+#~ msgid "February"
+#~ msgstr "فيفري"
+
+#~ msgid "March"
+#~ msgstr "مارس"
+
+#~ msgid "April"
+#~ msgstr "افريل"
+
+#~ msgid "May"
+#~ msgstr "ماي"
+
+#~ msgid "June"
+#~ msgstr "جوان"
+
+#~ msgid "July"
+#~ msgstr "جويلية"
+
+#~ msgid "August"
+#~ msgstr "أوت"
+
+#~ msgid "September"
+#~ msgstr "سبتمبر"
+
+#~ msgid "October"
+#~ msgstr "أكتوبر"
+
+#~ msgid "November"
+#~ msgstr "نوفمبر"
+
+#~ msgid "December"
+#~ msgstr "ديسمبر"
+
+#, fuzzy
+#~| msgid "Brand"
+#~ msgid "jan"
+#~ msgstr "ماركة"
+
+#, fuzzy
+#~| msgid "May"
+#~ msgid "mar"
+#~ msgstr "ماي"
+
+#, fuzzy
+#~| msgid "May"
+#~ msgid "apr"
+#~ msgstr "ماي"
+
+#, fuzzy
+#~| msgid "May"
+#~ msgid "may"
+#~ msgstr "ماي"
+
+#, fuzzy
+#~| msgid "Brand"
+#~ msgid "jun"
+#~ msgstr "ماركة"
+
+#, fuzzy
+#~| msgid "Product"
+#~ msgid "oct"
+#~ msgstr "منتج"
+
+#, fuzzy
+#~| msgid "March"
+#~ msgctxt "abbrev. month"
+#~ msgid "March"
+#~ msgstr "مارس"
+
+#, fuzzy
+#~| msgid "April"
+#~ msgctxt "abbrev. month"
+#~ msgid "April"
+#~ msgstr "افريل"
+
+#, fuzzy
+#~| msgid "May"
+#~ msgctxt "abbrev. month"
+#~ msgid "May"
+#~ msgstr "ماي"
+
+#, fuzzy
+#~| msgid "June"
+#~ msgctxt "abbrev. month"
+#~ msgid "June"
+#~ msgstr "جوان"
+
+#, fuzzy
+#~| msgid "July"
+#~ msgctxt "abbrev. month"
+#~ msgid "July"
+#~ msgstr "جويلية"
+
+#, fuzzy
+#~| msgid "January"
+#~ msgctxt "alt. month"
+#~ msgid "January"
+#~ msgstr "جانفي"
+
+#, fuzzy
+#~| msgid "February"
+#~ msgctxt "alt. month"
+#~ msgid "February"
+#~ msgstr "فيفري"
+
+#, fuzzy
+#~| msgid "March"
+#~ msgctxt "alt. month"
+#~ msgid "March"
+#~ msgstr "مارس"
+
+#, fuzzy
+#~| msgid "April"
+#~ msgctxt "alt. month"
+#~ msgid "April"
+#~ msgstr "افريل"
+
+#, fuzzy
+#~| msgid "May"
+#~ msgctxt "alt. month"
+#~ msgid "May"
+#~ msgstr "ماي"
+
+#, fuzzy
+#~| msgid "June"
+#~ msgctxt "alt. month"
+#~ msgid "June"
+#~ msgstr "جوان"
+
+#, fuzzy
+#~| msgid "July"
+#~ msgctxt "alt. month"
+#~ msgid "July"
+#~ msgstr "جويلية"
+
+#, fuzzy
+#~| msgid "August"
+#~ msgctxt "alt. month"
+#~ msgid "August"
+#~ msgstr "أوت"
+
+#, fuzzy
+#~| msgid "September"
+#~ msgctxt "alt. month"
+#~ msgid "September"
+#~ msgstr "سبتمبر"
+
+#, fuzzy
+#~| msgid "October"
+#~ msgctxt "alt. month"
+#~ msgid "October"
+#~ msgstr "أكتوبر"
+
+#, fuzzy
+#~| msgid "November"
+#~ msgctxt "alt. month"
+#~ msgid "November"
+#~ msgstr "نوفمبر"
+
+#, fuzzy
+#~| msgid "December"
+#~ msgctxt "alt. month"
+#~ msgid "December"
+#~ msgstr "ديسمبر"
+
+#, fuzzy
+#~| msgid "Please enter your email address"
+#~ msgid "This is not a valid IPv6 address."
+#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
+
+#~ msgid "or"
+#~ msgstr "أو"
+
+#~ msgid "Startup path"
+#~ msgstr "مسار بدء التشغيل"
+
+#~ msgid "New"
+#~ msgstr "جديد"
 
 #~ msgid "Username must be less than {} characters"
 #~ msgstr "يجب أن يكون اسم المستخدم أقل من {} أحرف"
@@ -436,11 +838,6 @@ msgstr "دخول"
 #~ msgid "New domain"
 #~ msgstr "نطاق جديد"
 
-#, fuzzy
-#~| msgid "All users"
-#~ msgid "All Files"
-#~ msgstr "جميع المستخدمين"
-
 #~ msgid "Save"
 #~ msgstr "حفظ"
 
@@ -452,9 +849,6 @@ msgstr "دخول"
 
 #~ msgid "Profile"
 #~ msgstr "الملف الشخصي"
-
-#~ msgid "Logout"
-#~ msgstr "تسجيل الخروج"
 
 #~ msgid "Administration"
 #~ msgstr "الإدارة"
@@ -606,352 +1000,6 @@ msgstr "دخول"
 #~ msgid "Hide disabled users"
 #~ msgstr "إخفاء المستخدمين المعطلين"
 
-#~ msgid "Messages"
-#~ msgstr "الرسائل"
-
-#, fuzzy
-#~| msgid "Statistics"
-#~ msgid "Static Files"
-#~ msgstr "الإحصائيات"
-
-#, fuzzy
-#~| msgid "Edit vacation"
-#~ msgid "Syndication"
-#~ msgstr "تعديل الإجازة"
-
-#, fuzzy
-#~| msgid "Please enter your email address"
-#~ msgid "Enter a valid value."
-#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
-
-#, fuzzy
-#~| msgid "Please enter your email address"
-#~ msgid "Enter a valid URL."
-#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
-
-#, fuzzy
-#~| msgid "Please enter your email address"
-#~ msgid "Enter a valid integer."
-#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
-
-#, fuzzy
-#~| msgid "Please enter your email address"
-#~ msgid "Enter a valid email address."
-#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
-
-#, fuzzy
-#~| msgid "Please enter your email address"
-#~ msgid "Enter a valid IPv4 address."
-#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
-
-#, fuzzy
-#~| msgid "Please enter your email address"
-#~ msgid "Enter a valid IPv6 address."
-#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
-
-#, fuzzy
-#~| msgid "Please enter your email address"
-#~ msgid "Enter a valid IPv4 or IPv6 address."
-#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
-
-#, fuzzy
-#~| msgid "Account number"
-#~ msgid "Enter a number."
-#~ msgstr "رقم الحساب"
-
-#, fuzzy
-#~| msgid "Brand"
-#~ msgid "and"
-#~ msgstr "ماركة"
-
-#, fuzzy
-#~| msgid "December"
-#~ msgid "Decimal number"
-#~ msgstr "ديسمبر"
-
-#, fuzzy
-#~| msgid "Quotation"
-#~ msgid "Duration"
-#~ msgstr "عرض أسعار"
-
-#, fuzzy
-#~| msgid "email address"
-#~ msgid "Email address"
-#~ msgstr "الإيميل"
-
-#, fuzzy
-#~| msgid "email address"
-#~ msgid "IPv4 address"
-#~ msgstr "الإيميل"
-
-#, fuzzy
-#~| msgid "Address"
-#~ msgid "IP address"
-#~ msgstr "العنوان"
-
-#~ msgid "URL"
-#~ msgstr "الرابط"
-
-#~ msgid "Image"
-#~ msgstr "الصورة"
-
-#, fuzzy
-#~| msgid "Account number"
-#~ msgid "Enter a whole number."
-#~ msgstr "رقم الحساب"
-
-#, fuzzy
-#~| msgid "Please enter your email address"
-#~ msgid "Enter a valid date."
-#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
-
-#, fuzzy
-#~| msgid "Please enter your email address"
-#~ msgid "Enter a valid time."
-#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
-
-#, fuzzy
-#~| msgid "Please enter your email address"
-#~ msgid "Enter a valid date/time."
-#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
-
-#, fuzzy
-#~| msgid "Please enter your email address"
-#~ msgid "Enter a valid duration."
-#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
-
-#, fuzzy
-#~| msgid "Please enter your email address"
-#~ msgid "Enter a list of values."
-#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
-
-#, fuzzy
-#~| msgid "Please enter your email address"
-#~ msgid "Enter a valid UUID."
-#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
-
-#, fuzzy
-#~| msgid "Please enter your email address"
-#~ msgid "Enter a valid JSON."
-#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
-
-#, fuzzy, python-format
-#~| msgid "Please check the data provided"
-#~ msgid "Please correct the duplicate data for %(field)s."
-#~ msgstr "يرجى التحقق من البيانات المقدمة"
-
-#, fuzzy, python-format
-#~| msgid "Please check the data provided"
-#~ msgid ""
-#~ "Please correct the duplicate data for %(field)s, which must be unique."
-#~ msgstr "يرجى التحقق من البيانات المقدمة"
-
-#, fuzzy, python-format
-#~| msgid "Please check the data provided"
-#~ msgid ""
-#~ "Please correct the duplicate data for %(field_name)s which must be unique "
-#~ "for the %(lookup)s in %(date_field)s."
-#~ msgstr "يرجى التحقق من البيانات المقدمة"
-
-#, fuzzy
-#~| msgid "Please check the data provided"
-#~ msgid "Please correct the duplicate values below."
-#~ msgstr "يرجى التحقق من البيانات المقدمة"
-
-#, fuzzy
-#~| msgid "Currency"
-#~ msgid "Currently"
-#~ msgstr "العملة"
-
-#~ msgid "Unknown"
-#~ msgstr "غير معروف"
-
-#, fuzzy
-#~| msgid "Month"
-#~ msgid "Mon"
-#~ msgstr "الشهر"
-
-#, fuzzy
-#~| msgid "Due"
-#~ msgid "Tue"
-#~ msgstr "الإستحقاق"
-
-#, fuzzy
-#~| msgid "Due"
-#~ msgid "Thu"
-#~ msgstr "الإستحقاق"
-
-#, fuzzy
-#~| msgid "State"
-#~ msgid "Sat"
-#~ msgstr "الولاية (المدينة)"
-
-#~ msgid "January"
-#~ msgstr "جانفي"
-
-#~ msgid "February"
-#~ msgstr "فيفري"
-
-#~ msgid "March"
-#~ msgstr "مارس"
-
-#~ msgid "April"
-#~ msgstr "افريل"
-
-#~ msgid "May"
-#~ msgstr "ماي"
-
-#~ msgid "June"
-#~ msgstr "جوان"
-
-#~ msgid "July"
-#~ msgstr "جويلية"
-
-#~ msgid "August"
-#~ msgstr "أوت"
-
-#~ msgid "September"
-#~ msgstr "سبتمبر"
-
-#~ msgid "October"
-#~ msgstr "أكتوبر"
-
-#~ msgid "November"
-#~ msgstr "نوفمبر"
-
-#~ msgid "December"
-#~ msgstr "ديسمبر"
-
-#, fuzzy
-#~| msgid "Brand"
-#~ msgid "jan"
-#~ msgstr "ماركة"
-
-#, fuzzy
-#~| msgid "May"
-#~ msgid "mar"
-#~ msgstr "ماي"
-
-#, fuzzy
-#~| msgid "May"
-#~ msgid "may"
-#~ msgstr "ماي"
-
-#, fuzzy
-#~| msgid "Product"
-#~ msgid "oct"
-#~ msgstr "منتج"
-
-#, fuzzy
-#~| msgid "March"
-#~ msgctxt "abbrev. month"
-#~ msgid "March"
-#~ msgstr "مارس"
-
-#, fuzzy
-#~| msgid "April"
-#~ msgctxt "abbrev. month"
-#~ msgid "April"
-#~ msgstr "افريل"
-
-#, fuzzy
-#~| msgid "May"
-#~ msgctxt "abbrev. month"
-#~ msgid "May"
-#~ msgstr "ماي"
-
-#, fuzzy
-#~| msgid "June"
-#~ msgctxt "abbrev. month"
-#~ msgid "June"
-#~ msgstr "جوان"
-
-#, fuzzy
-#~| msgid "July"
-#~ msgctxt "abbrev. month"
-#~ msgid "July"
-#~ msgstr "جويلية"
-
-#, fuzzy
-#~| msgid "January"
-#~ msgctxt "alt. month"
-#~ msgid "January"
-#~ msgstr "جانفي"
-
-#, fuzzy
-#~| msgid "February"
-#~ msgctxt "alt. month"
-#~ msgid "February"
-#~ msgstr "فيفري"
-
-#, fuzzy
-#~| msgid "March"
-#~ msgctxt "alt. month"
-#~ msgid "March"
-#~ msgstr "مارس"
-
-#, fuzzy
-#~| msgid "April"
-#~ msgctxt "alt. month"
-#~ msgid "April"
-#~ msgstr "افريل"
-
-#, fuzzy
-#~| msgid "May"
-#~ msgctxt "alt. month"
-#~ msgid "May"
-#~ msgstr "ماي"
-
-#, fuzzy
-#~| msgid "June"
-#~ msgctxt "alt. month"
-#~ msgid "June"
-#~ msgstr "جوان"
-
-#, fuzzy
-#~| msgid "July"
-#~ msgctxt "alt. month"
-#~ msgid "July"
-#~ msgstr "جويلية"
-
-#, fuzzy
-#~| msgid "August"
-#~ msgctxt "alt. month"
-#~ msgid "August"
-#~ msgstr "أوت"
-
-#, fuzzy
-#~| msgid "September"
-#~ msgctxt "alt. month"
-#~ msgid "September"
-#~ msgstr "سبتمبر"
-
-#, fuzzy
-#~| msgid "October"
-#~ msgctxt "alt. month"
-#~ msgid "October"
-#~ msgstr "أكتوبر"
-
-#, fuzzy
-#~| msgid "November"
-#~ msgctxt "alt. month"
-#~ msgid "November"
-#~ msgstr "نوفمبر"
-
-#, fuzzy
-#~| msgid "December"
-#~ msgctxt "alt. month"
-#~ msgid "December"
-#~ msgstr "ديسمبر"
-
-#, fuzzy
-#~| msgid "Please enter your email address"
-#~ msgid "This is not a valid IPv6 address."
-#~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
-
-#~ msgid "or"
-#~ msgstr "أو"
-
 #~ msgid "Email is not available"
 #~ msgstr "الإيميل غير صالح"
 
@@ -966,1263 +1014,3 @@ msgstr "دخول"
 
 #~ msgid "New member registered in Robostock"
 #~ msgstr "عضو جديد مسجل في Robostock"
-
-#~ msgid "Please fill all fields"
-#~ msgstr "يرجى ملئ جميع الحقول المطلوبة"
-
-#~ msgid "username"
-#~ msgstr "إسم المستخدم"
-
-#~ msgid ""
-#~ "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
-#~ msgstr "مطلوب. 150 حرفًا أو أقل. أحرف وأرقام و @ /. / + / - / _ فقط."
-
-#~ msgid "A user with that username already exists."
-#~ msgstr "اسم المستخدم موجود مسبقا."
-
-#~ msgid "first name"
-#~ msgstr "الإسم الأول"
-
-#~ msgid "last name"
-#~ msgstr "الإسم الأخير"
-
-#~ msgid "Superuser status"
-#~ msgstr "حالة المستخدم المتميز"
-
-#~ msgid ""
-#~ "Designates that this user has all permissions without explicitly "
-#~ "assigning them."
-#~ msgstr "يعيّن أن هذا المستخدم لديه كافة الأذونات دون تعيينها بشكل صريح."
-
-#~ msgid "staff status"
-#~ msgstr "وضع الموظفين"
-
-#~ msgid "Designates whether the user can log into this admin site."
-#~ msgstr "يحدد ما إذا كان يمكن للمستخدم تسجيل الدخول إلى موقع المسؤول هذا."
-
-#~ msgid "active"
-#~ msgstr "نشط"
-
-#~ msgid ""
-#~ "Designates whether this user should be treated as active. Unselect this "
-#~ "instead of deleting accounts."
-#~ msgstr ""
-#~ "يحدد ما إذا كان يجب معاملة هذا المستخدم على أنه نشط أم لا. قم بإلغاء "
-#~ "تحديد هذا بدلاً من حذف الحسابات."
-
-#~ msgid "Avatar"
-#~ msgstr "الأفاتار"
-
-#~ msgid "The profile picture of the account"
-#~ msgstr "الصورة الشخصية للحساب"
-
-#~ msgid "date joined"
-#~ msgstr "تاريخ الإنضمام"
-
-#~ msgid "user"
-#~ msgstr "مستخدم جديد"
-
-#~ msgid "users"
-#~ msgstr "المستخدمون"
-
-#~ msgid "User can view"
-#~ msgstr "يمكن للمستخدم العرض"
-
-#~ msgid "User can add"
-#~ msgstr "يمكن للمستخدم الإضافة"
-
-#~ msgid "User can edit"
-#~ msgstr "يمكن للمستخدم التحرير"
-
-#~ msgid "User can delete"
-#~ msgstr "يمكن للمستخدم الحذف"
-
-#~ msgid "You dont have permission to access"
-#~ msgstr "ليس لديك إذن للوصول"
-
-#~ msgid "Your account is already activated"
-#~ msgstr "حسابك مفعل بالفعل"
-
-#~ msgid ""
-#~ "You already have an order waiting for confirmation. Please try again 30 "
-#~ "minutes after the last email confirmation request."
-#~ msgstr ""
-#~ "لديك بالفعل طلب ينتظر التأكيد. يرجى المحاولة مرة أخرى بعد 30 دقيقة من آخر "
-#~ "طلب تأكيد بالبريد الإلكتروني."
-
-#~ msgid "{} {} - account confirmation"
-#~ msgstr "{} {} - تأكيد الحساب"
-
-#~ msgid "A confirmation link was sent to your account email"
-#~ msgstr "تم إرسال رابط تأكيد إلى البريد الإلكتروني لحسابك"
-
-#~ msgid "Complete your profile"
-#~ msgstr "أكمل ملفك الشخصي"
-
-#~ msgid "Unknown error"
-#~ msgstr "خطأ غير معروف"
-
-#~ msgid "This account is already activated ,This link has expired"
-#~ msgstr "تم تنشيط هذا الحساب بالفعل ، انتهت صلاحية هذا الرابط"
-
-#~ msgid "Your email confirmed successfully"
-#~ msgstr "تم تأكيد بريدك الإلكتروني بنجاح"
-
-#~ msgid "Email confirmation failed"
-#~ msgstr "فشل في تأكيد البريد الإلكتروني"
-
-#~ msgid "Head menu"
-#~ msgstr "قائمة الرأس"
-
-#~ msgid "Footer"
-#~ msgstr "الفوتر"
-
-#~ msgid "Side"
-#~ msgstr "جانبية"
-
-#~ msgid "Publish"
-#~ msgstr "منشور"
-
-#~ msgid "Private"
-#~ msgstr "خاص"
-
-#~ msgid "Draft"
-#~ msgstr "مسودة"
-
-#~ msgid "Pending"
-#~ msgstr "معلق"
-
-#~ msgid "Home header"
-#~ msgstr "رأس الرئيسية"
-
-#~ msgid "Home footer"
-#~ msgstr "تذييل الرئيسية"
-
-#~ msgid "Footer header"
-#~ msgstr "رأس الفوتر"
-
-#~ msgid "Title"
-#~ msgstr "العنوان"
-
-#~ msgid "Slug"
-#~ msgstr "الاسم اللطيف"
-
-#~ msgid "Description"
-#~ msgstr "الوصف"
-
-#~ msgid "Content"
-#~ msgstr "المحتوى"
-
-#~ msgid "Views"
-#~ msgstr "المشاهدات"
-
-#~ msgid "Category"
-#~ msgstr "تصنيف"
-
-#~ msgid "Characters of subdomain must be more than {}"
-#~ msgstr "يجب أن تكون أحرف النطاق الفرعي أكثر من {}"
-
-#~ msgid "Domain is not available"
-#~ msgstr "الدمين غير متوفر"
-
-#~ msgid "You have reached the maximum number. You cannot add more workspaces"
-#~ msgstr "وصلت للحد الأقصى لا يمكنك إضافة أكثر المزيد من مساحات العمل"
-
-#~ msgid "Characters of name must be more than {}"
-#~ msgstr "يجب أن تكون أحرف الاسم أكثر من {}"
-
-#~ msgid "Your space created successfully"
-#~ msgstr "تم إنشاء مساحتك بنجاح"
-
-#~ msgid "Space created"
-#~ msgstr "تم إنشاء المساحة"
-
-#~ msgid "Space updated"
-#~ msgstr "تم تحديث المساحة"
-
-#~ msgid "form invalid"
-#~ msgstr "النموذج غير صحيح"
-
-#~ msgid "Images only can upload"
-#~ msgstr "يمكن رفع الصور فقط"
-
-#~ msgid "Balance"
-#~ msgstr "الرصيد"
-
-#~ msgid "You cannot delete the wallet if there is a balance in it"
-#~ msgstr "لا يمكنك حذف المحفظة إذا كان بها رصيد"
-
-#~ msgid "Wallet deleted successfully"
-#~ msgstr "تم حذف المحفظة بنجاح"
-
-#~ msgid "Barcode"
-#~ msgstr "الباركود"
-
-#~ msgid "Reference"
-#~ msgstr "الرقم المرجعي"
-
-#~ msgid "Represents the special barcode that you adopt in your store"
-#~ msgstr "يمثل الرمز الشريطي الخاص الذي تعتمده في متجرك"
-
-#~ msgid "Parent product"
-#~ msgstr "المنتج الأب"
-
-#~ msgid ""
-#~ "If the product is a father's product, for example, you sell a box of a "
-#~ "product and sell by the piece"
-#~ msgstr ""
-#~ "إذا كان المنتج منتجًا للأب ، على سبيل المثال ، فإنك تبيع علبة منتج وتبيع "
-#~ "بالقطعة"
-
-#~ msgid "Warehouse"
-#~ msgstr "مستودع"
-
-#~ msgid ""
-#~ "This option will make it easier for you to find a place to store goods if "
-#~ "you have multiple stores"
-#~ msgstr ""
-#~ "سيسهل هذا الخيار عليك العثور على مكان لتخزين البضائع إذا كان لديك العديد "
-#~ "من المتاجر"
-
-#~ msgid "Purchasing price"
-#~ msgstr "سعر الشراء"
-
-#~ msgid ""
-#~ "It is used to calculate the profit margin, you can update it on each sale "
-#~ "if you have purchased quantities at a different price"
-#~ msgstr ""
-#~ "يتم استخدامه لحساب هامش الربح ، يمكنك تحديثه في كل عملية بيع إذا كنت قد "
-#~ "اشتريت كميات بسعر مختلف"
-
-#~ msgid "Price"
-#~ msgstr "السعر"
-
-#~ msgid "Discount"
-#~ msgstr "التخفيض"
-
-#~ msgid "Tax"
-#~ msgstr "الظريبة"
-
-#~ msgid "Tax type"
-#~ msgstr "نوع الظريبة"
-
-#~ msgid "Percent"
-#~ msgstr "نسبه مئويه"
-
-#~ msgid "Fixed"
-#~ msgstr "ثابت"
-
-#~ msgid "Quantity in stock"
-#~ msgstr "الكمية في المخزون"
-
-#~ msgid "Module"
-#~ msgstr "الوحدة"
-
-#~ msgid ""
-#~ "Specify the unit of the product, for example, in kilograms or in pieces"
-#~ msgstr "حدد وحدة المنتج ، على سبيل المثال ، بالكيلوجرام أو بالقطع"
-
-#~ msgid "Pieces"
-#~ msgstr "القطع"
-
-#~ msgid "If the product is a box, you can indicate how much you spend"
-#~ msgstr "إذا كان المنتج عبارة عن صندوق ، فيمكنك تحديد المبلغ الذي تنفقه"
-
-#~ msgid "Minimum sale"
-#~ msgstr "الحد الأدنى للبيع"
-
-#~ msgid ""
-#~ "Determine the minimum quantity allowed to be sold in each transaction"
-#~ msgstr "تحديد الكمية الدنيا المسموح ببيعها في كل معاملة"
-
-#~ msgid "Maximum sale"
-#~ msgstr "الحد الأقصى للبيع"
-
-#~ msgid "Determine the quantity allowed to be sold in each"
-#~ msgstr "حدد الكمية المسموح بيعها في كل منها"
-
-#~ msgid "Alert quantity"
-#~ msgstr "كمية التنبيه"
-
-#~ msgid "Get alerts if the stock quantity reaches a limit"
-#~ msgstr "احصل على تنبيهات إذا وصلت كمية المخزون إلى حد"
-
-#~ msgid "Stock calculator"
-#~ msgstr "حاسبة المخزون"
-
-#~ msgid ""
-#~ "If this feature is activated, the calculation of the available quantity "
-#~ "in each sale will be started"
-#~ msgstr ""
-#~ "إذا تم تنشيط هذه الميزة ، فسيبدأ حساب الكمية المتاحة في كل عملية بيع"
-
-#~ msgid "Product used in sales invoices"
-#~ msgstr "المنتج مستخدم في فواتير المبيعات التالية"
-
-#~ msgid "Product used in purchases invoices"
-#~ msgstr "المنتج المستخدم في فواتير المشتريات التالية"
-
-#~ msgid "Product used in quotations"
-#~ msgstr "المنتج المستخدم في العروض التالية"
-
-#~ msgid "Product deleted successfully"
-#~ msgstr "تم حذف المنتج بنجاح"
-
-#~ msgid "Wallet"
-#~ msgstr "المحفظة"
-
-#~ msgid "Client"
-#~ msgstr "عميل"
-
-#~ msgid "Total amount"
-#~ msgstr "المبلغ الإجمالي"
-
-#~ msgid "Paid amount"
-#~ msgstr "المبلغ المدفوع"
-
-#~ msgid "Deserved amount"
-#~ msgstr "المبلغ المستحق"
-
-#~ msgid "Date"
-#~ msgstr "التاريخ"
-
-#~ msgid "due date"
-#~ msgstr "تاريخ الاستحقاق"
-
-#~ msgid "Notes"
-#~ msgstr "ملاحظات"
-
-#~ msgid "Invoice"
-#~ msgstr "فاتورة"
-
-#~ msgid "Quantity"
-#~ msgstr "الكمية"
-
-#~ msgid "Supplier"
-#~ msgstr "مورد"
-
-#~ msgid "Creditor"
-#~ msgstr "دائن"
-
-#~ msgid "Salary"
-#~ msgstr "الراتب"
-
-#~ msgid "End date"
-#~ msgstr "تاريخ الإنتهاء"
-
-#~ msgid "Current profession"
-#~ msgstr "المهنة الحالية"
-
-#~ msgid "Bank name"
-#~ msgstr "إسم البنك"
-
-#~ msgid "Swift code"
-#~ msgstr "كود السويفت"
-
-#~ msgid "Bank"
-#~ msgstr "البنك"
-
-#~ msgid "Owner name"
-#~ msgstr "إسم المالك"
-
-#~ msgid "Iban"
-#~ msgstr "ايبان"
-
-#~ msgid "Bank account"
-#~ msgstr "الحساب البنكي"
-
-#~ msgid "Payment Date"
-#~ msgstr "تاريخ الدفع"
-
-#~ msgid "The first working day"
-#~ msgstr "أول يوم عمل"
-
-#~ msgid "The last working day"
-#~ msgstr "آخر يوم عمل"
-
-#~ msgid "Cash payment"
-#~ msgstr "دفع نقدا"
-
-#~ msgid "Writing date"
-#~ msgstr "تاريخ الكتابة"
-
-#~ msgid "For month"
-#~ msgstr "لشهر"
-
-#~ msgid "The first vacation day"
-#~ msgstr "أول يوم إجازة"
-
-#~ msgid "The last vacation day"
-#~ msgstr "آخر يوم إجازة"
-
-#~ msgid "Paid vacation"
-#~ msgstr "اجازه مدفوعة"
-
-#~ msgid "Bank {} created successfully"
-#~ msgstr "تم إنشاء البنك {} بنجاح"
-
-#~ msgid "Bank create failed"
-#~ msgstr "فشل إنشاء البنك"
-
-#~ msgid "Bank {} updated successfully"
-#~ msgstr "تم تحديث البنك {} بنجاح"
-
-#~ msgid "Bank update failed"
-#~ msgstr "فشل تحديث البنك"
-
-#~ msgid "Bank deleted successfully"
-#~ msgstr "تم حذف البنك بنجاح"
-
-#~ msgid "Creditor successfully created"
-#~ msgstr "تم تحديث الدائن بنجاح"
-
-#~ msgid "Creditor deleted successfully"
-#~ msgstr "تم حذف الدائن بنجاح"
-
-#~ msgid "Debt {} created successfully"
-#~ msgstr "تم إنشاء الدَيِّنْ {} بنجاح"
-
-#~ msgid "Debt create failed"
-#~ msgstr "فشل إنشاء الدين"
-
-#~ msgid "Debt {} updated successfully"
-#~ msgstr "تم تحديث الدَيِّنْ {} بنجاح"
-
-#~ msgid "Debt update failed"
-#~ msgstr "فشل تحديث الدين"
-
-#~ msgid "Debt deleted successfully"
-#~ msgstr "تم حذف الدين  بنجاح"
-
-#~ msgid "Payment cannot be more than {} {}"
-#~ msgstr "لا يمكن أن تكون الدفعة أكثر من {} {}"
-
-#~ msgid "Payment {} created successfully"
-#~ msgstr "تم إنشاء الدفعة {} بنجاح"
-
-#~ msgid "Payment create failed"
-#~ msgstr "فشل إنشاء الدفعة"
-
-#~ msgid "Payment {} updated successfully"
-#~ msgstr "تم تحديث الدفعة {} بنجاح"
-
-#~ msgid "Payment update failed"
-#~ msgstr "فشل تحديث الدفعة"
-
-#~ msgid "Payment deleted successfully"
-#~ msgstr "تم حذف الدفعة بنجاح"
-
-#~ msgid "Bank account created successfully"
-#~ msgstr "تم إنشاء الحساب المصرفي بنجاح"
-
-#~ msgid "Bank account create failed"
-#~ msgstr "فشل إنشاء الحساب المصرفي"
-
-#~ msgid "Bank account updated successfully"
-#~ msgstr "تم تحديث الحساب المصرفي بنجاح"
-
-#~ msgid "Bank account update failed"
-#~ msgstr "فشل تحديث الحساب المصرفي"
-
-#~ msgid "Account update failed"
-#~ msgstr "فشل تحديث الحساب"
-
-#~ msgid "Profession created successfully"
-#~ msgstr "تم إنشاء المهنة بنجاح"
-
-#~ msgid "Profession create failed"
-#~ msgstr "فشل إنشاء المهنة"
-
-#~ msgid "Profession updated successfully"
-#~ msgstr "تم تحديث المهنة بنجاح"
-
-#~ msgid "Profession update failed"
-#~ msgstr "فشل تحديث المهنة"
-
-#~ msgid "Salary created successfully"
-#~ msgstr "تم إنشاء الراتب بنجاح"
-
-#~ msgid "Salary create failed"
-#~ msgstr "فشل في إنشاء الراتب بنجاح"
-
-#~ msgid "Salary updated successfully"
-#~ msgstr "تم تحديث الراتب بنجاح"
-
-#~ msgid "Salary update failed"
-#~ msgstr "فشل تحديث الراتب"
-
-#~ msgid "Salary deleted successfully"
-#~ msgstr "تم حذف الراتب بنجاح"
-
-#~ msgid "Vacation created successfully"
-#~ msgstr "تم إنشاء الإجازة بنجاح"
-
-#~ msgid "Vacation create failed"
-#~ msgstr "فشل إنشاء الإجازة"
-
-#~ msgid "Vacation update failed"
-#~ msgstr "فشل تحديث الإجازة"
-
-#~ msgid "Vacation deleted successfully"
-#~ msgstr "تم حذف الإجازة بنجاح"
-
-#~ msgid "Employee successfully created"
-#~ msgstr "تم تحديث الموظف بنجاح"
-
-#~ msgid "Employee deleted successfully"
-#~ msgstr "تم حذف الموظف بنجاح"
-
-#~ msgid "Due date"
-#~ msgstr "تاريخ الإستحقاق"
-
-#~ msgid "Deposit date"
-#~ msgstr "تاريخ الإيداع"
-
-#~ msgid "Year"
-#~ msgstr "السنة"
-
-#~ msgid "Invoice updated successfully"
-#~ msgstr "تم تحديث الفاتورة بنجاح"
-
-#~ msgid "Supplier successfully created"
-#~ msgstr "تم إنشاء المورد بنجاح"
-
-#~ msgid "Supplier deleted successfully"
-#~ msgstr "تم حذف المورد بنجاح"
-
-#~ msgid "Invoice successfully created"
-#~ msgstr "تم إنشاء الفاتورة بنجاح"
-
-#~ msgid "Invoice deleted successfully"
-#~ msgstr "تم حذف الفاتورة بنجاح"
-
-#~ msgid "{} have {} {} in stock"
-#~ msgstr "{} يتوفر عل {} قطعة فقط في المخزون"
-
-#~ msgid "Maximum sale of {} is {} {}"
-#~ msgstr "الحد الأقصى لبيع {} هو {} {}"
-
-#~ msgid "Minimum sale of {} is {} {}"
-#~ msgstr "الحد الأدنى لبيع {} هو {} {}"
-
-#~ msgid "Client deleted successfully"
-#~ msgstr "تم حذف العميل بنجاح"
-
-#~ msgid "Please provide the product barcode"
-#~ msgstr "يرجى تقديم الباركود الخاص بالمنتج"
-
-#~ msgid "Product not found in open api"
-#~ msgstr "المنتج غير موجود في Open api"
-
-#~ msgid "Product data found"
-#~ msgstr "تم العثور على بيانات المنتج"
-
-#~ msgid "Brand deleted successfully"
-#~ msgstr "تم حذف العلامة التجارية بنجاح"
-
-#~ msgid "Category deleted successfully"
-#~ msgstr "تم حذف التصنيف بنجاح"
-
-#~ msgid "Product successfully created"
-#~ msgstr "تم إنشاء المنتج"
-
-#~ msgid "Warehouse deleted successfully"
-#~ msgstr "تم حذف المستودع بنجاح"
-
-#~ msgid "Profession {} created successfully"
-#~ msgstr "تم إنشاء المهنة  {} بنجاح"
-
-#~ msgid "Profession {} updated successfully"
-#~ msgstr "تم تحديث المهنة {} بنجاح"
-
-#~ msgid "Profession deleted successfully"
-#~ msgstr "تم حذف المهنة بنجاح"
-
-#~ msgid "Quotation updated successfully"
-#~ msgstr "تم تحديث عرض الأسعار"
-
-#~ msgid "Quotation deleted successfully"
-#~ msgstr "تم حذف العرض بنجاح"
-
-#~ msgid "Wallet {} created successfully"
-#~ msgstr "تم إنشاء المحفظة {} بنجاح"
-
-#~ msgid "Wallet create failed"
-#~ msgstr "فشل في تأكيد البريد الإلكتروني"
-
-#~ msgid "Wallet {} updated successfully"
-#~ msgstr "تم تحديث المحفظة {} بنجاح"
-
-#~ msgid "Wallet update failed"
-#~ msgstr "فشل تحديث المحفظة"
-
-#~ msgid "Registry"
-#~ msgstr "تسجيل"
-
-#~ msgid "Signup"
-#~ msgstr "تسجيل"
-
-#~ msgid "Fill all fields bellow"
-#~ msgstr "املأ جميع الحقول أدناه"
-
-#~ msgid "Confirm password"
-#~ msgstr "تأكيد كلمة المرور"
-
-#~ msgid "Register"
-#~ msgstr "تسجيل"
-
-#~ msgid "Username must be more than 4 characters"
-#~ msgstr "إسم المستخدم يجب أن يكون أكثر من 4 أحرف"
-
-#~ msgid "Order payment canceled"
-#~ msgstr "تم إلغاء دفع الطلب"
-
-#~ msgid "Order payment success"
-#~ msgstr "تم إكمال الطلب بنجاح"
-
-#~ msgid "Pay with paypal"
-#~ msgstr "الدفع عن طريق PayPal"
-
-#~ msgid "Admin panel"
-#~ msgstr "لوحة الادارة"
-
-#~ msgid "Sorry"
-#~ msgstr "نعتذر"
-
-#~ msgid "Comments:"
-#~ msgstr "التعليقات:"
-
-#~ msgid "Comment"
-#~ msgstr "تعليق"
-
-#~ msgid "You must login to comment"
-#~ msgstr "يجب عليك تسجيل الدخول للتعليق"
-
-#~ msgid "Edit comment"
-#~ msgstr "التعليق"
-
-#~ msgid "Reset password"
-#~ msgstr "إعادة تعيين كلمة المرور"
-
-#~ msgid "You dont have account?"
-#~ msgstr "ليس لديك حساب؟"
-
-#~ msgid "You have account?"
-#~ msgstr "لديك حساب؟"
-
-#~ msgid "by"
-#~ msgstr "بواسطة"
-
-#~ msgid "in"
-#~ msgstr "في"
-
-#~ msgid "Blog"
-#~ msgstr "المدونة"
-
-#~ msgid "There is no article published yet"
-#~ msgstr "لا توجد مقالة منشورة  بعد"
-
-#~ msgid "Home"
-#~ msgstr "الرئيسية"
-
-#~ msgid "Factoriom"
-#~ msgstr "فاكتوريوم"
-
-#~ msgid ""
-#~ "A multilingual program to create an integrated system for managing stores "
-#~ "or warehouses and contains several tools to facilitate this"
-#~ msgstr ""
-#~ "برنامج إدارة مبيعات وفواتير متعدد اللغات لإنشاء نظام متكامل لإدارة "
-#~ "المحلات أو المخازن ويحتوى على عدة أدوات لتسهيل هذا"
-
-#~ msgid "All you need in one place"
-#~ msgstr "كل ما تحتاجه في مكان واحد"
-
-#~ msgid "Lets go"
-#~ msgstr "إنطلق"
-
-#~ msgid "Start now"
-#~ msgstr "إبدأ الآن"
-
-#~ msgid "Create space"
-#~ msgstr "إنشاء مساحة"
-
-#~ msgid ""
-#~ "With one step, you can have your own space and run your business instantly"
-#~ msgstr "بخطوة واحدة ، يمكنك الحصول على مساحة خاصة بك وتشغيل عملك على الفور"
-
-#~ msgid "Create"
-#~ msgstr "إنشاء"
-
-#~ msgid "Characters of subdomain must be more than"
-#~ msgstr "يجب أن تكون أحرف النطاق الفرعي أكثر من"
-
-#~ msgid "Characters of name must be more than"
-#~ msgstr "يجب أن تكون أحرف الاسم أكثر من"
-
-#~ msgid "Created date"
-#~ msgstr "تاريخ الإنشاء"
-
-#~ msgid "On trial"
-#~ msgstr "فترة تجريبية"
-
-#~ msgid "till"
-#~ msgstr "حتى"
-
-#~ msgid "Normale"
-#~ msgstr "نورمال"
-
-#~ msgid "Delete article"
-#~ msgstr "حذف المقالة"
-
-#~ msgid "Do you want delete this article"
-#~ msgstr "هل تريد حذف هذه المقالة"
-
-#~ msgid "Cancel"
-#~ msgstr "يلغي"
-
-#~ msgid "Show article"
-#~ msgstr "عرض المقالة"
-
-#~ msgid "Articles"
-#~ msgstr "المقالات"
-
-#~ msgid "Show category"
-#~ msgstr "عرض التصنيف"
-
-#~ msgid "Categories"
-#~ msgstr "التصنيفات"
-
-#~ msgid "Delete category"
-#~ msgstr "حذف التصنيف"
-
-#~ msgid "Do you want delete this category"
-#~ msgstr "هل تريد حذف هذا التصنيف"
-
-#~ msgid "New category"
-#~ msgstr "تصنيف جديد"
-
-#~ msgid "Menus"
-#~ msgstr "القوائم"
-
-#~ msgid "There is no pages yet"
-#~ msgstr "لا توجد صفحات بعد"
-
-#~ msgid "Delete page"
-#~ msgstr "حذف الصفحة"
-
-#~ msgid "Do you want delete this page"
-#~ msgstr "هل تريد حذف هذه الصفحة"
-
-#~ msgid "Show page"
-#~ msgstr "عرض الصفحة"
-
-#~ msgid "New widget"
-#~ msgstr "وودجت جديد"
-
-#~ msgid "Delete widget"
-#~ msgstr "حذف الوودجت"
-
-#~ msgid "Do you want delete this widget"
-#~ msgstr "هل تريد حذف هذا الوودجت"
-
-#~ msgid "Show widget"
-#~ msgstr "عرض الوودجت"
-
-#~ msgid "Widgets"
-#~ msgstr "الوودجت"
-
-#~ msgid "Spaces"
-#~ msgstr "المساحات"
-
-#~ msgid "Number of max spaces per user"
-#~ msgstr "عدد المساحات القصوى لكل مستخدم"
-
-#~ msgid "Space subdomain length"
-#~ msgstr "طول النطاق الفرعي للمساحة"
-
-#~ msgid "Space name length"
-#~ msgstr "طول الإسم للمساحة"
-
-#~ msgid "Search"
-#~ msgstr "بحث"
-
-#~ msgid "Scan barcode"
-#~ msgstr "فحص الباركود"
-
-#~ msgid "write info"
-#~ msgstr "أكتب معلومات"
-
-#~ msgid "Schema name"
-#~ msgstr "اسم المخطط"
-
-#~ msgid "Domain URL"
-#~ msgstr "رابط المجال"
-
-#~ msgid "Owner user"
-#~ msgstr "المستخدم المالك"
-
-#~ msgid "Undefined"
-#~ msgstr "غير محدد"
-
-#~ msgid "New space"
-#~ msgstr "مساحة جديدة"
-
-#~ msgid "Created by"
-#~ msgstr "بواسطة"
-
-#~ msgid "Is trial"
-#~ msgstr "فترة تجريبية"
-
-#~ msgid "Trial expire date"
-#~ msgstr "تاريخ انتهاء الفترة التجريبية"
-
-#~ msgid "Write info"
-#~ msgstr "أكتب معلومات"
-
-#~ msgid "Details"
-#~ msgstr "التفاصيل"
-
-#~ msgid "Roles"
-#~ msgstr "الصلاحيات"
-
-#~ msgid "Viewing"
-#~ msgstr "عرض"
-
-#~ msgid "Adding"
-#~ msgstr "إضافة"
-
-#~ msgid "Editing"
-#~ msgstr "تعديل"
-
-#~ msgid "Deleting"
-#~ msgstr "حذف"
-
-#~ msgid "Products"
-#~ msgstr "المنتجات"
-
-#~ msgid "Brands"
-#~ msgstr "الماركات"
-
-#~ msgid "Warehouses"
-#~ msgstr "المستودعات"
-
-#~ msgid "Invoices"
-#~ msgstr "الفواتير"
-
-#~ msgid "Quotations"
-#~ msgstr "عروض الأسعار"
-
-#~ msgid "Debts"
-#~ msgstr "الديون"
-
-#~ msgid "Wallets"
-#~ msgstr "المحافظ"
-
-#~ msgid "Professions"
-#~ msgstr "المهن"
-
-#~ msgid "Banks"
-#~ msgstr "البنوك"
-
-#~ msgid "Salaries"
-#~ msgstr "الرواتب"
-
-#~ msgid "Vacations"
-#~ msgstr "الاجازات"
-
-#~ msgid "Employee"
-#~ msgstr "الموظف"
-
-#~ msgid "Not set"
-#~ msgstr "غير محدد"
-
-#~ msgid "Summary print"
-#~ msgstr "طباعة الملخص"
-
-#~ msgid "Accounts"
-#~ msgstr "الحسابات"
-
-#~ msgid "No accounts was found"
-#~ msgstr "لم يتم العثور على حسابات"
-
-#~ msgid "New bank"
-#~ msgstr "بنك جديدة"
-
-#~ msgid "APP"
-#~ msgstr "التطبيق"
-
-#~ msgid "You can download our official app soon"
-#~ msgstr "يمكنك تنزيل تطبيقنا الرسمي قريبًا"
-
-#~ msgid ""
-#~ "The platform is currently in the beta version, and you will be able to "
-#~ "access the application updates soon, and we will inform you as soon as "
-#~ "this feature is issued and how to activate it through the packages that "
-#~ "we plan to add in the future, so that you can access the control panel "
-#~ "comfortably when you are away from your office."
-#~ msgstr ""
-#~ "المنصة حاليا في الإصدار التجريبي ستتمكن من الوصول إلى تحديثات التطبيق "
-#~ "قريبا، وسنعلمك فور صدور هاته الخاصية وكيفية تفعيلها عبر الباقات التي نخطط "
-#~ "لإضافتها مستقبلا لتتمكن من الوصول للوحة التحكم بكل أريحية حينما تكون "
-#~ "بعيدا عن مكتبك."
-
-#~ msgid "Save as image"
-#~ msgstr "حفظ كصورة"
-
-#~ msgid "Clients"
-#~ msgstr "العملاء"
-
-#~ msgid "out of"
-#~ msgstr "من أصل"
-
-#~ msgid "Creditors"
-#~ msgstr "الدائنون"
-
-#~ msgid "New debt"
-#~ msgstr "دَينْ جديد"
-
-#~ msgid "Print"
-#~ msgstr "طباعة"
-
-#~ msgid "Total deserved amount"
-#~ msgstr "إجمالي المبلغ المستحق"
-
-#~ msgid "All creditors"
-#~ msgstr "جميع الدائنين"
-
-#~ msgid "Deserved"
-#~ msgstr "مستحق"
-
-#~ msgid "Creditor only"
-#~ msgstr "الدائن فقط"
-
-#~ msgid "Creditor and debts"
-#~ msgstr "الدائن والديون"
-
-#~ msgid "New creditor"
-#~ msgstr "دائن جديد"
-
-#~ msgid "New payment"
-#~ msgstr "دفعة جديدة"
-
-#~ msgid "Full print"
-#~ msgstr "طباعة كاملة"
-
-#~ msgid "Payments"
-#~ msgstr "الدفعات"
-
-#~ msgid "No payments was found"
-#~ msgstr "لم يتم العثور على مدفوعات"
-
-#~ msgid "Done in"
-#~ msgstr "حرر في"
-
-#~ msgid "Paid"
-#~ msgstr "مدفوعة"
-
-#~ msgid "Total"
-#~ msgstr "الإجمالي"
-
-#~ msgid "Double payment"
-#~ msgstr "دفعف مضاعف"
-
-#~ msgid "Partially paid"
-#~ msgstr "مدفوعة جزئيا"
-
-#~ msgid "Not paid"
-#~ msgstr "غير مدفوعة"
-
-#~ msgid "No notes"
-#~ msgstr "لا توجد ملاحظات"
-
-#~ msgid "New payment for debt"
-#~ msgstr "دفعة جديدة للدين"
-
-#~ msgid "Number"
-#~ msgstr "الرقم"
-
-#~ msgid "Edit bank"
-#~ msgstr "تعديل البنك"
-
-#~ msgid "Employees"
-#~ msgstr "الموظفون"
-
-#~ msgid "All employees"
-#~ msgstr "الموظفون"
-
-#~ msgid "Bank accounts"
-#~ msgstr "الحسابات البنكية"
-
-#~ msgid "New employee"
-#~ msgstr "موظف  جديد"
-
-#~ msgid "Edit profession"
-#~ msgstr "تعديل  المهنة"
-
-#~ msgid "From"
-#~ msgstr "من"
-
-#~ msgid "To"
-#~ msgstr "إلى"
-
-#~ msgid "New profession"
-#~ msgstr "مهنة جديدة"
-
-#~ msgid "Back"
-#~ msgstr "عودة"
-
-#~ msgid "Edit salary"
-#~ msgstr "تعديل الراتب"
-
-#~ msgid "New salary"
-#~ msgstr "راتب  جديد"
-
-#~ msgid "Payment method"
-#~ msgstr "وسيلة الدفع"
-
-#~ msgid "Amount"
-#~ msgstr "المبلغ"
-
-#~ msgid "Cash pai"
-#~ msgstr "دفع نقدا"
-
-#~ msgid "Payments number"
-#~ msgstr "عدد الدفعات"
-
-#~ msgid "Payments amount"
-#~ msgstr "مبلغ الدفعات"
-
-#~ msgid "Last payment"
-#~ msgstr "آخر دفعة"
-
-#~ msgid "First payment"
-#~ msgstr "أول دفعة"
-
-#~ msgid "Vacation type"
-#~ msgstr "نوع الاجازة"
-
-#~ msgid "New vacation"
-#~ msgstr "اجازة جديدة"
-
-#~ msgid "Add new"
-#~ msgstr "إضافة جديد"
-
-#~ msgid "Debt"
-#~ msgstr "دين"
-
-#~ msgid "Searching"
-#~ msgstr "بحث"
-
-#~ msgid "Suppliers"
-#~ msgstr "الموردون"
-
-#~ msgid "Edit invoice"
-#~ msgstr "تعديل الفاتورة"
-
-#~ msgid "Missed product or deleted"
-#~ msgstr "المنتج المفقود أو المحذوفة"
-
-#~ msgid "Write something"
-#~ msgstr "أكتب معلومات"
-
-#~ msgid "Error"
-#~ msgstr "خطأ"
-
-#~ msgid "Please check products rows"
-#~ msgstr "الرجاء تحديد المنتجات"
-
-#~ msgid "Updated"
-#~ msgstr "تحديث"
-
-#~ msgid "Not applied"
-#~ msgstr "غير مطبق"
-
-#~ msgid "New invoice"
-#~ msgstr "فاتورة  جديدة"
-
-#~ msgid "Supplier and invoices"
-#~ msgstr "المورد والفواتير"
-
-#~ msgid "New supplier"
-#~ msgstr "مورد جديد"
-
-#~ msgid "Client only"
-#~ msgstr "العميل فقط"
-
-#~ msgid "Client and invoices"
-#~ msgstr "العميل والفواتير"
-
-#~ msgid "New client"
-#~ msgstr "عميل جديد"
-
-#~ msgid "Edit purchasing price"
-#~ msgstr "سعر الشراء"
-
-#~ msgid "No description"
-#~ msgstr "الوصف"
-
-#~ msgid "New brand"
-#~ msgstr "ماركة جديدة"
-
-#~ msgid "Edit product"
-#~ msgstr "تعديل المنتج"
-
-#~ msgid "No products"
-#~ msgstr "لا توجد منتجات"
-
-#~ msgid "Not define"
-#~ msgstr "غير محدد"
-
-#~ msgid "New product"
-#~ msgstr "منتج جديد"
-
-#~ msgid "Metadata"
-#~ msgstr "البيانات"
-
-#~ msgid "Parent"
-#~ msgstr "الأب"
-
-#~ msgid "Storage"
-#~ msgstr "تخزين"
-
-#~ msgid "Enabled"
-#~ msgstr "تمكين"
-
-#~ msgid "New warehouse"
-#~ msgstr "مستودع جديد"
-
-#~ msgid "Password changed successfully"
-#~ msgstr "تم تغيير كلمة المرور بنجاح"
-
-#~ msgid "Change password"
-#~ msgstr "تغيير كلمة المرور"
-
-#~ msgid "Edit quotation"
-#~ msgstr "تعديل العرض"
-
-#~ msgid "Debt payment"
-#~ msgstr "دفعة الدين"
-
-#~ msgid "New wallet"
-#~ msgstr "محفظة  جديدة"
-
-#~ msgid "Total sales"
-#~ msgstr "اجمالي المبيعات"
-
-#~ msgid "Total purchases"
-#~ msgstr "إجمالي المشتريات"
-
-#~ msgid "User is employee"
-#~ msgstr "المستخدم موضف"
-
-#~ msgid "User is not employee"
-#~ msgstr "المستخدم ليس موضفا"
-
-#~ msgid "User is client"
-#~ msgstr "المستخدم عميل"
-
-#~ msgid "User is not client"
-#~ msgstr "المستخدم ليس عميلا"
-
-#~ msgid "User is supplier"
-#~ msgstr "المستخدم مورد"
-
-#~ msgid "User is not supplier"
-#~ msgstr "المستخدم ليس موردا"
-
-#~ msgid "User is creditor"
-#~ msgstr "المستخدم دائن"
-
-#~ msgid "User is not creditor"
-#~ msgstr "المستخدم ليس دائنا"
-
-#~ msgid "Human resources"
-#~ msgstr "الموارد البشرية"
-
-#~ msgid "Employee status"
-#~ msgstr "موظف"
-
-#~ msgid "Employee working for you"
-#~ msgstr "موظف يعمل لديك"
-
-#~ msgid "Client status"
-#~ msgstr "عميل"
-
-#~ msgid "This user will receive invoices from you"
-#~ msgstr "سيستلم هذا المستخدم فواتير من عندك"
-
-#~ msgid "Supplier status"
-#~ msgstr "مورد"
-
-#~ msgid "This user receives invoices from him"
-#~ msgstr "ستستلم فواتير من هذا المستخدم"
-
-#~ msgid "Creditor, you borrowing money from him"
-#~ msgstr "الدائن ، أنت تقترض المال منه"
-
-#~ msgid "User is space"
-#~ msgstr "المستخدم نشط"
-
-#~ msgid "User is not space"
-#~ msgstr "المستخدم غير مفعل"
-
-#~ msgid "Domain must be less than {} characters"
-#~ msgstr "يجب أن يكون إسم الدومين  أقل من {} حرف"
-
-#~ msgid "Domain must be more than {} characters"
-#~ msgstr "إسم الدومين يجب أن يكون أكثر من {} أحرف"
-
-#~ msgid "Characters of name and subdomain must be more than {}"
-#~ msgstr "يجب أن تكون أحرف الاسم والمجال الفرعي أكثر من {}"
-
-#~ msgid "Name must be more than 4 characters"
-#~ msgstr "الإسم يجب أن يكون أكثر من {} أحرف"
-
-#~ msgid "Items"
-#~ msgstr "العناصر"
-
-#~ msgid "You are already have a space"
-#~ msgstr "لديك بالفعل عمليات سحب معلقة"
-
-#~ msgid "Robostock"
-#~ msgstr "روبوستوك"
-
-#~ msgid "French"
-#~ msgstr "فرنسي"
-
-#~ msgid "Log in"
-#~ msgstr "دخول"
-
-#~ msgid "User can new"
-#~ msgstr "يمكن للمستخدم الإضافة"
-
-#~ msgid "Loans"
-#~ msgstr "القروض"
-
-#~ msgid "N°"
-#~ msgstr "رقم"
-
-#~ msgid "Admin"
-#~ msgstr "الإدارة"
-
-#~ msgid "Links"
-#~ msgstr "الروابط"
-
-#~ msgid "Profession"
-#~ msgstr "المهنة"
-
-#~ msgid "Swift"
-#~ msgstr "Swift"
-
-#~ msgid "Banck"
-#~ msgstr "البنك"
-
-#~ msgid "User professions"
-#~ msgstr "مهن المستخدم"
-
-#~ msgid "New payment for"
-#~ msgstr "دفعة جديدة لـ"
-
-#~ msgid "For buy invoices"
-#~ msgstr "لفواتير الشراء"

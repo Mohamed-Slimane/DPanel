@@ -58,11 +58,12 @@
     {% block content %}{% endblock %}
 
     <div class="row mt-4">
-        <div class="col-md text-center text-md-start mb-3">{% translate 'All rights reserved' %} &copy; DJpanel  - {% now 'Y' %}</div>
-        <div class="col-md text-center text-md-end"><b>DJpanel  3.1</b> With <i class="far fa-heart text-danger"></i> proud by Dever </div>
+        <div class="col-md text-center text-md-start mb-3">{% translate 'All rights reserved' %} &copy; DPanel  - {% now 'Y' %}</div>
+        <div class="col-md text-center text-md-end"><b>DPanel  3.1</b> With <i class="far fa-heart text-danger"></i> proud by Dever </div>
     </div>
 </div>
 
+{% include 'inc/preloader.html' %}
 <script src="{% static 'sweetalert2.js' %}"></script>
 <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 

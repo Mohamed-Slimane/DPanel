@@ -32,10 +32,10 @@
             </td>
             <td>{{app.force_https}}</td>
             <td class="text-end">
-                <a href="{% url 'app_delete' app.serial %}" class="btn btn-danger btn-sm rounded-pill">
+                <span class="btn btn-danger btn-sm rounded-pill" onclick="open_link_confirm('{% url 'app_delete' app.serial %}')">
                     {% trans 'Delete' %}
                     <i class="bi bi-trash"></i>
-                </a>
+                </span>
 
                 <a href="{% url 'app_config' app.serial %}" class="btn btn-success btn-sm rounded-pill">
                     {% trans 'Config' %}
@@ -46,3 +46,23 @@
         {% endfor  %}
     </tbody>
 </table>
+
+<script>
+function open_link_confirm(u){
+
+    Swal.fire({
+        title: '{% trans "Are you sure to delete this application?" %}',
+        text: '{% trans "This risk cannot be reversed." %}',
+        showDenyButton: true,
+        confirmButtonText: '{% trans "Delete" %}',
+        denyButtonText: '{% trans "Cancel" %}',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            jQuery('.loading-preloader').show()
+            location.href = u
+        }else if(result.isDenied) {
+            return false
+        }
+    })
+}
+</script>

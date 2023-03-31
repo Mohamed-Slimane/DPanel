@@ -1,0 +1,36 @@
+{% load i18n %}
+{% load static %}
+
+<div class="bg-white border shadow-sm rounded-10 p-3">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{% translate 'Name' %}</th>
+                <th>{% translate 'User' %}</th>
+                <th>{% translate 'Password' %}</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for database in databases %}
+                <tr>
+                    <td>{{database.name}}</td>
+                    <td>{{database.username}}</td>
+                    <td>{{database.password}}</td>
+                    <td>
+                        <a href="" class="btn btn-success btn-sm rounded-pill">
+                            <i class="bi bi-download"></i>
+                            {% trans 'Download' %}
+                        </a>
+                        <a href="{% url 'postgres_database_delete' database.serial %}" class="btn btn-danger btn-sm rounded-pill" onclick="if(!confirm('{% trans 'Do you wand delete!\n This step cannot be undo' %}'))return false;">
+                            <i class="bi bi-trash"></i>
+                            {% trans 'Delete' %}
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

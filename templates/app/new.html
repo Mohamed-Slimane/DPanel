@@ -6,15 +6,20 @@
 
 
 {% block content %}
-<div class="w-100">
-    <form class="row" method="post" enctype="multipart/form-data" >
+<div class="bg-white shadow-sm rounded p-3">
+    <form class="row" method="post">
         {% csrf_token %}
         {% include 'inc/form.html'%}
-        <div>
-            <button type="submit" class="btn btn-primary mt-3">
-                {% translate 'Submit' %}
+        <div class="">
+            <button type="submit" class="btn btn-primary">
+                {% translate 'Create' %}
             </button>
         </div>
     </form>
 </div>
+<script>
+    jQuery('form').submit(function(e){
+        jQuery('.loading-preloader').show()
+    })
+</script>
 {% endblock %}

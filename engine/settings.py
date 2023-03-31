@@ -21,7 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.humanize',
     'widget_tweaks',
-    'djpanel',
+    'dpanel',
 ]
 
 
@@ -59,6 +59,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
+                'dpanel.context.context',
             ],
         },
     },
@@ -69,7 +70,7 @@ WSGI_APPLICATION = 'engine.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'djpanel.db',
+        'NAME': os.path.join(BASE_DIR, "dpanel.db"),
     }
 }
 
@@ -113,10 +114,10 @@ LANGUAGES = [
 ]
 
 LOCALE_PATHS = (
-    'locale/',
+    os.path.join(BASE_DIR, "locale"),
 )
 
-COOKIE_NAME = 'djpanel'
+COOKIE_NAME = 'dpanel'
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'secondary',
@@ -128,6 +129,6 @@ MESSAGE_TAGS = {
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
-DJPANEL_FOLDER = f'{BASE_DIR}/'
+DPANEL_FOLDER = f'{BASE_DIR}/'
 WWW_FOLDER = '/var/www/'
 VENV_FOLDER = '/var/venv/'

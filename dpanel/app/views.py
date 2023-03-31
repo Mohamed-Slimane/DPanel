@@ -7,10 +7,9 @@ from django.views import View
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
-from djpanel.forms import AppForm
-from djpanel.functions import create_app_server_block, create_venv, create_app, create_uwsgi_config
-from djpanel.models import App
-
+from dpanel.forms import AppForm
+from dpanel.functions import create_app_server_block, create_venv, create_app, create_uwsgi_config
+from dpanel.models import App
 
 
 class apps(View):

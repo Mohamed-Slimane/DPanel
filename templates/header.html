@@ -2,10 +2,11 @@
 <div class="row g-3">
     <div class="col">
         <div class="row gx-3">
-            <a class="col-auto fw-bold" href="{% url 'apps' %}">DJpanel</a>
+            <a class="col-auto fw-bold" href="{% url 'apps' %}">DPanel</a>
             <a class="col-auto" href="{% url 'apps' %}">{% trans 'Apps' %}</a>
             <a class="col-auto" href="">{% trans 'SSL' %}</a>
-            <a class="col-auto" href="">{% trans 'Databases' %}</a>
+            <a class="col-auto" href="{% url 'postgres_databases' %}">{% trans 'PostgreSQL' %}</a>
+            <a class="col-auto" href="{% url 'mysql_databases' %}">{% trans 'MySQL' %}</a>
             <div class="dropdown col-auto" title="{% trans 'Language' %}">
                     <div class="pointer" id="dropdownLanguage" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-translate"></i>
@@ -25,11 +26,19 @@
     </div>
     <div class="col-auto">
         {% if user.is_authenticated %}
-        <div class="d-flex">
-            {{request.user}}
-            <a href="{% url 'logout' %}" class="ms-2">
-                <i class="bi bi-door-closed"></i>
-            </a>
+        <div class="dropdown d-inline-block">
+            <div class="pointer"  id="dropdownProfile" data-bs-toggle="dropdown" aria-expanded="false">
+                {{request.user}}
+                <i class="bi bi-person"></i>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownProfile">
+                <li>
+                    <a class="dropdown-item" href="{% url 'logout' %}">
+                    {% translate 'Logout' %}
+                    <i class="bi bi-box-arrow-right float-end"></i>
+                </a>
+                </li>
+            </ul>
         </div>
         {% else %}
         <div class="btn btn-outline-primary">

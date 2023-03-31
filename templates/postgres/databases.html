@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} {% translate 'Databases' %} {% endblock%}
+{% block page_title %}{% trans 'All databases' %}{% endblock %}
+
+{% block title_button %}
+<a class="btn btn-primary btn-sm rounded-pill" href="{% url 'postgres_database_new' %}">
+    {% translate 'New' %}
+    <i class="fas fa-plus"></i>
+</a>
+{% endblock %}
+
+{% block content %}
+{% if databases %}
+{% include "postgres/list.html" %}
+{% else %}
+<div class="bg-white border p-3 rounded">
+    {% trans 'Nothing was found' %}
+</div>
+{% endif %}
+{% endblock %}
