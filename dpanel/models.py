@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
@@ -58,3 +59,19 @@ class MysqlDatabase(models.Model):
             import uuid
             self.serial = uuid.uuid4()
         super(MysqlDatabase, self).save(*args, **kwargs)
+
+
+class AppCertificate(models.Model):
+    serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
+    app = models.ForeignKey(App, verbose_name=_('App'), unique=True, max_length=500, on_delete=models.CASCADE)
+    created_date = models.DateTimeField(default=timezone.now)
+    expire_date = models.DateTimeField()
+
+    def __str__(self):
+        return self.app
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            import uuid
+            self.serial = uuid.uuid4()
+        super(AppCertificate, self).save(*args, **kwargs)

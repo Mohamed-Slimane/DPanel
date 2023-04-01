@@ -26,7 +26,11 @@
                 </a>
             </td>
             <td>{{app.port}}</td>
-            <td>{{app.www_path}}</td>
+            <td>
+                <span dir="ltr">
+                    {{app.www_path}}
+                </span>
+            </td>
             <td>
                 <input type="text" class="form-control form-control-sm copy-input" value="source {{app.venv_path}}/bin/activate && cd {{app.www_path}}" readonly dir="ltr">
             </td>

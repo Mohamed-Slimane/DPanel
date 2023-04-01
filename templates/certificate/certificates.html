@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} {% translate 'Certificates' %} {% endblock%}
+{% block page_title %}{% trans 'All certificates' %}{% endblock %}
+
+{% block title_button %}
+<a class="btn btn-primary btn-sm rounded-pill" href="{% url 'certificate_new' %}">
+    {% translate 'New certificate' %}
+    <i class="bi bi-rocket-takeoff"></i>
+</a>
+{% endblock %}
+{% block content %}
+
+<div class="bg-white shadow-sm rounded">
+    {% if certificates %}
+    {% include 'certificate/list.html' %}
+    {% else %}
+    <div class="h5 text-center p-3">
+        {% trans 'You have no certificates yet' %}
+        <div class="">
+            <a href="{% url 'certificate_new' %}">
+                <i class="bi bi-folder-plus fs-1"></i>
+            </a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

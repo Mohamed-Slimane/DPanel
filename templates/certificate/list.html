@@ -1,0 +1,32 @@
+{% load i18n %}
+<table class="table">
+    <thead>
+    <tr>
+        <th>{% translate 'Domain' %}</th>
+        <th>{% translate 'Created date' %}</th>
+        <th>{% translate 'Expire date' %}</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for certificate in certificates %}
+        <tr>
+            <td>{{certificate.domain}}</td>
+            <td>{{certificate.created_date}}</td>
+            <td>{{certificate.expire_date}}</td>
+            <td class="text-end">
+                <span class="btn btn-danger btn-sm rounded-pill" onclick="open_link_confirm('{% url 'certificate_delete' certificate.serial %}')">
+                    {% trans 'Delete' %}
+                    <i class="bi bi-trash"></i>
+                </span>
+
+                <a href="{% url 'certificate_config' certificate.serial %}" class="btn btn-success btn-sm rounded-pill">
+                    {% trans 'Config' %}
+                    <i class="bi bi-gear-fill"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor  %}
+    </tbody>
+</table>
+
