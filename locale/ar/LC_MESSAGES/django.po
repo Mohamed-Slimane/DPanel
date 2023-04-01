@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dever stoke\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-01 16:40+0100\n"
+"POT-Creation-Date: 2023-04-01 16:48+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -21,7 +21,7 @@ msgstr "تم إنشاء الشهادة بنجاح"
 
 #: .\dpanel\app\views.py:30
 msgid "Certificate created failed"
-msgstr ""
+msgstr "فشل إنشاء الشهادة"
 
 #: .\dpanel\app\views.py:62
 msgid "App successfully created"
@@ -143,7 +143,7 @@ msgstr "إرسال"
 msgid "Venv"
 msgstr "البيئة"
 
-#: .\templates\app\list.html:10 .\templates\inc\header.html:8
+#: .\templates\app\list.html:10
 msgid "SSL"
 msgstr "إتصال آمن"
 
@@ -168,23 +168,23 @@ msgstr "إنشاء"
 msgid "All rights reserved"
 msgstr "جميع الحقوق محفوظة"
 
-#: .\templates\inc\header.html:9
+#: .\templates\inc\header.html:8
 msgid "PostgreSQL"
 msgstr "PostgreSQL"
 
-#: .\templates\inc\header.html:10
+#: .\templates\inc\header.html:9
 msgid "MySQL"
 msgstr "MySQL"
 
-#: .\templates\inc\header.html:12
+#: .\templates\inc\header.html:11
 msgid "Language"
 msgstr "اللغة"
 
-#: .\templates\inc\header.html:39
+#: .\templates\inc\header.html:38
 msgid "Logout"
 msgstr "تسجيل الخروج"
 
-#: .\templates\inc\header.html:47 .\templates\registration\login.html:4
+#: .\templates\inc\header.html:46 .\templates\registration\login.html:4
 #: .\templates\registration\login.html:5 .\templates\registration\login.html:14
 msgid "Login"
 msgstr "دخول"

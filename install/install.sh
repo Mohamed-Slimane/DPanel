@@ -4,6 +4,8 @@ cd /tmp
 sudo apt update
 sudo apt-get install python3
 sudo apt-get install python3-venv
+sudo apt install libpq-dev
+sudo apt install python3-dev
 sudo apt-get install build-essential
 sudo apt-get install nginx
 

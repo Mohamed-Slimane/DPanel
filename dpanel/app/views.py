@@ -28,7 +28,7 @@ class app_ssl_new(View):
             messages.success(request, _('Certificate created successfully'))
         except Exception as e:
             messages.error(request, _('Certificate created failed'))
-            messages.error(request, str(e))
+            messages.warning(request, str(e))
 
         return redirect('apps')
 
@@ -97,12 +97,30 @@ class app_delete(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
         app.delete()
-        os.rename(app.www_path, f'{app.www_path}-deleted')
-        os.remove(f'/etc/nginx/sites-available/{app.domain}.conf')
-        os.remove(f'/etc/nginx/sites-enabled/{app.domain}.conf')
-        os.remove(f'/etc/uwsgi/apps-available/{app.domain}.ini')
-        os.remove(f'/etc/uwsgi/apps-enabled/{app.domain}.ini')
-        shutil.rmtree(app.venv_path)
+        try:
+            os.rename(app.www_path, f'{app.www_path}-deleted')
+        except Exception as e:
+            pass
+        try:
+            os.remove(f'/etc/nginx/sites-available/{app.domain}.conf')
+        except Exception as e:
+            pass
+        try:
+            os.remove(f'/etc/nginx/sites-enabled/{app.domain}.conf')
+        except Exception as e:
+            pass
+        try:
+            os.remove(f'/etc/uwsgi/apps-available/{app.domain}.ini')
+        except Exception as e:
+            pass
+        try:
+            os.remove(f'/etc/uwsgi/apps-enabled/{app.domain}.ini')
+        except Exception as e:
+            pass
+        try:
+            shutil.rmtree(app.venv_path)
+        except Exception as e:
+            pass
         os.system(f'sudo systemctl restart nginx')
         os.system(f'sudo systemctl restart uwsgi')
         return redirect('apps')
