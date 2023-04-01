@@ -19,7 +19,13 @@ class apps(View):
         return render(request, 'app/apps.html', {'apps': apps})
 
 
-class app_ssl_new(View):
+class app_certificates(View):
+    def get(self, request, serial):
+        app = App.objects.get(serial=serial)
+        return render(request, 'app/certificate.html', {'app': app})
+
+
+class app_certificate_new(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
         try:
@@ -30,7 +36,7 @@ class app_ssl_new(View):
             messages.error(request, _('Certificate created failed'))
             messages.warning(request, str(e))
 
-        return redirect('apps')
+        return redirect('app_certificates', app.serial)
 
 
 class app_new(View):
@@ -119,6 +125,10 @@ class app_delete(View):
             pass
         try:
             shutil.rmtree(app.venv_path)
+        except Exception as e:
+            pass
+        try:
+            os.system(f'sudo certbot delete --cert-name {app.domain}')
         except Exception as e:
             pass
         os.system(f'sudo systemctl restart nginx')

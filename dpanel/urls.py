@@ -14,9 +14,10 @@ urlpatterns = [
     # Apps
     path('', super_required(app_views.apps.as_view()), name="apps"),
     path('apps/new/', super_required(app_views.app_new.as_view()), name="app_new"),
-    path('apps/<str:serial>/ssl/new/', super_required(app_views.app_ssl_new.as_view()), name="app_ssl_new"),
-    path('apps/<str:serial>/delete', super_required(app_views.app_delete.as_view()), name="app_delete"),
-    path('apps/<str:serial>/config', super_required(app_views.app_config.as_view()), name="app_config"),
+    path('apps/<str:serial>/ssl/new/', super_required(app_views.app_certificate_new.as_view()), name="app_ssl_new"),
+    path('apps/<str:serial>/delete/', super_required(app_views.app_delete.as_view()), name="app_delete"),
+    path('apps/<str:serial>/config/', super_required(app_views.app_config.as_view()), name="app_config"),
+    path('apps/<str:serial>/certificate/', super_required(app_views.app_certificates.as_view()), name="app_certificates"),
 
     # Postgres
     path('postgres/', super_required(postgres_views.databases.as_view()), name="postgres_databases"),

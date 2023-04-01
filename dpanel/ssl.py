@@ -4,7 +4,12 @@ import subprocess
 
 def create_domain_ssl(domain_name):
     # Create a new SSL certificate for the domain using Certbot
-    certbot_cmd = f"sudo certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --email admin@{domain_name} -d {domain_name}"
+    cert_dir = '/etc/letsencrypt/live/' + domain_name
+    if os.path.isdir(cert_dir):
+        certbot_cmd = f"sudo certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --email admin@{domain_name} replace -d {domain_name}"
+    else:
+        certbot_cmd = f"sudo certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --email admin@{domain_name} -d {domain_name}"
+
     subprocess.run(certbot_cmd, shell=True, check=True)
 
     # Create a new Nginx configuration file for the domain with SSL settings
@@ -22,7 +27,7 @@ def create_domain_ssl(domain_name):
         f.write(ssl_config)
 
     # Create a symbolic link to enable the new Nginx configuration
-    os.symlink(f"/etc/nginx/sites-available/{domain_name}.conf", f"/etc/nginx/sites-enabled/{domain_name}.conf")
+    os.replace(f"/etc/nginx/sites-available/{domain_name}.conf", f"/etc/nginx/sites-enabled/{domain_name}.conf")
 
     # Reload Nginx to apply the new configuration
     subprocess.run("sudo systemctl reload nginx", shell=True, check=True)

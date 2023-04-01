@@ -34,29 +34,20 @@
             <td>
                 <input type="text" class="form-control form-control-sm copy-input" value="source {{app.venv_path}}/bin/activate && cd {{app.www_path}}" readonly dir="ltr">
             </td>
-
             <td>
-                {% if app.certificate_app.all %}
-                    <span class="btn btn-success btn-sm rounded-pill" onclick="open_link_confirm('{% url 'app_ssl_new' app.serial %}')">
-                        {% trans 'Activated' %}
-                        <i class="bi bi-shield-fill"></i>
-                    </span>
-                {% else %}
-                <span class="btn btn-warning btn-sm rounded-pill" onclick="open_link_confirm('{% url 'app_ssl_new' app.serial %}')">
-                    {% trans 'Activate' %}
-                    <i class="bi bi-shield"></i>
-                </span>
-                {% endif %}
-            </td>
 
+                <a href="{% url 'app_certificates' app.serial %}" class="btn btn-{% if app.certificate_app.all %}success{% else %}light border{% endif %} btn-sm rounded-pill">
+                    <i class="bi bi-shield"></i>
+                </a>
+            </td>
             <td class="text-end">
                 <span class="btn btn-danger btn-sm rounded-pill" onclick="open_link_confirm('{% url 'app_delete' app.serial %}')">
-<!--                    {% trans 'Delete' %}-->
+                    <!--{% trans 'Delete' %}-->
                     <i class="bi bi-trash"></i>
                 </span>
 
                 <a href="{% url 'app_config' app.serial %}" class="btn btn-secondary btn-sm rounded-pill">
-<!--                    {% trans 'Config' %}-->
+                    <!--{% trans 'Config' %}-->
                     <i class="bi bi-gear-fill"></i>
                 </a>
             </td>

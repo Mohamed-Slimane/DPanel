@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{app}} - certificate {% endblock %}
+{% block page_title %}{{app}} - certificate{% endblock %}
+{% block title_button %}
+<span class="btn btn-primary btn-sm rounded-pill" onclick="open_link_confirm('{% url 'app_ssl_new' app.serial %}')">
+    {% trans 'Create' %}
+    <i class="bi bi-shield"></i>
+</span>
+{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow-sm rounded p-3">
+    {% if app.certificate_app.all %}
+    {% for  certificate in app.certificate_app.all %}
+    <div class="last-child border rounded p-3 mb-3">
+        {{certificate.created_date}}
+    </div>
+    {% endfor %}
+    {% else %}
+    {% trans 'This app have no certificates yet' %}
+    {% endif %}
+</div>
+{% endblock %}

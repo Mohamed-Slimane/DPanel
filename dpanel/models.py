@@ -18,7 +18,7 @@ class App(models.Model):
     activated = models.BooleanField(verbose_name=_('Activated'), default=True)
 
     def __str__(self):
-        return self.domain
+        return self.name
 
     def save(self, *args, **kwargs):
         if not self.pk:
@@ -64,7 +64,7 @@ class MysqlDatabase(models.Model):
 class AppCertificate(models.Model):
     serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
     app = models.ForeignKey(App, verbose_name=_('App'), related_name='certificate_app', max_length=500, on_delete=models.CASCADE)
-    created_date = models.DateTimeField(default=timezone.now)
+    created_date = models.DateTimeField(default=timezone.now())
     # expire_date = models.DateTimeField()
 
     def __str__(self):
