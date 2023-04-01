@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="bg-white shadow-sm rounded p-3">
-    <form class="row" method="post">
+    <form class="row preloader-form" method="post">
         {% csrf_token %}
         {% include 'inc/form.html'%}
         <div class="">
@@ -17,9 +17,4 @@
         </div>
     </form>
 </div>
-<script>
-    jQuery('form').submit(function(e){
-        jQuery('.loading-preloader').show()
-    })
-</script>
 {% endblock %}

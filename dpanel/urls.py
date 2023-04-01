@@ -21,9 +21,11 @@ urlpatterns = [
     path('postgres/', super_required(postgres_views.databases.as_view()), name="postgres_databases"),
     path('postgres/new/', super_required(postgres_views.database_new.as_view()), name="postgres_database_new"),
     path('postgres/<str:serial>/delete/', super_required(postgres_views.database_delete.as_view()), name="postgres_database_delete"),
+    path('postgres/<str:serial>/download/', super_required(postgres_views.database_download.as_view()), name="postgres_database_download"),
 
     # Mysql
     path('mysql/', super_required(mysql_views.databases.as_view()), name="mysql_databases"),
     path('mysql/new/', super_required(mysql_views.database_new.as_view()), name="mysql_database_new"),
     path('mysql/<str:serial>/delete/', super_required(mysql_views.database_delete.as_view()), name="mysql_database_delete"),
+    path('mysql/<str:serial>/download/', super_required(mysql_views.database_download.as_view()), name="mysql_database_download"),
 ]

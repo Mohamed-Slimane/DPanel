@@ -1,0 +1,48 @@
+{% load i18n %}
+
+<script>
+
+    jQuery('[href="{{request.path}}"]').addClass('fw-bold')
+
+    function open_link_confirm(u){
+        Swal.fire({
+            title: '{% trans "Are you sure to delete this application?" %}',
+            text: '{% trans "This risk cannot be reversed." %}',
+            showDenyButton: true,
+            confirmButtonText: '{% trans "Delete" %}',
+            denyButtonText: '{% trans "Cancel" %}',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                jQuery('.loading-preloader').show()
+                location.href = u
+            }else if(result.isDenied) {
+                return false
+            }
+        })
+    }
+
+    jQuery('.copy-input').click(function(e){
+        e.target.select()
+        document.execCommand('copy')
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+
+        Toast.fire({
+          icon: 'success',
+          title: '{% trans "Text copied" %}'
+        })
+    })
+
+    jQuery('.preloader-form').submit(function(e){
+        jQuery('.loading-preloader').show()
+    })
+</script>

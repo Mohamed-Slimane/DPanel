@@ -1,15 +1,14 @@
 import os
-import random
-import string
 import uuid
 from pathlib import Path
+from wsgiref.util import FileWrapper
 
-import psycopg2
 from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.utils.datetime_safe import datetime
 from django.utils.translation import gettext_lazy as _
 from django.views import View
-from psycopg2._psycopg import AsIs
 
 from dpanel.forms import PostgresDatabaseForm
 from dpanel.models import PostgresDatabase
@@ -26,11 +25,13 @@ class database_new(View):
         form = PostgresDatabaseForm(request.POST, request.FILES)
         if form.is_valid():
             database = form.save(commit=False)
-            database.password = str(uuid.uuid4()).replace('-', '')[:10]
+            database.password = str(uuid.uuid4()).replace('-', '')[:15]
 
             os.system(f'sudo -u postgres psql -c "CREATE DATABASE {database.name};"')
-            os.system(f'sudo -u postgres psql -c "CREATE USER {database.username} WITH PASSWORD \'{database.password}\';"')
-            os.system(f'sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE {database.name} TO {database.username};"')
+            os.system(
+                f'sudo -u postgres psql -c "CREATE USER {database.username} WITH PASSWORD \'{database.password}\';"')
+            os.system(
+                f'sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE {database.name} TO {database.username};"')
 
             database.save()
             messages.add_message(request, messages.SUCCESS, _('Database successfully created'))
@@ -52,6 +53,25 @@ class database_delete(View):
         database.delete()
         return redirect('postgres_databases')
 
+
+class database_download(View):
+    def get(self, request, serial):
+        database = PostgresDatabase.objects.get(serial=serial)
+        Path('/var/dpfiles/backups/psql/').mkdir(parents=True, exist_ok=True)
+        database_file = f'/var/dpfiles/backups/psql/{database.name}_{datetime.today().strftime("%d-%m-%Y_%H-%M")}.dump'
+        os.system(f'sudo -u postgres pg_dump "postgresql://{database.username}:{database.password}@localhost/{database.name}" > {database_file}')
+
+        if os.path.exists(database_file):
+            file_size = os.path.getsize(database_file)
+            filename = os.path.basename(database_file)
+            response = HttpResponse(FileWrapper(open(database_file, 'rb')), content_type='application/gzip')
+            response['Content-Disposition'] = 'attachment; filename=%s' % filename
+            response['Content-Length'] = file_size
+            return response
+        else:
+            return HttpResponse("The file does not exist")
+
+        # return redirect('postgres_databases')
 
 # conn = psycopg2.connect(
 #     database='postgres',

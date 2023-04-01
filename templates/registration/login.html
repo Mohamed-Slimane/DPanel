@@ -5,8 +5,8 @@
 {% block page_title %} {% translate 'Login' %} {% endblock %}
 
 {% block content %}
-<div class="w-100">
-    <form class="row" method="post" enctype="multipart/form-data" >
+<div class="bg-white shadow-sm rounded p-3">
+    <form class="row preloader-form" method="post">
         {% csrf_token %}
         {% include 'inc/form.html'%}
         <div>
@@ -16,9 +16,4 @@
         </div>
     </form>
 </div>
-<script>
-    jQuery('form').submit(function(e){
-        jQuery('.loading-preloader').show()
-    })
-</script>
 {% endblock %}

@@ -4,8 +4,6 @@
 {% get_available_languages as LANGUAGES %}
 {% get_language_info_list for LANGUAGES as languages %}
 
-
-
 <!DOCTYPE html>
 <html lang="{{LANGUAGE_CODE}}" {% if LANGUAGE_BIDI == True %} dir="rtl" {%endif%}>
 <head>
@@ -63,34 +61,11 @@
     </div>
 </div>
 
-{% include 'inc/preloader.html' %}
 <script src="{% static 'sweetalert2.js' %}"></script>
 <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-
-<script>
-    jQuery('.copy-input').click(function(e){
-        e.target.select()
-        document.execCommand('copy')
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-
-        Toast.fire({
-          icon: 'success',
-          title: '{% trans "Text copied" %}'
-        })
-    })
-
-</script>
+{% include 'inc/preloader.html' %}
+{% include 'inc/scripts.html' %}
 </body>
 
 </html>

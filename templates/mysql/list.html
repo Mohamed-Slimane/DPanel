@@ -17,9 +17,13 @@
                 <tr>
                     <td>{{database.name}}</td>
                     <td>{{database.username}}</td>
-                    <td>{{database.password}}</td>
                     <td>
-                        <a href="" class="btn btn-success btn-sm rounded-pill">
+                        <div class="password-text">
+                            {{database.password}}
+                        </div>
+                    </td>
+                    <td class="text-end">
+                        <a href="{% url 'mysql_database_download' database.serial %}" class="btn btn-success btn-sm rounded-pill" target="_blank">
                             <i class="bi bi-download"></i>
                             {% trans 'Download' %}
                         </a>

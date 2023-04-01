@@ -1,16 +1,17 @@
 import os
-import random
-import string
 import uuid
 from pathlib import Path
+from wsgiref.util import FileWrapper
 
 from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.utils.datetime_safe import datetime
 from django.utils.translation import gettext_lazy as _
 from django.views import View
+
 from dpanel.forms import MysqlDatabaseForm
 from dpanel.models import MysqlDatabase
-import mysql.connector
 
 
 class databases(View):
@@ -24,10 +25,12 @@ class database_new(View):
         form = MysqlDatabaseForm(request.POST, request.FILES)
         if form.is_valid():
             database = form.save(commit=False)
-            database.password = str(uuid.uuid4()).replace('-', '')[:10]
+            database.password = str(uuid.uuid4()).replace('-', '')[:15]
 
+            os.system(f'sudo mysql -e "set global validate_password.policy = LOW;"')
             os.system(f'sudo mysql -e "CREATE DATABASE {database.name};"')
-            os.system("sudo mysql -e \"CREATE USER '{database.username}'@'localhost' IDENTIFIED BY '{database.password}'\"".format(database=database))
+            os.system(f"sudo mysql -e \"CREATE USER '{database.username}'@'localhost' IDENTIFIED BY '{database.password}'\"".format(database=database))
+            # os.system(f"sudo mysql -e \"SET PASSWORD FOR '{database.username}'@'hostname' = PASSWORD('{database.password}');\"")
             os.system(f'sudo mysql -e "GRANT ALL PRIVILEGES ON {database.name}.* TO \'{database.username}\'@\'localhost\';"')
 
             database.save()
@@ -50,6 +53,26 @@ class database_delete(View):
         database.delete()
         return redirect('mysql_databases')
 
+
+class database_download(View):
+    def get(self, request, serial):
+        database = MysqlDatabase.objects.get(serial=serial)
+        Path('/var/dpfiles/backups/mysql/').mkdir(parents=True, exist_ok=True)
+        database_file = f'/var/dpfiles/backups/mysql/{database.name}_{datetime.today().strftime("%d-%m-%Y_%H-%M")}.sql.gz'
+        os.system(f'sudo mysqldump {database.name} | gzip > {database_file}')
+
+        if os.path.exists(database_file):
+            file_size = os.path.getsize(database_file)
+            filename = os.path.basename(database_file)
+            response = HttpResponse(FileWrapper(open(database_file, 'rb')), content_type='application/gzip')
+            response['Content-Disposition'] = 'attachment; filename=%s' % filename
+            response['Content-Length'] = file_size
+            return response
+        else:
+            return HttpResponse("The file does not exist")
+
+        # return serve(request, os.path.basename(database_file), os.path.dirname(database_file))
+        # return redirect('mysql_databases')
 
 # cnx = mysql.connector.connect(
 #     user='dpmysql',
