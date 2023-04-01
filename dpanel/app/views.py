@@ -10,12 +10,20 @@ from django.utils.translation import gettext_lazy as _
 from dpanel.forms import AppForm
 from dpanel.functions import create_app_server_block, create_venv, create_app, create_uwsgi_config
 from dpanel.models import App
+from dpanel.ssl import create_domain_ssl
 
 
 class apps(View):
     def get(self, request):
         apps = App.objects.all()
         return render(request, 'app/apps.html', {'apps': apps})
+
+
+class app_ssl_new(View):
+    def get(self, request, serial):
+        app = App.objects.get(serial=serial)
+        create_domain_ssl(app.domain)
+        return redirect('apps')
 
 
 class app_new(View):
@@ -83,7 +91,9 @@ class app_delete(View):
         app = App.objects.get(serial=serial)
         app.delete()
         os.rename(app.www_path, f'{app.www_path}-deleted')
+        os.remove(f'/etc/nginx/sites-available/{app.domain}.conf')
         os.remove(f'/etc/nginx/sites-enabled/{app.domain}.conf')
+        os.remove(f'/etc/uwsgi/apps-available/{app.domain}.ini')
         os.remove(f'/etc/uwsgi/apps-enabled/{app.domain}.ini')
         shutil.rmtree(app.venv_path)
         os.system(f'sudo systemctl restart nginx')

@@ -6,10 +6,10 @@
 
     function open_link_confirm(u){
         Swal.fire({
-            title: '{% trans "Are you sure to delete this application?" %}',
+            title: '{% trans "Are you sure to continue?" %}',
             text: '{% trans "This risk cannot be reversed." %}',
             showDenyButton: true,
-            confirmButtonText: '{% trans "Delete" %}',
+            confirmButtonText: '{% trans "Continue" %}',
             denyButtonText: '{% trans "Cancel" %}',
         }).then((result) => {
             if (result.isConfirmed) {

@@ -18,9 +18,11 @@ def super_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login
 
 def create_app_server_block(app):
     try:
-        sites = '/etc/nginx/sites-enabled'
-        pathlib.Path(sites).mkdir(parents=True, exist_ok=True)
-        nginx_conf = f'{sites}/{app.domain}.conf'
+        available = '/etc/nginx/sites-available'
+        enabled = '/etc/nginx/sites-enabled'
+        pathlib.Path(available).mkdir(parents=True, exist_ok=True)
+        pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
+        nginx_conf = f'{available}/{app.domain}.conf'
         os.system(f'sudo touch {nginx_conf}')
         conf = '''server
 {{
@@ -59,15 +61,18 @@ def create_app_server_block(app):
         with open(nginx_conf, 'w') as f:
             f.write(conf)
             app.nginx_config = nginx_conf
+        os.symlink(nginx_conf, f"{enabled}/{app.domain}.conf")
     except Exception as e:
         print(str(e))
 
 
 def create_uwsgi_config(app):
     try:
-        apps = '/etc/uwsgi/apps-enabled'
-        pathlib.Path(apps).mkdir(parents=True, exist_ok=True)
-        uwsgi_conf = f'{apps}/{app.domain}.ini'
+        available = '/etc/uwsgi/apps-available'
+        enabled = '/etc/uwsgi/apps-enabled'
+        pathlib.Path(available).mkdir(parents=True, exist_ok=True)
+        pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
+        uwsgi_conf = f'{available}/{app.domain}.ini'
         os.system(f'sudo touch {uwsgi_conf}')
         conf = '''
 [uwsgi]
@@ -86,6 +91,7 @@ venv = {app.venv_path}
         with open(uwsgi_conf, 'w') as f:
             f.write(conf)
             app.uwsgi_config = uwsgi_conf
+        os.symlink(uwsgi_conf, f"{enabled}/{app.domain}.ini")
     except Exception as e:
         print(str(e))
 

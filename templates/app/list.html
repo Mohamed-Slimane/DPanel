@@ -7,7 +7,7 @@
         <th>{% translate 'Port' %}</th>
         <th>{% translate 'Path' %}</th>
         <th>{% translate 'Venv' %}</th>
-        <th>{% translate 'HTTPS' %}</th>
+        <th>{% translate 'SSL' %}</th>
         <th></th>
     </tr>
     </thead>
@@ -34,14 +34,21 @@
             <td>
                 <input type="text" class="form-control form-control-sm copy-input" value="source {{app.venv_path}}/bin/activate && cd {{app.www_path}}" readonly dir="ltr">
             </td>
-            <td>{{app.force_https}}</td>
+
+            <td>
+                <span class="btn btn-success btn-sm rounded-pill" onclick="open_link_confirm('{% url 'app_ssl_new' app.serial %}')">
+                    {% trans 'New ssl' %}
+                    <i class="bi bi-shield"></i>
+                </span>
+            </td>
+
             <td class="text-end">
                 <span class="btn btn-danger btn-sm rounded-pill" onclick="open_link_confirm('{% url 'app_delete' app.serial %}')">
                     {% trans 'Delete' %}
                     <i class="bi bi-trash"></i>
                 </span>
 
-                <a href="{% url 'app_config' app.serial %}" class="btn btn-success btn-sm rounded-pill">
+                <a href="{% url 'app_config' app.serial %}" class="btn btn-secondary btn-sm rounded-pill">
                     {% trans 'Config' %}
                     <i class="bi bi-gear-fill"></i>
                 </a>
