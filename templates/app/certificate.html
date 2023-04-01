@@ -14,7 +14,7 @@
 {% block content %}
 <div class="bg-white shadow-sm rounded p-3">
     {% if app.certificate_app.all %}
-    {% for  certificate in app.certificate_app.all %}
+    {% for certificate in app.certificate_app.all %}
     <div class="last-child border rounded p-3 mb-3">
         {{certificate.created_date}}
     </div>

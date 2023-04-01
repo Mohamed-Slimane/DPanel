@@ -6,7 +6,7 @@ def create_domain_ssl(domain_name):
     # Create a new SSL certificate for the domain using Certbot
     cert_dir = '/etc/letsencrypt/live/' + domain_name
     if os.path.isdir(cert_dir):
-        certbot_cmd = f"sudo certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --email admin@{domain_name} replace -d {domain_name}"
+        certbot_cmd = f"sudo certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --email admin@{domain_name} --replace -d {domain_name}"
     else:
         certbot_cmd = f"sudo certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --email admin@{domain_name} -d {domain_name}"
 
