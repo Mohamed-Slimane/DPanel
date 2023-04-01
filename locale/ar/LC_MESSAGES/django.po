@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dever stoke\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-29 16:29+0100\n"
+"POT-Creation-Date: 2023-04-01 16:40+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,80 +15,109 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: .\dpanel\models.py:6
-msgid "Serial"
-msgstr "الرقم التسلسي"
+#: .\dpanel\app\views.py:28
+msgid "Certificate created successfully"
+msgstr "تم إنشاء الشهادة بنجاح"
 
-#: .\dpanel\models.py:7 .\templates\app\list.html:5
-msgid "Name"
-msgstr "الإسم"
+#: .\dpanel\app\views.py:30
+msgid "Certificate created failed"
+msgstr ""
 
-#: .\dpanel\models.py:8 .\templates\app\list.html:6
-msgid "Domain"
-msgstr "الدومين"
-
-#: .\dpanel\models.py:9 .\templates\app\list.html:7
-msgid "Port"
-msgstr "البوابة"
-
-#: .\dpanel\models.py:10 .\templates\app\list.html:8
-msgid "Path"
-msgstr "المسار"
-
-#: .\dpanel\models.py:11
-msgid "Uwsgi path"
-msgstr "مسار Uwsgi"
-
-#: .\dpanel\models.py:11
-msgid "The folder that contains the wsgi.py file, for example: (mayproject)"
-msgstr "المجلد الذي يحتوي على ملف wsgi.py ، على سبيل المثال: (mayproject)"
-
-#: .\dpanel\models.py:12
-msgid "Environment Path"
-msgstr "مسار البيئة الإفتراضية"
-
-#: .\dpanel\models.py:13
-msgid "Nginx config"
-msgstr "التكوين"
-
-#: .\dpanel\models.py:14
-msgid "Uwsgi config"
-msgstr "تكوين Uwsgi"
-
-#: .\dpanel\models.py:15
-msgid "Force HTTPS"
-msgstr "فرض HTTPS"
-
-#: .\dpanel\models.py:16
-msgid "Activated"
-msgstr "مفعل"
-
-#: .\dpanel\views.py:48
+#: .\dpanel\app\views.py:62
 msgid "App successfully created"
 msgstr "تم إنشاء التطبيق بنجاح"
 
-#: .\dpanel\views.py:51
+#: .\dpanel\app\views.py:65 .\dpanel\mysql\views.py:40
+#: .\dpanel\postgres\views.py:40
 msgid "Form validation error"
 msgstr "خطأ في التحقق من صحة النموذج"
 
-#: .\dpanel\views.py:68
+#: .\dpanel\app\views.py:82
 msgid "App configuration updated successfully"
 msgstr "تم تحديث تكوين التطبيق بنجاح"
 
-#: .\dpanel\views.py:70
+#: .\dpanel\app\views.py:84
 msgid "Error in updating django_app configuration"
 msgstr "خطأ في تحديث تكوين النطاق"
 
-#: .\engine\settings.py:111
+#: .\dpanel\models.py:7 .\dpanel\models.py:33 .\dpanel\models.py:49
+#: .\dpanel\models.py:65
+msgid "Serial"
+msgstr "الرقم التسلسي"
+
+#: .\dpanel\models.py:8 .\dpanel\models.py:34 .\dpanel\models.py:50
+#: .\templates\app\list.html:5 .\templates\mysql\list.html:9
+#: .\templates\postgres\list.html:9
+msgid "Name"
+msgstr "الإسم"
+
+#: .\dpanel\models.py:9 .\templates\app\list.html:6
+msgid "Domain"
+msgstr "الدومين"
+
+#: .\dpanel\models.py:10 .\templates\app\list.html:7
+msgid "Port"
+msgstr "البوابة"
+
+#: .\dpanel\models.py:11 .\templates\app\list.html:8
+msgid "Path"
+msgstr "المسار"
+
+#: .\dpanel\models.py:12
+msgid "Uwsgi path"
+msgstr "مسار Uwsgi"
+
+#: .\dpanel\models.py:13
+msgid "The folder that contains the wsgi.py file, for example: (mayproject)"
+msgstr "المجلد الذي يحتوي على ملف wsgi.py ، على سبيل المثال: (mayproject)"
+
+#: .\dpanel\models.py:14
+msgid "Environment Path"
+msgstr "مسار البيئة الإفتراضية"
+
+#: .\dpanel\models.py:15
+msgid "Nginx config"
+msgstr "التكوين"
+
+#: .\dpanel\models.py:16
+msgid "Uwsgi config"
+msgstr "تكوين Uwsgi"
+
+#: .\dpanel\models.py:17
+msgid "Force HTTPS"
+msgstr "فرض HTTPS"
+
+#: .\dpanel\models.py:18 .\templates\app\list.html:41
+msgid "Activated"
+msgstr "مفعل"
+
+#: .\dpanel\models.py:35 .\dpanel\models.py:51
+msgid "Username"
+msgstr "إسم المستخدم"
+
+#: .\dpanel\models.py:36 .\dpanel\models.py:52 .\templates\mysql\list.html:11
+#: .\templates\postgres\list.html:11
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: .\dpanel\models.py:66 .\templates\app\config.html:5
+msgid "App"
+msgstr "تطبيق"
+
+#: .\dpanel\mysql\views.py:37 .\dpanel\postgres\views.py:37
+msgid "Database successfully created"
+msgstr "تم إنشاء قاعدة البيانات بنجاح"
+
+#: .\engine\settings.py:112
 msgid "Arabic"
 msgstr "العربية"
 
-#: .\engine\settings.py:112
+#: .\engine\settings.py:113
 msgid "English"
 msgstr "الإنجليزية"
 
 #: .\templates\app\apps.html:4 .\templates\app\config.html:6
-#: .\templates\header.html:6
+#: .\templates\inc\header.html:7
 msgid "Apps"
 msgstr "التطبيقات"
 
@@ -105,11 +134,8 @@ msgstr "تطبيق جديد"
 msgid "You have no apps yet"
 msgstr "ليس لديك أي تطبيقات بعد"
 
-#: .\templates\app\config.html:5
-msgid "App"
-msgstr "تطبيق"
-
-#: .\templates\app\config.html:15
+#: .\templates\app\config.html:15 .\templates\mysql\new.html:16
+#: .\templates\postgres\new.html:16
 msgid "Submit"
 msgstr "إرسال"
 
@@ -117,62 +143,116 @@ msgstr "إرسال"
 msgid "Venv"
 msgstr "البيئة"
 
-#: .\templates\app\list.html:10
-msgid "HTTPS"
-msgstr "HTTPS"
+#: .\templates\app\list.html:10 .\templates\inc\header.html:8
+msgid "SSL"
+msgstr "إتصال آمن"
 
-#: .\templates\app\list.html:36 .\templates\app\list.html:57
+#: .\templates\app\list.html:46
+msgid "Activate"
+msgstr "تفعيل"
+
+#: .\templates\app\list.html:54 .\templates\mysql\list.html:32
+#: .\templates\postgres\list.html:32
 msgid "Delete"
 msgstr "حذف"
 
-#: .\templates\app\list.html:41
+#: .\templates\app\list.html:59
 msgid "Config"
 msgstr "تهيئة"
-
-#: .\templates\app\list.html:54
-msgid "Are you sure to delete this application?"
-msgstr "هل أنت متأكد أنك تريد حذف هاذا التطبيق؟"
-
-#: .\templates\app\list.html:55
-msgid "This risk cannot be reversed."
-msgstr "لا يمكن التراجع عن هذه الخطوة."
-
-#: .\templates\app\list.html:58
-msgid "Cancel"
-msgstr "إلغاء"
 
 #: .\templates\app\new.html:15
 msgid "Create"
 msgstr "إنشاء"
 
-#: .\templates\base.html:61
+#: .\templates\base.html:59
 msgid "All rights reserved"
 msgstr "جميع الحقوق محفوظة"
 
-#: .\templates\base.html:89
-msgid "Text copied"
-msgstr "تم نسخ الرابط"
+#: .\templates\inc\header.html:9
+msgid "PostgreSQL"
+msgstr "PostgreSQL"
 
-#: .\templates\header.html:7
-msgid "SSL"
-msgstr "إتصال آمن"
+#: .\templates\inc\header.html:10
+msgid "MySQL"
+msgstr "MySQL"
 
-#: .\templates\header.html:8
-msgid "Databases"
-msgstr "قواعد بيانات"
-
-#: .\templates\header.html:9
+#: .\templates\inc\header.html:12
 msgid "Language"
 msgstr "اللغة"
 
-#: .\templates\header.html:36
+#: .\templates\inc\header.html:39
 msgid "Logout"
 msgstr "تسجيل الخروج"
 
-#: .\templates\header.html:44 .\templates\registration\login.html:4
+#: .\templates\inc\header.html:47 .\templates\registration\login.html:4
 #: .\templates\registration\login.html:5 .\templates\registration\login.html:14
 msgid "Login"
 msgstr "دخول"
+
+#: .\templates\inc\scripts.html:9
+msgid "Are you sure to continue?"
+msgstr "هل أنت متأكد من الاستمرار؟"
+
+#: .\templates\inc\scripts.html:10
+msgid "This risk cannot be reversed."
+msgstr "لا يمكن التراجع عن هذه الخطوة."
+
+#: .\templates\inc\scripts.html:12
+msgid "Continue"
+msgstr "استمرار"
+
+#: .\templates\inc\scripts.html:13
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: .\templates\inc\scripts.html:41
+msgid "Text copied"
+msgstr "تم نسخ الرابط"
+
+#: .\templates\mysql\databases.html:4 .\templates\postgres\databases.html:4
+msgid "Databases"
+msgstr "قواعد بيانات"
+
+#: .\templates\mysql\databases.html:5 .\templates\postgres\databases.html:5
+msgid "All databases"
+msgstr "جميع قواعد البيانات"
+
+#: .\templates\mysql\databases.html:9 .\templates\postgres\databases.html:9
+msgid "New"
+msgstr "جديد"
+
+#: .\templates\mysql\databases.html:19 .\templates\postgres\databases.html:19
+msgid "Nothing was found"
+msgstr "لم يتم العثور على أي شيء"
+
+#: .\templates\mysql\edit.html:4 .\templates\mysql\edit.html:5
+#: .\templates\postgres\edit.html:4 .\templates\postgres\edit.html:5
+msgid "Edit"
+msgstr "تعديل"
+
+#: .\templates\mysql\edit.html:13 .\templates\postgres\edit.html:13
+msgid "Update"
+msgstr "تحديث"
+
+#: .\templates\mysql\list.html:10 .\templates\postgres\list.html:10
+msgid "User"
+msgstr "المستخدم"
+
+#: .\templates\mysql\list.html:28 .\templates\postgres\list.html:28
+msgid "Download"
+msgstr "تحميل"
+
+#: .\templates\mysql\list.html:30 .\templates\postgres\list.html:30
+msgid "Do you wand delete!\\n This step cannot be undo"
+msgstr "هل تريد الحذف!\\n لا يمكن التراجع عن هذه الخطوة"
+
+#: .\templates\mysql\new.html:4 .\templates\mysql\new.html:5
+#: .\templates\postgres\new.html:4 .\templates\postgres\new.html:5
+msgid "New database"
+msgstr "قاعدة بيانات جديدة"
+
+#~ msgid "HTTPS"
+#~ msgstr "HTTPS"
 
 #~ msgid "Messages"
 #~ msgstr "الرسائل"
@@ -553,9 +633,6 @@ msgstr "دخول"
 #~ msgid "Startup path"
 #~ msgstr "مسار بدء التشغيل"
 
-#~ msgid "New"
-#~ msgstr "جديد"
-
 #~ msgid "Username must be less than {} characters"
 #~ msgstr "يجب أن يكون اسم المستخدم أقل من {} أحرف"
 
@@ -591,20 +668,6 @@ msgstr "دخول"
 
 #~ msgid "config"
 #~ msgstr "التكوين"
-
-#~ msgid "Username"
-#~ msgstr "إسم المستخدم"
-
-#~ msgid "Password"
-#~ msgstr "كلمة المرور"
-
-#, fuzzy
-#~| msgid "Domain successfully created"
-#~ msgid "Database successfully created"
-#~ msgstr "تم إنشاء الدومين بنجاح"
-
-#~ msgid "Domain configuration updated successfully"
-#~ msgstr "تم تحديث تكوين النطاق بنجاح"
 
 #~ msgid "Error in updating domain configuration"
 #~ msgstr "خطأ في تحديث تكوين النطاق"
@@ -769,31 +832,6 @@ msgstr "دخول"
 
 #~ msgid "Dashboard"
 #~ msgstr "لوحة البيانات"
-
-#~ msgid "User"
-#~ msgstr "المستخدم"
-
-#~ msgid "Edit"
-#~ msgstr "تعديل"
-
-#~ msgid "Do you wand delete!\\n This step cannot be undo"
-#~ msgstr "هل تريد الحذف!\\n لا يمكن التراجع عن هذه الخطوة"
-
-#, fuzzy
-#~| msgid "All users"
-#~ msgid "All databases"
-#~ msgstr "جميع المستخدمين"
-
-#~ msgid "Nothing was found"
-#~ msgstr "لم يتم العثور على أي شيء"
-
-#~ msgid "Update"
-#~ msgstr "تحديث"
-
-#, fuzzy
-#~| msgid "New article"
-#~ msgid "New database"
-#~ msgstr "مقالة جديدة"
 
 #, fuzzy
 #~| msgid "Supplier only"

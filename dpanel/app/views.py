@@ -9,7 +9,7 @@ from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
 from dpanel.forms import AppForm
 from dpanel.functions import create_app_server_block, create_venv, create_app, create_uwsgi_config
-from dpanel.models import App
+from dpanel.models import App, AppCertificate
 from dpanel.ssl import create_domain_ssl
 
 
@@ -22,7 +22,14 @@ class apps(View):
 class app_ssl_new(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
-        create_domain_ssl(app.domain)
+        try:
+            create_domain_ssl(app.domain)
+            AppCertificate.objects.create(app=app)
+            messages.success(request, _('Certificate created successfully'))
+        except Exception as e:
+            messages.error(request, _('Certificate created failed'))
+            messages.error(request, str(e))
+
         return redirect('apps')
 
 
