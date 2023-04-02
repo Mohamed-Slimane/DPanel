@@ -64,7 +64,7 @@ class MysqlDatabase(models.Model):
 class AppCertificate(models.Model):
     serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
     app = models.ForeignKey(App, verbose_name=_('App'), related_name='certificate_app', on_delete=models.CASCADE)
-    created_date = models.DateTimeField(default=timezone.now())
+    created_date = models.DateTimeField(auto_now=True)
     # expire_date = models.DateTimeField()
 
     def __str__(self):

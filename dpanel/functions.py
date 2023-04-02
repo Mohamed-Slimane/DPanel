@@ -76,6 +76,7 @@ def create_uwsgi_config(app):
         os.system(f'sudo touch {uwsgi_conf}')
         conf = '''
 [uwsgi]
+# plugin = http
 processes = 1
 threads = 2
 chdir = {app.www_path}
