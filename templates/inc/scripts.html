@@ -42,6 +42,37 @@
         })
     })
 
+    jQuery('.copy-this').click(function(e){
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+
+        navigator.clipboard.writeText(jQuery(this).data('text'))
+        .then(() => {
+            Toast.fire({
+              icon: 'success',
+              title: jQuery(this).data('message')
+            })
+        })
+        .catch((error) => {
+            alert("Could not copy text: ", error);
+        });
+
+    })
+
+    jQuery('.remove-blur').click(function(e){
+        jQuery(this).parents('.blur-group').find('.blur-text').css('filter', 'blur(0px)')
+    })
+
     jQuery('.preloader-form').submit(function(e){
         jQuery('.loading-preloader').show()
     })

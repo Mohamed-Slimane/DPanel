@@ -21,6 +21,11 @@ a{
     cursor: pointer;
 }
 
+.blur-text {
+  filter: blur(5px);
+}
+
+
 .last-child:last-child{
     display: none;
 }

@@ -20,4 +20,4 @@ def create_domain_ssl(domain_name):
     os.system(f"sudo ln -s /etc/nginx/sites-available/{domain_name}.conf /etc/nginx/sites-enabled/{domain_name}.conf")
 
     # Reload Nginx to apply the new configuration
-    subprocess.run("sudo systemctl reload nginx", shell=True, check=True)
+    # subprocess.run("sudo systemctl reload nginx", shell=True, check=True)

@@ -1,6 +1,7 @@
 import os
 import pathlib
 import shutil
+import subprocess
 
 from django.shortcuts import render
 from django.views import View
@@ -32,6 +33,7 @@ class app_certificate_new(View):
             create_domain_ssl(app.domain)
             AppCertificate.objects.create(app=app)
             messages.success(request, _('Certificate created successfully'))
+            subprocess.run("sudo systemctl reload nginx", shell=True, check=True)
         except Exception as e:
             messages.error(request, _('Certificate created failed'))
             messages.warning(request, str(e))

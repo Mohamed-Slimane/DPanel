@@ -18,9 +18,13 @@
                     <td>{{database.name}}</td>
                     <td>{{database.username}}</td>
                     <td>
-                        <div class="password-text">
-                            {{database.password}}
-                        </div>
+                        <span class="blur-group">
+                            <span class="blur-text">
+                                {{database.password}}
+                            </span>
+                            <i class="bi bi-eye remove-blur pointer"></i>
+                        </span>
+                        <i class="bi bi-clipboard copy-this pointer" data-text="{{database.password}}" data-message="{% trans 'Password copied' %}"></i>
                     </td>
                     <td class="text-end">
                         <a href="{% url 'postgres_database_download' database.serial %}" target="_blank" class="btn btn-success btn-sm rounded-pill">
