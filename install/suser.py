@@ -24,5 +24,5 @@ except KeyError:
     p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE)
     p.communicate(input=f"{p}\n".encode())
 
-    with open('/var/.dpuser', 'a') as fd:
+    with open('/var/.dpuser', 'w') as fd:
         fd.write(f'{p}')

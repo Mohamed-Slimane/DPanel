@@ -131,6 +131,7 @@ class app_delete(View):
             os.system(f'sudo certbot delete --cert-name {app.domain}')
         except Exception as e:
             pass
+        os.system(f'sudo killall -9 uwsgi')
         os.system(f'sudo systemctl restart nginx')
         os.system(f'sudo systemctl restart uwsgi')
         return redirect('apps')

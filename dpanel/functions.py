@@ -61,7 +61,7 @@ def create_app_server_block(app):
         with open(nginx_conf, 'w') as f:
             f.write(conf)
             app.nginx_config = nginx_conf
-        os.symlink(nginx_conf, f"{enabled}/{app.domain}.conf")
+        os.system(f"sudo ln -s {nginx_conf} {enabled}/{app.domain}.conf")
     except Exception as e:
         print(str(e))
 
@@ -91,7 +91,7 @@ venv = {app.venv_path}
         with open(uwsgi_conf, 'w') as f:
             f.write(conf)
             app.uwsgi_config = uwsgi_conf
-        os.symlink(uwsgi_conf, f"{enabled}/{app.domain}.ini")
+        os.system(f"sudo ln -s {uwsgi_conf} {enabled}/{app.domain}.ini")
     except Exception as e:
         print(str(e))
 
