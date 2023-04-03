@@ -1,9 +1,11 @@
 import os
 import pathlib
 import shutil
+import socket
 import subprocess
 
 from django.shortcuts import render
+from django.utils import timezone
 from django.views import View
 from django.contrib import messages
 from django.shortcuts import redirect
@@ -28,9 +30,10 @@ class app_certificates(View):
 
 class app_certificate_new(View):
     def get(self, request, serial):
+        wildcard = request.GET.get('wildcard') or None
         app = App.objects.get(serial=serial)
         try:
-            create_domain_ssl(app.domain)
+            create_domain_ssl(app.domain, wildcard)
             AppCertificate.objects.create(app=app)
             messages.success(request, _('Certificate created successfully'))
             subprocess.run("sudo systemctl reload nginx", shell=True, check=True)
@@ -54,7 +57,6 @@ class app_new(View):
             pathlib.Path(app.www_path).mkdir(parents=True, exist_ok=True)
             pathlib.Path(app.venv_path).mkdir(parents=True, exist_ok=True)
 
-            import socket
             sock = socket.socket()
             sock.bind(('', 0))
             app.port = sock.getsockname()[1]
@@ -106,7 +108,8 @@ class app_delete(View):
         app = App.objects.get(serial=serial)
         app.delete()
         try:
-            os.rename(app.www_path, f'{app.www_path}-deleted')
+            pathlib.Path('/var/www-deleted').mkdir(parents=True, exist_ok=True)
+            shutil.move(app.www_path, str(app.www_path).replace('/www/', '/www-deleted/')+str(timezone.now().strftime("_%Y-%m-%d_time_%H.%M.%S")))
         except Exception as e:
             pass
         try:

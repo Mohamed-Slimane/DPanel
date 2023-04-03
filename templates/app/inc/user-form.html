@@ -1,0 +1,24 @@
+{% load i18n %}
+<div class="app-user-form {{app.serial}} app-user-form-toggle position-fixed top-0 end-0 w-100 h-100 bg-dark opacity-50" style="display: none" data-app="{{app.serial}}"></div>
+<div class="app-user-form {{app.serial}} position-fixed top-50 start-50 translate-middle" style="display: none">
+    <div class="bg-white rounded p-3">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                <input type="text" name="username" class="form-control form-control-sm" placeholder="{% trans 'Username' %}">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="bi bi-shield"></i></span>
+                <input type="password" name="password" class="form-control form-control-sm" placeholder="{% trans 'Password' %}">
+            </div>
+
+            <label class="mb-3" title="{% trans 'Superuser' %}">
+                {% trans 'Superuser' %}
+                <input type="checkbox" name="superuser" class="form-check-input">
+            </label>
+
+            <button type="submit" class="btn btn-primary w-100">{% trans 'Create' %}</button>
+        </form>
+    </div>
+</div>

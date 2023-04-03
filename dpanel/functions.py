@@ -114,7 +114,15 @@ def create_app(app):
         {app.venv_path}/bin/pip install uwsgi        
         cd {app.www_path}
         django-admin startproject {app.uwsgi_path} .   
+        sudo {app.venv_path}/bin/python manage.py collectstatic --noinput   
         sudo {app.venv_path}/bin/python manage.py migrate   
         '''.format(app=app))
+
+        import fileinput
+        for line in fileinput.input(f'{app.www_path}/{app.uwsgi_path}/settings.py', inplace=True):
+            if line.startswith('ALLOWED_HOSTS = '):
+                line = f"ALLOWED_HOSTS = ['{app.domain}']\n"
+            print(line, end='')
+
     except Exception as e:
         print(str(e))

@@ -1,58 +1,77 @@
 {% load i18n %}
-<table class="table">
-    <thead>
-    <tr>
-        <th>{% translate 'Name' %}</th>
-        <th>{% translate 'Domain' %}</th>
-        <th>{% translate 'Port' %}</th>
-        <th>{% translate 'Path' %}</th>
-        <th>{% translate 'Venv' %}</th>
-        <th>{% translate 'SSL' %}</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-        {% for app in apps %}
+<div class="table-responsive">
+    <table class="table">
+        <thead>
         <tr>
-            <td>
-                <a href="{% url 'apps' %}" class="fw-bold">
-                    {{app.name}}
-                </a>
-            </td>
-            <td>
-                {{app.domain}}
-                <a href="http://{{app.domain}}" target="_blank">
-                    <i class="bi bi-box-arrow-up-right"></i>
-                </a>
-            </td>
-            <td>{{app.port}}</td>
-            <td>
-                <span dir="ltr">
-                    {{app.www_path}}
-                </span>
-            </td>
-            <td>
-                <input type="text" class="form-control form-control-sm copy-input" value="source {{app.venv_path}}/bin/activate && cd {{app.www_path}}" readonly dir="ltr">
-            </td>
-            <td>
-
-                <a href="{% url 'app_certificates' app.serial %}" class="btn btn-{% if app.certificate_app.all %}success{% else %}light border{% endif %} btn-sm rounded-pill">
-                    <i class="bi bi-shield"></i>
-                </a>
-            </td>
-            <td class="text-end">
-                <span class="btn btn-danger btn-sm rounded-pill" onclick="open_link_confirm('{% url 'app_delete' app.serial %}')">
-                    <!--{% trans 'Delete' %}-->
-                    <i class="bi bi-trash"></i>
-                </span>
-
-                <a href="{% url 'app_config' app.serial %}" class="btn btn-secondary btn-sm rounded-pill">
-                    <!--{% trans 'Config' %}-->
-                    <i class="bi bi-gear-fill"></i>
-                </a>
-            </td>
+            <th>{% translate 'Name' %}</th>
+            <th>{% translate 'Domain' %}</th>
+            <th>{% translate 'Port' %}</th>
+            <th>{% translate 'Path' %}</th>
+            <th>{% translate 'Venv' %}</th>
+            <th>{% translate 'SSL' %}</th>
+            <th></th>
         </tr>
-        {% endfor  %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {% for app in apps %}
+            <tr>
+                <td>
+                    <a href="{% url 'apps' %}" class="fw-bold">
+                        {{app.name}}
+                    </a>
+                </td>
+                <td>
+                    {{app.domain}}
+                    <a href="http://{{app.domain}}" target="_blank">
+                        <i class="bi bi-box-arrow-up-right"></i>
+                    </a>
+                </td>
+                <td>{{app.port}}</td>
+                <td>
+                    <span dir="ltr">
+                        {{app.www_path}}
+                    </span>
+                </td>
+                <td>
+                    <input type="text" class="form-control form-control-sm copy-input" value="source {{app.venv_path}}/bin/activate && cd {{app.www_path}}" readonly dir="ltr">
+                </td>
+                <td>
 
+                    <a href="{% url 'app_certificates' app.serial %}" class="btn btn-{% if app.certificate_app.all %}success{% else %}light border{% endif %} btn-sm rounded-pill">
+                        <i class="bi bi-shield"></i>
+                    </a>
+                </td>
+                <td class="text-end">
+                    <span class="btn btn-danger btn-sm rounded-pill" onclick="open_link_confirm('{% url 'app_delete' app.serial %}')">
+                        <!--{% trans 'Delete' %}-->
+                        <i class="bi bi-trash"></i>
+                    </span>
+
+                    <a href="{% url 'app_config' app.serial %}" class="btn btn-secondary btn-sm rounded-pill">
+                        <!--{% trans 'Config' %}-->
+                        <i class="bi bi-gear-fill"></i>
+                    </a>
+
+                    <span class="btn btn-light border btn-sm rounded-pill app-user-form-toggle" data-app="{{app.serial}}">
+                        {% trans 'Create user' %}
+                        <i class="bi bi-person"></i>
+                    </span>
+                </td>
+            </tr>
+            {% include 'app/inc/user-form.html' %}
+            {% endfor  %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    jQuery('.app-user-form-toggle').click(function(){
+        form = jQuery('.app-user-form.'+jQuery(this).data('app'))
+        if(form.is(':visible')) {
+            form.hide()
+        }else{
+            jQuery('.app-user-form').hide()
+            form.show()
+        }
+    })
+</script>

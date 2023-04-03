@@ -7,9 +7,12 @@ def has_certbot_cert(domain):
     return os.path.exists(cert_dir)
 
 
-def create_domain_ssl(domain_name):
+def create_domain_ssl(domain_name, wildcard=None):
     # Create a new SSL certificate for the domain using Certbot
-    if has_certbot_cert(domain_name):
+    "sudo certbot --server https://acme-v02.api.letsencrypt.org/directory -d *.example.com --manual --preferred-challenges dns-01 certonly"
+    if wildcard:
+        certbot_cmd = f"sudo certbot certonly --manual --no-redirect --preferred-challenges=dns --email admin@{domain_name} --server https://acme-v02.api.letsencrypt.org/directory --agree-tos -d *.{domain_name}"
+    elif has_certbot_cert(domain_name):
         certbot_cmd = f"sudo certbot renew --nginx --cert-name {domain_name}"
     else:
         certbot_cmd = f"sudo certbot --nginx --agree-tos --no-redirect --email admin@{domain_name} -d {domain_name}"

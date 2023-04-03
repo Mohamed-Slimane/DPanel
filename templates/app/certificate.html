@@ -6,7 +6,11 @@
 {% block page_title %}{{app}} - certificate{% endblock %}
 {% block title_button %}
 <span class="btn btn-primary btn-sm rounded-pill" onclick="open_link_confirm('{% url 'app_ssl_new' app.serial %}')">
-    {% trans 'Create' %}
+    {% trans 'Create SSL' %}
+    <i class="bi bi-shield"></i>
+</span>
+<span class="btn btn-primary btn-sm rounded-pill d-none" onclick="open_link_confirm('{% url 'app_ssl_new' app.serial %}?wildcard=True')">
+    {% trans 'Create wildcard' %}
     <i class="bi bi-shield"></i>
 </span>
 {% endblock %}
