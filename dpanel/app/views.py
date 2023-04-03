@@ -4,6 +4,7 @@ import shutil
 import socket
 import subprocess
 
+from django.contrib.auth.hashers import make_password
 from django.shortcuts import render
 from django.utils import timezone
 from django.views import View
@@ -20,6 +21,29 @@ class apps(View):
     def get(self, request):
         apps = App.objects.all()
         return render(request, 'app/apps.html', {'apps': apps})
+
+
+class app_user_new(View):
+    def post(self, request, serial):
+        app = App.objects.get(serial=serial)
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        superuser = request.POST.get('superuser')
+        if superuser == 'on':
+            superuser = True
+        else:
+            superuser = False
+        if username and password and email:
+            try:
+                cmd = f"from django.contrib.auth.models import User; User.objects.create_user('{username}', '{email}', '{password}', is_superuser={superuser})"
+                os.system(f'sudo {app.venv_path}/bin/python {app.www_path}/manage.py shell -c "{cmd}"')
+                messages.success(request, _('User created successfully for app {}').format(app.name))
+            except Exception as e:
+                messages.error(request, str(e))
+        else:
+            messages.error(request, _('Please enter a username and password and email and try again.'))
+        return render(request, 'app/certificate.html', {'app': app})
 
 
 class app_certificates(View):
