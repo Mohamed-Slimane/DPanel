@@ -1,6 +1,7 @@
-<form method="post" action="{% url 'files_ajax_upload' %}"
-      class="dropzone text-primary rounded mt-3"
+<form method="post" action="{% url 'app_files_ajax_upload' %}"
+      class="dropzone text-primary rounded"
       id="file-upload-dropzone">
+    <input name="path" id="upload-path" value="{{path}}" hidden>
     {% csrf_token %}
 </form>
 <script>
@@ -10,21 +11,14 @@
             paramName: "file",
             maxFilesize: 200,
             params: {
-                path: jQuery("#path").val(),
-                app: "{{app.serial}}"
+                "app": "{{app.serial}}"
             },
             accept: function(file, done) {
                 done()
             }
         })
         myDropzone.on("complete", function(file) {
-            jQuery.ajax({
-             type: "GET",
-                 url: "{% url 'app_files_ajax' app.serial %}?path="+jQuery("#path").val(),
-                 success: function(data){
-                    jQuery('#files').html(data)
-                 }
-            })
-        });
-    });
+            reload_folder()
+        })
+    })
 </script>

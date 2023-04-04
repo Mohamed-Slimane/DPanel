@@ -24,62 +24,6 @@ class apps(View):
         return render(request, 'app/apps.html', {'apps': apps})
 
 
-class app_files(View):
-    def get(self, request, serial):
-        app = App.objects.get(serial=serial)
-        path = app.www_path
-        files = []
-        dirs = []
-        for f in os.listdir(path):
-            if os.path.isfile(os.path.join(path, f)):
-                files.append(f)
-            else:
-                dirs.append(f)
-        return render(request, 'app/files.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path})
-
-
-class app_files_ajax(View):
-    def get(self, request, serial):
-        app = App.objects.get(serial=serial)
-        path = request.GET.get('path')
-        if not path.startswith(app.www_path):
-            path = app.www_path
-        files = []
-        dirs = []
-        for f in os.listdir(path):
-            if os.path.isfile(os.path.join(path, f)):
-                files.append(f)
-            else:
-                dirs.append(f)
-        return render(request, 'app/inc/files-list.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path})
-
-
-class files_ajax_upload(View):
-    def post(self, request):
-        serial = request.POST.get('app')
-        app = App.objects.get(serial=serial)
-        path = request.POST.get('path')
-        if not path.startswith(app.www_path):
-            return JsonResponse({"error": 1, "success": False})
-        try:
-            file = request.FILES['file']
-            if file.name:
-                fn = os.path.basename(file.name)
-                open(f'{path}/{fn}', 'wb').write(file.read())
-            req = {
-                "error": 0,
-                "success": True
-            }
-        except Exception as e:
-            req = {
-                "error": 1,
-                "error_message": str(e),
-                "success": False
-            }
-
-        return JsonResponse(req)
-
-
 class app_user_new(View):
     def post(self, request, serial):
         app = App.objects.get(serial=serial)
@@ -222,3 +166,109 @@ class app_delete(View):
         os.system(f'sudo systemctl restart nginx')
         os.system(f'sudo systemctl restart uwsgi')
         return redirect('apps')
+
+
+class app_files(View):
+    def get(self, request, serial):
+        app = App.objects.get(serial=serial)
+        path = app.www_path
+        files = []
+        dirs = []
+        for f in os.listdir(path):
+            if os.path.isfile(os.path.join(path, f)):
+                files.append(f)
+            else:
+                dirs.append(f)
+        return render(request, 'app/files.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path})
+
+
+class app_files_ajax(View):
+    def get(self, request, serial):
+        app = App.objects.get(serial=serial)
+        path = request.GET.get('path')
+        if not path.startswith(app.www_path):
+            path = app.www_path
+        files = []
+        dirs = []
+        for f in os.listdir(path):
+            if os.path.isfile(os.path.join(path, f)):
+                files.append(f)
+            else:
+                dirs.append(f)
+        return render(request, 'app/inc/files-list.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path})
+
+
+class app_files_ajax_upload(View):
+    def post(self, request):
+        print(request.POST.get)
+        serial = request.POST.get('app')
+        app = App.objects.get(serial=serial)
+        path = request.POST.get('path')
+        print(path, '   *****  ', app.www_path)
+        if not path.startswith(app.www_path):
+            return JsonResponse({"error": 1, "success": False})
+        try:
+            file = request.FILES['file']
+            if file.name:
+                fn = os.path.basename(file.name)
+                open(f'{path}/{fn}', 'wb').write(file.read())
+            req = {
+                "error": 0,
+                "success": True
+            }
+        except Exception as e:
+            req = {
+                "error": 1,
+                "error_message": str(e),
+                "success": False
+            }
+
+        return JsonResponse(req)
+
+
+class extract_zip(View):
+    def get(self, request):
+        path = request.GET.get('path')
+        file = request.GET.get('file')
+        folder = request.GET.get('folder')
+        try:
+            if folder == 'true':
+                print(file.rsplit('.', 1)[0])
+                shutil.unpack_archive(file, file.rsplit('.', 1)[0])
+            else:
+                shutil.unpack_archive(file, path)
+            req = {
+                "error": 0,
+                "success": True
+            }
+        except Exception as e:
+            req = {
+                "error": 1,
+                "error_message": str(e),
+                "success": False
+            }
+
+        return JsonResponse(req)
+
+
+class file_remove(View):
+    def get(self, request):
+        file = request.GET.get('file')
+        try:
+            if os.path.isfile(file):
+                os.remove(file)
+            elif os.path.isdir(file):
+                shutil.rmtree(file)
+            req = {
+                "error": 0,
+                "success": True
+            }
+        except Exception as e:
+            messages.error(request, str(e))
+            req = {
+                "error": 1,
+                "error_message": str(e),
+                "success": False
+            }
+
+        return JsonResponse(req)

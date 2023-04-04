@@ -1,25 +1,66 @@
-<input value="{{path}}" id="path" hidden>
+{% load i18n %}
+<input id="path" hidden value="{{path}}">
 {% if dirs %}
-<ul class="list-group mb-3">
+<div class="row g-3 mb-3">
 {% for dir in dirs %}
-    <li class="clickable-folder pointer list-group-item list-group-item-action" data-path="{{path}}/{{dir}}/">
-        <i class="bi bi-folder"></i>
-        {{dir}}
-    </li>
+    <div class="col-lg-3 col-md-4 col-6">
+    <div class="border rounded pointer position-relative">
+        <div class="clickable-folder p-2" data-path="{{path}}/{{dir}}">
+            <i class="bi bi-folder"></i>
+            {{dir|truncatechars:15}}
+        </div>
+        <div class="dropdown position-absolute top-0 end-0 m-2">
+            <i class="bi bi-three-dots-vertical pointer" data-bs-toggle="dropdown"></i>
+            <ul class="dropdown-menu">
+                <li>
+                    <span class="remove-file dropdown-item pointer" data-file="{{path}}/{{dir}}">
+                        {% trans 'Delete' %}
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
 {% endfor %}
-</ul>
+</div>
 {% endif %}
 
 {% if files %}
-<ul class="list-group">
+<div class="row g-3">
 {% for file in files %}
-    <li class="list-group-item">
-        <i class="bi bi-file-earmark-code
-            bi-filetype-{{file.lower|slice:'-3:'}}
-            bi-filetype-{{file.lower|slice:'-2:'}}
-            {% if file.lower|slice:'-3:' == 'zip' %}bi-file-earmark-zip{% endif %}"></i>
-        {{file}}
-    </li>
+    <div class="col-lg-3 col-md-4 col-6">
+        <div class="border rounded position-relative">
+            <div class="p-2">
+                <i class="bi bi-file-earmark-code
+                    bi-filetype-{{file.lower|slice:'-3:'}}
+                    bi-filetype-{{file.lower|slice:'-2:'}}
+                    {% if file.lower|slice:'-3:' == 'zip' %}bi-file-earmark-zip{% endif %}"></i>
+                {{file|truncatechars:15}}
+            </div>
+            <div class="dropdown position-absolute top-0 end-0 m-2">
+                <i class="bi bi-three-dots-vertical pointer" data-bs-toggle="dropdown"></i>
+                <ul class="dropdown-menu">
+                    {% if file.lower|slice:'-3:' == "zip" %}
+                    <li>
+                        <span class="extract-zip dropdown-item pointer" data-folder="false" data-file="{{path}}/{{file}}">
+                            {% trans 'Extract here' %}
+                        </span>
+                    </li>
+                    <li>
+                        <span class="extract-zip dropdown-item pointer" data-folder="true" data-file="{{path}}/{{file}}" data-file-name="{{file}}">
+                            {% trans 'Extract to folder' %}
+                        </span>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <span class="remove-file dropdown-item pointer" data-file="{{path}}/{{file}}">
+                            {% trans 'Delete' %}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endfor %}
-</ul>
+</div>
 {% endif %}
