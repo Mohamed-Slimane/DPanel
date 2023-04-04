@@ -52,6 +52,11 @@
                             <i class="bi bi-gear-fill"></i>
                         </a>
 
+                        <a href="{% url 'app_files' app.serial %}" class="btn btn-success btn-sm rounded-pill d-inline-flex me-1">
+    <!--                        {% trans 'Files' %}-->
+                            <i class="bi bi-folder"></i>
+                        </a>
+
                         <span class="btn btn-light border btn-sm rounded-pill d-inline-flex me-1 app-user-form-toggle" data-app="{{app.serial}}">
                             {% trans 'Create' %}
                             <i class="bi bi-person"></i>

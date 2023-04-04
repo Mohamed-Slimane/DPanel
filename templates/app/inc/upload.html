@@ -1,0 +1,30 @@
+<form method="post" action="{% url 'files_ajax_upload' %}"
+      class="dropzone text-primary rounded mt-3"
+      id="file-upload-dropzone">
+    {% csrf_token %}
+</form>
+<script>
+    Dropzone.autoDiscover = false;
+    jQuery(document).ready(function () {
+        let myDropzone = new Dropzone("#file-upload-dropzone",{
+            paramName: "file",
+            maxFilesize: 200,
+            params: {
+                path: jQuery("#path").val(),
+                app: "{{app.serial}}"
+            },
+            accept: function(file, done) {
+                done()
+            }
+        })
+        myDropzone.on("complete", function(file) {
+            jQuery.ajax({
+             type: "GET",
+                 url: "{% url 'app_files_ajax' app.serial %}?path="+jQuery("#path").val(),
+                 success: function(data){
+                    jQuery('#files').html(data)
+                 }
+            })
+        });
+    });
+</script>

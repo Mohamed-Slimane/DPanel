@@ -1,0 +1,25 @@
+<input value="{{path}}" id="path" hidden>
+{% if dirs %}
+<ul class="list-group mb-3">
+{% for dir in dirs %}
+    <li class="clickable-folder pointer list-group-item list-group-item-action" data-path="{{path}}/{{dir}}/">
+        <i class="bi bi-folder"></i>
+        {{dir}}
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if files %}
+<ul class="list-group">
+{% for file in files %}
+    <li class="list-group-item">
+        <i class="bi bi-file-earmark-code
+            bi-filetype-{{file.lower|slice:'-3:'}}
+            bi-filetype-{{file.lower|slice:'-2:'}}
+            {% if file.lower|slice:'-3:' == 'zip' %}bi-file-earmark-zip{% endif %}"></i>
+        {{file}}
+    </li>
+{% endfor %}
+</ul>
+{% endif %}

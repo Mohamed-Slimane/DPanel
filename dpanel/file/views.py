@@ -5,7 +5,6 @@ import socket
 import subprocess
 
 from django.contrib.auth.hashers import make_password
-from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils import timezone
 from django.views import View
@@ -22,62 +21,6 @@ class apps(View):
     def get(self, request):
         apps = App.objects.all()
         return render(request, 'app/apps.html', {'apps': apps})
-
-
-class app_files(View):
-    def get(self, request, serial):
-        app = App.objects.get(serial=serial)
-        path = app.www_path
-        files = []
-        dirs = []
-        for f in os.listdir(path):
-            if os.path.isfile(os.path.join(path, f)):
-                files.append(f)
-            else:
-                dirs.append(f)
-        return render(request, 'app/files.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path})
-
-
-class app_files_ajax(View):
-    def get(self, request, serial):
-        app = App.objects.get(serial=serial)
-        path = request.GET.get('path')
-        if not path.startswith(app.www_path):
-            path = app.www_path
-        files = []
-        dirs = []
-        for f in os.listdir(path):
-            if os.path.isfile(os.path.join(path, f)):
-                files.append(f)
-            else:
-                dirs.append(f)
-        return render(request, 'app/inc/files-list.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path})
-
-
-class files_ajax_upload(View):
-    def post(self, request):
-        serial = request.POST.get('app')
-        app = App.objects.get(serial=serial)
-        path = request.POST.get('path')
-        if not path.startswith(app.www_path):
-            return JsonResponse({"error": 1, "success": False})
-        try:
-            file = request.FILES['file']
-            if file.name:
-                fn = os.path.basename(file.name)
-                open(f'{path}/{fn}', 'wb').write(file.read())
-            req = {
-                "error": 0,
-                "success": True
-            }
-        except Exception as e:
-            req = {
-                "error": 1,
-                "error_message": str(e),
-                "success": False
-            }
-
-        return JsonResponse(req)
 
 
 class app_user_new(View):
@@ -190,8 +133,7 @@ class app_delete(View):
         app.delete()
         try:
             pathlib.Path('/var/www-deleted').mkdir(parents=True, exist_ok=True)
-            shutil.move(app.www_path, str(app.www_path).replace('/www/', '/www-deleted/') + str(
-                timezone.now().strftime("_%Y-%m-%d_time_%H.%M.%S")))
+            shutil.move(app.www_path, str(app.www_path).replace('/www/', '/www-deleted/')+str(timezone.now().strftime("_%Y-%m-%d_time_%H.%M.%S")))
         except Exception as e:
             pass
         try:
