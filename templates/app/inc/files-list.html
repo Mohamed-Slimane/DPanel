@@ -1,5 +1,14 @@
 {% load i18n %}
-<input id="path" hidden value="{{path}}">
+
+<div class="input-group input-group-sm mb-3">
+    <button class="clickable-folder btn btn-light border" data-path="{{parent}}">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+    <button class="clickable-folder btn btn-light border" data-path="{{app.www_path}}">
+        <i class="bi bi-house"></i>
+    </button>
+    <input id="path" value="{{path}}" class="form-control" readonly>
+</div>
 {% if dirs %}
 <div class="row g-3 mb-3">
 {% for dir in dirs %}

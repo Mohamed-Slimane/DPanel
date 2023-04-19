@@ -3,12 +3,6 @@
 
 {% block title %} {% translate 'Files' %} - {{app.name}} {% endblock %}
 {% block page_title %} {% translate 'Files' %} - {{app.name}} {% endblock %}
-{% block title_button %}
-    <button class="clickable-folder btn btn-light border" data-path="{{app.www_path}}">
-        <i class="bi bi-house"></i>
-    </button>
-{% endblock %}
-
 
 {% block content %}
 <div class="bg-white shadow-sm rounded p-3 mb-3 position-relative">
@@ -45,8 +39,8 @@
                 jQuery('.loading-preloader-2').show()
              },
              success: function(data){
-                jQuery('.loading-preloader-2').hide()
                 reload_folder()
+                jQuery('.loading-preloader-2').hide()
              }
         })
     })
@@ -60,6 +54,7 @@
              },
              success: function(data){
                 reload_folder()
+                jQuery('.loading-preloader-2').hide()
              }
         })
     })

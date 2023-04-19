@@ -179,7 +179,7 @@ class app_files(View):
                 files.append(f)
             else:
                 dirs.append(f)
-        return render(request, 'app/files.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path})
+        return render(request, 'app/files.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path, 'parent': pathlib.Path(path).parent.absolute()})
 
 
 class app_files_ajax(View):
@@ -195,7 +195,7 @@ class app_files_ajax(View):
                 files.append(f)
             else:
                 dirs.append(f)
-        return render(request, 'app/inc/files-list.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path})
+        return render(request, 'app/inc/files-list.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path, 'parent': pathlib.Path(path).parent.absolute()})
 
 
 class app_files_ajax_upload(View):
