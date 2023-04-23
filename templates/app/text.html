@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block title %} {% trans 'Edit' %} {{filename}} {% endblock %}
+{% block page_title %} {% trans 'Edit' %} {{filename}} {% endblock %}
+
+{% block content %}
+<form class="" method="post" enctype="multipart/form-data">
+    <div class="mb-3" style="height: 70vh">
+        <textarea name="text" id="edit-text">{{text}}</textarea>
+    </div>
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary ">
+        <i class="bi bi-save2"></i>
+        {% trans 'Save' %}
+    </button>
+    <div id="toggle-fullscreen" class="btn btn-light border float-md-end">
+        <i class="bi bi-arrows-fullscreen"></i>
+        {% trans 'Full screen' %}
+    </div>
+</form>
+
+<script src="{% static 'codemirror/codemirror.min.js' %}"></script>
+
+<script src="{% static 'codemirror/addons/matchbrackets.js' %}"></script>
+<script src="{% static 'codemirror/addons/closebrackets.js' %}"></script>
+
+<script src="{% static 'codemirror/modes/meta.js' %}"></script>
+
+<link rel="stylesheet" href="{% static 'codemirror/codemirror.min.css' %}" />
+<link rel="stylesheet" href="{% static 'codemirror/themes/monokai.css' %}" />
+
+{% if filename|slice:'-2:' == "py" %}
+<script src="{% static 'codemirror/modes/python/python.js' %}"></script>
+{% elif filename|slice:'-3:' == "html" %}
+<script src="{% static 'codemirror/modes/xml/xml.js' %}"></script>
+{% elif filename|slice:'-3:' == "css" %}
+<script src="{% static 'codemirror/modes/css/css.js' %}"></script>
+{% elif filename|slice:'-2:' == "js" or filename|slice:'-4:' == "json" %}
+<script src="{% static 'codemirror/modes/javascript/javascript.js' %}"></script>
+{% else %}
+<script src="{% static 'codemirror/modes/textile/textile.js' %}"></script>
+{% endif %}
+
+<script>
+jQuery(document).ready(function() {
+    CodeMirror.fromTextArea(document.getElementById('edit-text'), {
+        theme: 'monokai',
+        lineNumbers : true,
+        matchBrackets : true,
+        autoCloseBrackets : true,
+        highlightSelectionMatches : true,
+        tabMode: "indent",
+
+        {% if filename|slice:'-2:' == "py" %}
+        mode: 'text/x-python',
+        {% elif filename|slice:'-3:' == "html" %}
+        mode: 'application/xml',
+        {% elif filename|slice:'-3:' == "css" %}
+        mode: 'text/css',
+        {% elif filename|slice:'-2:' == "js" or filename|slice:'-4:' == "json" %}
+        mode: 'text/javascript',
+        {% else %}
+        mode: 'text/x-textile',
+        {% endif %}
+    })
+})
+
+
+    jQuery('#toggle-fullscreen').on('click', function(){
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+        } else {
+            jQuery('div.CodeMirror').get(0).requestFullscreen();
+        }
+    });
+
+</script>
+<style>
+    div.CodeMirror{height: 100%}
+</style>
+{% endblock %}

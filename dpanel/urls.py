@@ -24,6 +24,10 @@ urlpatterns = [
     path('apps/files/upload/ajax/', super_required(app_views.app_files_ajax_upload.as_view()), name="app_files_ajax_upload"),
     path('apps/files/zip/extract/ajax/', super_required(app_views.extract_zip.as_view()), name="app_zip_extract"),
     path('apps/files/remove/', super_required(app_views.file_remove.as_view()), name="app_file_remove"),
+    path('apps/files/file_edit/', super_required(app_views.file_edit.as_view()), name="app_file_edit"),
+
+    path('restart/nginx/', super_required(app_views.nginx_restart.as_view()), name="nginx_restart"),
+    path('restart/uwsgi/', super_required(app_views.uwsgi_restart.as_view()), name="uwsgi_restart"),
 
     # Postgres
     path('postgres/', super_required(postgres_views.databases.as_view()), name="postgres_databases"),

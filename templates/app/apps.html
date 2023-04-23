@@ -9,6 +9,14 @@
     {% translate 'New app' %}
     <i class="bi bi-rocket-takeoff"></i>
 </a>
+<a class="btn btn-warning btn-sm rounded-pill" href="{% url 'uwsgi_restart' %}">
+    {% translate 'Restart uwsgi' %}
+    <i class="bi bi-arrow-clockwise"></i>
+</a>
+<a class="btn btn-info btn-sm rounded-pill" href="{% url 'nginx_restart' %}">
+    {% translate 'Restart nginx' %}
+    <i class="bi bi-arrow-clockwise"></i>
+</a>
 {% endblock %}
 {% block content %}
 <div class="bg-white shadow-sm rounded">

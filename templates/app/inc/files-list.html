@@ -49,6 +49,13 @@
             <div class="dropdown position-absolute top-0 end-0 m-2">
                 <i class="bi bi-three-dots-vertical pointer" data-bs-toggle="dropdown"></i>
                 <ul class="dropdown-menu">
+                    <li>
+                        {% if file.lower|slice:'-3:' == "txt" or file.lower|slice:'-2:' == "py" or file.lower|slice:'-3:' == "log" or file.lower|slice:'-3:' == "ini" or file.lower|slice:'-4:' == "html" or file.lower|slice:'-3:' == "css" or file.lower|slice:'-2:' == "js" or file.lower|slice:'-4:' == "json" %}
+                        <a class="dropdown-item" href="{% url 'app_file_edit'%}?file={{path}}/{{file}}" target="_blank">
+                            {% trans 'Edit' %}
+                        </a>
+                    {% endif %}
+                    </li>
                     {% if file.lower|slice:'-3:' == "zip" %}
                     <li>
                         <span class="extract-zip dropdown-item pointer" data-folder="false" data-file="{{path}}/{{file}}">

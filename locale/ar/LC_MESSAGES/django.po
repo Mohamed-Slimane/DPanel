@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dever stoke\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-01 16:48+0100\n"
+"POT-Creation-Date: 2023-04-19 18:11+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,30 +15,59 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: .\dpanel\app\views.py:28
+#: .\dpanel\app\views.py:42
+msgid "User created successfully for app {}"
+msgstr "تم إنشاء الشهادة بنجاح"
+
+#: .\dpanel\app\views.py:46
+msgid "Please enter a username and password and email and try again."
+msgstr ""
+"الرجاء إدخال اسم المستخدم وكلمة المرور والبريد الإلكتروني وحاول مرة أخرى."
+
+#: .\dpanel\app\views.py:63
 msgid "Certificate created successfully"
 msgstr "تم إنشاء الشهادة بنجاح"
 
-#: .\dpanel\app\views.py:30
+#: .\dpanel\app\views.py:66
 msgid "Certificate created failed"
 msgstr "فشل إنشاء الشهادة"
 
-#: .\dpanel\app\views.py:62
+#: .\dpanel\app\views.py:97
 msgid "App successfully created"
 msgstr "تم إنشاء التطبيق بنجاح"
 
-#: .\dpanel\app\views.py:65 .\dpanel\mysql\views.py:40
+#: .\dpanel\app\views.py:100 .\dpanel\mysql\views.py:40
 #: .\dpanel\postgres\views.py:40
 msgid "Form validation error"
 msgstr "خطأ في التحقق من صحة النموذج"
 
-#: .\dpanel\app\views.py:82
+#: .\dpanel\app\views.py:117
 msgid "App configuration updated successfully"
 msgstr "تم تحديث تكوين التطبيق بنجاح"
 
-#: .\dpanel\app\views.py:84
+#: .\dpanel\app\views.py:119
 msgid "Error in updating django_app configuration"
 msgstr "خطأ في تحديث تكوين النطاق"
+
+#: .\dpanel\app\views.py:295
+msgid "File was successfully updated"
+msgstr "تم تحديث الملف بنجاح"
+
+#: .\dpanel\app\views.py:305
+msgid "uwsgi restarted successfully"
+msgstr "تمت إعادة تشغيل uwsgi بنجاح"
+
+#: .\dpanel\app\views.py:307
+msgid "uwsgi restart failed"
+msgstr "فشل إعادة تشغيل uwsgi"
+
+#: .\dpanel\app\views.py:316
+msgid "nginx restarted successfully"
+msgstr "تمت إعادة تشغيل nginx بنجاح"
+
+#: .\dpanel\app\views.py:318
+msgid "nginx restart failed"
+msgstr "فشل إعادة تشغيل nginx"
 
 #: .\dpanel\models.py:7 .\dpanel\models.py:33 .\dpanel\models.py:49
 #: .\dpanel\models.py:65
@@ -46,20 +75,20 @@ msgid "Serial"
 msgstr "الرقم التسلسي"
 
 #: .\dpanel\models.py:8 .\dpanel\models.py:34 .\dpanel\models.py:50
-#: .\templates\app\list.html:5 .\templates\mysql\list.html:9
+#: .\templates\app\list.html:6 .\templates\mysql\list.html:9
 #: .\templates\postgres\list.html:9
 msgid "Name"
 msgstr "الإسم"
 
-#: .\dpanel\models.py:9 .\templates\app\list.html:6
+#: .\dpanel\models.py:9 .\templates\app\list.html:7
 msgid "Domain"
 msgstr "الدومين"
 
-#: .\dpanel\models.py:10 .\templates\app\list.html:7
+#: .\dpanel\models.py:10 .\templates\app\list.html:8
 msgid "Port"
 msgstr "البوابة"
 
-#: .\dpanel\models.py:11 .\templates\app\list.html:8
+#: .\dpanel\models.py:11 .\templates\app\list.html:9
 msgid "Path"
 msgstr "المسار"
 
@@ -87,15 +116,17 @@ msgstr "تكوين Uwsgi"
 msgid "Force HTTPS"
 msgstr "فرض HTTPS"
 
-#: .\dpanel\models.py:18 .\templates\app\list.html:41
+#: .\dpanel\models.py:18
 msgid "Activated"
 msgstr "مفعل"
 
 #: .\dpanel\models.py:35 .\dpanel\models.py:51
+#: .\templates\app\inc\user-form.html:12
 msgid "Username"
 msgstr "إسم المستخدم"
 
-#: .\dpanel\models.py:36 .\dpanel\models.py:52 .\templates\mysql\list.html:11
+#: .\dpanel\models.py:36 .\dpanel\models.py:52
+#: .\templates\app\inc\user-form.html:20 .\templates\mysql\list.html:11
 #: .\templates\postgres\list.html:11
 msgid "Password"
 msgstr "كلمة المرور"
@@ -130,41 +161,103 @@ msgstr "جميع التطبيقات"
 msgid "New app"
 msgstr "تطبيق جديد"
 
-#: .\templates\app\apps.html:20
+#: .\templates\app\apps.html:13
+msgid "Restart uwsgi"
+msgstr "أعد تشغيل uwsgi"
+
+#: .\templates\app\apps.html:17
+msgid "Restart nginx"
+msgstr "أعد تشغيل nginx"
+
+#: .\templates\app\apps.html:27
 msgid "You have no apps yet"
 msgstr "ليس لديك أي تطبيقات بعد"
+
+#: .\templates\app\certificate.html:5 .\templates\app\certificate.html:6
+msgid "certificate"
+msgstr "شهادة"
+
+#: .\templates\app\certificate.html:9
+msgid "Create SSL"
+msgstr "إنشاء SSL"
+
+#: .\templates\app\certificate.html:13
+msgid "Create wildcard"
+msgstr "إنشاء شهادة Wildcard"
+
+#: .\templates\app\certificate.html:27
+msgid "This app have no certificates yet"
+msgstr "هذا التطبيق ليس لديه شهادات حتى الآن"
 
 #: .\templates\app\config.html:15 .\templates\mysql\new.html:16
 #: .\templates\postgres\new.html:16
 msgid "Submit"
 msgstr "إرسال"
 
-#: .\templates\app\list.html:9
-msgid "Venv"
-msgstr "البيئة"
+#: .\templates\app\files.html:4 .\templates\app\files.html:5
+#: .\templates\app\list.html:56
+msgid "Files"
+msgstr "الملفات"
 
-#: .\templates\app\list.html:10
-msgid "SSL"
-msgstr "إتصال آمن"
-
-#: .\templates\app\list.html:46
-msgid "Activate"
-msgstr "تفعيل"
-
-#: .\templates\app\list.html:54 .\templates\mysql\list.html:32
-#: .\templates\postgres\list.html:32
+#: .\templates\app\inc\files-list.html:26
+#: .\templates\app\inc\files-list.html:73 .\templates\app\list.html:46
+#: .\templates\mysql\list.html:36 .\templates\postgres\list.html:36
 msgid "Delete"
 msgstr "حذف"
 
-#: .\templates\app\list.html:59
-msgid "Config"
-msgstr "تهيئة"
+#: .\templates\app\inc\files-list.html:55 .\templates\app\text.html:4
+#: .\templates\app\text.html:5 .\templates\mysql\edit.html:4
+#: .\templates\mysql\edit.html:5 .\templates\postgres\edit.html:4
+#: .\templates\postgres\edit.html:5
+msgid "Edit"
+msgstr "تعديل"
 
+#: .\templates\app\inc\files-list.html:62
+msgid "Extract here"
+msgstr "استخرج هنا"
+
+#: .\templates\app\inc\files-list.html:67
+msgid "Extract to folder"
+msgstr "استخراج إلى المجلد"
+
+#: .\templates\app\inc\user-form.html:6
+msgid "Create user for"
+msgstr "إنشاء مستخدم لـ"
+
+#: .\templates\app\inc\user-form.html:16
+msgid "Email"
+msgstr "الإيميل"
+
+#: .\templates\app\inc\user-form.html:22 .\templates\app\inc\user-form.html:23
+msgid "Superuser"
+msgstr "حالة المستخدم المتميز"
+
+#: .\templates\app\inc\user-form.html:27 .\templates\app\list.html:61
 #: .\templates\app\new.html:15
 msgid "Create"
 msgstr "إنشاء"
 
-#: .\templates\base.html:59
+#: .\templates\app\list.html:10
+msgid "Venv"
+msgstr "البيئة"
+
+#: .\templates\app\list.html:11
+msgid "SSL"
+msgstr "إتصال آمن"
+
+#: .\templates\app\list.html:51
+msgid "Config"
+msgstr "تهيئة"
+
+#: .\templates\app\text.html:15
+msgid "Save"
+msgstr "حفظ"
+
+#: .\templates\app\text.html:19
+msgid "Full screen"
+msgstr "كامل الشاشة"
+
+#: .\templates\base.html:62
 msgid "All rights reserved"
 msgstr "جميع الحقوق محفوظة"
 
@@ -225,11 +318,6 @@ msgstr "جديد"
 msgid "Nothing was found"
 msgstr "لم يتم العثور على أي شيء"
 
-#: .\templates\mysql\edit.html:4 .\templates\mysql\edit.html:5
-#: .\templates\postgres\edit.html:4 .\templates\postgres\edit.html:5
-msgid "Edit"
-msgstr "تعديل"
-
 #: .\templates\mysql\edit.html:13 .\templates\postgres\edit.html:13
 msgid "Update"
 msgstr "تحديث"
@@ -238,11 +326,15 @@ msgstr "تحديث"
 msgid "User"
 msgstr "المستخدم"
 
-#: .\templates\mysql\list.html:28 .\templates\postgres\list.html:28
+#: .\templates\mysql\list.html:27 .\templates\postgres\list.html:27
+msgid "Password copied"
+msgstr "تم نسخ كلمة المرور"
+
+#: .\templates\mysql\list.html:32 .\templates\postgres\list.html:32
 msgid "Download"
 msgstr "تحميل"
 
-#: .\templates\mysql\list.html:30 .\templates\postgres\list.html:30
+#: .\templates\mysql\list.html:34 .\templates\postgres\list.html:34
 msgid "Do you wand delete!\\n This step cannot be undo"
 msgstr "هل تريد الحذف!\\n لا يمكن التراجع عن هذه الخطوة"
 
@@ -250,6 +342,9 @@ msgstr "هل تريد الحذف!\\n لا يمكن التراجع عن هذه ا
 #: .\templates\postgres\new.html:4 .\templates\postgres\new.html:5
 msgid "New database"
 msgstr "قاعدة بيانات جديدة"
+
+#~ msgid "Activate"
+#~ msgstr "تفعيل"
 
 #~ msgid "HTTPS"
 #~ msgstr "HTTPS"
@@ -339,11 +434,6 @@ msgstr "قاعدة بيانات جديدة"
 
 #~ msgid "URL"
 #~ msgstr "الرابط"
-
-#, fuzzy
-#~| msgid "All users"
-#~ msgid "File"
-#~ msgstr "جميع المستخدمين"
 
 #~ msgid "Image"
 #~ msgstr "الصورة"
@@ -699,9 +789,6 @@ msgstr "قاعدة بيانات جديدة"
 #~ msgid "There is a new member registered in DPanel"
 #~ msgstr "يوجد عضو جديد مسجل في DPanel"
 
-#~ msgid "Email"
-#~ msgstr "الإيميل"
-
 #~ msgid "Please go to the link below to complete the process"
 #~ msgstr "يرجى الذهاب إلى الرابط أدناه لإكمال العملية"
 
@@ -875,9 +962,6 @@ msgstr "قاعدة بيانات جديدة"
 
 #~ msgid "New domain"
 #~ msgstr "نطاق جديد"
-
-#~ msgid "Save"
-#~ msgstr "حفظ"
 
 #~ msgid "Close"
 #~ msgstr "غلق"

@@ -2,8 +2,8 @@
 {% load i18n %}
 {% load static %}
 
-{% block title %}{{app}} - certificate {% endblock %}
-{% block page_title %}{{app}} - certificate{% endblock %}
+{% block title %} {{app}} - {% trans 'certificate' %} {% endblock %}
+{% block page_title %} {{app}} - {% trans 'certificate' %} {% endblock %}
 {% block title_button %}
 <span class="btn btn-primary btn-sm rounded-pill" onclick="open_link_confirm('{% url 'app_ssl_new' app.serial %}')">
     {% trans 'Create SSL' %}

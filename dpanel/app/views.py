@@ -179,7 +179,8 @@ class app_files(View):
                 files.append(f)
             else:
                 dirs.append(f)
-        return render(request, 'app/files.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path, 'parent': pathlib.Path(path).parent.absolute()})
+        return render(request, 'app/files.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path,
+                                                  'parent': pathlib.Path(path).parent.absolute()})
 
 
 class app_files_ajax(View):
@@ -195,7 +196,8 @@ class app_files_ajax(View):
                 files.append(f)
             else:
                 dirs.append(f)
-        return render(request, 'app/inc/files-list.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path, 'parent': pathlib.Path(path).parent.absolute()})
+        return render(request, 'app/inc/files-list.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path,
+                                                           'parent': pathlib.Path(path).parent.absolute()})
 
 
 class app_files_ajax_upload(View):
@@ -272,3 +274,47 @@ class file_remove(View):
             }
 
         return JsonResponse(req)
+
+
+class file_edit(View):
+    def get(self, request):
+        file = request.GET.get('file')
+        if not os.path.isfile(file):
+            return redirect('apps')
+        filename = os.path.basename(file)
+        with open(file, "r") as file:
+            text = file.read()
+
+        return render(request, 'app/text.html', {'text': text, 'filename': filename})
+
+    def post(self, request):
+        file = request.GET.get('file')
+        text = request.POST.get('text')
+        with open(file, "w") as file:
+            file.write(text)
+        messages.success(request, _('File was successfully updated'))
+        return self.get(request)
+
+
+class uwsgi_restart(View):
+    def get(self, request):
+        try:
+            # subprocess.call(['uwsgi', '--reload', '/path/to/uwsgi.ini'])
+            os.system(f'sudo systemctl restart nginx')
+            os.system(f'sudo systemctl restart uwsgi')
+            messages.success(request, _('uwsgi restarted successfully'))
+        except subprocess.CalledProcessError as e:
+            messages.error(request, _('uwsgi restart failed'))
+
+        return redirect('apps')
+
+
+class nginx_restart(View):
+    def get(self, request):
+        try:
+            os.system(f'sudo systemctl restart nginx')
+            messages.success(request, _('nginx restarted successfully'))
+        except subprocess.CalledProcessError as e:
+            messages.error(request, _('nginx restart failed'))
+
+        return redirect('apps')
