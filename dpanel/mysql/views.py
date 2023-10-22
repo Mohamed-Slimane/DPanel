@@ -1,20 +1,39 @@
 import os
+import subprocess
 import uuid
 from pathlib import Path
 from wsgiref.util import FileWrapper
 
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.datetime_safe import datetime
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from dpanel.forms import MysqlDatabaseForm
+from dpanel.functions import get_option, install_mysql_server
 from dpanel.models import MysqlDatabase
 
 
 class databases(View):
+    def post(self, request):
+        postgres_status = get_option('postgres_status')
+        if not postgres_status or postgres_status == 'False':
+            if request.POST.get('mysql_install'):
+                res = install_mysql_server()
+            else:
+                res = {
+                    'success': False,
+                    'message': _('Form validation error')
+                }
+        else:
+            res = {
+                'success': False,
+                'message': _('There is an existing Mysql server installed')
+            }
+        return JsonResponse(res)
+
     def get(self, request):
         databases = MysqlDatabase.objects.all()
         return render(request, 'mysql/databases.html', {'databases': databases})
@@ -22,23 +41,28 @@ class databases(View):
 
 class database_new(View):
     def post(self, request):
-        form = MysqlDatabaseForm(request.POST, request.FILES)
+        form = MysqlDatabaseForm(request.POST)
         if form.is_valid():
             database = form.save(commit=False)
             database.password = str(uuid.uuid4()).replace('-', '')[:15]
 
-            os.system(f'sudo mysql -e "set global validate_password.policy = LOW;"')
-            os.system(f'sudo mysql -e "CREATE DATABASE {database.name};"')
-            os.system(f"sudo mysql -e \"CREATE USER '{database.username}'@'localhost' IDENTIFIED BY '{database.password}'\"".format(database=database))
-            # os.system(f"sudo mysql -e \"SET PASSWORD FOR '{database.username}'@'hostname' = PASSWORD('{database.password}');\"")
-            os.system(f'sudo mysql -e "GRANT ALL PRIVILEGES ON {database.name}.* TO \'{database.username}\'@\'localhost\';"')
+            try:
+                subprocess.run(['sudo', 'mysql', '-e', f'CREATE DATABASE {database.name};'])
+                subprocess.run(['sudo', 'mysql', '-e',
+                                f"CREATE USER '{database.username}'@'localhost' IDENTIFIED BY '{database.password}';"])
+                subprocess.run(['sudo', 'mysql', '-e',
+                                f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{database.username}'@'localhost';"])
 
-            database.save()
-            messages.add_message(request, messages.SUCCESS, _('Database successfully created'))
+                database.save()
+                messages.add_message(request, messages.SUCCESS, _('Database successfully created'))
+            except Exception as e:
+                messages.add_message(request, messages.ERROR, str(e))
+                return self.get(request)
+
             return redirect('mysql_databases')
         else:
             messages.add_message(request, messages.ERROR, _('Form validation error'))
-            return render(request, 'mysql/new.html', {'form': form})
+            return self.get(request)
 
     def get(self, request):
         form = MysqlDatabaseForm(request.POST or None)

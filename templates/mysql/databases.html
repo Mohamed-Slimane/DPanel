@@ -6,7 +6,7 @@
 
 {% block title_button %}
 <a class="btn btn-primary btn-sm rounded-pill" href="{% url 'mysql_database_new' %}">
-    {% translate 'New' %}
+    {% translate 'New database' %}
     <i class="fas fa-plus"></i>
 </a>
 {% endblock %}
@@ -16,7 +16,7 @@
     {% if databases %}
     {% include "mysql/list.html" %}
     {% else %}
-    <div class="bg-white border p-3 rounded">
+    <div class="bg-white border p-3 rounded position-relative">
         {% trans 'Nothing was found' %}
     </div>
     {% endif %}
@@ -25,39 +25,39 @@
         <div class="fw-bold h5">
             {% trans 'Mysql server not installed' %}
         </div>
-        <button type="button" class="btn btn-warning btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#installMysql">
+        <button type="button" class="btn btn-warning btn-sm rounded-pill" id="install-mysql">
             {% translate 'Install Mysql server now' %}
         </button>
     </div>
-    <div class="modal fade" id="installMysql" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                        {% translate 'Install Mysql server' %}
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="installMysqlForm" method="post">
-                        <label for="mysql-version" class="form-label">
-                            {% translate 'Mysql version' %}
-                        </label>
-                        <select name="mysql_version" id="mysql-version" class="form-select mb-3">
-                            <option value="5.7">5.7</option>
-                            <option value="8.0">8.0</option>
-                        </select>
-                        <input type="password" name="mysql_password" class="form-control mb-3" placeholder="{% translate 'Password' %}">
-                        <small class="form-text text-muted">
-                            {% trnas 'Please enter your mysql root password' %}
-                        </small>
-                        <button type="submit" class="btn btn-primary" name="install_mysql">
-                            {% translate 'Install' %}
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+<script>
+jQuery(document).ready(function () {
+    jQuery("#install-mysql").click(function(event) {
+        jQuery('.loading-preloader').show()
+        jQuery.ajax({
+            type: "POST",
+            data: {
+                'csrfmiddlewaretoken': '{{csrf_token}}',
+                'mysql_install': true
+            },
+            success: function (response) {
+                jQuery('.loading-preloader').hide()
+                Swal.fire({
+                    icon: response.success ? 'success' : 'error',
+                    text: response.message,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "{% url 'mysql_databases' %}"
+                    }
+                });
+            },
+            error: function () {
+                jQuery('.loading-preloader').hide()
+                alert('{% trans "An error occurred while submitting the form" %}');
+            }
+        });
+    });
+});
+</script>
+
 {% endif %}
 {% endblock %}

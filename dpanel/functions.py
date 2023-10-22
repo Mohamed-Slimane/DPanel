@@ -139,30 +139,16 @@ def check_db_installed(db_command):
         return False
 
 
-def install_mysql_server(version, password):
+def install_mysql_server():
     try:
-        # Update system packages
         subprocess.run(["sudo", "apt", "update"])
-
-        # Set MySQL root password for non-interactive installation
-        debconf_commands = [
-            f"echo 'mysql-server-{version} mysql-server/root_password password {password}' | sudo debconf-set-selections",
-            f"echo 'mysql-server-{version} mysql-server/root_password_again password {password}' | sudo debconf-set-selections"
-        ]
-        for command in debconf_commands:
-            subprocess.run(command, shell=True)
-
-        # Install MySQL Server
-        subprocess.run(["sudo", "apt", "install", "-y", f"mysql-server-{version}"])
-
-        # Start MySQL service
+        subprocess.run(["sudo", "apt", "install", "-y", "mysql-server"])
         subprocess.run(["sudo", "systemctl", "start", "mysql"])
-
-        # Enable MySQL service to start on boot
         subprocess.run(["sudo", "systemctl", "enable", "mysql"])
-
         success = True
-        message = "MySQL Server {version} has been successfully installed with root password: {password}".format(version=version, password=password)
+        message = _("MySQL Server has been successfully installed")
+
+        save_option('mysql_status', True)
 
     except Exception as e:
         success = False

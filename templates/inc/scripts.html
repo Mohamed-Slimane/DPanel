@@ -70,7 +70,12 @@
     })
 
     jQuery('.remove-blur').click(function(e){
-        jQuery(this).parents('.blur-group').find('.blur-text').css('filter', 'blur(0px)')
+        blured = jQuery(this).parents('.blur-group').find('.blur-text')
+        if(blured.hasClass('blured-text')){
+            blured.removeClass('blured-text')
+        }else{
+            blured.addClass('blured-text')
+        }
     })
 
     jQuery('.preloader-form').submit(function(e){

@@ -3,7 +3,7 @@
 sudo apt update
 
 sudo apt-get install mysql-server
-sudo apt-get install libmysqlclient-dev
+#sudo apt-get install libmysqlclient-dev
 
 sudo systemctl start mysql
 sudo systemctl enable mysql

@@ -4,39 +4,18 @@ from pathlib import Path
 from wsgiref.util import FileWrapper
 
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.datetime_safe import datetime
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from dpanel.forms import PostgresDatabaseForm
-from dpanel.functions import get_option, install_mysql_server
+from dpanel.functions import get_option
 from dpanel.models import PostgresDatabase
 
 
 class databases(View):
-    def post(self, request):
-        postgres_status = get_option('postgres_status')
-        if not postgres_status or postgres_status == 'False':
-            mysql_version = get_option('mysql_version')
-            mysql_password = get_option('mysql_password')
-            if mysql_version and mysql_password:
-                res = install_mysql_server(mysql_version, mysql_password)
-
-            else:
-                res = {
-                    'status': False,
-                    'message': _('Form validation error')
-                }
-        else:
-            res = {
-                'status': False,
-                'message': _('There is an existing Mysql server installed')
-            }
-        return res
-
-
     def get(self, request):
         databases = PostgresDatabase.objects.all()
         return render(request, 'postgres/databases.html', {'databases': databases})

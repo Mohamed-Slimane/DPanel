@@ -18,13 +18,15 @@
                     <td>{{database.name}}</td>
                     <td>{{database.username}}</td>
                     <td>
-                        <span class="blur-group">
-                            <span class="blur-text">
-                                {{database.password}}
-                            </span>
-                            <i class="bi bi-eye remove-blur pointer"></i>
-                        </span>
-                        <i class="bi bi-clipboard copy-this pointer" data-text="{{database.password}}" data-message="{% trans 'Password copied' %}"></i>
+                        <div class="blur-group input-group input-group-sm">
+                            <input class="blur-text blured-text form-control" value="{{database.password}}" readonly>
+                            <button type="button" class="remove-blur btn btn-warning" data-text="{{database.password}}">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button type="button" class="copy-this pointer btn btn-dark" data-text="{{database.password}}" data-message="{% trans 'Password copied' %}">
+                                <i class="bi bi-clipboard"></i>
+                            </button>
+                        </div>
                     </td>
                     <td class="text-end">
                         <a href="{% url 'mysql_database_download' database.serial %}" class="btn btn-success btn-sm rounded-pill" target="_blank">
