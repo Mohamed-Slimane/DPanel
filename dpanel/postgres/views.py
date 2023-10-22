@@ -11,10 +11,32 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from dpanel.forms import PostgresDatabaseForm
+from dpanel.functions import get_option, install_mysql_server
 from dpanel.models import PostgresDatabase
 
 
 class databases(View):
+    def post(self, request):
+        postgres_status = get_option('postgres_status')
+        if not postgres_status or postgres_status == 'False':
+            mysql_version = get_option('mysql_version')
+            mysql_password = get_option('mysql_password')
+            if mysql_version and mysql_password:
+                res = install_mysql_server(mysql_version, mysql_password)
+
+            else:
+                res = {
+                    'status': False,
+                    'message': _('Form validation error')
+                }
+        else:
+            res = {
+                'status': False,
+                'message': _('There is an existing Mysql server installed')
+            }
+        return res
+
+
     def get(self, request):
         databases = PostgresDatabase.objects.all()
         return render(request, 'postgres/databases.html', {'databases': databases})
@@ -59,7 +81,8 @@ class database_download(View):
         database = PostgresDatabase.objects.get(serial=serial)
         Path('/var/dpfiles/backups/psql/').mkdir(parents=True, exist_ok=True)
         database_file = f'/var/dpfiles/backups/psql/{database.name}_{datetime.today().strftime("%d-%m-%Y_%H-%M")}.dump'
-        os.system(f'sudo -u postgres pg_dump "postgresql://{database.username}:{database.password}@localhost/{database.name}" > {database_file}')
+        os.system(
+            f'sudo -u postgres pg_dump "postgresql://{database.username}:{database.password}@localhost/{database.name}" > {database_file}')
 
         if os.path.exists(database_file):
             file_size = os.path.getsize(database_file)

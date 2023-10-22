@@ -32,13 +32,18 @@ class app_user_new(View):
         password = request.POST.get('password')
         superuser = request.POST.get('superuser')
         if superuser == 'on':
-            superuser = True
+            is_superuser = True
         else:
-            superuser = False
+            is_superuser = False
         if username and password and email:
             try:
-                cmd = f"from django.contrib.auth.models import User; User.objects.create_user('{username}', '{email}', '{password}', is_superuser={superuser})"
-                os.system(f'sudo {app.venv_path}/bin/python {app.www_path}/manage.py shell -c "{cmd}"')
+                from django.contrib.auth.models import User
+                cmd = f"from django.contrib.auth.models import User; User.objects.create_user(username='{username}', email='{email}', password='{password}', is_superuser={is_superuser})"
+                full_command = f"sudo {app.venv_path}/bin/python {app.www_path}/manage.py shell -c \"{cmd}\""
+                # Execute the command using os.system()
+                os.system(full_command)
+
+                messages.success(request, full_command)
                 messages.success(request, _('User created successfully for app {}').format(app.name))
             except Exception as e:
                 messages.error(request, str(e))
@@ -46,6 +51,19 @@ class app_user_new(View):
             messages.error(request, _('Please enter a username and password and email and try again.'))
         return render(request, 'app/certificate.html', {'app': app})
 
+
+class app_restart(View):
+    def get(self, request, serial):
+        app = App.objects.get(serial=serial)
+        try:
+            # Run the uWSGI reload command securely using subprocess.run
+            os.system(f'uwsgi --touch-reload {app.uwsgi_config}')
+            messages.success(request, f'Successfully restarted uWSGI app <b>{app.name}</b>.')
+        except subprocess.CalledProcessError as e:
+            # An error occurred during command execution
+            messages.error(request, f'Error restarting uWSGI app: {e.stderr}')
+
+        return redirect('apps')
 
 class app_certificates(View):
     def get(self, request, serial):
@@ -196,6 +214,8 @@ class app_files_ajax(View):
                 files.append(f)
             else:
                 dirs.append(f)
+        files.sort()
+        dirs.sort()
         return render(request, 'app/inc/files-list.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path,
                                                            'parent': pathlib.Path(path).parent.absolute()})
 

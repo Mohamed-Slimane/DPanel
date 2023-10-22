@@ -42,9 +42,9 @@
                 </td>
                 <td>
                     <div class="float-end d-flex">
-                        <span class="btn btn-danger btn-sm rounded-pill d-inline-flex me-1" onclick="open_link_confirm('{% url 'app_delete' app.serial %}')">
-    <!--                        {% trans 'Delete' %}-->
-                            <i class="bi bi-trash"></i>
+                        <span class="btn btn-warning btn-sm rounded-pill d-inline-flex me-1" onclick="open_link_confirm('{% url 'app_restart' app.serial %}')">
+    <!--                        {% trans 'Restart' %}-->
+                            <i class="bi bi-arrow-clockwise"></i>
                         </span>
 
                         <a href="{% url 'app_config' app.serial %}" class="btn btn-secondary btn-sm rounded-pill d-inline-flex me-1">
@@ -58,8 +58,13 @@
                         </a>
 
                         <span class="btn btn-light border btn-sm rounded-pill d-inline-flex me-1 app-user-form-toggle" data-app="{{app.serial}}">
-                            {% trans 'Create' %}
+<!--                            {% trans 'Create' %}-->
                             <i class="bi bi-person"></i>
+                        </span>
+
+                        <span class="btn btn-danger btn-sm rounded-pill d-inline-flex me-1" onclick="open_link_confirm('{% url 'app_delete' app.serial %}')">
+    <!--                        {% trans 'Delete' %}-->
+                            <i class="bi bi-trash"></i>
                         </span>
                     </div>
                 </td>

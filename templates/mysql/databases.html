@@ -12,11 +12,52 @@
 {% endblock %}
 
 {% block content %}
-{% if databases %}
-{% include "mysql/list.html" %}
+{% if status.mysql_status %}
+    {% if databases %}
+    {% include "mysql/list.html" %}
+    {% else %}
+    <div class="bg-white border p-3 rounded">
+        {% trans 'Nothing was found' %}
+    </div>
+    {% endif %}
 {% else %}
-<div class="bg-white border p-3 rounded">
-    {% trans 'Nothing was found' %}
-</div>
+    <div class="bg-white border p-3 rounded text-center">
+        <div class="fw-bold h5">
+            {% trans 'Mysql server not installed' %}
+        </div>
+        <button type="button" class="btn btn-warning btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#installMysql">
+            {% translate 'Install Mysql server now' %}
+        </button>
+    </div>
+    <div class="modal fade" id="installMysql" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        {% translate 'Install Mysql server' %}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="installMysqlForm" method="post">
+                        <label for="mysql-version" class="form-label">
+                            {% translate 'Mysql version' %}
+                        </label>
+                        <select name="mysql_version" id="mysql-version" class="form-select mb-3">
+                            <option value="5.7">5.7</option>
+                            <option value="8.0">8.0</option>
+                        </select>
+                        <input type="password" name="mysql_password" class="form-control mb-3" placeholder="{% translate 'Password' %}">
+                        <small class="form-text text-muted">
+                            {% trnas 'Please enter your mysql root password' %}
+                        </small>
+                        <button type="submit" class="btn btn-primary" name="install_mysql">
+                            {% translate 'Install' %}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endif %}
 {% endblock %}

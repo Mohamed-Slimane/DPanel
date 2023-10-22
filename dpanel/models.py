@@ -75,3 +75,11 @@ class AppCertificate(models.Model):
             import uuid
             self.serial = uuid.uuid4()
         super(AppCertificate, self).save(*args, **kwargs)
+
+
+class Option(models.Model):
+    key = models.CharField(max_length=50, verbose_name=_('Key'), null=True, blank=True, unique=True)
+    value = models.CharField(max_length=5000, verbose_name=_('Value'), null=True, blank=True)
+
+    def __str__(self):
+        return self.key

@@ -1,8 +1,10 @@
 import os
 import pathlib
-
+import subprocess
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import user_passes_test
+from django.utils.translation import gettext_lazy as _
+from dpanel.models import Option
 
 
 def super_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
@@ -91,8 +93,8 @@ venv = {app.venv_path}
 '''.format(app=app)
         with open(uwsgi_conf, 'w') as f:
             f.write(conf)
-            app.uwsgi_config = uwsgi_conf
         os.system(f"sudo ln -s {uwsgi_conf} {enabled}/{app.domain}.ini")
+        app.uwsgi_config = {enabled} / {app.domain}.ini
     except Exception as e:
         print(str(e))
 
@@ -126,3 +128,73 @@ def create_app(app):
 
     except Exception as e:
         print(str(e))
+
+
+def check_db_installed(db_command):
+    try:
+        import subprocess
+        subprocess.check_output([db_command, "--version"])
+        return True
+    except FileNotFoundError:
+        return False
+
+
+def install_mysql_server(version, password):
+    try:
+        # Update system packages
+        subprocess.run(["sudo", "apt", "update"])
+
+        # Set MySQL root password for non-interactive installation
+        debconf_commands = [
+            f"echo 'mysql-server-{version} mysql-server/root_password password {password}' | sudo debconf-set-selections",
+            f"echo 'mysql-server-{version} mysql-server/root_password_again password {password}' | sudo debconf-set-selections"
+        ]
+        for command in debconf_commands:
+            subprocess.run(command, shell=True)
+
+        # Install MySQL Server
+        subprocess.run(["sudo", "apt", "install", "-y", f"mysql-server-{version}"])
+
+        # Start MySQL service
+        subprocess.run(["sudo", "systemctl", "start", "mysql"])
+
+        # Enable MySQL service to start on boot
+        subprocess.run(["sudo", "systemctl", "enable", "mysql"])
+
+        success = True
+        message = "MySQL Server {version} has been successfully installed with root password: {password}".format(version=version, password=password)
+
+    except Exception as e:
+        success = False
+        message = _("An error occurred while installing MySQL: {}").format(e)
+
+    return {
+        'success': success,
+        'message': message
+    }
+
+
+
+def get_option(key, default=''):
+    option = default
+    try:
+        op = Option.objects.filter(key=key).first()
+        if op and op.value != '':
+            option = op.value
+    except:
+        pass
+    return option
+
+
+def save_option(key, value):
+    option = Option.objects.filter(key=key)
+    if option:
+        option.update(
+            key=key,
+            value=value
+        )
+    else:
+        Option(
+            key=key,
+            value=value
+        ).save()
