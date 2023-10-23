@@ -1,4 +1,5 @@
 import os
+import subprocess
 import uuid
 from pathlib import Path
 from wsgiref.util import FileWrapper
@@ -11,14 +12,31 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from dpanel.forms import PostgresDatabaseForm
-from dpanel.functions import get_option
+from dpanel.functions import get_option, install_psql_server
 from dpanel.models import PostgresDatabase
 
 
 class databases(View):
+    def post(self, request):
+        psql_status = get_option('psql_status')
+        if not psql_status or psql_status == 'False':
+            if request.POST.get('psql_install'):
+                res = install_psql_server()
+            else:
+                res = {
+                    'success': False,
+                    'message': _('Form validation error')
+                }
+        else:
+            res = {
+                'success': False,
+                'message': _('There is an existing Mysql server installed')
+            }
+        return JsonResponse(res)
+
     def get(self, request):
         databases = PostgresDatabase.objects.all()
-        return render(request, 'postgres/databases.html', {'databases': databases})
+        return render(request, 'psql/databases.html', {'databases': databases})
 
 
 class database_new(View):
@@ -27,23 +45,24 @@ class database_new(View):
         if form.is_valid():
             database = form.save(commit=False)
             database.password = str(uuid.uuid4()).replace('-', '')[:15]
+            try:
+                subprocess.run(['sudo', '-u', 'postgres', 'psql', '-c', f'CREATE DATABASE {database.name};'])
+                subprocess.run(['sudo', '-u', 'postgres', 'psql', '-c', f'CREATE USER {database.username} WITH PASSWORD \'{database.password}\';'])
+                subprocess.run(['sudo', '-u', 'postgres', 'psql', '-c', f'GRANT ALL PRIVILEGES ON DATABASE {database.name} TO {database.username};'])
+                database.save()
+                messages.add_message(request, messages.SUCCESS, _('Database successfully created'))
+            except Exception as e:
+                messages.add_message(request, messages.ERROR, str(e))
+                return self.get(request)
+            return redirect('psql_databases')
 
-            os.system(f'sudo -u postgres psql -c "CREATE DATABASE {database.name};"')
-            os.system(
-                f'sudo -u postgres psql -c "CREATE USER {database.username} WITH PASSWORD \'{database.password}\';"')
-            os.system(
-                f'sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE {database.name} TO {database.username};"')
-
-            database.save()
-            messages.add_message(request, messages.SUCCESS, _('Database successfully created'))
-            return redirect('postgres_databases')
         else:
             messages.add_message(request, messages.ERROR, _('Form validation error'))
-            return render(request, 'postgres/new.html', {'form': form})
+            return render(request, 'psql/new.html', {'form': form})
 
     def get(self, request):
         form = PostgresDatabaseForm(request.POST or None)
-        return render(request, 'postgres/new.html', {'form': form})
+        return render(request, 'psql/new.html', {'form': form})
 
 
 class database_delete(View):
@@ -52,7 +71,7 @@ class database_delete(View):
         os.system(f'sudo -u postgres dropdb {database.name}')
         os.system(f'sudo -u postgres dropuser {database.username} -e')
         database.delete()
-        return redirect('postgres_databases')
+        return redirect('psql_databases')
 
 
 class database_download(View):
@@ -73,7 +92,7 @@ class database_download(View):
         else:
             return HttpResponse("The file does not exist")
 
-        # return redirect('postgres_databases')
+        # return redirect('psql_databases')
 
 # conn = psycopg2.connect(
 #     database='postgres',

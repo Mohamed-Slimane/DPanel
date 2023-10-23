@@ -5,32 +5,87 @@
 {% block page_title %}{% trans 'All apps' %}{% endblock %}
 
 {% block title_button %}
+{% if status.uwsgi_status and status.nginx_status %}
 <a class="btn btn-primary btn-sm rounded-pill" href="{% url 'app_new' %}">
     {% translate 'New app' %}
     <i class="bi bi-rocket-takeoff"></i>
 </a>
+{% endif %}
+{% if status.uwsgi_status %}
 <a class="btn btn-warning btn-sm rounded-pill" href="{% url 'uwsgi_restart' %}">
     {% translate 'Restart uwsgi' %}
     <i class="bi bi-arrow-clockwise"></i>
 </a>
+{% else %}
+<button id="install-uwsgi" class="install-server btn btn-warning btn-sm rounded-pill" data-name="uwsgi">
+    {% translate 'Install uwsgi' %}
+    <i class="bi bi-play"></i>
+</button>
+{% endif %}
+{% if status.nginx_status %}
 <a class="btn btn-info btn-sm rounded-pill" href="{% url 'nginx_restart' %}">
     {% translate 'Restart nginx' %}
     <i class="bi bi-arrow-clockwise"></i>
 </a>
+{% else %}
+<button id="install-nginx" class="install-server btn btn-info btn-sm rounded-pill" data-name="nginx">
+    {% translate 'Install nginx' %}
+    <i class="bi bi-play"></i>
+</button>
+{% endif %}
 {% endblock %}
 {% block content %}
 <div class="bg-white shadow-sm rounded">
-    {% if apps %}
-    {% include 'app/list.html' %}
-    {% else %}
-    <div class="h5 text-center p-3">
-        {% trans 'You have no apps yet' %}
-        <div class="">
-            <a href="{% url 'app_new' %}">
-                <i class="bi bi-folder-plus fs-1"></i>
-            </a>
+    {% if status.uwsgi_status and status.nginx_status %}
+        {% if apps %}
+        {% include 'app/list.html' %}
+        {% else %}
+        <div class="h5 text-center p-3">
+            {% trans 'You have no apps yet' %}
+            <div class="">
+                <a href="{% url 'app_new' %}">
+                    <i class="bi bi-folder-plus fs-1"></i>
+                </a>
+            </div>
         </div>
-    </div>
+        {% endif %}
+    {% else %}
+        <div class="h5 text-center p-3">
+            {% trans 'You need to install uwsgi and nginx first' %}
+        </div>
+
+    <script>
+        jQuery(document).ready(function () {
+            jQuery(".install-server").click(function(event) {
+                jQuery('.loading-preloader').show()
+                server_name = jQuery(this).data('name')
+                jQuery.ajax({
+                    type: "POST",
+                    data: {
+                        'csrfmiddlewaretoken': '{{csrf_token}}',
+                        [server_name + '_install']: true
+                    },
+                    success: function (response) {
+                        jQuery('.loading-preloader').hide()
+                        Swal.fire({
+                            icon: response.success ? 'success' : 'error',
+                            text: response.message,
+                            allowOutsideClick: false,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "{% url 'apps' %}"
+                            }
+                        });
+                    },
+                    error: function () {
+                        jQuery('.loading-preloader').hide()
+                        alert('{% trans "An error occurred while submitting the form" %}');
+                    }
+                });
+            });
+        });
+
+    </script>
     {% endif %}
 </div>
 {% endblock %}

@@ -139,6 +139,73 @@ def check_db_installed(db_command):
         return False
 
 
+def install_nginx_server():
+    try:
+        subprocess.run(["sudo", "apt", "update"])
+        subprocess.run(["sudo", "apt", "install", "-y", "nginx"])
+        subprocess.run(['sudo', 'ufw', 'allow', '80'])
+        subprocess.run(['sudo', 'ufw', 'allow', 'http'])
+        subprocess.run(['sudo', 'ufw', 'allow', 'https'])
+        subprocess.run(['sudo', 'ufw', 'allow', 'Nginx Full'])
+        subprocess.run(['sudo', 'ufw', 'allow', '8080'])
+        subprocess.run(['sudo', 'systemctl', 'start', 'nginx'])
+        subprocess.run(['sudo', 'systemctl', 'enable', 'nginx'])
+
+        success = True
+        message = _("Nginx Server has been successfully installed")
+
+        save_option('nginx_status', True)
+
+    except Exception as e:
+        success = False
+        message = _("An error occurred while installing Nginx: {}").format(e)
+
+    return {
+        'success': success,
+        'message': message
+    }
+
+
+def install_uwsgi_server():
+    try:
+        subprocess.run(["sudo", "apt", "update"])
+        subprocess.run(["sudo", "apt", "install", "-y", "uwsgi"])
+        subprocess.run(["python3", "-m", "pip", "install", "uwsgi"])
+        file_path = "/etc/systemd/system/uwsgi.service"
+        file_content = """
+        [Unit]
+        Description=uWSGI Emperor
+        After=syslog.target
+
+        [Service]
+        ExecStart=/usr/local/bin/uwsgi --emperor /etc/uwsgi/apps-enabled
+        Restart=always
+        KillSignal=SIGQUIT
+        Type=notify
+        StandardError=syslog
+        NotifyAccess=all
+
+        [Install]
+        WantedBy=multi-user.target
+        """
+        with open(file_path, "w") as file:
+            file.write(file_content)
+
+        subprocess.run(['sudo', 'systemctl', 'start', 'uwsgi'])
+        subprocess.run(['sudo', 'systemctl', 'enable', 'uwsgi'])
+        success = True
+        message = _("uwsgi Server has been successfully installed")
+        save_option('uwsgi_status', True)
+    except Exception as e:
+        success = False
+        message = _("An error occurred while installing uwsgi: {}").format(e)
+
+    return {
+        'success': success,
+        'message': message
+    }
+
+
 def install_mysql_server():
     try:
         subprocess.run(["sudo", "apt", "update"])
@@ -159,6 +226,26 @@ def install_mysql_server():
         'message': message
     }
 
+
+def install_psql_server():
+    try:
+        subprocess.run(["sudo", "apt", "update"])
+        subprocess.run(["sudo", "apt", "install", "-y", "postgresql"])
+        subprocess.run(["sudo", "systemctl", "start", "postgresql.service"])
+        subprocess.run(["sudo", "systemctl", "enable", "postgresql.service"])
+        success = True
+        message = _("PostgreSQL Server has been successfully installed")
+
+        save_option('psql_status', True)
+
+    except Exception as e:
+        success = False
+        message = _("An error occurred while installing PostgreSQL: {}").format(e)
+
+    return {
+        'success': success,
+        'message': message
+    }
 
 
 def get_option(key, default=''):

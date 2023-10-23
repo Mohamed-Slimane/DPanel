@@ -18,8 +18,8 @@ from dpanel.models import MysqlDatabase
 
 class databases(View):
     def post(self, request):
-        postgres_status = get_option('postgres_status')
-        if not postgres_status or postgres_status == 'False':
+        mysql_status = get_option('mysql_status')
+        if not mysql_status or mysql_status == 'False':
             if request.POST.get('mysql_install'):
                 res = install_mysql_server()
             else:

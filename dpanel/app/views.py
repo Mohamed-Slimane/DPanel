@@ -13,12 +13,33 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
 from dpanel.forms import AppForm
-from dpanel.functions import create_app_server_block, create_venv, create_app, create_uwsgi_config
+from dpanel.functions import create_app_server_block, create_venv, create_app, create_uwsgi_config, get_option, \
+    install_uwsgi_server, install_nginx_server
 from dpanel.models import App, AppCertificate
 from dpanel.ssl import create_domain_ssl
 
 
 class apps(View):
+    def post(self, request):
+        uwsgi_status = get_option('uwsgi_status')
+        nginx_status = get_option('nginx_status')
+        if not uwsgi_status or uwsgi_status == 'False' or not nginx_status or nginx_status == 'False':
+            if request.POST.get('uwsgi_install'):
+                res = install_uwsgi_server()
+            elif request.POST.get('nginx_install'):
+                res = install_nginx_server()
+            else:
+                res = {
+                    'success': False,
+                    'message': _('Form validation error')
+                }
+        else:
+            res = {
+                'success': False,
+                'message': _('There is an existing uwsgi or nginx server installed')
+            }
+        return JsonResponse(res)
+
     def get(self, request):
         apps = App.objects.all()
         return render(request, 'app/apps.html', {'apps': apps})
@@ -64,6 +85,7 @@ class app_restart(View):
             messages.error(request, f'Error restarting uWSGI app: {e.stderr}')
 
         return redirect('apps')
+
 
 class app_certificates(View):
     def get(self, request, serial):

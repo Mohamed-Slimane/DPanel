@@ -2,19 +2,19 @@
 {% load i18n %}
 
 {% block title %} {% translate 'Databases' %} {% endblock%}
-{% block page_title %}{% trans 'All databases' %} <small class="fs-6">(MySql)</small>{% endblock %}
+{% block page_title %}{% trans 'All databases' %} <small class="fs-6">(Postgres)</small>{% endblock %}
 
 {% block title_button %}
-<a class="btn btn-primary btn-sm rounded-pill" href="{% url 'mysql_database_new' %}">
-    {% translate 'New database' %}
+<a class="btn btn-primary btn-sm rounded-pill" href="{% url 'psql_database_new' %}">
+    {% translate 'New' %}
     <i class="fas fa-plus"></i>
 </a>
 {% endblock %}
 
 {% block content %}
-{% if status.mysql_status %}
+{% if status.psql_status %}
     {% if databases %}
-    {% include "mysql/list.html" %}
+    {% include "psql/list.html" %}
     {% else %}
     <div class="bg-white border p-3 rounded position-relative">
         {% trans 'Nothing was found' %}
@@ -23,21 +23,21 @@
 {% else %}
     <div class="bg-white border p-3 rounded text-center">
         <div class="fw-bold h5">
-            {% trans 'Mysql server not installed' %}
+            {% trans 'PostgreSql server not installed' %}
         </div>
-        <button type="button" class="btn btn-warning btn-sm rounded-pill" id="install-mysql">
-            {% translate 'Install Mysql server now' %}
+        <button type="button" class="btn btn-warning btn-sm rounded-pill" id="install-postgres">
+            {% translate 'Install PostgreSql server now' %}
         </button>
     </div>
 <script>
 jQuery(document).ready(function () {
-    jQuery("#install-mysql").click(function(event) {
+    jQuery("#install-postgres").click(function(event) {
         jQuery('.loading-preloader').show()
         jQuery.ajax({
             type: "POST",
             data: {
                 'csrfmiddlewaretoken': '{{csrf_token}}',
-                'mysql_install': true
+                'psql_install': true
             },
             success: function (response) {
                 jQuery('.loading-preloader').hide()
@@ -47,7 +47,7 @@ jQuery(document).ready(function () {
                     allowOutsideClick: false,
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = "{% url 'mysql_databases' %}"
+                        window.location.href = "{% url 'psql_databases' %}"
                     }
                 });
             },
