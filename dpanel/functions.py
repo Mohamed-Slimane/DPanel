@@ -171,6 +171,7 @@ def install_uwsgi_server():
         subprocess.run(["sudo", "apt", "update"])
         subprocess.run(["sudo", "apt", "install", "-y", "uwsgi"])
         subprocess.run(["python3", "-m", "pip", "install", "uwsgi"])
+        subprocess.run(["python3", "-m", "pip", "install", "django"])
         file_path = "/etc/systemd/system/uwsgi.service"
         file_content = """
         [Unit]
