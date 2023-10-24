@@ -18,11 +18,11 @@
                 <td>{{database.username}}</td>
                 <td>
                     <div class="blur-group input-group input-group-sm">
-                        <input class="blur-text blured-text form-control" value="{{database.password}}" readonly>
+                        <input class="blur-text blured-text form-control rounded-start-pill" value="{{database.password}}" readonly>
                         <button type="button" class="remove-blur btn btn-warning" data-text="{{database.password}}">
                             <i class="bi bi-eye"></i>
                         </button>
-                        <button type="button" class="pointer btn btn-dark" onclick="copy_this('{{database.password}}')">
+                        <button type="button" class="copy-this pointer btn btn-dark rounded-end-pill" onclick="copy_this('{{database.password}}')">
                             <i class="bi bi-clipboard"></i>
                         </button>
                     </div>

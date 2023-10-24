@@ -2,11 +2,13 @@
 <div class="row g-3">
     <div class="col">
         <div class="row gx-3">
-            <a class="col-auto fw-bold" href="{% url 'apps' %}">DPanel</a>
+            <a class="col-auto fw-bold" href="{% url 'apps' %}">{{config.company_name}}</a>
             {% if request.user.is_authenticated %}
             <a class="col-auto" href="{% url 'apps' %}">{% trans 'Apps' %}</a>
             <a class="col-auto" href="{% url 'mysql_databases' %}">{% trans 'MySQL' %}</a>
             <a class="col-auto" href="{% url 'psql_databases' %}">{% trans 'PostgreSQL' %}</a>
+            <a class="col-auto" href="{% url 'settings' %}">{% trans 'Settings' %}</a>
+            <a class="col-auto" href="{% url 'about' %}">{% trans 'About' %}</a>
             <div class="col-auto disabled">{% trans 'Terminal' %}<small class="small text-muted">(soon)</small></div>
             {% endif %}
         </div>
@@ -41,10 +43,6 @@
 
             </ul>
         </div>
-        {% else %}
-        <div class="btn btn-outline-primary">
-            {% trans 'Login' %}
-        </div>
         {% endif %}
 
         <div class="dropdown d-inline-block" title="{% trans 'Language' %}">
@@ -56,11 +54,18 @@
                 {% for language in languages %}
                 <li>
                     <a class="dropdown-item {% if language.code == LANGUAGE_CODE %} active{% endif %}" href="/{{ language.code }}/{{request.get_full_path_info|slice:'4:'}}">
-                        {{ language.name_local }} ({{ language.code }})
+                        {{ language.name_local }}
                     </a>
                 </li>
                 {% endfor %}
             </ul>
         </div>
+
+        <a href="https://www.paypal.com/paypalme/MSDDEVER" class="btn-min ms-2" data-bs-toggle="tooltip" title="{% translate 'Support the developer' %}" target="_blank">
+            <i class="bi bi-paypal fs-5"></i>
+            <div class="btn-min-text fw-bold">
+                {% translate 'Donate' %}
+            </div>
+        </a>
     </div>
 </div>

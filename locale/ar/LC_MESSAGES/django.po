@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dever stoke\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-19 18:11+0100\n"
+"POT-Creation-Date: 2023-10-24 22:53+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,133 +11,205 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: .\dpanel\app\views.py:42
+#: .\dpanel\app\views.py:34 .\dpanel\app\views.py:143
+#: .\dpanel\mysql\views.py:28 .\dpanel\mysql\views.py:65
+#: .\dpanel\postgres\views.py:28 .\dpanel\postgres\views.py:61
+msgid "Form validation error"
+msgstr "خطأ في التحقق من صحة النموذج"
+
+#: .\dpanel\app\views.py:39
+msgid "There is an existing uwsgi or nginx server installed"
+msgstr "يوجد خادم uwsgi أو nginx مثبت بالفعل"
+
+#: .\dpanel\app\views.py:69
 msgid "User created successfully for app {}"
 msgstr "تم إنشاء الشهادة بنجاح"
 
-#: .\dpanel\app\views.py:46
+#: .\dpanel\app\views.py:73
 msgid "Please enter a username and password and email and try again."
 msgstr ""
 "الرجاء إدخال اسم المستخدم وكلمة المرور والبريد الإلكتروني وحاول مرة أخرى."
 
-#: .\dpanel\app\views.py:63
+#: .\dpanel\app\views.py:106
 msgid "Certificate created successfully"
 msgstr "تم إنشاء الشهادة بنجاح"
 
-#: .\dpanel\app\views.py:66
+#: .\dpanel\app\views.py:109
 msgid "Certificate created failed"
 msgstr "فشل إنشاء الشهادة"
 
-#: .\dpanel\app\views.py:97
+#: .\dpanel\app\views.py:140
 msgid "App successfully created"
 msgstr "تم إنشاء التطبيق بنجاح"
 
-#: .\dpanel\app\views.py:100 .\dpanel\mysql\views.py:40
-#: .\dpanel\postgres\views.py:40
-msgid "Form validation error"
-msgstr "خطأ في التحقق من صحة النموذج"
-
-#: .\dpanel\app\views.py:117
+#: .\dpanel\app\views.py:160
 msgid "App configuration updated successfully"
 msgstr "تم تحديث تكوين التطبيق بنجاح"
 
-#: .\dpanel\app\views.py:119
+#: .\dpanel\app\views.py:162
 msgid "Error in updating django_app configuration"
 msgstr "خطأ في تحديث تكوين النطاق"
 
-#: .\dpanel\app\views.py:295
+#: .\dpanel\app\views.py:340
 msgid "File was successfully updated"
 msgstr "تم تحديث الملف بنجاح"
 
-#: .\dpanel\app\views.py:305
+#: .\dpanel\app\views.py:350
 msgid "uwsgi restarted successfully"
 msgstr "تمت إعادة تشغيل uwsgi بنجاح"
 
-#: .\dpanel\app\views.py:307
+#: .\dpanel\app\views.py:352
 msgid "uwsgi restart failed"
 msgstr "فشل إعادة تشغيل uwsgi"
 
-#: .\dpanel\app\views.py:316
+#: .\dpanel\app\views.py:361
 msgid "nginx restarted successfully"
 msgstr "تمت إعادة تشغيل nginx بنجاح"
 
-#: .\dpanel\app\views.py:318
+#: .\dpanel\app\views.py:363
 msgid "nginx restart failed"
 msgstr "فشل إعادة تشغيل nginx"
 
-#: .\dpanel\models.py:7 .\dpanel\models.py:33 .\dpanel\models.py:49
-#: .\dpanel\models.py:65
+#: .\dpanel\app\views.py:372
+msgid "Server restarted successfully"
+msgstr "تم إعادة تشغيل الخادم بنجاح"
+
+#: .\dpanel\app\views.py:374
+msgid "Server restart failed"
+msgstr "فشلت إعادة تشغيل الخادم"
+
+#: .\dpanel\functions.py:157
+msgid "Nginx Server has been successfully installed"
+msgstr "تم تثبيت خادم Nginx بنجاح"
+
+#: .\dpanel\functions.py:163
+msgid "An error occurred while installing Nginx: {}"
+msgstr "حدث خطأ أثناء تثبيت Nginx: {}"
+
+#: .\dpanel\functions.py:200
+msgid "uwsgi Server has been successfully installed"
+msgstr "تم تثبيت خادم uwsgi بنجاح"
+
+#: .\dpanel\functions.py:204
+msgid "An error occurred while installing uwsgi: {}"
+msgstr "حدث خطأ أثناء تثبيت uwsgi: {}"
+
+#: .\dpanel\functions.py:219
+msgid "MySQL Server has been successfully installed"
+msgstr "تم تثبيت MySQL Server بنجاح"
+
+#: .\dpanel\functions.py:225
+msgid "An error occurred while installing MySQL: {}"
+msgstr "حدث خطأ أثناء تثبيت MySQL: {}"
+
+#: .\dpanel\functions.py:240
+msgid "PostgreSQL Server has been successfully installed"
+msgstr "تم تثبيت خادم PostgreSQL بنجاح"
+
+#: .\dpanel\functions.py:246
+msgid "An error occurred while installing PostgreSQL: {}"
+msgstr "حدث خطأ أثناء تثبيت PostgreSQL: {}"
+
+#: .\dpanel\models.py:7 .\dpanel\models.py:34 .\dpanel\models.py:50
+#: .\dpanel\models.py:66
 msgid "Serial"
 msgstr "الرقم التسلسي"
 
-#: .\dpanel\models.py:8 .\dpanel\models.py:34 .\dpanel\models.py:50
-#: .\templates\app\list.html:6 .\templates\mysql\list.html:9
-#: .\templates\postgres\list.html:9
+#: .\dpanel\models.py:8
+msgid "Framework"
+msgstr "الإطار"
+
+#: .\dpanel\models.py:9 .\dpanel\models.py:35 .\dpanel\models.py:51
+#: .\templates\app\list.html:6 .\templates\mysql\list.html:8
+#: .\templates\psql\list.html:8
 msgid "Name"
 msgstr "الإسم"
 
-#: .\dpanel\models.py:9 .\templates\app\list.html:7
+#: .\dpanel\models.py:10 .\templates\app\list.html:7
 msgid "Domain"
 msgstr "الدومين"
 
-#: .\dpanel\models.py:10 .\templates\app\list.html:8
+#: .\dpanel\models.py:11 .\templates\app\list.html:8
 msgid "Port"
 msgstr "البوابة"
 
-#: .\dpanel\models.py:11 .\templates\app\list.html:9
+#: .\dpanel\models.py:12 .\templates\app\list.html:9
 msgid "Path"
 msgstr "المسار"
 
-#: .\dpanel\models.py:12
+#: .\dpanel\models.py:13
 msgid "Uwsgi path"
 msgstr "مسار Uwsgi"
 
-#: .\dpanel\models.py:13
+#: .\dpanel\models.py:14
 msgid "The folder that contains the wsgi.py file, for example: (mayproject)"
 msgstr "المجلد الذي يحتوي على ملف wsgi.py ، على سبيل المثال: (mayproject)"
 
-#: .\dpanel\models.py:14
+#: .\dpanel\models.py:15
 msgid "Environment Path"
 msgstr "مسار البيئة الإفتراضية"
 
-#: .\dpanel\models.py:15
+#: .\dpanel\models.py:16
 msgid "Nginx config"
 msgstr "التكوين"
 
-#: .\dpanel\models.py:16
+#: .\dpanel\models.py:17
 msgid "Uwsgi config"
 msgstr "تكوين Uwsgi"
 
-#: .\dpanel\models.py:17
+#: .\dpanel\models.py:18
 msgid "Force HTTPS"
 msgstr "فرض HTTPS"
 
-#: .\dpanel\models.py:18
+#: .\dpanel\models.py:19
 msgid "Activated"
 msgstr "مفعل"
 
-#: .\dpanel\models.py:35 .\dpanel\models.py:51
+#: .\dpanel\models.py:36 .\dpanel\models.py:52
 #: .\templates\app\inc\user-form.html:12
 msgid "Username"
 msgstr "إسم المستخدم"
 
-#: .\dpanel\models.py:36 .\dpanel\models.py:52
-#: .\templates\app\inc\user-form.html:20 .\templates\mysql\list.html:11
-#: .\templates\postgres\list.html:11
+#: .\dpanel\models.py:37 .\dpanel\models.py:53
+#: .\templates\account\password-change-done.html:4
+#: .\templates\account\password-change-done.html:5
+#: .\templates\account\password-change.html:4
+#: .\templates\account\password-change.html:5
+#: .\templates\app\inc\user-form.html:20 .\templates\inc\header.html:32
+#: .\templates\mysql\list.html:10 .\templates\psql\list.html:10
 msgid "Password"
 msgstr "كلمة المرور"
 
-#: .\dpanel\models.py:66 .\templates\app\config.html:5
+#: .\dpanel\models.py:67
 msgid "App"
 msgstr "تطبيق"
 
-#: .\dpanel\mysql\views.py:37 .\dpanel\postgres\views.py:37
+#: .\dpanel\models.py:82
+msgid "Key"
+msgstr "المفتاح"
+
+#: .\dpanel\models.py:83
+msgid "Value"
+msgstr "القيمة"
+
+#: .\dpanel\mysql\views.py:33 .\dpanel\postgres\views.py:33
+msgid "There is an existing Mysql server installed"
+msgstr "يوجد خادم Mysql مثبت"
+
+#: .\dpanel\mysql\views.py:58 .\dpanel\postgres\views.py:54
 msgid "Database successfully created"
 msgstr "تم إنشاء قاعدة البيانات بنجاح"
+
+#: .\dpanel\setting\views.py:16
+msgid "Settings saved"
+msgstr "تم حفظ الإعدادات"
+
+#: .\dpanel\setting\views.py:19
+msgid "An error occurred while saving settings"
+msgstr "حدث خطأ أثناء حفظ الإعدادات"
 
 #: .\engine\settings.py:112
 msgid "Arabic"
@@ -147,8 +219,21 @@ msgstr "العربية"
 msgid "English"
 msgstr "الإنجليزية"
 
-#: .\templates\app\apps.html:4 .\templates\app\config.html:6
-#: .\templates\inc\header.html:7
+#: .\templates\account\login.html:4 .\templates\account\login.html:5
+#: .\templates\account\login.html:14 .\templates\inc\header.html:48
+msgid "Login"
+msgstr "دخول"
+
+#: .\templates\account\password-change-done.html:9
+msgid "Password changed"
+msgstr "تم تغيير كلمة السر"
+
+#: .\templates\account\password-change.html:14
+msgid "Change"
+msgstr "تغيير"
+
+#: .\templates\app\apps.html:4 .\templates\app\config.html:5
+#: .\templates\app\config.html:6 .\templates\inc\header.html:7
 msgid "Apps"
 msgstr "التطبيقات"
 
@@ -156,22 +241,73 @@ msgstr "التطبيقات"
 msgid "All apps"
 msgstr "جميع التطبيقات"
 
-#: .\templates\app\apps.html:9 .\templates\app\new.html:4
+#: .\templates\app\apps.html:10 .\templates\app\new.html:4
 #: .\templates\app\new.html:5
 msgid "New app"
 msgstr "تطبيق جديد"
 
-#: .\templates\app\apps.html:13
-msgid "Restart uwsgi"
-msgstr "أعد تشغيل uwsgi"
+#: .\templates\app\apps.html:17 .\templates\app\apps.html:24
+#: .\templates\app\apps.html:32 .\templates\app\apps.html:40
+#: .\templates\app\list.html:65
+msgid "Restart"
+msgstr "إعادة التشغيل"
 
-#: .\templates\app\apps.html:17
-msgid "Restart nginx"
-msgstr "أعد تشغيل nginx"
+#: .\templates\app\apps.html:24
+msgid ""
+"Nginx server will be restarted immediately and al apps will be stopped until"
+" restarting"
+msgstr ""
+"سيتم إعادة تشغيل خادم Nginx على الفور وسيتم إيقاف جميع التطبيقات حتى تتم "
+"إعادة التشغيل"
 
-#: .\templates\app\apps.html:27
-msgid "You have no apps yet"
-msgstr "ليس لديك أي تطبيقات بعد"
+#: .\templates\app\apps.html:25
+msgid "Nginx"
+msgstr "Nginx"
+
+#: .\templates\app\apps.html:32
+msgid ""
+"Uwsgi server will be restarted immediately and al apps will be stopped until"
+" restarting"
+msgstr ""
+"سيتم إعادة تشغيل خادم Uwsgi على الفور وسيتم إيقاف جميع التطبيقات حتى إعادة "
+"التشغيل"
+
+#: .\templates\app\apps.html:33
+msgid "Uwsgi"
+msgstr "Uwsgi"
+
+#: .\templates\app\apps.html:40
+msgid ""
+"The server will be restarted immediately and al apps will be stopped until "
+"restarting"
+msgstr ""
+"سيتم إعادة تشغيل الخادم على الفور وسيتم إيقاف جميع التطبيقات حتى إعادة "
+"التشغيل"
+
+#: .\templates\app\apps.html:41
+msgid "Server"
+msgstr "الخادم"
+
+#: .\templates\app\apps.html:57
+msgid "No apps found"
+msgstr "لم يتم العثور على أي تطبيقات"
+
+#: .\templates\app\apps.html:68
+msgid "You need to install uwsgi and nginx first"
+msgstr "تحتاج إلى تثبيت uwsgi وnginx أولا"
+
+#: .\templates\app\apps.html:72
+msgid "Install nginx"
+msgstr "تثبيت nginx"
+
+#: .\templates\app\apps.html:78
+msgid "Install uwsgi"
+msgstr "تثبيت uwsgi"
+
+#: .\templates\app\apps.html:110 .\templates\mysql\databases.html:57
+#: .\templates\psql\databases.html:57
+msgid "An error occurred while submitting the form"
+msgstr "حدث خطأ أثناء إرسال النموذج"
 
 #: .\templates\app\certificate.html:5 .\templates\app\certificate.html:6
 msgid "certificate"
@@ -189,34 +325,65 @@ msgstr "إنشاء شهادة Wildcard"
 msgid "This app have no certificates yet"
 msgstr "هذا التطبيق ليس لديه شهادات حتى الآن"
 
+#: .\templates\app\config.html:6
+msgid "config"
+msgstr "التكوين"
+
 #: .\templates\app\config.html:15 .\templates\mysql\new.html:16
-#: .\templates\postgres\new.html:16
+#: .\templates\psql\new.html:16
 msgid "Submit"
 msgstr "إرسال"
 
 #: .\templates\app\files.html:4 .\templates\app\files.html:5
-#: .\templates\app\list.html:56
 msgid "Files"
 msgstr "الملفات"
 
-#: .\templates\app\inc\files-list.html:26
-#: .\templates\app\inc\files-list.html:73 .\templates\app\list.html:46
-#: .\templates\mysql\list.html:36 .\templates\postgres\list.html:36
+#: .\templates\app\files.html:50
+msgid "Are you sure?"
+msgstr "هل أنت متأكد؟"
+
+#: .\templates\app\files.html:51 .\templates\inc\scripts.html:7
+msgid "This risk cannot be reversed."
+msgstr "لا يمكن التراجع عن هذه الخطوة."
+
+#: .\templates\app\files.html:53 .\templates\inc\scripts.html:12
+msgid "Continue"
+msgstr "استمرار"
+
+#: .\templates\app\files.html:54 .\templates\inc\scripts.html:13
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: .\templates\app\inc\files-list.html:4
+msgid "Home"
+msgstr "الرئيسية"
+
+#: .\templates\app\inc\files-list.html:7
+msgid "Go to top folder"
+msgstr "انتقل إلى المجلد العلوي"
+
+#: .\templates\app\inc\files-list.html:10
+msgid "Refresh"
+msgstr "تحديث"
+
+#: .\templates\app\inc\files-list.html:29
+#: .\templates\app\inc\files-list.html:80 .\templates\app\list.html:72
+#: .\templates\mysql\list.html:42 .\templates\psql\list.html:42
 msgid "Delete"
 msgstr "حذف"
 
-#: .\templates\app\inc\files-list.html:55 .\templates\app\text.html:4
+#: .\templates\app\inc\files-list.html:59 .\templates\app\text.html:4
 #: .\templates\app\text.html:5 .\templates\mysql\edit.html:4
-#: .\templates\mysql\edit.html:5 .\templates\postgres\edit.html:4
-#: .\templates\postgres\edit.html:5
+#: .\templates\mysql\edit.html:5 .\templates\psql\edit.html:4
+#: .\templates\psql\edit.html:5
 msgid "Edit"
 msgstr "تعديل"
 
-#: .\templates\app\inc\files-list.html:62
+#: .\templates\app\inc\files-list.html:67
 msgid "Extract here"
 msgstr "استخرج هنا"
 
-#: .\templates\app\inc\files-list.html:67
+#: .\templates\app\inc\files-list.html:73
 msgid "Extract to folder"
 msgstr "استخراج إلى المجلد"
 
@@ -232,28 +399,43 @@ msgstr "الإيميل"
 msgid "Superuser"
 msgstr "حالة المستخدم المتميز"
 
-#: .\templates\app\inc\user-form.html:27 .\templates\app\list.html:61
-#: .\templates\app\new.html:15
+#: .\templates\app\inc\user-form.html:27 .\templates\app\new.html:15
 msgid "Create"
 msgstr "إنشاء"
 
 #: .\templates\app\list.html:10
-msgid "Venv"
-msgstr "البيئة"
-
-#: .\templates\app\list.html:11
 msgid "SSL"
 msgstr "إتصال آمن"
 
-#: .\templates\app\list.html:51
-msgid "Config"
-msgstr "تهيئة"
+#: .\templates\app\list.html:29
+msgid "Terminal environment command"
+msgstr "أمر موجه الأوامر والبيئة الإفتراضية"
 
-#: .\templates\app\text.html:15
+#: .\templates\app\list.html:32
+msgid "File manager"
+msgstr "مدير الملفات"
+
+#: .\templates\app\list.html:40
+msgid "Installed"
+msgstr "مثبت"
+
+#: .\templates\app\list.html:40
+msgid "Not installed"
+msgstr "غير مثبت"
+
+#: .\templates\app\list.html:51
+msgid "Configuration"
+msgstr "إعداد"
+
+#: .\templates\app\list.html:58
+msgid "Manage files"
+msgstr "إدارة الملفات"
+
+#: .\templates\app\text.html:22 .\templates\settings\settings.html:29
 msgid "Save"
 msgstr "حفظ"
 
-#: .\templates\app\text.html:19
+#: .\templates\app\text.html:26
 msgid "Full screen"
 msgstr "كامل الشاشة"
 
@@ -262,86 +444,242 @@ msgid "All rights reserved"
 msgstr "جميع الحقوق محفوظة"
 
 #: .\templates\inc\header.html:8
-msgid "PostgreSQL"
-msgstr "PostgreSQL"
-
-#: .\templates\inc\header.html:9
 msgid "MySQL"
 msgstr "MySQL"
 
-#: .\templates\inc\header.html:11
-msgid "Language"
-msgstr "اللغة"
+#: .\templates\inc\header.html:9
+msgid "PostgreSQL"
+msgstr "PostgreSQL"
 
-#: .\templates\inc\header.html:38
+#: .\templates\inc\header.html:10 .\templates\settings\settings.html:5
+#: .\templates\settings\settings.html:6
+msgid "Settings"
+msgstr "الإعدادات"
+
+#: .\templates\inc\header.html:11 .\templates\settings\about.html:4
+#: .\templates\settings\about.html:5
+msgid "About"
+msgstr "حول"
+
+#: .\templates\inc\header.html:12 .\templates\terminal\terminal.html:4
+#: .\templates\terminal\terminal.html:5
+msgid "Terminal"
+msgstr "موجه الأوامر"
+
+#: .\templates\inc\header.html:39
 msgid "Logout"
 msgstr "تسجيل الخروج"
 
-#: .\templates\inc\header.html:46 .\templates\registration\login.html:4
-#: .\templates\registration\login.html:5 .\templates\registration\login.html:14
-msgid "Login"
-msgstr "دخول"
+#: .\templates\inc\header.html:52
+msgid "Language"
+msgstr "اللغة"
 
-#: .\templates\inc\scripts.html:9
+#: .\templates\inc\header.html:68
+msgid "Support the developer"
+msgstr "قم بدعم المطور"
+
+#: .\templates\inc\header.html:70
+msgid "Donate"
+msgstr "تبرع"
+
+#: .\templates\inc\scripts.html:7
 msgid "Are you sure to continue?"
 msgstr "هل أنت متأكد من الاستمرار؟"
 
-#: .\templates\inc\scripts.html:10
-msgid "This risk cannot be reversed."
-msgstr "لا يمكن التراجع عن هذه الخطوة."
-
-#: .\templates\inc\scripts.html:12
-msgid "Continue"
-msgstr "استمرار"
-
-#: .\templates\inc\scripts.html:13
-msgid "Cancel"
-msgstr "إلغاء"
-
-#: .\templates\inc\scripts.html:41
+#: .\templates\inc\scripts.html:40
 msgid "Text copied"
 msgstr "تم نسخ الرابط"
 
-#: .\templates\mysql\databases.html:4 .\templates\postgres\databases.html:4
+#: .\templates\mysql\databases.html:4 .\templates\psql\databases.html:4
 msgid "Databases"
 msgstr "قواعد بيانات"
 
-#: .\templates\mysql\databases.html:5 .\templates\postgres\databases.html:5
+#: .\templates\mysql\databases.html:5 .\templates\psql\databases.html:5
 msgid "All databases"
 msgstr "جميع قواعد البيانات"
 
-#: .\templates\mysql\databases.html:9 .\templates\postgres\databases.html:9
-msgid "New"
-msgstr "جديد"
+#: .\templates\mysql\databases.html:9 .\templates\mysql\new.html:4
+#: .\templates\mysql\new.html:5 .\templates\psql\new.html:4
+#: .\templates\psql\new.html:5
+msgid "New database"
+msgstr "قاعدة بيانات جديدة"
 
-#: .\templates\mysql\databases.html:19 .\templates\postgres\databases.html:19
-msgid "Nothing was found"
-msgstr "لم يتم العثور على أي شيء"
+#: .\templates\mysql\databases.html:21 .\templates\psql\databases.html:21
+msgid "No databases found"
+msgstr "لم يتم العثور على قواعد بيانات"
 
-#: .\templates\mysql\edit.html:13 .\templates\postgres\edit.html:13
+#: .\templates\mysql\databases.html:27
+msgid "Mysql server not installed"
+msgstr "خادم Mysql غير مثبت"
+
+#: .\templates\mysql\databases.html:30
+msgid "Install Mysql server now"
+msgstr "تثبيت خادم Mysql"
+
+#: .\templates\mysql\edit.html:13 .\templates\psql\edit.html:13
 msgid "Update"
 msgstr "تحديث"
 
-#: .\templates\mysql\list.html:10 .\templates\postgres\list.html:10
+#: .\templates\mysql\list.html:9 .\templates\psql\list.html:9
 msgid "User"
 msgstr "المستخدم"
 
-#: .\templates\mysql\list.html:27 .\templates\postgres\list.html:27
-msgid "Password copied"
-msgstr "تم نسخ كلمة المرور"
-
-#: .\templates\mysql\list.html:32 .\templates\postgres\list.html:32
+#: .\templates\mysql\list.html:36 .\templates\psql\list.html:36
 msgid "Download"
 msgstr "تحميل"
 
-#: .\templates\mysql\list.html:34 .\templates\postgres\list.html:34
-msgid "Do you wand delete!\\n This step cannot be undo"
-msgstr "هل تريد الحذف!\\n لا يمكن التراجع عن هذه الخطوة"
+#: .\templates\psql\databases.html:9
+msgid "New"
+msgstr "جديد"
 
-#: .\templates\mysql\new.html:4 .\templates\mysql\new.html:5
-#: .\templates\postgres\new.html:4 .\templates\postgres\new.html:5
-msgid "New database"
-msgstr "قاعدة بيانات جديدة"
+#: .\templates\psql\databases.html:27
+msgid "PostgreSql server not installed"
+msgstr "خادم PostgreSql غير مثبت"
+
+#: .\templates\psql\databases.html:30
+msgid "Install PostgreSql server now"
+msgstr "تثبيت خادم PostgreSql"
+
+#: .\templates\settings\about.html:12 .\templates\settings\about.html:15
+msgid "Copyright"
+msgstr "حقوق النشر"
+
+#: .\templates\settings\about.html:15 .\templates\settings\about.html:40
+msgid "Dever"
+msgstr "ديفر"
+
+#: .\templates\settings\about.html:15
+msgid "All rights reserved."
+msgstr "جميع الحقوق محفوظة."
+
+#: .\templates\settings\about.html:18
+msgid ""
+"This program and its contents are the property of Dever and protected under "
+"international copyright laws. Sale, distribution, or reproduction of this "
+"program in any form, in whole or in part, without prior express written "
+"permission from Dever is strictly prohibited."
+msgstr ""
+"هذا البرنامج ومحتوياته مملوكة لمؤسسة ديفر ومحمية بموجب قوانين حقوق النشر "
+"الدولية. يُمنع منعًا باتًا بيع هذا البرنامج أو توزيعه أو إعادة إنتاجه بأي "
+"شكل من الأشكال، كليًا أو جزئيًا، دون الحصول على إذن كتابي صريح مسبق من ديفر."
+
+#: .\templates\settings\about.html:21
+msgid ""
+"Use of this program for any purpose not disclosed in Dever licensing "
+"agreements is also strictly prohibited. Any damages or legal liability "
+"arising from unauthorized use of this program is solely the responsibility "
+"of the individual or entity engaging in such use."
+msgstr ""
+"يُحظر أيضًا استخدام هذا البرنامج لأي غرض لم يتم الكشف عنه في اتفاقيات ترخيص "
+"ديفر. أي أضرار أو مسؤولية قانونية تنشأ عن الاستخدام غير المصرح به لهذا "
+"البرنامج هي مسؤولية الفرد أو الكيان المنخرط في هذا الاستخدام فقط."
+
+#: .\templates\settings\about.html:24
+msgid ""
+"Dever is responsible for updating and maintaining this program, and the "
+"developers are not liable for any errors, malfunctions, or damages resulting"
+" from the bad use of this program."
+msgstr ""
+"يتحمل ديفر مسؤولية تحديث وصيانة هذا البرنامج، ولا يتحمل المطورون مسؤولية أي "
+"أخطاء أو أعطال أو أضرار ناتجة عن الاستخدام السيئ لهذا البرنامج."
+
+#: .\templates\settings\about.html:27
+msgid ""
+"Dever reserves all rights in the event of any copyright infringement or "
+"violation of this program. Any person or entity wishing to use this program "
+"assumes full responsibility for any loss or damage that may result."
+msgstr ""
+"يحتفظ ديفر بجميع الحقوق في حالة حدوث أي انتهاك لحقوق الطبع والنشر أو انتهاك "
+"لهذا البرنامج. ويتحمل أي شخص أو جهة ترغب في استخدام هذا البرنامج المسؤولية "
+"الكاملة عن أي خسارة أو ضرر قد ينجم عن ذلك."
+
+#: .\templates\settings\about.html:30
+msgid ""
+"The terms and conditions are updated from time to time in accordance with "
+"the laws, so users are requested to update themselves regularly on these "
+"terms and conditions."
+msgstr ""
+"يتم تحديث الشروط والأحكام من وقت لآخر وفقًا للقوانين، لذلك يطلب من "
+"المستخدمين تحديث أنفسهم بانتظام بشأن هذه الشروط والأحكام."
+
+#: .\templates\settings\about.html:37
+msgid "Terms of use"
+msgstr "شروط الاستخدام"
+
+#: .\templates\settings\about.html:40
+msgid "Copyright and instructions for"
+msgstr "حقوق النشر والتعليمات الخاصة بـ"
+
+#: .\templates\settings\about.html:43
+msgid ""
+"This program is provided \"as is\". Dever shall not be liable for any "
+"direct, indirect, incidental, special, or consequential damages arising out "
+"of the misuse or inability to use this program.."
+msgstr ""
+"يتم توفير هذا البرنامج \"كما هو\". لن تتحمل مؤسسة ديفر مسؤولية أي أضرار "
+"مباشرة أو غير مباشرة أو عرضية أو خاصة أو تبعية تنشأ عن سوء الاستخدام أو عدم "
+"القدرة على استخدام هذا البرنامج."
+
+#: .\templates\settings\about.html:46
+msgid ""
+"This program contains information related to Dever, its products, and "
+"services, and this information is confidential and proprietary to Dever. "
+"Users are prohibited from using this information for any unauthorized "
+"purpose or conducting any unauthorized commercial activity without obtaining"
+" permission from Dever."
+msgstr ""
+"يحتوي هذا البرنامج على معلومات تتعلق بمؤسسة ديفر ومنتجاتها وخدماتها، وتعتبر "
+"هذه المعلومات سرية ومملوكة لمؤسسة Dever. يُحظر على المستخدمين استخدام هذه "
+"المعلومات لأي غرض غير مصرح به أو القيام بأي نشاط تجاري غير مصرح به دون "
+"الحصول على إذن من Dever."
+
+#: .\templates\settings\about.html:49
+msgid ""
+"The full responsibility for using this program and complying with its terms "
+"and conditions rests entirely with the end user."
+msgstr ""
+"المسؤولية الكاملة عن استخدام هذا البرنامج والالتزام بشروطه وأحكامه تقع "
+"بالكامل على عاتق المستخدم النهائي."
+
+#: .\templates\settings\about.html:52
+msgid ""
+"When purchasing the program, the purchase is for one time, and you have "
+"purchased the copy that you previewed before purchase, and periodic updates "
+"are with an annual or semi-annual subscription"
+msgstr ""
+"عند شراء البرنامج يكون الشراء لمرة واحدة وتكون قد اشتريت النسخة التي قمت "
+"بمعاينتها قبل الشراء والتحديثات الدورية تكون باشتراك سنوي أو نصف سنوي"
+
+#: .\templates\settings\about.html:55
+msgid ""
+"This program may not be resold or distributed in any form without the direct"
+" permission of Dever"
+msgstr ""
+"لا يجوز إعادة بيع هذا البرنامج أو توزيعه بأي شكل من الأشكال دون الحصول على "
+"إذن مباشر من ديفر"
+
+#: .\templates\settings\settings.html:15
+msgid "Company name"
+msgstr "إسم المؤسسة"
+
+#: .\templates\settings\settings.html:22
+msgid "Number of items in lists"
+msgstr "عدد العناصر في القوائم"
+
+#~ msgid "Setting"
+#~ msgstr "جلسة"
+
+#~ msgid "You have no apps yet"
+#~ msgstr "ليس لديك أي تطبيقات بعد"
+
+#~ msgid "Venv"
+#~ msgstr "البيئة"
+
+#~ msgid "Config"
+#~ msgstr "تهيئة"
+
+#~ msgid "Do you wand delete!\\n This step cannot be undo"
+#~ msgstr "هل تريد الحذف!\\n لا يمكن التراجع عن هذه الخطوة"
 
 #~ msgid "Activate"
 #~ msgstr "تفعيل"
@@ -353,82 +691,62 @@ msgstr "قاعدة بيانات جديدة"
 #~ msgstr "الرسائل"
 
 #, fuzzy
-#~| msgid "Statistics"
 #~ msgid "Static Files"
 #~ msgstr "الإحصائيات"
 
 #, fuzzy
-#~| msgid "Edit vacation"
 #~ msgid "Syndication"
 #~ msgstr "تعديل الإجازة"
 
 #, fuzzy
-#~| msgid "Please enter your email address"
 #~ msgid "Enter a valid value."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
 #, fuzzy
-#~| msgid "Please enter your email address"
 #~ msgid "Enter a valid URL."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
 #, fuzzy
-#~| msgid "Please enter your email address"
 #~ msgid "Enter a valid integer."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
 #, fuzzy
-#~| msgid "Please enter your email address"
 #~ msgid "Enter a valid email address."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
 #, fuzzy
-#~| msgid "Please enter your email address"
 #~ msgid "Enter a valid IPv4 address."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
 #, fuzzy
-#~| msgid "Please enter your email address"
 #~ msgid "Enter a valid IPv6 address."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
 #, fuzzy
-#~| msgid "Please enter your email address"
 #~ msgid "Enter a valid IPv4 or IPv6 address."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
 #, fuzzy
-#~| msgid "Account number"
 #~ msgid "Enter a number."
 #~ msgstr "رقم الحساب"
 
 #, fuzzy
-#~| msgid "Brand"
 #~ msgid "and"
 #~ msgstr "ماركة"
 
 #, fuzzy
-#~| msgid "December"
 #~ msgid "Decimal number"
 #~ msgstr "ديسمبر"
 
 #, fuzzy
-#~| msgid "Quotation"
-#~ msgid "Duration"
-#~ msgstr "عرض أسعار"
-
-#, fuzzy
-#~| msgid "email address"
 #~ msgid "Email address"
 #~ msgstr "الإيميل"
 
 #, fuzzy
-#~| msgid "email address"
 #~ msgid "IPv4 address"
 #~ msgstr "الإيميل"
 
 #, fuzzy
-#~| msgid "Address"
 #~ msgid "IP address"
 #~ msgstr "العنوان"
 
@@ -439,85 +757,68 @@ msgstr "قاعدة بيانات جديدة"
 #~ msgstr "الصورة"
 
 #, fuzzy
-#~| msgid "Please enter your email address"
 #~ msgid "Value must be valid JSON."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
 #, fuzzy
-#~| msgid "Account number"
 #~ msgid "Enter a whole number."
 #~ msgstr "رقم الحساب"
 
 #, fuzzy
-#~| msgid "Please enter your email address"
 #~ msgid "Enter a valid date."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
 #, fuzzy
-#~| msgid "Please enter your email address"
 #~ msgid "Enter a valid time."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
 #, fuzzy
-#~| msgid "Please enter your email address"
 #~ msgid "Enter a valid date/time."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
 #, fuzzy
-#~| msgid "Please enter your email address"
 #~ msgid "Enter a valid duration."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
 #, fuzzy
-#~| msgid "Please enter your email address"
 #~ msgid "Enter a list of values."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
 #, fuzzy
-#~| msgid "Please enter your email address"
 #~ msgid "Enter a complete value."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
 #, fuzzy
-#~| msgid "Please enter your email address"
 #~ msgid "Enter a valid UUID."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
 #, fuzzy
-#~| msgid "Please enter your email address"
 #~ msgid "Enter a valid JSON."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
 #, fuzzy, python-format
-#~| msgid "Please check the data provided"
 #~ msgid "Please correct the duplicate data for %(field)s."
 #~ msgstr "يرجى التحقق من البيانات المقدمة"
 
 #, fuzzy, python-format
-#~| msgid "Please check the data provided"
-#~ msgid ""
-#~ "Please correct the duplicate data for %(field)s, which must be unique."
+#~ msgid "Please correct the duplicate data for %(field)s, which must be unique."
 #~ msgstr "يرجى التحقق من البيانات المقدمة"
 
 #, fuzzy, python-format
-#~| msgid "Please check the data provided"
 #~ msgid ""
 #~ "Please correct the duplicate data for %(field_name)s which must be unique "
 #~ "for the %(lookup)s in %(date_field)s."
 #~ msgstr "يرجى التحقق من البيانات المقدمة"
 
 #, fuzzy
-#~| msgid "Please check the data provided"
 #~ msgid "Please correct the duplicate values below."
 #~ msgstr "يرجى التحقق من البيانات المقدمة"
 
 #, fuzzy, python-format
-#~| msgid "Please enter your email address"
 #~ msgid "“%(pk)s” is not a valid value."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
 #, fuzzy
-#~| msgid "Currency"
 #~ msgid "Currently"
 #~ msgstr "العملة"
 
@@ -525,22 +826,18 @@ msgstr "قاعدة بيانات جديدة"
 #~ msgstr "غير معروف"
 
 #, fuzzy
-#~| msgid "Month"
 #~ msgid "Mon"
 #~ msgstr "الشهر"
 
 #, fuzzy
-#~| msgid "Due"
 #~ msgid "Tue"
 #~ msgstr "الإستحقاق"
 
 #, fuzzy
-#~| msgid "Due"
 #~ msgid "Thu"
 #~ msgstr "الإستحقاق"
 
 #, fuzzy
-#~| msgid "State"
 #~ msgid "Sat"
 #~ msgstr "الولاية (المدينة)"
 
@@ -581,139 +878,115 @@ msgstr "قاعدة بيانات جديدة"
 #~ msgstr "ديسمبر"
 
 #, fuzzy
-#~| msgid "Brand"
 #~ msgid "jan"
 #~ msgstr "ماركة"
 
 #, fuzzy
-#~| msgid "May"
 #~ msgid "mar"
 #~ msgstr "ماي"
 
 #, fuzzy
-#~| msgid "May"
 #~ msgid "apr"
 #~ msgstr "ماي"
 
 #, fuzzy
-#~| msgid "May"
 #~ msgid "may"
 #~ msgstr "ماي"
 
 #, fuzzy
-#~| msgid "Brand"
 #~ msgid "jun"
 #~ msgstr "ماركة"
 
 #, fuzzy
-#~| msgid "Product"
 #~ msgid "oct"
 #~ msgstr "منتج"
 
 #, fuzzy
-#~| msgid "March"
 #~ msgctxt "abbrev. month"
 #~ msgid "March"
 #~ msgstr "مارس"
 
 #, fuzzy
-#~| msgid "April"
 #~ msgctxt "abbrev. month"
 #~ msgid "April"
 #~ msgstr "افريل"
 
 #, fuzzy
-#~| msgid "May"
 #~ msgctxt "abbrev. month"
 #~ msgid "May"
 #~ msgstr "ماي"
 
 #, fuzzy
-#~| msgid "June"
 #~ msgctxt "abbrev. month"
 #~ msgid "June"
 #~ msgstr "جوان"
 
 #, fuzzy
-#~| msgid "July"
 #~ msgctxt "abbrev. month"
 #~ msgid "July"
 #~ msgstr "جويلية"
 
 #, fuzzy
-#~| msgid "January"
 #~ msgctxt "alt. month"
 #~ msgid "January"
 #~ msgstr "جانفي"
 
 #, fuzzy
-#~| msgid "February"
 #~ msgctxt "alt. month"
 #~ msgid "February"
 #~ msgstr "فيفري"
 
 #, fuzzy
-#~| msgid "March"
 #~ msgctxt "alt. month"
 #~ msgid "March"
 #~ msgstr "مارس"
 
 #, fuzzy
-#~| msgid "April"
 #~ msgctxt "alt. month"
 #~ msgid "April"
 #~ msgstr "افريل"
 
 #, fuzzy
-#~| msgid "May"
 #~ msgctxt "alt. month"
 #~ msgid "May"
 #~ msgstr "ماي"
 
 #, fuzzy
-#~| msgid "June"
 #~ msgctxt "alt. month"
 #~ msgid "June"
 #~ msgstr "جوان"
 
 #, fuzzy
-#~| msgid "July"
 #~ msgctxt "alt. month"
 #~ msgid "July"
 #~ msgstr "جويلية"
 
 #, fuzzy
-#~| msgid "August"
 #~ msgctxt "alt. month"
 #~ msgid "August"
 #~ msgstr "أوت"
 
 #, fuzzy
-#~| msgid "September"
 #~ msgctxt "alt. month"
 #~ msgid "September"
 #~ msgstr "سبتمبر"
 
 #, fuzzy
-#~| msgid "October"
 #~ msgctxt "alt. month"
 #~ msgid "October"
 #~ msgstr "أكتوبر"
 
 #, fuzzy
-#~| msgid "November"
 #~ msgctxt "alt. month"
 #~ msgid "November"
 #~ msgstr "نوفمبر"
 
 #, fuzzy
-#~| msgid "December"
 #~ msgctxt "alt. month"
 #~ msgid "December"
 #~ msgstr "ديسمبر"
 
 #, fuzzy
-#~| msgid "Please enter your email address"
 #~ msgid "This is not a valid IPv6 address."
 #~ msgstr "الرجاء أدخال عنوان بريدك الإلكتروني"
 
@@ -756,9 +1029,6 @@ msgstr "قاعدة بيانات جديدة"
 #~ msgid "Invalid Entry"
 #~ msgstr "النموذج غير صحيح"
 
-#~ msgid "config"
-#~ msgstr "التكوين"
-
 #~ msgid "Error in updating domain configuration"
 #~ msgstr "خطأ في تحديث تكوين النطاق"
 
@@ -776,12 +1046,6 @@ msgstr "قاعدة بيانات جديدة"
 
 #~ msgid "Your password has been updated"
 #~ msgstr "تم تحديث كلمة المرور الخاصة"
-
-#~ msgid "Key"
-#~ msgstr "المفتاح"
-
-#~ msgid "Value"
-#~ msgstr "القيمة"
 
 #~ msgid "Hi administration"
 #~ msgstr "مرحبًا يا مشرف"
@@ -835,20 +1099,20 @@ msgstr "قاعدة بيانات جديدة"
 #~ msgstr "مرحبا"
 
 #~ msgid ""
-#~ "We received a request to reset the password for your account for this "
-#~ "email address. To initiate the password reset process for your account, "
-#~ "click the link below."
+#~ "We received a request to reset the password for your account for this email "
+#~ "address. To initiate the password reset process for your account, click the "
+#~ "link below."
 #~ msgstr ""
 #~ "تلقينا طلبا لإعادة تعيين كلمة المرور لحسابك لعنوان البريد الإلكتروني هذا. "
 #~ "لبدء عملية إعادة تعيين كلمة المرور لحسابك، انقر على الرابط أدناه."
 
 #~ msgid ""
-#~ "This link can only be used once. If you need to reset your password "
-#~ "again, please visit {{ protocol }}://{{domain}} and request another reset."
+#~ "This link can only be used once. If you need to reset your password again, "
+#~ "please visit {{ protocol }}://{{domain}} and request another reset."
 #~ msgstr ""
 #~ "يمكن استخدام هذا الرابط مرة واحدة فقط. إذا كنت بحاجة إلى إعادة تعيين كلمة "
-#~ "المرور الخاصة بك مرة أخرى، يرجى زيارة {{ protocol }}://{{domain}} وطلب "
-#~ "إعادة تعيين أخرى."
+#~ "المرور الخاصة بك مرة أخرى، يرجى زيارة {{ protocol }}://{{domain}} وطلب إعادة"
+#~ " تعيين أخرى."
 
 #~ msgid "If you did not make this request, you can simply ignore this email."
 #~ msgstr "إذا لم تقدم هذا الطلب ، فيمكنك ببساطة تجاهل هذا البريد الإلكتروني."
@@ -884,23 +1148,22 @@ msgstr "قاعدة بيانات جديدة"
 #~ msgstr "تم إرسال إعادة تعيين كلمة المرور"
 
 #~ msgid "An email has been sent with instructions to reset your password"
-#~ msgstr ""
-#~ "تم إرسال بريد إلكتروني مع تعليمات لإعادة تعيين كلمة المرور الخاصة بك"
+#~ msgstr "تم إرسال بريد إلكتروني مع تعليمات لإعادة تعيين كلمة المرور الخاصة بك"
 
 #~ msgid ""
 #~ "We've emailed you instructions for setting your password, if an account "
 #~ "exists with the email you entered. You should receive them shortly"
 #~ msgstr ""
-#~ "لقد أرسلنا إليك عبر البريد الإلكتروني تعليمات حول تعيين كلمة المرور "
-#~ "الخاصة بك ، إذا كان هناك حساب موجود بالبريد الإلكتروني الذي أدخلته. يجب "
-#~ "أن تستقبلهم قريبًا"
+#~ "لقد أرسلنا إليك عبر البريد الإلكتروني تعليمات حول تعيين كلمة المرور الخاصة "
+#~ "بك ، إذا كان هناك حساب موجود بالبريد الإلكتروني الذي أدخلته. يجب أن تستقبلهم"
+#~ " قريبًا"
 
 #~ msgid ""
-#~ "If you don't receive an email, please make sure you've entered the "
-#~ "address you registered with, and check your spam folder"
+#~ "If you don't receive an email, please make sure you've entered the address "
+#~ "you registered with, and check your spam folder"
 #~ msgstr ""
-#~ "إذا لم تستلم بريدًا إلكترونيًا ، فيرجى التأكد من إدخال العنوان الذي سجلت "
-#~ "به ، وتحقق من مجلد الرسائل غير المرغوب فيها"
+#~ "إذا لم تستلم بريدًا إلكترونيًا ، فيرجى التأكد من إدخال العنوان الذي سجلت به "
+#~ "، وتحقق من مجلد الرسائل غير المرغوب فيها"
 
 #~ msgid "Please waite"
 #~ msgstr "الرجاء الإنتظار"
@@ -921,12 +1184,10 @@ msgstr "قاعدة بيانات جديدة"
 #~ msgstr "لوحة البيانات"
 
 #, fuzzy
-#~| msgid "Supplier only"
 #~ msgid "App only"
 #~ msgstr "المورد فقط"
 
 #, fuzzy
-#~| msgid "Domain and files"
 #~ msgid "App and files"
 #~ msgstr "النطاق والملفات"
 
@@ -954,9 +1215,6 @@ msgstr "قاعدة بيانات جديدة"
 #~ msgid "Domain only"
 #~ msgstr "نطاق فقط"
 
-#~ msgid "Domain and files"
-#~ msgstr "النطاق والملفات"
-
 #~ msgid "All domains"
 #~ msgstr "جميع النطاقات"
 
@@ -977,9 +1235,6 @@ msgstr "قاعدة بيانات جديدة"
 
 #~ msgid "Users"
 #~ msgstr "المستخدمون"
-
-#~ msgid "Settings"
-#~ msgstr "الإعدادات"
 
 #~ msgid "General"
 #~ msgstr "عام"
@@ -1014,14 +1269,8 @@ msgstr "قاعدة بيانات جديدة"
 #~ msgid "Paypal Email"
 #~ msgstr "إيميل بايبال"
 
-#~ msgid "Company name"
-#~ msgstr "إسم الشركة"
-
 #~ msgid "Company description"
 #~ msgstr "وصف الشركة"
-
-#~ msgid "Number of items in lists"
-#~ msgstr "عدد العناصر في القوائم"
 
 #~ msgid "Primary font"
 #~ msgstr "الخط الأساسي"

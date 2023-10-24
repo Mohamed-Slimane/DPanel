@@ -3,6 +3,7 @@ import pathlib
 import subprocess
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import user_passes_test
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import gettext_lazy as _
 from dpanel.models import Option
 
@@ -273,3 +274,15 @@ def save_option(key, value):
             key=key,
             value=value
         ).save()
+
+
+def paginator(request, obj, number=None, page=1):
+    paginator = Paginator(obj, get_option('paginator', '20') if not number else number)
+    request_page = request.GET.get('page', page)
+    try:
+        objects = paginator.page(request_page)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
+    except PageNotAnInteger:
+        objects = paginator.page(1)
+    return objects

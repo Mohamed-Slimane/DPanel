@@ -1,60 +1,52 @@
+{% load i18n %}
 {% load widget_tweaks %}
-{% if form.non_field_errors %}
-<div class="container">
-    <div class="alert alert-danger" role="alert">
-        {% for error in form.non_field_errors %}
-            <p class ="{% if forloop.last %} mb-0 {% endif %}">
-                {{ error }}
-            </p>
-        {% endfor %}
-    </div>
-</div>
+
+{% if form.errors %}
+  <div class="alert alert-danger">
+    <ul>
+      {% for field, errors in form.errors.items %}
+        <li>{{ field }}: {{ errors.0 }}</li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endif %}
 
-{% for field in form %}
-    {{ before_field }}
-    <div class="form-group mb-3{% if field|widget_type != 'textarea' and field.field.widget.input_type != 'file' %} {{ col }}{% endif %}{% if field.field.widget.input_type == 'file' %} file-field{% endif %}">
-        {% if field.field.widget.input_type == 'file'%}<div class="bg-white w-100 p-3 border rounded">{% endif %}
 
-        {% if field.field.widget.input_type != 'hidden' and field.field.widget.input_type != 'checkbox' %}
-        {{ field.label_tag }} {% if field.field.required %}<i class="fas fa-star-of-life text-danger" style="font-size:8px"></i>{% endif %}
-        {% endif %}
+{% for element in form %}
+<div class="{{col}} mb-3">
+    {{element.label_tag}}
 
-        {% if field.errors %}
-            {% if field.field.widget.input_type == 'checkbox' %}
-                {% render_field field class="form-check-input is-invalid" %}
-            {% elif field.field.widget.input_type == 'select' %}
-                {% render_field field class="form-select is-invalid" %}
-            {% else %}
-                {% render_field field class="form-control is-invalid" %}
-            {% endif %}
-            {{ form.media }}
-            {% for error in field.errors %}
-                <div class="invalid-feedback">
-                    {{ error }}
-                </div>
-            {% endfor %}
-        {% else %}
-            {% if field.field.widget.input_type == 'checkbox' %}
-            <div class="form-check form-switch px-0">
-                <label class="form-label d-block" for="{{ field.id }}">
-                    {{ field.label_tag }} {% if field.field.required %}<i class="fas fa-star-of-life text-danger" style="font-size:8px"></i>{% endif %}
-                </label>
-                {% render_field field class="form-check-input float-none mx-0" %}
-            </div>
-            {% elif field.field.widget.input_type == 'select' %}
-                {% render_field field class="form-select" %}
-            {% else %}
-                {% render_field field class="form-control" %}
-            {% endif %}
-            {{ form.media }}
-        {% endif %}
-        {% if field.help_text %}
-            <div class="w-100 form-text text-muted">
-                {{ field.help_text }}
-            </div>
-        {% endif %}
-        {% if field.field.widget.input_type == 'file'%}</div>{% endif %}
-    </div>
-    {{ after_field }}
+    {% if element.field.widget.input_type == 'hidden' %}
+    {% render_field element class="form-control" %}
+
+    {% elif element.field.widget.input_type == 'color' %}
+    {% render_field element class="form-control form-control-color" %}
+
+    {% elif element.field.widget.input_type == 'select' %}
+    {% render_field element class="form-select" %}
+
+    {% elif element.field.widget.input_type == 'checkbox' or element.field.widget.input_type == 'radio' %}
+    {% render_field element class="form-check-input" %}
+
+    {% elif element.field.widget.input_type == 'range' %}
+    {% render_field element class="form-range" %}
+
+    {% else %}
+    {% render_field element class="form-control" %}
+    {% endif %}
+
+
+    {% for error in element.errors %}
+        <div class="invalid-feedback">
+            {{ error }}
+        </div>
+    {% endfor %}
+
+    {% if element.help_text %}
+        <div class="w-100 form-text text-muted">
+            {{ element.help_text }}
+        </div>
+    {% endif %}
+
+</div>
 {% endfor %}

@@ -20,5 +20,9 @@ def context(request):
         # 'nginx_path': get_option('nginx_path', default=False),
         }
     return {
-        'status': status
+        'status': status,
+        'config': {
+            'paginator': int(get_option('paginator', '20')),
+            'company_name': get_option('company_name', 'Dpanel'),
+        }
     }

@@ -12,7 +12,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from dpanel.forms import PostgresDatabaseForm
-from dpanel.functions import get_option, install_psql_server
+from dpanel.functions import get_option, install_psql_server, paginator
 from dpanel.models import PostgresDatabase
 
 
@@ -36,6 +36,7 @@ class databases(View):
 
     def get(self, request):
         databases = PostgresDatabase.objects.all()
+        databases = paginator(request, databases, int(get_option('paginator', '20')))
         return render(request, 'psql/databases.html', {'databases': databases})
 
 

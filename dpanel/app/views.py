@@ -14,7 +14,7 @@ from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
 from dpanel.forms import AppForm
 from dpanel.functions import create_app_server_block, create_venv, create_app, create_uwsgi_config, get_option, \
-    install_uwsgi_server, install_nginx_server
+    install_uwsgi_server, install_nginx_server, paginator
 from dpanel.models import App, AppCertificate
 from dpanel.ssl import create_domain_ssl
 
@@ -42,6 +42,7 @@ class apps(View):
 
     def get(self, request):
         apps = App.objects.all()
+        apps = paginator(request, apps, int(get_option('paginator', '20')))
         return render(request, 'app/apps.html', {'apps': apps})
 
 
@@ -361,4 +362,14 @@ class nginx_restart(View):
         except subprocess.CalledProcessError as e:
             messages.error(request, _('nginx restart failed'))
 
+        return redirect('apps')
+
+
+class server_restart(View):
+    def get(self, request):
+        try:
+            subprocess.run(['reboot'])
+            messages.success(request, _('Server restarted successfully'))
+        except subprocess.CalledProcessError as e:
+            messages.error(request, _('Server restart failed'))
         return redirect('apps')

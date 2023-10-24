@@ -30,6 +30,18 @@ a{
     display: none;
 }
 
+.btn-min-text{
+    display: inline-block;
+    max-width: 0px;
+    opacity:0;
+    transition: max-width  0.2s, opacity  0s;
+    }
+.btn-min:hover .btn-min-text{
+    max-width: 100px;
+    opacity:1;
+    transition: max-width  0.2s, opacity  0.2s;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;

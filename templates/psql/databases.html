@@ -15,6 +15,7 @@
 {% if status.psql_status %}
     {% if databases %}
     {% include "psql/list.html" %}
+    {% include 'inc/paginator.html' with query=databases %}
     {% else %}
     <div class="bg-white shadow-sm p-3 rounded">
         {% trans 'No databases found' %}

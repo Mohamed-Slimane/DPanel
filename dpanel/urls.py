@@ -4,6 +4,7 @@ from dpanel.app import views as app_views
 from dpanel.postgres import views as psql_views
 from dpanel.mysql import views as mysql_views
 from dpanel.terminal import views as terminal_views
+from dpanel.setting import views as setting_views
 from dpanel.functions import super_required
 from django.contrib.auth import views as auth_views
 
@@ -32,6 +33,7 @@ urlpatterns = [
 
     path('restart/nginx/', super_required(app_views.nginx_restart.as_view()), name="nginx_restart"),
     path('restart/uwsgi/', super_required(app_views.uwsgi_restart.as_view()), name="uwsgi_restart"),
+    path('restart/server/', super_required(app_views.server_restart.as_view()), name="server_restart"),
 
     # Postgres
     path('psql/', super_required(psql_views.databases.as_view()), name="psql_databases"),
@@ -47,4 +49,8 @@ urlpatterns = [
 
     # Terminal
     path('terminal/', super_required(terminal_views.terminal.as_view()), name="terminal"),
+
+    # Settings
+    path('settings/', super_required(setting_views.settings.as_view()), name="settings"),
+    path('about/', super_required(setting_views.about.as_view()), name="about"),
 ]

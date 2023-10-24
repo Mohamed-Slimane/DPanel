@@ -4,10 +4,10 @@
 
     jQuery('[href="{{request.path}}"]').addClass('fw-bold');
 
-    function open_link_confirm(u){
+    function open_link_confirm(u, title='{% trans 'Are you sure to continue?' %}', text='{% trans 'This risk cannot be reversed.' %}') {
         Swal.fire({
-            title: '{% trans "Are you sure to continue?" %}',
-            text: '{% trans "This risk cannot be reversed." %}',
+            title: title,
+            text: text,
             showDenyButton: true,
             confirmButtonText: '{% trans "Continue" %}',
             denyButtonText: '{% trans "Cancel" %}',

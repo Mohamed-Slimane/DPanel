@@ -12,7 +12,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from dpanel.forms import MysqlDatabaseForm
-from dpanel.functions import get_option, install_mysql_server
+from dpanel.functions import get_option, install_mysql_server, paginator
 from dpanel.models import MysqlDatabase
 
 
@@ -36,6 +36,7 @@ class databases(View):
 
     def get(self, request):
         databases = MysqlDatabase.objects.all()
+        databases = paginator(request, databases, int(get_option('paginator', '20')))
         return render(request, 'mysql/databases.html', {'databases': databases})
 
 
