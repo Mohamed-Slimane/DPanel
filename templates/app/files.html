@@ -46,16 +46,26 @@
     })
 
     jQuery('body').on('click', '.remove-file', function(){
-        jQuery.ajax({
-             type: "GET",
-             url: "{% url 'app_file_remove' %}?file="+jQuery(this).attr('data-file'),
-             beforeSend: function(){
-                jQuery('.loading-preloader-2').show()
-             },
-             success: function(data){
-                reload_folder()
-                jQuery('.loading-preloader-2').hide()
-             }
+        Swal.fire({
+            title: '{% trans "Are you sure?" %}',
+            text: '{% trans "This risk cannot be reversed." %}',
+            showDenyButton: true,
+            confirmButtonText: '{% trans "Continue" %}',
+            denyButtonText: '{% trans "Cancel" %}',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                jQuery.ajax({
+                    type: "GET",
+                    url: "{% url 'app_file_remove' %}?file="+jQuery(this).attr('data-file'),
+                    beforeSend: function(){
+                        jQuery('.loading-preloader-2').show()
+                    },
+                    success: function(data){
+                        reload_folder()
+                        jQuery('.loading-preloader-2').hide()
+                    }
+                })
+            }
         })
     })
 

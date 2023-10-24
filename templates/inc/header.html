@@ -7,7 +7,7 @@
             <a class="col-auto" href="{% url 'apps' %}">{% trans 'Apps' %}</a>
             <a class="col-auto" href="{% url 'psql_databases' %}">{% trans 'PostgreSQL' %}</a>
             <a class="col-auto" href="{% url 'mysql_databases' %}">{% trans 'MySQL' %}</a>
-            <a class="col-auto" href="{% url 'terminal' %}">{% trans 'Terminal' %}</a>
+            <div class="col-auto disabled">{% trans 'Terminal' %}<small class="small text-muted">(soon)</small></div>
             {% endif %}
             <div class="dropdown col-auto" title="{% trans 'Language' %}">
                     <div class="pointer" id="dropdownLanguage" data-bs-toggle="dropdown" aria-expanded="false">

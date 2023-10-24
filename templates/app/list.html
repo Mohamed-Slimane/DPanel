@@ -1,5 +1,5 @@
 {% load i18n %}
-<div class="table-responsive">
+<div class="table-responsive-md">
     <table class="table">
         <thead>
         <tr>
@@ -7,7 +7,6 @@
             <th>{% translate 'Domain' %}</th>
             <th>{% translate 'Port' %}</th>
             <th>{% translate 'Path' %}</th>
-            <th>{% translate 'Venv' %}</th>
             <th>{% translate 'SSL' %}</th>
             <th></th>
         </tr>
@@ -28,44 +27,53 @@
                 </td>
                 <td>{{app.port}}</td>
                 <td>
-                    <span dir="ltr">
-                        {{app.www_path}}
-                    </span>
-                </td>
-                <td>
-                    <input type="text" class="form-control form-control-sm copy-input" value="source {{app.venv_path}}/bin/activate && cd {{app.www_path}}" readonly dir="ltr">
+                    <div class="blur-group input-group input-group-sm">
+                        <input type="text" class="form-control form-control-sm" value="{{app.www_path}}" readonly dir="ltr" onclick="copy_this(this.value)">
+                        <button type="button" class="btn btn-warning" onclick="copy_this('source {{app.venv_path}}/bin/activate && cd {{app.www_path}}')" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans '' %}">
+                            <i class="bi bi-terminal"></i>
+                        </button>
+                    </div>
                 </td>
                 <td>
                     <a href="{% url 'app_certificates' app.serial %}" class="btn btn-{% if app.certificate_app.all %}success{% else %}light border{% endif %} btn-sm rounded-pill">
                         <i class="bi bi-shield"></i>
+                        {% if app.certificate_app.all %}{% trans 'Installed' %}{{% else %}{% trans 'Not installed' %}{% endif %}
                     </a>
                 </td>
                 <td>
-                    <div class="float-end d-flex">
-                        <span class="btn btn-warning btn-sm rounded-pill d-inline-flex me-1" onclick="open_link_confirm('{% url 'app_restart' app.serial %}')">
-    <!--                        {% trans 'Restart' %}-->
-                            <i class="bi bi-arrow-clockwise"></i>
-                        </span>
-
-                        <a href="{% url 'app_config' app.serial %}" class="btn btn-secondary btn-sm rounded-pill d-inline-flex me-1">
-    <!--                        {% trans 'Config' %}-->
-                            <i class="bi bi-gear-fill"></i>
-                        </a>
-
-                        <a href="{% url 'app_files' app.serial %}" class="btn btn-success btn-sm rounded-pill d-inline-flex me-1">
-    <!--                        {% trans 'Files' %}-->
-                            <i class="bi bi-folder"></i>
-                        </a>
-
-                        <span class="btn btn-light border btn-sm rounded-pill d-inline-flex me-1 app-user-form-toggle" data-app="{{app.serial}}">
-<!--                            {% trans 'Create' %}-->
-                            <i class="bi bi-person"></i>
-                        </span>
-
-                        <span class="btn btn-danger btn-sm rounded-pill d-inline-flex me-1" onclick="open_link_confirm('{% url 'app_delete' app.serial %}')">
-    <!--                        {% trans 'Delete' %}-->
-                            <i class="bi bi-trash"></i>
-                        </span>
+                    <div class="dropdown">
+                        <i class="bi bi-three-dots-vertical pointer float-end" id="dropdownMenu-{{forloop.counter}}"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </i>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu-{{forloop.counter}}">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'app_config' app.serial %}" target="_blank">
+                                    {% trans 'Configuration' %}
+                                    <i class="bi bi-gear-fill float-end"></i>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'app_files' app.serial %}"  target="_blank">
+                                    {% trans 'Manage files' %}
+                                    <i class="bi bi-folder float-end"></i>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'app_restart' app.serial %}')">
+                                    {% trans 'Restart' %}
+                                    <i class="bi bi-arrow-clockwise float-end"></i>
+                                </span>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'app_delete' app.serial %}')">
+                                    {% trans 'Delete' %}
+                                    <i class="bi bi-trash float-end"></i>
+                                </span>
+                            </li>
+                        </ul>
                     </div>
                 </td>
             </tr>

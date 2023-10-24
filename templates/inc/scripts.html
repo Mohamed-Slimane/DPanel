@@ -21,9 +21,8 @@
         })
     }
 
-    jQuery('.copy-input').click(function(e){
-        e.target.select()
-        document.execCommand('copy')
+    function copy_this(text){
+        navigator.clipboard.writeText(text)
         const Toast = Swal.mixin({
           toast: true,
           position: 'top',
@@ -40,7 +39,7 @@
           icon: 'success',
           title: '{% trans "Text copied" %}'
         })
-    })
+    }
 
     jQuery('.copy-this').click(function(e){
 

@@ -2,8 +2,8 @@
 {% load i18n %}
 {% load static %}
 
-{% block title %} {% trans 'App' %} - {{app}} -config {% endblock %}
-{% block page_title %}<a href="{% url 'apps' %}">{% trans 'Apps' %}</a> - {{app}} - config{% endblock %}
+{% block title %} {% trans 'Apps' %} - {{app}} {% endblock %}
+{% block page_title %}<a href="{% url 'apps' %}">{% trans 'Apps' %}</a> - {{app}} - {% translate 'config' %}{% endblock %}
 {% block title_button %}{% endblock %}
 
 {% block content %}

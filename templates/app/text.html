@@ -5,20 +5,28 @@
 {% block page_title %} {% trans 'Edit' %} {{filename}} {% endblock %}
 
 {% block content %}
-<form class="" method="post" enctype="multipart/form-data">
-    <div class="mb-3" style="height: 70vh">
-        <textarea name="text" id="edit-text">{{text}}</textarea>
+<div class="bg-white shadow-sm rounded p-3">
+    <div class="input-group input-group-sm mb-3">
+        <button type="button" class="btn btn-secondary" onclick="copy_this('{{request.GET.file}}')">
+            <i class="bi bi-clipboard"></i>
+        </button>
+        <input type="text" class="form-control" value="{{request.GET.file}}" readonly style="width: 400px;" dir="ltr">
     </div>
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary ">
-        <i class="bi bi-save2"></i>
-        {% trans 'Save' %}
-    </button>
-    <div id="toggle-fullscreen" class="btn btn-light border float-md-end">
-        <i class="bi bi-arrows-fullscreen"></i>
-        {% trans 'Full screen' %}
-    </div>
-</form>
+    <form class="" method="post" enctype="multipart/form-data">
+        <div class="mb-3" style="height: 70vh">
+            <textarea name="text" id="edit-text">{{text}}</textarea>
+        </div>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary ">
+            <i class="bi bi-save2"></i>
+            {% trans 'Save' %}
+        </button>
+        <div id="toggle-fullscreen" class="btn btn-light border float-md-end">
+            <i class="bi bi-arrows-fullscreen"></i>
+            {% trans 'Full screen' %}
+        </div>
+    </form>
+</div>
 
 <script src="{% static 'codemirror/codemirror.min.js' %}"></script>
 
