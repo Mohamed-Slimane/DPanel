@@ -57,8 +57,8 @@
     <script>
         jQuery(document).ready(function () {
             jQuery(".install-server").click(function(event) {
-                jQuery('.loading-preloader').show()
-                server_name = jQuery(this).data('name')
+                jQuery('.loading-preloader').show();
+                server_name = jQuery(this).data('name');
                 jQuery.ajax({
                     type: "POST",
                     data: {
@@ -66,7 +66,7 @@
                         [server_name + '_install']: true
                     },
                     success: function (response) {
-                        jQuery('.loading-preloader').hide()
+                        jQuery('.loading-preloader').hide();
                         Swal.fire({
                             icon: response.success ? 'success' : 'error',
                             text: response.message,
@@ -78,7 +78,7 @@
                         });
                     },
                     error: function () {
-                        jQuery('.loading-preloader').hide()
+                        jQuery('.loading-preloader').hide();
                         alert('{% trans "An error occurred while submitting the form" %}');
                     }
                 });

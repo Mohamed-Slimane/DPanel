@@ -32,7 +32,7 @@
 <script>
 jQuery(document).ready(function () {
     jQuery("#install-mysql").click(function(event) {
-        jQuery('.loading-preloader').show()
+        jQuery('.loading-preloader').show();
         jQuery.ajax({
             type: "POST",
             data: {
@@ -40,7 +40,7 @@ jQuery(document).ready(function () {
                 'mysql_install': true
             },
             success: function (response) {
-                jQuery('.loading-preloader').hide()
+                jQuery('.loading-preloader').hide();
                 Swal.fire({
                     icon: response.success ? 'success' : 'error',
                     text: response.message,
@@ -52,7 +52,7 @@ jQuery(document).ready(function () {
                 });
             },
             error: function () {
-                jQuery('.loading-preloader').hide()
+                jQuery('.loading-preloader').hide();
                 alert('{% trans "An error occurred while submitting the form" %}');
             }
         });

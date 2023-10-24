@@ -21,29 +21,29 @@
              type: "GET",
              url: "{% url 'app_files_ajax' app.serial %}?path="+jQuery(this).attr('data-path'),
              beforeSend: function(){
-                jQuery('.loading-preloader-2').show()
+                jQuery('.loading-preloader-2').show();
              },
              success: function(data){
-                jQuery('#files').html(data)
-                jQuery('#upload-path').val(jQuery('#path').val())
-                jQuery('.loading-preloader-2').hide()
+                jQuery('#files').html(data);
+                jQuery('#upload-path').val(jQuery('#path').val());
+                jQuery('.loading-preloader-2').hide();
              }
-        })
-    })
+        });
+    });
 
     jQuery('body').on('click', '.extract-zip', function(){
         jQuery.ajax({
              type: "GET",
              url: "{% url 'app_zip_extract' %}?path="+jQuery('#path').val()+"&file="+jQuery(this).attr('data-file')+"&folder="+jQuery(this).attr('data-folder'),
              beforeSend: function(){
-                jQuery('.loading-preloader-2').show()
+                jQuery('.loading-preloader-2').show();
              },
              success: function(data){
-                reload_folder()
-                jQuery('.loading-preloader-2').hide()
+                reload_folder();
+                jQuery('.loading-preloader-2').hide();
              }
-        })
-    })
+        });
+    });
 
     jQuery('body').on('click', '.remove-file', function(){
         Swal.fire({
@@ -58,26 +58,26 @@
                     type: "GET",
                     url: "{% url 'app_file_remove' %}?file="+jQuery(this).attr('data-file'),
                     beforeSend: function(){
-                        jQuery('.loading-preloader-2').show()
+                        jQuery('.loading-preloader-2').show();
                     },
                     success: function(data){
-                        reload_folder()
-                        jQuery('.loading-preloader-2').hide()
+                        reload_folder();
+                        jQuery('.loading-preloader-2').hide();
                     }
-                })
+                });
             }
-        })
-    })
+        });
+    });
 
     function reload_folder(){
         jQuery.ajax({
             type: "GET",
             url: "{% url 'app_files_ajax' app.serial %}?path="+jQuery('#path').val(),
             success: function(data){
-                jQuery('#files').html(data)
-                jQuery('#upload-path').val(jQuery('#path').val())
+                jQuery('#files').html(data);
+                jQuery('#upload-path').val(jQuery('#path').val());
             }
-        })
+        });
     }
 </script>
 {% endblock %}

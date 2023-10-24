@@ -14,11 +14,11 @@
                 "app": "{{app.serial}}"
             },
             accept: function(file, done) {
-                done()
+                done();
             }
-        })
+        });
         myDropzone.on("complete", function(file) {
-            reload_folder()
-        })
-    })
+            reload_folder();
+        });
+    });
 </script>

@@ -2,8 +2,8 @@
 {% load static %}
 
 <div class="bg-white border shadow-sm rounded-10 p-3">
-    <div class="table-responsive">
-        <table class="table table-striped">
+    <div class="table-responsive-md">
+        <table class="table table-striped align-middle">
             <thead>
             <tr>
                 <th>{% translate 'Name' %}</th>
@@ -23,20 +23,29 @@
                             <button type="button" class="remove-blur btn btn-warning" data-text="{{database.password}}">
                                 <i class="bi bi-eye"></i>
                             </button>
-                            <button type="button" class="copy-this pointer btn btn-dark" data-text="{{database.password}}" data-message="{% trans 'Password copied' %}">
+                            <button type="button" class="pointer btn btn-dark" onclick="copy_this('{{database.password}}')">
                                 <i class="bi bi-clipboard"></i>
                             </button>
                         </div>
                     </td>
-                    <td class="text-end">
-                        <a href="{% url 'mysql_database_download' database.serial %}" class="btn btn-success btn-sm rounded-pill" target="_blank">
-                            <i class="bi bi-download"></i>
-                            {% trans 'Download' %}
-                        </a>
-                        <a href="{% url 'mysql_database_delete' database.serial %}" class="btn btn-danger btn-sm rounded-pill" onclick="if(!confirm('{% trans 'Do you wand delete!\n This step cannot be undo' %}'))return false;">
-                            <i class="bi bi-trash"></i>
-                            {% trans 'Delete' %}
-                        </a>
+                    <td>
+                        <div class="dropdown">
+                            <i class="bi bi-three-dots-vertical float-end pointer" data-bs-toggle="dropdown"></i>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                   <a href="{% url 'mysql_database_download' database.serial %}" class="dropdown-item" target="_blank">
+                                        {% trans 'Download' %}
+                                        <i class="bi bi-download float-end"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <span class="dropdown-item pointer text-danger" onclick="open_link_confirm('{% url 'mysql_database_delete' database.serial %}')">
+                                        {% trans 'Delete' %}
+                                        <i class="bi bi-trash float-end"></i>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}

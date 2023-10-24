@@ -5,35 +5,26 @@
             <a class="col-auto fw-bold" href="{% url 'apps' %}">DPanel</a>
             {% if request.user.is_authenticated %}
             <a class="col-auto" href="{% url 'apps' %}">{% trans 'Apps' %}</a>
-            <a class="col-auto" href="{% url 'psql_databases' %}">{% trans 'PostgreSQL' %}</a>
             <a class="col-auto" href="{% url 'mysql_databases' %}">{% trans 'MySQL' %}</a>
+            <a class="col-auto" href="{% url 'psql_databases' %}">{% trans 'PostgreSQL' %}</a>
             <div class="col-auto disabled">{% trans 'Terminal' %}<small class="small text-muted">(soon)</small></div>
             {% endif %}
-            <div class="dropdown col-auto" title="{% trans 'Language' %}">
-                    <div class="pointer" id="dropdownLanguage" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-translate"></i>
-                    </div>
-
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
-                        {% for language in languages %}
-                        <li>
-                            <a class="dropdown-item {% if language.code == LANGUAGE_CODE %} active{% endif %}" href="/{{ language.code }}/{{request.get_full_path_info|slice:'4:'}}">
-                                {{ language.name_local }} ({{ language.code }})
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
         </div>
     </div>
     <div class="col-auto">
         {% if user.is_authenticated %}
-        <div class="dropdown d-inline-block">
+        <div class="dropdown d-inline-block me-2">
             <div class="pointer"  id="dropdownProfile" data-bs-toggle="dropdown" aria-expanded="false">
-                {{request.user}}
-                <i class="bi bi-person"></i>
+                <i class="bi bi-person fs-5"></i>
             </div>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownProfile">
+                <li>
+                    <a class="dropdown-item disabled">
+                        {{request.user}}
+                        <i class="bi bi-person float-end"></i>
+                    </a>
+                </li>
+                <li class="dropdown-divider"></li>
                 <li>
                     <a class="dropdown-item" href="{% url 'password_change' %}">
                         {% translate 'Password' %}
@@ -55,5 +46,21 @@
             {% trans 'Login' %}
         </div>
         {% endif %}
+
+        <div class="dropdown d-inline-block" title="{% trans 'Language' %}">
+            <div class="pointer" id="dropdownLanguage" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-translate fs-5"></i>
+            </div>
+
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                {% for language in languages %}
+                <li>
+                    <a class="dropdown-item {% if language.code == LANGUAGE_CODE %} active{% endif %}" href="/{{ language.code }}/{{request.get_full_path_info|slice:'4:'}}">
+                        {{ language.name_local }} ({{ language.code }})
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 </div>
