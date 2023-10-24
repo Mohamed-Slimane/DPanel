@@ -14,7 +14,7 @@
 {% for field in form %}
     {{ before_field }}
     <div class="form-group mb-3{% if field|widget_type != 'textarea' and field.field.widget.input_type != 'file' %} {{ col }}{% endif %}{% if field.field.widget.input_type == 'file' %} file-field{% endif %}">
-        {% if field.field.widget.input_type == 'file'%}<div class="bg-white w-100 p-3 border rounded-10">{% endif %}
+        {% if field.field.widget.input_type == 'file'%}<div class="bg-white w-100 p-3 border rounded">{% endif %}
 
         {% if field.field.widget.input_type != 'hidden' and field.field.widget.input_type != 'checkbox' %}
         {{ field.label_tag }} {% if field.field.required %}<i class="fas fa-star-of-life text-danger" style="font-size:8px"></i>{% endif %}

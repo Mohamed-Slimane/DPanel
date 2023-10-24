@@ -7,7 +7,7 @@
 {% block title_button %}{% endblock %}
 
 {% block content %}
-<div class="shadow-sm bg-white p-3 rounded-10 h-100">
+<div class="shadow-sm bg-white p-3 rounded h-100">
     <form class="" method="post" enctype="multipart/form-data" >
         {% csrf_token %}
         <textarea class="textarea-code" id="config-code" name="config_code">{{config_code}}</textarea>

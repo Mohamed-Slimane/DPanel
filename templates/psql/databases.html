@@ -16,12 +16,12 @@
     {% if databases %}
     {% include "psql/list.html" %}
     {% else %}
-    <div class="bg-white border p-3 rounded position-relative">
-        {% trans 'Nothing was found' %}
+    <div class="bg-white shadow-sm p-3 rounded">
+        {% trans 'No databases found' %}
     </div>
     {% endif %}
 {% else %}
-    <div class="bg-white border p-3 rounded text-center">
+    <div class="bg-white shadow-sm p-3 rounded text-center">
         <div class="fw-bold h5">
             {% trans 'PostgreSql server not installed' %}
         </div>

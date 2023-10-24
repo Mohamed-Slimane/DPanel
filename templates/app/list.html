@@ -15,21 +15,21 @@
             {% for app in apps %}
             <tr>
                 <td>
-                    <a href="{% url 'apps' %}" class="fw-bold">
-                        {{app.name}}
-                    </a>
+                    {{app.name}}
                 </td>
                 <td>
-                    {{app.domain}}
                     <a href="http://{{app.domain}}" target="_blank">
-                        <i class="bi bi-box-arrow-up-right"></i>
+                        {{app.domain}}
                     </a>
                 </td>
                 <td>{{app.port}}</td>
                 <td>
                     <div class="blur-group input-group input-group-sm">
-                        <input type="text" class="form-control form-control-sm" value="{{app.www_path}}" readonly dir="ltr" onclick="copy_this(this.value)">
-                        <button type="button" class="btn btn-warning" onclick="copy_this('source {{app.venv_path}}/bin/activate && cd {{app.www_path}}')" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans '' %}">
+                        <input type="text" class="form-control form-control-sm rounded-start-pill" value="{{app.www_path}}" readonly dir="ltr" onclick="copy_this(this.value)">
+                        <button type="button" class="btn btn-warning rounded-end-pill" onclick="copy_this('{{app.www_path}}')" data-bs-toggle="tooltip" title="{% trans 'Copy path' %}">
+                            <i class="bi bi-folder"></i>
+                        </button>
+                        <button type="button" class="btn btn-warning rounded-end-pill" onclick="copy_this('source {{app.venv_path}}/bin/activate && cd {{app.www_path}}')" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans '' %}">
                             <i class="bi bi-terminal"></i>
                         </button>
                     </div>

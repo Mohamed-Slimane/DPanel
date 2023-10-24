@@ -12,8 +12,8 @@
 </a>
 {% endif %}
 {% if status.uwsgi_status %}
-<a class="btn btn-warning btn-sm rounded-pill" href="{% url 'uwsgi_restart' %}">
-    {% translate 'Restart uwsgi' %}
+<a class="btn btn-warning btn-sm rounded-pill" href="{% url 'uwsgi_restart' %}" data-bs-toggle="tooltip" title="{% translate 'Restart uwsgi' %}">
+    {% translate 'Uwsgi' %}
     <i class="bi bi-arrow-clockwise"></i>
 </a>
 {% else %}
@@ -23,8 +23,8 @@
 </button>
 {% endif %}
 {% if status.nginx_status %}
-<a class="btn btn-info btn-sm rounded-pill" href="{% url 'nginx_restart' %}">
-    {% translate 'Restart nginx' %}
+<a class="btn btn-info btn-sm rounded-pill" href="{% url 'nginx_restart' %}" data-bs-toggle="tooltip" title="{% translate 'Restart nginx' %}">
+    {% translate 'Nginx' %}
     <i class="bi bi-arrow-clockwise"></i>
 </a>
 {% else %}
@@ -33,6 +33,10 @@
     <i class="bi bi-play"></i>
 </button>
 {% endif %}
+<button type="button" class="btn btn-danger btn-sm rounded-pill" id="restart-server" data-bs-toggle="tooltip" title="{% translate 'Restart server' %}">
+    {% translate 'Server' %}
+    <i class="bi bi-power"></i>
+</button>
 {% endblock %}
 {% block content %}
 <div class="bg-white shadow-sm rounded">
@@ -41,7 +45,7 @@
         {% include 'app/list.html' %}
         {% else %}
         <div class="h5 text-center p-3">
-            {% trans 'You have no apps yet' %}
+            {% trans 'No apps found' %}
             <div class="">
                 <a href="{% url 'app_new' %}">
                     <i class="bi bi-folder-plus fs-1"></i>
