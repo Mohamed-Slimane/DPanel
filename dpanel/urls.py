@@ -11,6 +11,8 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),
     path('logout/', super_required(auth_views.LogoutView.as_view()), name="logout"),
+    path('password/change/', super_required(auth_views.PasswordChangeView.as_view(template_name='account/password-change.html', form_class=auth_views.SetPasswordForm)), name="password_change"),
+    path('password/change/done', super_required(auth_views.PasswordChangeDoneView.as_view(template_name='account/password-change-done.html')), name="password_change_done"),
 
     # Apps
     path('', super_required(app_views.apps.as_view()), name="apps"),

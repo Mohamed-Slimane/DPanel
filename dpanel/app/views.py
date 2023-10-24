@@ -77,11 +77,13 @@ class app_restart(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
         try:
-            # Run the uWSGI reload command securely using subprocess.run
-            os.system(f'uwsgi --touch-reload {app.uwsgi_config}')
+            pgrep_command = f'pgrep -f {app.name}'
+            pids = subprocess.check_output(pgrep_command, shell=True)
+            pids = pids.decode().strip().split()
+            for pid in pids:
+                subprocess.call(['sudo', 'kill', '-HUP', pid])
             messages.success(request, f'Successfully restarted uWSGI app <b>{app.name}</b>.')
         except subprocess.CalledProcessError as e:
-            # An error occurred during command execution
             messages.error(request, f'Error restarting uWSGI app: {e.stderr}')
 
         return redirect('apps')

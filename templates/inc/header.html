@@ -35,11 +35,19 @@
             </div>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownProfile">
                 <li>
-                    <a class="dropdown-item" href="{% url 'logout' %}">
-                    {% translate 'Logout' %}
-                    <i class="bi bi-box-arrow-right float-end"></i>
-                </a>
+                    <a class="dropdown-item" href="{% url 'password_change' %}">
+                        {% translate 'Password' %}
+                        <i class="bi bi-shield-lock float-end"></i>
+                    </a>
                 </li>
+                <li class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item" href="{% url 'logout' %}">
+                        {% translate 'Logout' %}
+                        <i class="bi bi-box-arrow-right float-end"></i>
+                    </a>
+                </li>
+
             </ul>
         </div>
         {% else %}

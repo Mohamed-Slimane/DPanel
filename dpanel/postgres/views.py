@@ -77,8 +77,8 @@ class database_delete(View):
 class database_download(View):
     def get(self, request, serial):
         database = PostgresDatabase.objects.get(serial=serial)
-        Path('/var/dpfiles/backups/psql/').mkdir(parents=True, exist_ok=True)
-        database_file = f'/var/dpfiles/backups/psql/{database.name}_{datetime.today().strftime("%d-%m-%Y_%H-%M")}.dump'
+        Path('/var/server/dpanel/backups/psql/').mkdir(parents=True, exist_ok=True)
+        database_file = f'/var/server/dpanel/backups/psql/{database.name}_{datetime.today().strftime("%d-%m-%Y_%H-%M")}.dump'
         os.system(
             f'sudo -u postgres pg_dump "postgresql://{database.username}:{database.password}@localhost/{database.name}" > {database_file}')
 

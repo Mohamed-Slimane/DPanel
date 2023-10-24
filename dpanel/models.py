@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 class App(models.Model):
     serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
+    framework = models.CharField(_('Framework'), max_length=500, choices=[('django', 'Django'), ('flask', 'Flask'), ('bottle', 'Bottle'),], default='django')
     name = models.CharField(_('Name'), max_length=500)
     domain = models.CharField(max_length=50, verbose_name=_('Domain'), unique=True)
     port = models.IntegerField(_('Port'), unique=True)

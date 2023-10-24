@@ -81,8 +81,8 @@ class database_delete(View):
 class database_download(View):
     def get(self, request, serial):
         database = MysqlDatabase.objects.get(serial=serial)
-        Path('/var/dpfiles/backups/mysql/').mkdir(parents=True, exist_ok=True)
-        database_file = f'/var/dpfiles/backups/mysql/{database.name}_{datetime.today().strftime("%d-%m-%Y_%H-%M")}.sql.gz'
+        Path('/var/server/dpanel/backups/mysql/').mkdir(parents=True, exist_ok=True)
+        database_file = f'/var/server/dpanel/backups/mysql/{database.name}_{datetime.today().strftime("%d-%m-%Y_%H-%M")}.sql.gz'
         os.system(f'sudo mysqldump {database.name} | gzip > {database_file}')
 
         if os.path.exists(database_file):

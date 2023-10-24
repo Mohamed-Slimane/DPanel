@@ -79,6 +79,7 @@ def create_uwsgi_config(app):
         conf = '''
 [uwsgi]
 # plugin = http
+processname = {app.name}
 processes = 1
 threads = 2
 chdir = {app.www_path}
@@ -94,7 +95,7 @@ venv = {app.venv_path}
         with open(uwsgi_conf, 'w') as f:
             f.write(conf)
         os.system(f"sudo ln -s {uwsgi_conf} {enabled}/{app.domain}.ini")
-        app.uwsgi_config = {enabled} / {app.domain}.ini
+        app.uwsgi_config = f'{enabled}/{app.domain}.ini'
     except Exception as e:
         print(str(e))
 
