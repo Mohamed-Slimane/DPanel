@@ -3,6 +3,7 @@
     <table class="table">
         <thead>
         <tr>
+            <th style="width: 0">#</th>
             <th>{% translate 'Name' %}</th>
             <th>{% translate 'Domain' %}</th>
             <th>{% translate 'Port' %}</th>
@@ -15,8 +16,13 @@
             {% for app in apps %}
             <tr>
                 <td>
-                    {{app.name}}
+                    {% if apps.start_index %}
+                    {{apps.start_index|add:forloop.counter0}}
+                    {% else %}
+                    {{forloop.counter}}
+                    {% endif %}
                 </td>
+                <td>{{app.name}}</td>
                 <td>
                     <a href="http://{{app.domain}}" target="_blank">
                         {{app.domain}}

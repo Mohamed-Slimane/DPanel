@@ -25,7 +25,9 @@ a{
   filter: blur(5px);
 }
 
-
+.dropdown-hover:hover .dropdown-menu{
+    display: block !important;
+}
 .last-child:last-child{
     display: none;
 }

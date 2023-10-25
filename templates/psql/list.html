@@ -5,6 +5,7 @@
     <table class="table align-middle">
         <thead>
         <tr>
+            <th style="width: 0">#</th>
             <th>{% translate 'Name' %}</th>
             <th>{% translate 'User' %}</th>
             <th>{% translate 'Password' %}</th>
@@ -14,6 +15,13 @@
         <tbody>
             {% for database in databases %}
             <tr>
+                <td>
+                    {% if databases.start_index %}
+                    {{databases.start_index|add:forloop.counter0}}
+                    {% else %}
+                    {{forloop.counter}}
+                    {% endif %}
+                </td>
                 <td>{{database.name}}</td>
                 <td>{{database.username}}</td>
                 <td>
