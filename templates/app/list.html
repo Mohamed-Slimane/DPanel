@@ -43,7 +43,7 @@
                 <td>
                     <a href="{% url 'app_certificates' app.serial %}" class="btn btn-{% if app.certificate_app.all %}success{% else %}light border{% endif %} btn-sm rounded-pill">
                         <i class="bi bi-shield"></i>
-                        {% if app.certificate_app.all %}{% trans 'Installed' %}{{% else %}{% trans 'Not installed' %}{% endif %}
+                        {% if app.certificate_app.all %}{% trans 'Installed' %}{% else %}{% trans 'Not installed' %}{% endif %}
                     </a>
                 </td>
                 <td>

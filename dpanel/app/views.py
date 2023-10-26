@@ -3,6 +3,7 @@ import pathlib
 import shutil
 import socket
 import subprocess
+from datetime import datetime
 
 from django.contrib.auth.hashers import make_password
 from django.http import JsonResponse
@@ -16,7 +17,7 @@ from dpanel.forms import AppForm
 from dpanel.functions import create_app_server_block, create_venv, create_app, create_uwsgi_config, get_option, \
     install_uwsgi_server, install_nginx_server, paginator
 from dpanel.models import App, AppCertificate
-from dpanel.ssl import create_domain_ssl
+from dpanel.ssl import create_app_ssl, install_certbot
 
 
 class apps(View):
@@ -91,6 +92,23 @@ class app_restart(View):
 
 
 class app_certificates(View):
+    def post(self, request, serial):
+        certbot_status = get_option('certbot_status')
+        if not certbot_status or certbot_status == 'False':
+            if request.POST.get('certbot_install'):
+                res = install_certbot()
+            else:
+                res = {
+                    'success': False,
+                    'message': _('Form validation error')
+                }
+        else:
+            res = {
+                'success': False,
+                'message': _('Certbot is already installed')
+            }
+        return JsonResponse(res)
+
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
         return render(request, 'app/certificate.html', {'app': app})
@@ -98,14 +116,14 @@ class app_certificates(View):
 
 class app_certificate_new(View):
     def get(self, request, serial):
-        wildcard = request.GET.get('wildcard') or None
         app = App.objects.get(serial=serial)
         try:
-            create_domain_ssl(app.domain, wildcard)
-            AppCertificate.objects.create(app=app)
+            expiration_date = create_app_ssl(app)
+            if expiration_date:
+                AppCertificate.objects.create(app=app, expire_date=expiration_date)
             messages.success(request, _('Certificate created successfully'))
             subprocess.run("sudo systemctl reload nginx", shell=True, check=True)
-        except Exception as e:
+        except subprocess.CalledProcessError as e:
             messages.error(request, _('Certificate created failed'))
             messages.warning(request, str(e))
 

@@ -21,11 +21,16 @@ class App(models.Model):
     def __str__(self):
         return self.name
 
+    def certificates(self):
+        return self.certificate_app.order_by('-created_date')
+
     def save(self, *args, **kwargs):
         if not self.pk:
             import uuid
             self.serial = uuid.uuid4()
         if not self.name:
+            if 'http' in self.domain or 'https' in self.domain:
+                self.domain = self.domain.split('//')[1]
             self.name = self.domain
         super(App, self).save(*args, **kwargs)
 
@@ -65,16 +70,20 @@ class MysqlDatabase(models.Model):
 class AppCertificate(models.Model):
     serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
     app = models.ForeignKey(App, verbose_name=_('App'), related_name='certificate_app', on_delete=models.CASCADE)
+    domain = models.CharField(max_length=50, verbose_name=_('Domain'))
     created_date = models.DateTimeField(auto_now=True)
-    # expire_date = models.DateTimeField()
+    expire_date = models.DateTimeField()
 
     def __str__(self):
         return self.app
+
 
     def save(self, *args, **kwargs):
         if not self.pk:
             import uuid
             self.serial = uuid.uuid4()
+        else:
+            self.domain = self.app.domain
         super(AppCertificate, self).save(*args, **kwargs)
 
 

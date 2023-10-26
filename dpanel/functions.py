@@ -147,7 +147,6 @@ def install_nginx_server():
         subprocess.run(["sudo", "apt", "install", "-y", "nginx"])
         subprocess.run(['sudo', 'ufw', 'allow', '80'])
         subprocess.run(['sudo', 'ufw', 'allow', 'http'])
-        subprocess.run(['sudo', 'ufw', 'allow', 'https'])
         subprocess.run(['sudo', 'ufw', 'allow', 'Nginx Full'])
         subprocess.run(['sudo', 'ufw', 'allow', '8080'])
         subprocess.run(['sudo', 'systemctl', 'start', 'nginx'])
@@ -223,27 +222,6 @@ def install_mysql_server():
     except Exception as e:
         success = False
         message = _("An error occurred while installing MySQL: {}").format(e)
-
-    return {
-        'success': success,
-        'message': message
-    }
-
-
-def install_psql_server():
-    try:
-        subprocess.run(["sudo", "apt", "update"])
-        subprocess.run(["sudo", "apt", "install", "-y", "postgresql"])
-        subprocess.run(["sudo", "systemctl", "start", "postgresql.service"])
-        subprocess.run(["sudo", "systemctl", "enable", "postgresql.service"])
-        success = True
-        message = _("PostgreSQL Server has been successfully installed")
-
-        save_option('psql_status', True)
-
-    except Exception as e:
-        success = False
-        message = _("An error occurred while installing PostgreSQL: {}").format(e)
 
     return {
         'success': success,

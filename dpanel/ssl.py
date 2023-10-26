@@ -1,5 +1,8 @@
 import os
 import subprocess
+from datetime import datetime
+from django.utils.translation import gettext_lazy as _
+from dpanel.functions import save_option
 
 
 def has_certbot_cert(domain):
@@ -7,20 +10,46 @@ def has_certbot_cert(domain):
     return os.path.exists(cert_dir)
 
 
-def create_domain_ssl(domain_name, wildcard=None):
-    # Create a new SSL certificate for the domain using Certbot
-    "sudo certbot --server https://acme-v02.api.letsencrypt.org/directory -d *.example.com --manual --preferred-challenges dns-01 certonly"
-    if wildcard:
-        certbot_cmd = f"sudo certbot certonly --manual --no-redirect --preferred-challenges=dns --email admin@{domain_name} --server https://acme-v02.api.letsencrypt.org/directory --agree-tos -d *.{domain_name}"
-    elif has_certbot_cert(domain_name):
-        certbot_cmd = f"sudo certbot renew --nginx --cert-name {domain_name}"
-    else:
-        certbot_cmd = f"sudo certbot --nginx --agree-tos --no-redirect --email admin@{domain_name} -d {domain_name}"
+def create_app_ssl(app):
+    command = [
+        "certbot",
+        "certonly",
+        "--nginx",
+        "-d",
+        app.domain,
+        "--email",
+        f"admin@{app.domain}",
+        "--agree-tos"
+    ]
+    result = subprocess.run(command, capture_output=True, text=True, check=True)
 
-    subprocess.run(certbot_cmd, shell=True, check=True)
-
+    if result.returncode == 0:
+        for line in result.stdout.split('\n'):
+            if "VALID:" in line:
+                parts = line.split("VALID: ")
+                expiration_date = parts[1].strip()
+                expiration_date = datetime.strptime(expiration_date, "%B %d %Y %H:%M:%S %Z")
+                return expiration_date
     # Create a symbolic link to enable the new Nginx configuration
-    os.system(f"sudo ln -s /etc/nginx/sites-available/{domain_name}.conf /etc/nginx/sites-enabled/{domain_name}.conf")
+    # os.system(f"sudo ln -s /etc/nginx/sites-available/{app.domain}.conf /etc/nginx/sites-enabled/{app.domain}.conf")
 
-    # Reload Nginx to apply the new configuration
-    # subprocess.run("sudo systemctl reload nginx", shell=True, check=True)
+
+def install_certbot():
+    try:
+        subprocess.run(["sudo", "apt", "update"])
+        subprocess.run(["sudo", "apt", "install", "-y", "certbot"])
+        subprocess.run(["sudo", "apt", "install", "-y", "python3-certbot-nginx"])
+        subprocess.run(['sudo', 'ufw', 'allow', 'https'])
+        subprocess.run(['sudo', 'ufw', 'allow', '443'])
+        success = True
+        message = _("Certbot has been successfully installed")
+        save_option('certbot_status', True)
+
+    except subprocess.CalledProcessError as e:
+        success = False
+        message = _("An error occurred while installing Certbot: {}").format(e)
+
+    return {
+        'success': success,
+        'message': message
+    }

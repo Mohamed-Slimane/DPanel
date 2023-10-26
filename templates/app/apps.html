@@ -13,13 +13,11 @@
 {% endif %}
 
 <span class="dropdown">
-    <button class="btn btn-secondary btn-sm rounded-pill" type="button" id="dropdownRestart" data-bs-toggle="dropdown" aria-expanded="false">
+    <button class="btn btn-secondary btn-sm rounded-pill dropdown-toggle" type="button" id="dropdownRestart" data-bs-toggle="dropdown" aria-expanded="false">
         {% translate 'Restart' %}
-        <i class="bi bi-three-dots-vertical"></i>
     </button>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownRestart">
         {% if status.uwsgi_status %}
-        {% if status.nginx_status %}
         <li>
             <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'nginx_restart' %}', '{% trans 'Restart' %}', '{% translate 'Nginx server will be restarted immediately and al apps will be stopped until restarting' %}')">
                 {% translate 'Nginx' %}
@@ -28,6 +26,7 @@
         </li>
         <li><hr class="dropdown-divider"></li>
         {% endif %}
+        {% if status.uwsgi_status %}
         <li>
             <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'uwsgi_restart' %}', '{% trans 'Restart' %}', '{% translate 'Uwsgi server will be restarted immediately and al apps will be stopped until restarting' %}')">
                 {% translate 'Uwsgi' %}

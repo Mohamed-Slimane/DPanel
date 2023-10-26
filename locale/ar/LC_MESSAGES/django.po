@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dever stoke\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-24 22:53+0100\n"
+"POT-Creation-Date: 2023-10-26 22:44+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -14,70 +14,69 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: .\dpanel\app\views.py:34 .\dpanel\app\views.py:143
+#: .\dpanel\app\views.py:35 .\dpanel\app\views.py:146
 #: .\dpanel\mysql\views.py:28 .\dpanel\mysql\views.py:65
-#: .\dpanel\postgres\views.py:28 .\dpanel\postgres\views.py:61
 msgid "Form validation error"
 msgstr "خطأ في التحقق من صحة النموذج"
 
-#: .\dpanel\app\views.py:39
+#: .\dpanel\app\views.py:40
 msgid "There is an existing uwsgi or nginx server installed"
 msgstr "يوجد خادم uwsgi أو nginx مثبت بالفعل"
 
-#: .\dpanel\app\views.py:69
+#: .\dpanel\app\views.py:70
 msgid "User created successfully for app {}"
 msgstr "تم إنشاء الشهادة بنجاح"
 
-#: .\dpanel\app\views.py:73
+#: .\dpanel\app\views.py:74
 msgid "Please enter a username and password and email and try again."
 msgstr ""
 "الرجاء إدخال اسم المستخدم وكلمة المرور والبريد الإلكتروني وحاول مرة أخرى."
 
-#: .\dpanel\app\views.py:106
+#: .\dpanel\app\views.py:109
 msgid "Certificate created successfully"
 msgstr "تم إنشاء الشهادة بنجاح"
 
-#: .\dpanel\app\views.py:109
+#: .\dpanel\app\views.py:112
 msgid "Certificate created failed"
 msgstr "فشل إنشاء الشهادة"
 
-#: .\dpanel\app\views.py:140
+#: .\dpanel\app\views.py:143
 msgid "App successfully created"
 msgstr "تم إنشاء التطبيق بنجاح"
 
-#: .\dpanel\app\views.py:160
+#: .\dpanel\app\views.py:163
 msgid "App configuration updated successfully"
 msgstr "تم تحديث تكوين التطبيق بنجاح"
 
-#: .\dpanel\app\views.py:162
+#: .\dpanel\app\views.py:165
 msgid "Error in updating django_app configuration"
 msgstr "خطأ في تحديث تكوين النطاق"
 
-#: .\dpanel\app\views.py:340
+#: .\dpanel\app\views.py:343
 msgid "File was successfully updated"
 msgstr "تم تحديث الملف بنجاح"
 
-#: .\dpanel\app\views.py:350
+#: .\dpanel\app\views.py:353
 msgid "uwsgi restarted successfully"
 msgstr "تمت إعادة تشغيل uwsgi بنجاح"
 
-#: .\dpanel\app\views.py:352
+#: .\dpanel\app\views.py:355
 msgid "uwsgi restart failed"
 msgstr "فشل إعادة تشغيل uwsgi"
 
-#: .\dpanel\app\views.py:361
+#: .\dpanel\app\views.py:364
 msgid "nginx restarted successfully"
 msgstr "تمت إعادة تشغيل nginx بنجاح"
 
-#: .\dpanel\app\views.py:363
+#: .\dpanel\app\views.py:366
 msgid "nginx restart failed"
 msgstr "فشل إعادة تشغيل nginx"
 
-#: .\dpanel\app\views.py:372
+#: .\dpanel\app\views.py:375
 msgid "Server restarted successfully"
 msgstr "تم إعادة تشغيل الخادم بنجاح"
 
-#: .\dpanel\app\views.py:374
+#: .\dpanel\app\views.py:377
 msgid "Server restart failed"
 msgstr "فشلت إعادة تشغيل الخادم"
 
@@ -105,16 +104,8 @@ msgstr "تم تثبيت MySQL Server بنجاح"
 msgid "An error occurred while installing MySQL: {}"
 msgstr "حدث خطأ أثناء تثبيت MySQL: {}"
 
-#: .\dpanel\functions.py:240
-msgid "PostgreSQL Server has been successfully installed"
-msgstr "تم تثبيت خادم PostgreSQL بنجاح"
-
-#: .\dpanel\functions.py:246
-msgid "An error occurred while installing PostgreSQL: {}"
-msgstr "حدث خطأ أثناء تثبيت PostgreSQL: {}"
-
-#: .\dpanel\models.py:7 .\dpanel\models.py:34 .\dpanel\models.py:50
-#: .\dpanel\models.py:66
+#: .\dpanel\models.py:7 .\dpanel\models.py:39 .\dpanel\models.py:55
+#: .\dpanel\models.py:71
 msgid "Serial"
 msgstr "الرقم التسلسي"
 
@@ -122,21 +113,20 @@ msgstr "الرقم التسلسي"
 msgid "Framework"
 msgstr "الإطار"
 
-#: .\dpanel\models.py:9 .\dpanel\models.py:35 .\dpanel\models.py:51
-#: .\templates\app\list.html:6 .\templates\mysql\list.html:8
-#: .\templates\psql\list.html:8
+#: .\dpanel\models.py:9 .\dpanel\models.py:40 .\dpanel\models.py:56
+#: .\templates\app\list.html:7 .\templates\mysql\list.html:9
 msgid "Name"
 msgstr "الإسم"
 
-#: .\dpanel\models.py:10 .\templates\app\list.html:7
+#: .\dpanel\models.py:10 .\dpanel\models.py:73 .\templates\app\list.html:8
 msgid "Domain"
 msgstr "الدومين"
 
-#: .\dpanel\models.py:11 .\templates\app\list.html:8
+#: .\dpanel\models.py:11 .\templates\app\list.html:9
 msgid "Port"
 msgstr "البوابة"
 
-#: .\dpanel\models.py:12 .\templates\app\list.html:9
+#: .\dpanel\models.py:12 .\templates\app\list.html:10
 msgid "Path"
 msgstr "المسار"
 
@@ -168,38 +158,38 @@ msgstr "فرض HTTPS"
 msgid "Activated"
 msgstr "مفعل"
 
-#: .\dpanel\models.py:36 .\dpanel\models.py:52
+#: .\dpanel\models.py:41 .\dpanel\models.py:57
 #: .\templates\app\inc\user-form.html:12
 msgid "Username"
 msgstr "إسم المستخدم"
 
-#: .\dpanel\models.py:37 .\dpanel\models.py:53
+#: .\dpanel\models.py:42 .\dpanel\models.py:58
 #: .\templates\account\password-change-done.html:4
 #: .\templates\account\password-change-done.html:5
 #: .\templates\account\password-change.html:4
 #: .\templates\account\password-change.html:5
-#: .\templates\app\inc\user-form.html:20 .\templates\inc\header.html:32
-#: .\templates\mysql\list.html:10 .\templates\psql\list.html:10
+#: .\templates\app\inc\user-form.html:20 .\templates\inc\header.html:59
+#: .\templates\mysql\list.html:11
 msgid "Password"
 msgstr "كلمة المرور"
 
-#: .\dpanel\models.py:67
+#: .\dpanel\models.py:72
 msgid "App"
 msgstr "تطبيق"
 
-#: .\dpanel\models.py:82
+#: .\dpanel\models.py:91
 msgid "Key"
 msgstr "المفتاح"
 
-#: .\dpanel\models.py:83
+#: .\dpanel\models.py:92
 msgid "Value"
 msgstr "القيمة"
 
-#: .\dpanel\mysql\views.py:33 .\dpanel\postgres\views.py:33
+#: .\dpanel\mysql\views.py:33
 msgid "There is an existing Mysql server installed"
 msgstr "يوجد خادم Mysql مثبت"
 
-#: .\dpanel\mysql\views.py:58 .\dpanel\postgres\views.py:54
+#: .\dpanel\mysql\views.py:58
 msgid "Database successfully created"
 msgstr "تم إنشاء قاعدة البيانات بنجاح"
 
@@ -220,7 +210,7 @@ msgid "English"
 msgstr "الإنجليزية"
 
 #: .\templates\account\login.html:4 .\templates\account\login.html:5
-#: .\templates\account\login.html:14 .\templates\inc\header.html:48
+#: .\templates\account\login.html:14
 msgid "Login"
 msgstr "دخول"
 
@@ -233,7 +223,7 @@ msgid "Change"
 msgstr "تغيير"
 
 #: .\templates\app\apps.html:4 .\templates\app\config.html:5
-#: .\templates\app\config.html:6 .\templates\inc\header.html:7
+#: .\templates\app\config.html:6 .\templates\inc\header.html:21
 msgid "Apps"
 msgstr "التطبيقات"
 
@@ -248,7 +238,7 @@ msgstr "تطبيق جديد"
 
 #: .\templates\app\apps.html:17 .\templates\app\apps.html:24
 #: .\templates\app\apps.html:32 .\templates\app\apps.html:40
-#: .\templates\app\list.html:65
+#: .\templates\app\list.html:71
 msgid "Restart"
 msgstr "إعادة التشغيل"
 
@@ -305,23 +295,27 @@ msgid "Install uwsgi"
 msgstr "تثبيت uwsgi"
 
 #: .\templates\app\apps.html:110 .\templates\mysql\databases.html:57
-#: .\templates\psql\databases.html:57
 msgid "An error occurred while submitting the form"
 msgstr "حدث خطأ أثناء إرسال النموذج"
 
 #: .\templates\app\certificate.html:5 .\templates\app\certificate.html:6
-msgid "certificate"
-msgstr "شهادة"
+msgid "SSL certificates"
+msgstr "شهادات SSL"
 
 #: .\templates\app\certificate.html:9
-msgid "Create SSL"
-msgstr "إنشاء SSL"
+#| msgid "SSL certificates"
+msgid "New certificate"
+msgstr "شهادة جديدة"
 
-#: .\templates\app\certificate.html:13
-msgid "Create wildcard"
-msgstr "إنشاء شهادة Wildcard"
+#: .\templates\app\certificate.html:22
+msgid "Created"
+msgstr "الإنشاء"
 
-#: .\templates\app\certificate.html:27
+#: .\templates\app\certificate.html:23
+msgid "Expires"
+msgstr "الإنتهاء"
+
+#: .\templates\app\certificate.html:48
 msgid "This app have no certificates yet"
 msgstr "هذا التطبيق ليس لديه شهادات حتى الآن"
 
@@ -330,7 +324,6 @@ msgid "config"
 msgstr "التكوين"
 
 #: .\templates\app\config.html:15 .\templates\mysql\new.html:16
-#: .\templates\psql\new.html:16
 msgid "Submit"
 msgstr "إرسال"
 
@@ -367,15 +360,14 @@ msgid "Refresh"
 msgstr "تحديث"
 
 #: .\templates\app\inc\files-list.html:29
-#: .\templates\app\inc\files-list.html:80 .\templates\app\list.html:72
-#: .\templates\mysql\list.html:42 .\templates\psql\list.html:42
+#: .\templates\app\inc\files-list.html:80 .\templates\app\list.html:78
+#: .\templates\mysql\list.html:56
 msgid "Delete"
 msgstr "حذف"
 
 #: .\templates\app\inc\files-list.html:59 .\templates\app\text.html:4
 #: .\templates\app\text.html:5 .\templates\mysql\edit.html:4
-#: .\templates\mysql\edit.html:5 .\templates\psql\edit.html:4
-#: .\templates\psql\edit.html:5
+#: .\templates\mysql\edit.html:5
 msgid "Edit"
 msgstr "تعديل"
 
@@ -403,31 +395,31 @@ msgstr "حالة المستخدم المتميز"
 msgid "Create"
 msgstr "إنشاء"
 
-#: .\templates\app\list.html:10
+#: .\templates\app\list.html:11
 msgid "SSL"
 msgstr "إتصال آمن"
 
-#: .\templates\app\list.html:29
+#: .\templates\app\list.html:35
 msgid "Terminal environment command"
 msgstr "أمر موجه الأوامر والبيئة الإفتراضية"
 
-#: .\templates\app\list.html:32
+#: .\templates\app\list.html:38
 msgid "File manager"
 msgstr "مدير الملفات"
 
-#: .\templates\app\list.html:40
+#: .\templates\app\list.html:46
 msgid "Installed"
 msgstr "مثبت"
 
-#: .\templates\app\list.html:40
+#: .\templates\app\list.html:46
 msgid "Not installed"
 msgstr "غير مثبت"
 
-#: .\templates\app\list.html:51
+#: .\templates\app\list.html:57
 msgid "Configuration"
 msgstr "إعداد"
 
-#: .\templates\app\list.html:58
+#: .\templates\app\list.html:64
 msgid "Manage files"
 msgstr "إدارة الملفات"
 
@@ -439,48 +431,35 @@ msgstr "حفظ"
 msgid "Full screen"
 msgstr "كامل الشاشة"
 
-#: .\templates\base.html:62
+#: .\templates\base.html:58
 msgid "All rights reserved"
 msgstr "جميع الحقوق محفوظة"
 
-#: .\templates\inc\header.html:8
+#: .\templates\inc\header.html:26
 msgid "MySQL"
 msgstr "MySQL"
 
-#: .\templates\inc\header.html:9
-msgid "PostgreSQL"
-msgstr "PostgreSQL"
-
-#: .\templates\inc\header.html:10 .\templates\settings\settings.html:5
+#: .\templates\inc\header.html:31 .\templates\settings\settings.html:5
 #: .\templates\settings\settings.html:6
 msgid "Settings"
 msgstr "الإعدادات"
 
-#: .\templates\inc\header.html:11 .\templates\settings\about.html:4
+#: .\templates\inc\header.html:36 .\templates\settings\about.html:4
 #: .\templates\settings\about.html:5
 msgid "About"
 msgstr "حول"
 
-#: .\templates\inc\header.html:12 .\templates\terminal\terminal.html:4
-#: .\templates\terminal\terminal.html:5
-msgid "Terminal"
-msgstr "موجه الأوامر"
-
-#: .\templates\inc\header.html:39
+#: .\templates\inc\header.html:66
 msgid "Logout"
 msgstr "تسجيل الخروج"
 
-#: .\templates\inc\header.html:52
+#: .\templates\inc\header.html:74
 msgid "Language"
 msgstr "اللغة"
 
-#: .\templates\inc\header.html:68
+#: .\templates\inc\header.html:97
 msgid "Support the developer"
 msgstr "قم بدعم المطور"
-
-#: .\templates\inc\header.html:70
-msgid "Donate"
-msgstr "تبرع"
 
 #: .\templates\inc\scripts.html:7
 msgid "Are you sure to continue?"
@@ -490,21 +469,20 @@ msgstr "هل أنت متأكد من الاستمرار؟"
 msgid "Text copied"
 msgstr "تم نسخ الرابط"
 
-#: .\templates\mysql\databases.html:4 .\templates\psql\databases.html:4
+#: .\templates\mysql\databases.html:4
 msgid "Databases"
 msgstr "قواعد بيانات"
 
-#: .\templates\mysql\databases.html:5 .\templates\psql\databases.html:5
+#: .\templates\mysql\databases.html:5
 msgid "All databases"
 msgstr "جميع قواعد البيانات"
 
 #: .\templates\mysql\databases.html:9 .\templates\mysql\new.html:4
-#: .\templates\mysql\new.html:5 .\templates\psql\new.html:4
-#: .\templates\psql\new.html:5
+#: .\templates\mysql\new.html:5
 msgid "New database"
 msgstr "قاعدة بيانات جديدة"
 
-#: .\templates\mysql\databases.html:21 .\templates\psql\databases.html:21
+#: .\templates\mysql\databases.html:21
 msgid "No databases found"
 msgstr "لم يتم العثور على قواعد بيانات"
 
@@ -516,29 +494,21 @@ msgstr "خادم Mysql غير مثبت"
 msgid "Install Mysql server now"
 msgstr "تثبيت خادم Mysql"
 
-#: .\templates\mysql\edit.html:13 .\templates\psql\edit.html:13
+#: .\templates\mysql\edit.html:13
 msgid "Update"
 msgstr "تحديث"
 
-#: .\templates\mysql\list.html:9 .\templates\psql\list.html:9
+#: .\templates\mysql\list.html:10
 msgid "User"
 msgstr "المستخدم"
 
-#: .\templates\mysql\list.html:36 .\templates\psql\list.html:36
-msgid "Download"
-msgstr "تحميل"
+#: .\templates\mysql\list.html:44
+msgid "Import"
+msgstr "إستيراد"
 
-#: .\templates\psql\databases.html:9
-msgid "New"
-msgstr "جديد"
-
-#: .\templates\psql\databases.html:27
-msgid "PostgreSql server not installed"
-msgstr "خادم PostgreSql غير مثبت"
-
-#: .\templates\psql\databases.html:30
-msgid "Install PostgreSql server now"
-msgstr "تثبيت خادم PostgreSql"
+#: .\templates\mysql\list.html:50
+msgid "Export"
+msgstr "تصدير"
 
 #: .\templates\settings\about.html:12 .\templates\settings\about.html:15
 msgid "Copyright"
@@ -665,6 +635,42 @@ msgstr "إسم المؤسسة"
 #: .\templates\settings\settings.html:22
 msgid "Number of items in lists"
 msgstr "عدد العناصر في القوائم"
+
+#~ msgid "Create new SSL certificate"
+#~ msgstr "إنشاء شهادة SSL جديدة"
+
+#~ msgid "Create SSL"
+#~ msgstr "إنشاء SSL"
+
+#~ msgid "PostgreSQL Server has been successfully installed"
+#~ msgstr "تم تثبيت خادم PostgreSQL بنجاح"
+
+#~ msgid "An error occurred while installing PostgreSQL: {}"
+#~ msgstr "حدث خطأ أثناء تثبيت PostgreSQL: {}"
+
+#~ msgid "Create wildcard"
+#~ msgstr "إنشاء شهادة Wildcard"
+
+#~ msgid "PostgreSQL"
+#~ msgstr "PostgreSQL"
+
+#~ msgid "Terminal"
+#~ msgstr "موجه الأوامر"
+
+#~ msgid "Donate"
+#~ msgstr "تبرع"
+
+#~ msgid "Download"
+#~ msgstr "تحميل"
+
+#~ msgid "New"
+#~ msgstr "جديد"
+
+#~ msgid "PostgreSql server not installed"
+#~ msgstr "خادم PostgreSql غير مثبت"
+
+#~ msgid "Install PostgreSql server now"
+#~ msgstr "تثبيت خادم PostgreSql"
 
 #~ msgid "Setting"
 #~ msgstr "جلسة"

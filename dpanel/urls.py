@@ -1,9 +1,7 @@
 from django.urls import path
 
 from dpanel.app import views as app_views
-from dpanel.postgres import views as psql_views
 from dpanel.mysql import views as mysql_views
-from dpanel.terminal import views as terminal_views
 from dpanel.setting import views as setting_views
 from dpanel.functions import super_required
 from django.contrib.auth import views as auth_views
@@ -35,20 +33,11 @@ urlpatterns = [
     path('restart/uwsgi/', super_required(app_views.uwsgi_restart.as_view()), name="uwsgi_restart"),
     path('restart/server/', super_required(app_views.server_restart.as_view()), name="server_restart"),
 
-    # Postgres
-    path('psql/', super_required(psql_views.databases.as_view()), name="psql_databases"),
-    path('psql/new/', super_required(psql_views.database_new.as_view()), name="psql_database_new"),
-    path('psql/<str:serial>/delete/', super_required(psql_views.database_delete.as_view()), name="psql_database_delete"),
-    path('psql/<str:serial>/download/', super_required(psql_views.database_download.as_view()), name="psql_database_download"),
-
     # Mysql
     path('mysql/', super_required(mysql_views.databases.as_view()), name="mysql_databases"),
     path('mysql/new/', super_required(mysql_views.database_new.as_view()), name="mysql_database_new"),
     path('mysql/<str:serial>/delete/', super_required(mysql_views.database_delete.as_view()), name="mysql_database_delete"),
     path('mysql/<str:serial>/download/', super_required(mysql_views.database_download.as_view()), name="mysql_database_download"),
-
-    # Terminal
-    path('terminal/', super_required(terminal_views.terminal.as_view()), name="terminal"),
 
     # Settings
     path('settings/', super_required(setting_views.settings.as_view()), name="settings"),

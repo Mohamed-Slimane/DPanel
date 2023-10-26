@@ -2,29 +2,92 @@
 {% load i18n %}
 {% load static %}
 
-{% block title %} {{app}} - {% trans 'certificate' %} {% endblock %}
-{% block page_title %} {{app}} - {% trans 'certificate' %} {% endblock %}
+{% block title %} {{app}} - {% trans 'SSL certificates' %} {% endblock %}
+{% block page_title %} {{app}} - {% trans 'SSL certificates' %} {% endblock %}
 {% block title_button %}
 <span class="btn btn-primary btn-sm rounded-pill" onclick="open_link_confirm('{% url 'app_ssl_new' app.serial %}')">
-    {% trans 'Create SSL' %}
-    <i class="bi bi-shield"></i>
-</span>
-<span class="btn btn-primary btn-sm rounded-pill d-none" onclick="open_link_confirm('{% url 'app_ssl_new' app.serial %}?wildcard=True')">
-    {% trans 'Create wildcard' %}
+    {% trans 'New certificate' %}
     <i class="bi bi-shield"></i>
 </span>
 {% endblock %}
 
 {% block content %}
 <div class="bg-white shadow-sm rounded p-3">
-    {% if app.certificate_app.all %}
-    {% for certificate in app.certificate_app.all %}
-    <div class="last-child border rounded p-3 mb-3">
-        {{certificate.created_date}}
-    </div>
-    {% endfor %}
+    {% if status.certbot_status %}
+        {% if app.certificates %}
+        <div class="responsive-table-md">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{% trans 'Created' %}</th>
+                        <th>{% trans 'Expires' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for certificate in app.certificates %}
+                    <tr>
+                        <td>
+                            {% if certificate.start_index %}
+                            {{certificate.start_index|add:forloop.counter0}}
+                            {% else %}
+                            {{forloop.counter}}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{certificate.created_date|date:"Y-m-d H:i, l"}}
+                        </td>
+                        <td>
+                            {{ certificate.expire_date|date:"Y-m-d H:i, l" }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        {% trans 'This app have no certificates yet' %}
+        {% endif %}
     {% else %}
-    {% trans 'This app have no certificates yet' %}
+    <div class="text-center">
+        <div class="fw-bold h5">
+                {% trans 'Certbot not installed' %}
+        </div>
+        <button type="button" class="btn btn-info btn-sm rounded-pill" id="install-certbot">
+            {% translate 'Install Certbot now' %}
+            <i class="bi bi-robot"></i>
+        </button>
+    </div>
+    <script>
+    jQuery(document).ready(function () {
+        jQuery("#install-certbot").click(function(event) {
+            jQuery('.loading-preloader').show();
+            jQuery.ajax({
+                type: "POST",
+                data: {
+                    'csrfmiddlewaretoken': '{{csrf_token}}',
+                    'certbot_install': true
+                },
+                success: function (response) {
+                    jQuery('.loading-preloader').hide();
+                    Swal.fire({
+                        icon: response.success ? 'success' : 'error',
+                        text: response.message,
+                        allowOutsideClick: false,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "{% url 'app_certificates' app.serial %}"
+                        }
+                    });
+                },
+                error: function () {
+                    jQuery('.loading-preloader').hide();
+                    alert('{% trans "An error occurred while submitting the form" %}');
+                }
+            });
+        });
+    });
+    </script>
     {% endif %}
 </div>
 {% endblock %}
