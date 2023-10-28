@@ -40,5 +40,3 @@ For any issues or inquiries, feel free to contact the technical support team for
 When installing the control panel, it's advisable to check for other panels installed on the same server. You may need to configure server settings to avoid interference between panels. Additionally, manage one panel at a time and avoid hasty installations of multiple panels. Ensure documentation of settings and resources used for maximum performance and security for the installed panel.
 
 ---
-
-This README provides an overview of the installation process for DPanel, instructions for logging in, a brief on its features, technical support, and a note for installing and managing multiple panels on the same server. Customize and expand the information as necessary for your project.
