@@ -5,10 +5,12 @@
 {% block page_title %}{% trans 'All databases' %} <small class="fs-6">(MySql)</small>{% endblock %}
 
 {% block title_button %}
+{% if status.mysql_status %}
 <a class="btn btn-primary btn-sm rounded-pill" href="{% url 'mysql_database_new' %}">
     {% translate 'New database' %}
     <i class="fas fa-plus"></i>
 </a>
+{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -48,7 +50,7 @@ jQuery(document).ready(function () {
                     allowOutsideClick: false,
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = "{% url 'mysql_databases' %}"
+                        window.location.href = "{% url 'mysql_databases' %}";
                     }
                 });
             },

@@ -45,24 +45,22 @@
 </span>
 {% endblock %}
 {% block content %}
-{% if status.uwsgi_status and status.nginx_status %}
-    {% if apps %}
-    <div class="bg-white shadow-sm rounded">
-        {% include 'app/list.html' %}
-    </div>
-    {% include 'inc/paginator.html' with query=apps %}
-    {% else %}
-    <div class="h5 text-center p-3">
-        {% trans 'No apps found' %}
-        <div class="">
-            <a href="{% url 'app_new' %}">
-                <i class="bi bi-folder-plus fs-1"></i>
-            </a>
+<div class="bg-white shadow-sm rounded">
+    {% if status.uwsgi_status and status.nginx_status %}
+        {% if apps %}
+            {% include 'app/list.html' %}
+        {% include 'inc/paginator.html' with query=apps %}
+        {% else %}
+        <div class="h5 text-center p-3">
+            {% trans 'No apps found' %}
+            <div class="">
+                <a href="{% url 'app_new' %}">
+                    <i class="bi bi-folder-plus fs-1"></i>
+                </a>
+            </div>
         </div>
-    </div>
-    {% endif %}
-{% else %}
-    <div class="bg-white shadow-sm rounded">
+        {% endif %}
+    {% else %}
         <div class="h5 text-center p-3">
             {% trans 'You need to install uwsgi and nginx first' %}
             <div class="mt-3">
@@ -80,38 +78,38 @@
                 {% endif %}
             </div>
         </div>
-    </div>
-<script>
-    jQuery(document).ready(function () {
-        jQuery(".install-server").click(function(event) {
-            jQuery('.loading-preloader').show();
-            server_name = jQuery(this).data('name');
-            jQuery.ajax({
-                type: "POST",
-                data: {
-                    'csrfmiddlewaretoken': '{{csrf_token}}',
-                    [server_name + '_install']: true
-                },
-                success: function (response) {
-                    jQuery('.loading-preloader').hide();
-                    Swal.fire({
-                        icon: response.success ? 'success' : 'error',
-                        text: response.message,
-                        allowOutsideClick: false,
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = "{% url 'apps' %}"
+        <script>
+            jQuery(document).ready(function () {
+                jQuery(".install-server").click(function(event) {
+                    jQuery('.loading-preloader').show();
+                    server_name = jQuery(this).data('name');
+                    jQuery.ajax({
+                        type: "POST",
+                        data: {
+                            'csrfmiddlewaretoken': '{{csrf_token}}',
+                            [server_name + '_install']: true
+                        },
+                        success: function (response) {
+                            jQuery('.loading-preloader').hide();
+                            Swal.fire({
+                                icon: response.success ? 'success' : 'error',
+                                text: response.message,
+                                allowOutsideClick: false,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "{% url 'apps' %}"
+                                }
+                            });
+                        },
+                        error: function () {
+                            jQuery('.loading-preloader').hide();
+                            alert('{% trans "An error occurred while submitting the form" %}');
                         }
                     });
-                },
-                error: function () {
-                    jQuery('.loading-preloader').hide();
-                    alert('{% trans "An error occurred while submitting the form" %}');
-                }
+                });
             });
-        });
-    });
 
-</script>
-{% endif %}
+        </script>
+    {% endif %}
+</div>
 {% endblock %}

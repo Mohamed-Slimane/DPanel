@@ -31,11 +31,6 @@
                                 {% trans 'Settings' %}
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about' %}">
-                                {% trans 'About' %}
-                            </a>
-                        </li>
                         {% endif %}
                     </ul>
                 </div>
@@ -67,7 +62,13 @@
                                 <i class="bi bi-box-arrow-right float-end"></i>
                             </a>
                         </li>
-
+                        <li><div class="dropdown-divider"></div></li>
+                        <li>
+                            <button type="button" id="check-update" class="dropdown-item text-center">
+                                {% translate 'Check updates' %}
+                                <i class="bi bi-arrow-repeat float-end"></i>
+                            </button>
+                        </li>
                     </ul>
                 </div>
                 {% endif %}

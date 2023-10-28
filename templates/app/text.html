@@ -75,13 +75,13 @@ jQuery(document).ready(function() {
 });
 
 
-    jQuery('#toggle-fullscreen').on('click', function(){
-        if (document.fullscreenElement) {
-            document.exitFullscreen();
-        } else {
-            jQuery('div.CodeMirror').get(0).requestFullscreen();
-        }
-    });
+jQuery('#toggle-fullscreen').on('click', function(){
+    if (document.fullscreenElement) {
+        document.exitFullscreen();
+    } else {
+        jQuery('div.CodeMirror').get(0).requestFullscreen();
+    }
+});
 
 </script>
 <style>

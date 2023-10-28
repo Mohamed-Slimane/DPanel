@@ -7,7 +7,7 @@
             <th>{% translate 'Name' %}</th>
             <th>{% translate 'Domain' %}</th>
             <th>{% translate 'Port' %}</th>
-            <th style="min-width: 300px">{% translate 'Path' %}</th>
+            <th style="min-width: 300px">{% translate 'Environment' %}</th>
             <th style="width: 150px">{% translate 'SSL' %}</th>
             <th></th>
         </tr>
@@ -30,12 +30,12 @@
                 </td>
                 <td>{{app.port}}</td>
                 <td>
-                    <div class="blur-group input-group input-group-sm">
-                        <input type="text" class="form-control form-control-sm rounded-start-pill" value="{{app.www_path}}" readonly dir="ltr">
-                        <button type="button" class="btn btn-warning" onclick="copy_this('source {{app.venv_path}}/bin/activate && cd {{app.www_path}}')" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'Terminal environment command' %}">
+                    <div class="input-group input-group-sm">
+                        <button type="button" class="btn btn-warning rounded-start-pill" onclick="jQuery(this).parents('.input-group').find('input').select();copy_this('source {{app.venv_path}}/bin/activate && cd {{app.www_path}}','{% trans 'Paste the command in the terminal to activate virtual environment of this app' %}')" data-bs-toggle="tooltip" data-bs-placement="top" title="{% trans 'Terminal environment command' %}">
                             <i class="bi bi-terminal"></i>
                         </button>
-                        <a href="{% url 'app_files' app.serial %}" class="btn btn-success rounded-end-pill" data-bs-toggle="tooltip" title="{% trans 'File manager' %}" target="_blank">
+                        <input type="text" class="form-control form-control-sm" value="source {{app.venv_path}}/bin/activate && cd {{app.www_path}}" readonly dir="ltr">
+                        <a href="{% url 'app_files' app.serial %}" class="btn btn-danger rounded-end-pill" data-bs-toggle="tooltip" title="{% trans 'File manager' %}" target="_blank">
                             <i class="bi bi-folder"></i>
                         </a>
                     </div>
@@ -83,20 +83,7 @@
                     </div>
                 </td>
             </tr>
-            {% include 'app/inc/user-form.html' %}
             {% endfor  %}
         </tbody>
     </table>
 </div>
-
-<script>
-    jQuery('.app-user-form-toggle').click(function(){
-        form = jQuery('.app-user-form.'+jQuery(this).data('app'))
-        if(form.is(':visible')) {
-            form.hide();
-        }else{
-            jQuery('.app-user-form').hide();
-            form.show();
-        }
-    });
-</script>

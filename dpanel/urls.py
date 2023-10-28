@@ -42,4 +42,5 @@ urlpatterns = [
     # Settings
     path('settings/', super_required(setting_views.settings.as_view()), name="settings"),
     path('about/', super_required(setting_views.about.as_view()), name="about"),
+    path('dpanel/update/', super_required(setting_views.dpanel_update.as_view()), name="dpanel_update"),
 ]
