@@ -38,5 +38,3 @@ For any issues or inquiries, feel free to contact the technical support team for
 ## Note
 
 When installing the control panel, it's advisable to check for other panels installed on the same server. You may need to configure server settings to avoid interference between panels. Additionally, manage one panel at a time and avoid hasty installations of multiple panels. Ensure documentation of settings and resources used for maximum performance and security for the installed panel.
-
----
