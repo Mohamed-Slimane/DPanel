@@ -1,6 +1,0 @@
-
-SSL
-sudo certbot --nginx -d cilk.dev -d www.cilk.dev
-
-Widcard
-sudo certbot --nginx -d example.com -d *.example.com
