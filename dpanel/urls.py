@@ -35,9 +35,11 @@ urlpatterns = [
 
     # Mysql
     path('mysql/', super_required(mysql_views.databases.as_view()), name="mysql_databases"),
-    path('mysql/new/', super_required(mysql_views.database_new.as_view()), name="mysql_database_new"),
-    path('mysql/<str:serial>/delete/', super_required(mysql_views.database_delete.as_view()), name="mysql_database_delete"),
-    path('mysql/<str:serial>/download/', super_required(mysql_views.database_download.as_view()), name="mysql_database_download"),
+    path('mysql/new/', super_required(mysql_views.new.as_view()), name="mysql_database_new"),
+    path('mysql/<str:serial>/delete/', super_required(mysql_views.delete.as_view()), name="mysql_database_delete"),
+    path('mysql/<str:serial>/export/', super_required(mysql_views.export_sql.as_view()), name="mysql_database_export"),
+    path('mysql/<str:serial>/import/', super_required(mysql_views.import_sql.as_view()), name="mysql_database_import"),
+    path('mysql/<str:serial>/password/change/', super_required(mysql_views.password_change.as_view()), name="mysql_database_password_change"),
 
     # Settings
     path('settings/', super_required(setting_views.settings.as_view()), name="settings"),

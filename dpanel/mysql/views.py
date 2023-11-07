@@ -1,3 +1,4 @@
+import gzip
 import os
 import subprocess
 import uuid
@@ -40,7 +41,7 @@ class databases(View):
         return render(request, 'mysql/databases.html', {'databases': databases})
 
 
-class database_new(View):
+class new(View):
     def post(self, request):
         form = MysqlDatabaseForm(request.POST)
         if form.is_valid():
@@ -70,7 +71,7 @@ class database_new(View):
         return render(request, 'mysql/new.html', {'form': form})
 
 
-class database_delete(View):
+class delete(View):
     def get(self, request, serial):
         database = MysqlDatabase.objects.get(serial=serial)
         os.system(f'sudo mysql -e "DROP DATABASE {database.name};"')
@@ -79,7 +80,7 @@ class database_delete(View):
         return redirect('mysql_databases')
 
 
-class database_download(View):
+class export_sql(View):
     def get(self, request, serial):
         database = MysqlDatabase.objects.get(serial=serial)
         Path('/var/server/dpanel/backups/mysql/').mkdir(parents=True, exist_ok=True)
@@ -99,21 +100,55 @@ class database_download(View):
         # return serve(request, os.path.basename(database_file), os.path.dirname(database_file))
         # return redirect('mysql_databases')
 
-# cnx = mysql.connector.connect(
-#     user='dpmysql',
-#     password=Path('/var/.dpmysql').read_text().replace('\n', ''),
-#     host='localhost'
-# )
-#
-# # Create a new database
-# cursor = cnx.cursor()
-# cursor.execute("CREATE DATABASE {}".format(database.name))
-#
-# # Create a new user and grant privileges on the new database
-# cursor.execute("CREATE USER '{}'@'localhost' IDENTIFIED BY '{}'".format(database.username, database.password))
-# cursor.execute("GRANT ALL PRIVILEGES ON {}.* TO '{}'@'localhost'".format(database.name, database.username))
-# cursor.execute("FLUSH PRIVILEGES")
-#
-# # Close the cursor and connection
-# cursor.close()
-# cnx.close()
+
+class import_sql(View):
+    def post(self, request, serial):
+        database = MysqlDatabase.objects.get(serial=serial)
+        try:
+            sql_file = request.FILES['sql_file']
+        except Exception as e:
+            messages.error(request, f"Failed to import SQL file: {e}")
+            return redirect('mysql_databases')
+
+        if sql_file.name.endswith('.gz') or sql_file.name.endswith('.sql'):
+            try:
+                mysql_command = ['mysql', database.name]
+
+                # Check if the file is a gzipped file
+                if sql_file.name.endswith('.gz'):
+                    # Read the gzipped content, decompress, and then decode it as text
+                    with gzip.open(sql_file, 'rb') as f:
+                        sql_content = f.read().decode('utf-8')
+                else:
+                    # Read the content of a regular SQL file directly
+                    sql_content = sql_file.read().decode('utf-8')
+
+                d = f"""
+SELECT concat('DROP TABLE IF EXISTS `', table_name, '`;')
+FROM information_schema.tables
+WHERE table_schema = '{database.name}';
+                """
+                subprocess.run(mysql_command, input=d, text=True, check=True)
+                subprocess.run(mysql_command, input=sql_content, text=True, check=True)
+                messages.success(request, _("SQL file imported successfully!"))
+            except subprocess.CalledProcessError as e:
+                messages.error(request, _(f"Failed to import SQL file: {e}"))
+            except Exception as e:
+                messages.error(request, _(f"Error handling the SQL file: {e}"))
+        else:
+            messages.error(request, _("File format is not supported!"))
+        return redirect('mysql_databases')  # Redirect to the desired URL after handling the file
+
+
+class password_change(View):
+    def get(self, request, serial):
+        database = MysqlDatabase.objects.get(serial=serial)
+        database.password = str(uuid.uuid4()).replace('-', '')[:15]
+        mysql_command = f"ALTER USER '{database.username}'@'localhost' IDENTIFIED BY '{database.password}';"
+        try:
+            subprocess.run(['sudo', 'mysql', '-e', mysql_command])
+            database.save()
+            messages.success(request, f"Password for user '{database.username}' changed successfully!")
+        except subprocess.CalledProcessError as e:
+            messages.error(request, f"Failed to change password: {e}")
+        return redirect('mysql_databases')

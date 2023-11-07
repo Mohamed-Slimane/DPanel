@@ -11,12 +11,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && "
+"n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
 "X-Generator: Poedit 3.3.2\n"
 
-#: .\dpanel\app\views.py:35 .\dpanel\app\views.py:103
-#: .\dpanel\app\views.py:161 .\dpanel\mysql\views.py:28
-#: .\dpanel\mysql\views.py:65
+#: .\dpanel\app\views.py:35 .\dpanel\app\views.py:103 .\dpanel\app\views.py:161
+#: .\dpanel\mysql\views.py:28 .\dpanel\mysql\views.py:65
 msgid "Form validation error"
 msgstr "خطأ في التحقق من صحة النموذج"
 
@@ -30,8 +30,7 @@ msgstr "تم إنشاء الشهادة بنجاح"
 
 #: .\dpanel\app\views.py:74
 msgid "Please enter a username and password and email and try again."
-msgstr ""
-"الرجاء إدخال اسم المستخدم وكلمة المرور والبريد الإلكتروني وحاول مرة أخرى."
+msgstr "الرجاء إدخال اسم المستخدم وكلمة المرور والبريد الإلكتروني وحاول مرة أخرى."
 
 #: .\dpanel\app\views.py:108
 msgid "Certbot is already installed"
@@ -211,8 +210,7 @@ msgstr "فشل الأمر {e.returncode}: {e.stderr}"
 
 #: .\dpanel\setting\views.py:49
 msgid ""
-"Command not found. Please make sure 'wget' and 'bash' are installed on your "
-"system"
+"Command not found. Please make sure 'wget' and 'bash' are installed on your system"
 msgstr "لم يتم العثور على الأمر. الرجاء التأكد من تثبيت \"wget\" و\"bash\" على نظامك"
 
 #: .\dpanel\setting\views.py:54
@@ -266,8 +264,7 @@ msgstr "التطبيقات"
 msgid "All apps"
 msgstr "جميع التطبيقات"
 
-#: .\templates\app\apps.html:10 .\templates\app\new.html:4
-#: .\templates\app\new.html:5
+#: .\templates\app\apps.html:10 .\templates\app\new.html:4 .\templates\app\new.html:5
 msgid "New app"
 msgstr "تطبيق جديد"
 
@@ -279,23 +276,22 @@ msgstr "إعادة تشغيل"
 
 #: .\templates\app\apps.html:22
 msgid ""
-"Nginx server will be restarted immediately and al apps will be stopped until"
-" restarting"
+"Nginx server will be restarted immediately and al apps will be stopped until "
+"restarting"
 msgstr ""
-"سيتم إعادة تشغيل خادم Nginx على الفور وسيتم إيقاف جميع التطبيقات حتى تتم "
-"إعادة التشغيل"
+"سيتم إعادة تشغيل خادم Nginx على الفور وسيتم إيقاف جميع التطبيقات حتى تتم إعادة "
+"التشغيل"
 
 #: .\templates\app\apps.html:23
 msgid "Nginx"
-msgstr "نجينكس"
+msgstr "Nginx"
 
 #: .\templates\app\apps.html:31
 msgid ""
-"Uwsgi server will be restarted immediately and al apps will be stopped until"
-" restarting"
+"Uwsgi server will be restarted immediately and al apps will be stopped until "
+"restarting"
 msgstr ""
-"سيتم إعادة تشغيل خادم Uwsgi على الفور وسيتم إيقاف جميع التطبيقات حتى إعادة "
-"التشغيل"
+"سيتم إعادة تشغيل خادم Uwsgi على الفور وسيتم إيقاف جميع التطبيقات حتى إعادة التشغيل"
 
 #: .\templates\app\apps.html:32
 msgid "Uwsgi"
@@ -306,8 +302,7 @@ msgid ""
 "The server will be restarted immediately and al apps will be stopped until "
 "restarting"
 msgstr ""
-"سيتم إعادة تشغيل الخادم على الفور وسيتم إيقاف جميع التطبيقات حتى إعادة "
-"التشغيل"
+"سيتم إعادة تشغيل الخادم على الفور وسيتم إيقاف جميع التطبيقات حتى إعادة التشغيل"
 
 #: .\templates\app\apps.html:40
 msgid "Server"
@@ -403,9 +398,8 @@ msgstr "انتقل إلى المجلد العلوي"
 msgid "Refresh"
 msgstr "تحديث"
 
-#: .\templates\app\inc\files-list.html:29
-#: .\templates\app\inc\files-list.html:80 .\templates\app\list.html:78
-#: .\templates\mysql\list.html:56
+#: .\templates\app\inc\files-list.html:29 .\templates\app\inc\files-list.html:80
+#: .\templates\app\list.html:78 .\templates\mysql\list.html:56
 msgid "Delete"
 msgstr "حذف"
 
@@ -433,9 +427,7 @@ msgid "SSL"
 msgstr "SSL"
 
 #: .\templates\app\list.html:34
-msgid ""
-"Paste the command in the terminal to activate virtual environment of this "
-"app"
+msgid "Paste the command in the terminal to activate virtual environment of this app"
 msgstr "الصق الأمر في سطر الأوامر لتنشيط البيئة الافتراضية لهذا التطبيق"
 
 #: .\templates\app\list.html:34
