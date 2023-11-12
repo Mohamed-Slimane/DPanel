@@ -50,10 +50,8 @@ class new(View):
 
             try:
                 subprocess.run(['sudo', 'mysql', '-e', f'CREATE DATABASE {database.name};'])
-                subprocess.run(['sudo', 'mysql', '-e',
-                                f"CREATE USER '{database.username}'@'localhost' IDENTIFIED BY '{database.password}';"])
-                subprocess.run(['sudo', 'mysql', '-e',
-                                f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{database.username}'@'localhost';"])
+                subprocess.run(['sudo', 'mysql', '-e', f"CREATE USER '{database.username}'@'localhost' IDENTIFIED BY '{database.password}';"])
+                subprocess.run(['sudo', 'mysql', '-e', f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{database.username}'@'localhost';"])
 
                 database.save()
                 messages.add_message(request, messages.SUCCESS, _('Database successfully created'))
@@ -112,8 +110,11 @@ class import_sql(View):
 
         if sql_file.name.endswith('.gz') or sql_file.name.endswith('.sql'):
             try:
+                os.system(f'sudo mysql -e "DROP DATABASE {database.name};"')
+                subprocess.run(['sudo', 'mysql', '-e', f'CREATE DATABASE {database.name};'])
+                subprocess.run(['sudo', 'mysql', '-e', f"CREATE USER '{database.username}'@'localhost' IDENTIFIED BY '{database.password}';"])
+                subprocess.run(['sudo', 'mysql', '-e', f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{database.username}'@'localhost';"])
                 mysql_command = ['mysql', database.name]
-
                 # Check if the file is a gzipped file
                 if sql_file.name.endswith('.gz'):
                     # Read the gzipped content, decompress, and then decode it as text
@@ -123,12 +124,6 @@ class import_sql(View):
                     # Read the content of a regular SQL file directly
                     sql_content = sql_file.read().decode('utf-8')
 
-                d = f"""
-SELECT concat('DROP TABLE IF EXISTS `', table_name, '`;')
-FROM information_schema.tables
-WHERE table_schema = '{database.name}';
-                """
-                subprocess.run(mysql_command, input=d, text=True, check=True)
                 subprocess.run(mysql_command, input=sql_content, text=True, check=True)
                 messages.success(request, _("SQL file imported successfully!"))
             except subprocess.CalledProcessError as e:
