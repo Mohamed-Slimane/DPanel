@@ -8,7 +8,7 @@ from wsgiref.util import FileWrapper
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-from django.utils.datetime_safe import datetime
+from datetime import datetime
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 
