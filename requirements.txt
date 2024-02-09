@@ -1,1 +1,2 @@
-dpanel
+django
+django_widget_tweaks
