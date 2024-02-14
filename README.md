@@ -6,7 +6,7 @@ This guide provides the necessary steps to quickly and easily install the manage
 
 To install DPanel, follow these steps:
 
-1. Open your server access window (SSH or terminal).
+1. Open your server access window (SSH or terminal) as root.
 2. Copy and paste the following code:
 
     ```bash
