@@ -14,12 +14,13 @@ To install DPanel, follow these steps:
     ```
 
 3. Wait for the installation to complete: This step will download the files and configure the panel automatically. Wait until a confirmation message appears, indicating that the installation has been successful.
+Download source is dpanel de-ver.com.
 
 ## Logging In
 
 Once the installation is complete, follow these steps to log in:
 
-1. Access the management panel through your browser.
+1. Access the management panel through your browserYou will see login url as server ip 0.0.0.0:8080
 2. Use the login credentials displayed on your access window.
    
     - Username: admin
