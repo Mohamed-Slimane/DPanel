@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} {% translate 'New app' %} {% endblock %}
+{% block page_title %} {% translate 'New app' %} {% endblock %}
+
+
+{% block content %}
+<div class="bg-white shadow-sm rounded p-3">
+    <form class="row preloader-form" method="post">
+        {% csrf_token %}
+        {% include 'inc/form.html'%}
+        <div class="">
+            <button type="submit" class="btn btn-primary">
+                {% translate 'Create' %}
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

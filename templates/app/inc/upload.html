@@ -1,0 +1,24 @@
+<form method="post" action="{% url 'app_files_ajax_upload' %}"
+      class="dropzone text-primary rounded"
+      id="file-upload-dropzone">
+    <input name="path" id="upload-path" value="{{path}}" hidden>
+    {% csrf_token %}
+</form>
+<script>
+    Dropzone.autoDiscover = false;
+    jQuery(document).ready(function () {
+        let myDropzone = new Dropzone("#file-upload-dropzone",{
+            paramName: "file",
+            maxFilesize: 200,
+            params: {
+                "app": "{{app.serial}}"
+            },
+            accept: function(file, done) {
+                done();
+            }
+        });
+        myDropzone.on("complete", function(file) {
+            reload_folder();
+        });
+    });
+</script>

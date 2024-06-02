@@ -1,0 +1,90 @@
+{% load i18n %}
+
+<div class="input-group input-group-sm mb-3">
+    <button class="clickable-folder btn btn-light border" data-path="{{app.www_path}}" data-bs-toggle="tooltip" title="{% trans 'Home' %}">
+        <i class="bi bi-house"></i>
+    </button>
+    <button class="clickable-folder btn btn-light border" data-path="{{parent}}"  data-bs-toggle="tooltip" title="{% trans 'Go to top folder' %}">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+    <button class="clickable-folder btn btn-light border" data-path="{{path}}"  data-bs-toggle="tooltip" title="{% trans 'Refresh' %}">
+        <i class="bi bi-arrow-clockwise"></i>
+    </button>
+    <input id="path" value="{{path}}" class="form-control" readonly>
+</div>
+{% if dirs %}
+<div class="row g-3 mb-3">
+{% for dir in dirs %}
+    <div class="col-lg-3 col-md-4 col-6">
+    <div class="border text-bg-secondary rounded pointer position-relative">
+        <div class="clickable-folder p-2" data-path="{{path}}/{{dir}}">
+            <i class="bi bi-folder"></i>
+            {{dir|truncatechars:15}}
+        </div>
+        <div class="dropdown position-absolute top-0 end-0 m-2">
+            <i class="bi bi-three-dots-vertical pointer" data-bs-toggle="dropdown"></i>
+            <ul class="dropdown-menu">
+                <li>
+                    <span class="remove-file dropdown-item pointer text-danger" data-file="{{path}}/{{dir}}">
+                        {% trans 'Delete' %}
+                        <i class="bi bi-trash float-end"></i>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+{% endfor %}
+</div>
+{% endif %}
+
+{% if files %}
+<div class="row g-3">
+{% for file in files %}
+    <div class="col-lg-3 col-md-4 col-6">
+        <div class="border rounded p-2">
+            <div class="dropdown">
+                <div class="pointer" data-bs-toggle="dropdown">
+                    <i class="bi bi-file-earmark-code
+                        bi-filetype-{{file.lower|slice:'-3:'}}
+                        bi-filetype-{{file.lower|slice:'-2:'}}
+                        {% if file.lower|slice:'-3:' == 'zip' %}bi-file-earmark-zip{% endif %}"></i>
+                    {{file|truncatechars:15}}
+                    <i class="bi bi-three-dots-vertical float-end"></i>
+                </div>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        {% if file.lower|slice:'-3:' == "txt" or file.lower|slice:'-2:' == "py" or file.lower|slice:'-3:' == "log" or file.lower|slice:'-3:' == "ini" or file.lower|slice:'-4:' == "html" or file.lower|slice:'-3:' == "css" or file.lower|slice:'-2:' == "js" or file.lower|slice:'-4:' == "json" %}
+                        <a class="dropdown-item text-success" href="{% url 'app_file_edit'%}?file={{path}}/{{file}}" target="_blank">
+                            {% trans 'Edit' %}
+                            <i class="bi bi-pencil float-end"></i>
+                        </a>
+                    {% endif %}
+                    </li>
+                    {% if file.lower|slice:'-3:' == "zip" %}
+                    <li>
+                        <span class="extract-zip dropdown-item pointer" data-folder="false" data-file="{{path}}/{{file}}">
+                            {% trans 'Extract here' %}
+                            <i class="bi bi-folder-symlink float-end"></i>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="extract-zip dropdown-item pointer" data-folder="true" data-file="{{path}}/{{file}}" data-file-name="{{file}}">
+                            {% trans 'Extract to folder' %}
+                            <i class="bi bi-folder-symlink float-end"></i>
+                        </span>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <span class="remove-file dropdown-item pointer text-danger" data-file="{{path}}/{{file}}">
+                            {% trans 'Delete' %}
+                            <i class="bi bi-trash float-end"></i>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endif %}

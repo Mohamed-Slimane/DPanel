@@ -1,0 +1,79 @@
+{% load i18n %}
+{% load static %}
+
+<div class="table-responsive-md">
+    <table class="table align-middle">
+        <thead>
+        <tr>
+            <th style="width: 0">#</th>
+            <th>{% translate 'Name' %}</th>
+            <th>{% translate 'User' %}</th>
+            <th class="database-action-btn pointer w-75 text-danger">{% translate 'Actions' %}</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for database in databases %}
+            <tr class="database-{{database.serial}}">
+                <td>
+                    {% if databases.start_index %}
+                    {{databases.start_index|add:forloop.counter0}}
+                    {% else %}
+                    {{forloop.counter}}
+                    {% endif %}
+                </td>
+                <td>{{database.name}}</td>
+                <td>{{database.username}}</td>
+                <td>
+                    <div class="blur-group input-group input-group-sm">
+                        <input class="blur-text blured-text form-control rounded-start-pill" value="{{database.password}}" readonly>
+                        <button type="button" class="remove-blur btn btn-warning" data-text="{{database.password}}">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                        <button type="button" class="copy-this pointer btn btn-dark rounded-end-pill" onclick="copy_this('{{database.password}}')">
+                            <i class="bi bi-clipboard"></i>
+                        </button>
+                    </div>
+                    <div class="import-from" style="display: none">
+                        <form action="{% url 'mysql_database_import' database.serial %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="input-group input-group-sm">
+                                <input type="file" name="sql_file" class="form-control rounded-start-pill" accept=".sql, .sql.gz" required>
+                                <button type="submit" class="btn btn-warning rounded-end-pill">
+                                    {% translate 'Import' %}
+                                    <i class="bi bi-upload"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <i class="bi bi-three-dots-vertical float-end pointer" data-bs-toggle="dropdown"></i>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                               <a href="{% url 'mysql_database_export' database.serial %}" class="dropdown-item" target="_blank">
+                                    {% trans 'Export' %}
+                                    <i class="bi bi-download float-end"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'mysql_database_password_change' database.serial %}', title='{{database.username}}', text='{% trans 'Do you want to change password for this user?' %}')">
+                                    {% trans 'Password' %}
+                                    <i class="bi bi-arrow-clockwise float-end"></i>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="dropdown-item pointer text-danger" onclick="open_link_confirm('{% url 'mysql_database_delete' database.serial %}')">
+                                    {% trans 'Delete' %}
+                                    <i class="bi bi-trash float-end"></i>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

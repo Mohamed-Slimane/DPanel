@@ -1,0 +1,620 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Dever stoke\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-12 23:03+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Generator: Poedit 3.3.2\n"
+
+#: .\dpanel\app\views.py:35 .\dpanel\app\views.py:103
+#: .\dpanel\app\views.py:161 .\dpanel\mysql\views.py:29
+#: .\dpanel\mysql\views.py:64
+msgid "Form validation error"
+msgstr "خطأ في التحقق من صحة النموذج"
+
+#: .\dpanel\app\views.py:40
+msgid "There is an existing uwsgi or nginx server installed"
+msgstr "يوجد خادم uwsgi أو nginx مثبت بالفعل"
+
+#: .\dpanel\app\views.py:70
+msgid "User created successfully for app {}"
+msgstr "تم إنشاء الشهادة بنجاح"
+
+#: .\dpanel\app\views.py:74
+msgid "Please enter a username and password and email and try again."
+msgstr ""
+"الرجاء إدخال اسم المستخدم وكلمة المرور والبريد الإلكتروني وحاول مرة أخرى."
+
+#: .\dpanel\app\views.py:108
+msgid "Certbot is already installed"
+msgstr "تم تثبيت Certbot بالفعل"
+
+#: .\dpanel\app\views.py:124
+msgid "Certificate created successfully"
+msgstr "تم إنشاء الشهادة بنجاح"
+
+#: .\dpanel\app\views.py:127
+msgid "Certificate created failed"
+msgstr "فشل إنشاء الشهادة"
+
+#: .\dpanel\app\views.py:158
+msgid "App successfully created"
+msgstr "تم إنشاء التطبيق بنجاح"
+
+#: .\dpanel\app\views.py:178
+msgid "App configuration updated successfully"
+msgstr "تم تحديث تكوين التطبيق بنجاح"
+
+#: .\dpanel\app\views.py:180
+msgid "Error in updating django_app configuration"
+msgstr "خطأ في تحديث تكوين النطاق"
+
+#: .\dpanel\app\views.py:358
+msgid "File was successfully updated"
+msgstr "تم تحديث الملف بنجاح"
+
+#: .\dpanel\app\views.py:368
+msgid "uwsgi restarted successfully"
+msgstr "تمت إعادة تشغيل uwsgi بنجاح"
+
+#: .\dpanel\app\views.py:370
+msgid "uwsgi restart failed"
+msgstr "فشل إعادة تشغيل uwsgi"
+
+#: .\dpanel\app\views.py:379
+msgid "nginx restarted successfully"
+msgstr "تمت إعادة تشغيل nginx بنجاح"
+
+#: .\dpanel\app\views.py:381
+msgid "nginx restart failed"
+msgstr "فشل إعادة تشغيل nginx"
+
+#: .\dpanel\app\views.py:390
+msgid "Server restarted successfully"
+msgstr "تم إعادة تشغيل الخادم بنجاح"
+
+#: .\dpanel\app\views.py:392
+msgid "Server restart failed"
+msgstr "فشلت إعادة تشغيل الخادم"
+
+#: .\dpanel\functions.py:156
+msgid "Nginx Server has been successfully installed"
+msgstr "تم تثبيت خادم Nginx بنجاح"
+
+#: .\dpanel\functions.py:162
+msgid "An error occurred while installing Nginx: {}"
+msgstr "حدث خطأ أثناء تثبيت Nginx: {}"
+
+#: .\dpanel\functions.py:199
+msgid "uwsgi Server has been successfully installed"
+msgstr "تم تثبيت خادم uwsgi بنجاح"
+
+#: .\dpanel\functions.py:203
+msgid "An error occurred while installing uwsgi: {}"
+msgstr "حدث خطأ أثناء تثبيت uwsgi: {}"
+
+#: .\dpanel\functions.py:218
+msgid "MySQL Server has been successfully installed"
+msgstr "تم تثبيت MySQL Server بنجاح"
+
+#: .\dpanel\functions.py:224
+msgid "An error occurred while installing MySQL: {}"
+msgstr "حدث خطأ أثناء تثبيت MySQL: {}"
+
+#: .\dpanel\models.py:7 .\dpanel\models.py:39 .\dpanel\models.py:55
+#: .\dpanel\models.py:71
+msgid "Serial"
+msgstr "الرقم التسلسي"
+
+#: .\dpanel\models.py:8
+msgid "Framework"
+msgstr "إطار العمل"
+
+#: .\dpanel\models.py:9 .\dpanel\models.py:40 .\dpanel\models.py:56
+#: .\templates\app\list.html:7 .\templates\mysql\list.html:9
+msgid "Name"
+msgstr "الإسم"
+
+#: .\dpanel\models.py:10 .\dpanel\models.py:73 .\templates\app\list.html:8
+msgid "Domain"
+msgstr "الدومين"
+
+#: .\dpanel\models.py:11 .\templates\app\list.html:9
+msgid "Port"
+msgstr "البوابة"
+
+#: .\dpanel\models.py:12
+msgid "Path"
+msgstr "المسار"
+
+#: .\dpanel\models.py:13
+msgid "Uwsgi path"
+msgstr "مسار Uwsgi"
+
+#: .\dpanel\models.py:14
+msgid "The folder that contains the wsgi.py file, for example: (mayproject)"
+msgstr "المجلد الذي يحتوي على ملف wsgi.py ، على سبيل المثال: (mayproject)"
+
+#: .\dpanel\models.py:15
+msgid "Environment Path"
+msgstr "مسار البيئة الإفتراضية"
+
+#: .\dpanel\models.py:16
+msgid "Nginx config"
+msgstr "تكوين Nginx"
+
+#: .\dpanel\models.py:17
+msgid "Uwsgi config"
+msgstr "تكوين Uwsgi"
+
+#: .\dpanel\models.py:18
+msgid "Force HTTPS"
+msgstr "فرض HTTPS"
+
+#: .\dpanel\models.py:19
+msgid "Activated"
+msgstr "مفعل"
+
+#: .\dpanel\models.py:41 .\dpanel\models.py:57
+msgid "Username"
+msgstr "إسم المستخدم"
+
+#: .\dpanel\models.py:42 .\dpanel\models.py:58
+#: .\templates\account\password-change-done.html:4
+#: .\templates\account\password-change-done.html:5
+#: .\templates\account\password-change.html:4
+#: .\templates\account\password-change.html:5 .\templates\inc\header.html:54
+#: .\templates\mysql\list.html:62
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: .\dpanel\models.py:72
+msgid "App"
+msgstr "تطبيق"
+
+#: .\dpanel\models.py:91
+msgid "Key"
+msgstr "المفتاح"
+
+#: .\dpanel\models.py:92
+msgid "Value"
+msgstr "القيمة"
+
+#: .\dpanel\mysql\views.py:34
+msgid "There is an existing Mysql server installed"
+msgstr "يوجد خادم Mysql مثبت"
+
+#: .\dpanel\mysql\views.py:57
+msgid "Database successfully created"
+msgstr "تم إنشاء قاعدة البيانات بنجاح"
+
+#: .\dpanel\mysql\views.py:128
+#| msgid "Server restarted successfully"
+msgid "SQL file imported successfully!"
+msgstr "تم استيراد ملف SQL بنجاح!"
+
+#: .\dpanel\mysql\views.py:130
+#, python-brace-format
+msgid "Failed to import SQL file: {e}"
+msgstr "فشل استيراد ملف SQL: {e}"
+
+#: .\dpanel\mysql\views.py:132
+#, python-brace-format
+msgid "Error handling the SQL file: {e}"
+msgstr "خطأ في معالجة ملف SQL: {e}"
+
+#: .\dpanel\mysql\views.py:134
+msgid "File format is not supported!"
+msgstr "تنسيق الملف غير معتمد!"
+
+#: .\dpanel\setting\views.py:19
+msgid "Settings saved"
+msgstr "تم حفظ الإعدادات"
+
+#: .\dpanel\setting\views.py:22
+msgid "An error occurred while saving settings"
+msgstr "حدث خطأ أثناء حفظ الإعدادات"
+
+#: .\dpanel\setting\views.py:44
+#, python-brace-format
+msgid "Command failed with return code {e.returncode}: {e.stderr}"
+msgstr "فشل الأمر {e.returncode}: {e.stderr}"
+
+#: .\dpanel\setting\views.py:49
+msgid ""
+"Command not found. Please make sure 'wget' and 'bash' are installed on your "
+"system"
+msgstr "لم يتم العثور على الأمر. الرجاء التأكد من تثبيت \"wget\" و\"bash\" على نظامك"
+
+#: .\dpanel\setting\views.py:54
+#, python-brace-format
+msgid "An error occurred: {e}"
+msgstr "حدث خطأ: {e}"
+
+#: .\dpanel\setting\views.py:61
+msgid "Updated successfully"
+msgstr "تم التحديث بنجاح"
+
+#: .\dpanel\setting\views.py:67
+msgid "Updated completed successfully"
+msgstr "تم التحديث بنجاح"
+
+#: .\dpanel\ssl.py:45
+msgid "Certbot has been successfully installed"
+msgstr "تم تثبيت Certbot بنجاح"
+
+#: .\dpanel\ssl.py:50
+msgid "An error occurred while installing Certbot: {}"
+msgstr "حدث خطأ أثناء تثبيت Certbot: {}"
+
+#: .\engine\settings.py:112
+msgid "Arabic"
+msgstr "العربية"
+
+#: .\engine\settings.py:113
+msgid "English"
+msgstr "الإنجليزية"
+
+#: .\templates\account\login.html:4 .\templates\account\login.html:5
+#: .\templates\account\login.html:14
+msgid "Login"
+msgstr "دخول"
+
+#: .\templates\account\password-change-done.html:9
+msgid "Password changed"
+msgstr "تم تغيير كلمة السر"
+
+#: .\templates\account\password-change.html:14
+msgid "Change"
+msgstr "تغيير"
+
+#: .\templates\app\apps.html:4 .\templates\app\config.html:5
+#: .\templates\app\config.html:6 .\templates\inc\header.html:21
+msgid "Apps"
+msgstr "التطبيقات"
+
+#: .\templates\app\apps.html:5
+msgid "All apps"
+msgstr "جميع التطبيقات"
+
+#: .\templates\app\apps.html:10 .\templates\app\new.html:4
+#: .\templates\app\new.html:5
+msgid "New app"
+msgstr "تطبيق جديد"
+
+#: .\templates\app\apps.html:17 .\templates\app\apps.html:22
+#: .\templates\app\apps.html:31 .\templates\app\apps.html:39
+#: .\templates\app\list.html:71
+msgid "Restart"
+msgstr "إعادة تشغيل"
+
+#: .\templates\app\apps.html:22
+msgid ""
+"Nginx server will be restarted immediately and al apps will be stopped until"
+" restarting"
+msgstr ""
+"سيتم إعادة تشغيل خادم Nginx على الفور وسيتم إيقاف جميع التطبيقات حتى تتم "
+"إعادة التشغيل"
+
+#: .\templates\app\apps.html:23
+msgid "Nginx"
+msgstr "Nginx"
+
+#: .\templates\app\apps.html:31
+msgid ""
+"Uwsgi server will be restarted immediately and al apps will be stopped until"
+" restarting"
+msgstr ""
+"سيتم إعادة تشغيل خادم Uwsgi على الفور وسيتم إيقاف جميع التطبيقات حتى إعادة "
+"التشغيل"
+
+#: .\templates\app\apps.html:32
+msgid "Uwsgi"
+msgstr "Uwsgi"
+
+#: .\templates\app\apps.html:39
+msgid ""
+"The server will be restarted immediately and al apps will be stopped until "
+"restarting"
+msgstr ""
+"سيتم إعادة تشغيل الخادم على الفور وسيتم إيقاف جميع التطبيقات حتى إعادة "
+"التشغيل"
+
+#: .\templates\app\apps.html:40
+msgid "Server"
+msgstr "الخادم"
+
+#: .\templates\app\apps.html:55
+msgid "No apps found"
+msgstr "لم يتم العثور على أي تطبيقات"
+
+#: .\templates\app\apps.html:65
+msgid "You need to install uwsgi and nginx first"
+msgstr "تحتاج إلى تثبيت uwsgi وnginx أولاً"
+
+#: .\templates\app\apps.html:69
+msgid "Install nginx"
+msgstr "قم بتثبيت إنجينكس"
+
+#: .\templates\app\apps.html:75
+msgid "Install uwsgi"
+msgstr "قم بتثبيت uwsgi"
+
+#: .\templates\app\apps.html:106 .\templates\app\certificate.html:85
+#: .\templates\mysql\databases.html:59
+msgid "An error occurred while submitting the form"
+msgstr "حدث خطأ أثناء إرسال النموذج"
+
+#: .\templates\app\certificate.html:5 .\templates\app\certificate.html:6
+msgid "SSL certificates"
+msgstr "شهادات SSL"
+
+#: .\templates\app\certificate.html:9
+msgid "New certificate"
+msgstr "شهادة جديدة"
+
+#: .\templates\app\certificate.html:23
+msgid "Created"
+msgstr "الإنشاء"
+
+#: .\templates\app\certificate.html:24
+msgid "Expires"
+msgstr "الصلاحية"
+
+#: .\templates\app\certificate.html:49
+msgid "This app have no certificates yet"
+msgstr "هذا التطبيق ليس لديه شهادات حتى الآن"
+
+#: .\templates\app\certificate.html:54
+msgid "Certbot not installed"
+msgstr "لم يتم تثبيت Certbot"
+
+#: .\templates\app\certificate.html:57
+msgid "Install Certbot now"
+msgstr "قم بتثبيت Certbot الآن"
+
+#: .\templates\app\config.html:6
+msgid "config"
+msgstr "التكوين"
+
+#: .\templates\app\config.html:15 .\templates\mysql\new.html:16
+msgid "Submit"
+msgstr "تقديم"
+
+#: .\templates\app\files.html:4 .\templates\app\files.html:5
+msgid "Files"
+msgstr "الملفات"
+
+#: .\templates\app\files.html:50
+msgid "Are you sure?"
+msgstr "هل أنت متأكد؟"
+
+#: .\templates\app\files.html:51 .\templates\inc\scripts.html:7
+msgid "This risk cannot be reversed."
+msgstr "لا يمكن التراجع عن هذا الأمر."
+
+#: .\templates\app\files.html:53 .\templates\inc\scripts.html:12
+msgid "Continue"
+msgstr "متابعة"
+
+#: .\templates\app\files.html:54 .\templates\inc\scripts.html:13
+#: .\templates\inc\scripts.html:72
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: .\templates\app\inc\files-list.html:4
+msgid "Home"
+msgstr "بيت"
+
+#: .\templates\app\inc\files-list.html:7
+msgid "Go to top folder"
+msgstr "انتقل إلى المجلد العلوي"
+
+#: .\templates\app\inc\files-list.html:10
+msgid "Refresh"
+msgstr "تحديث"
+
+#: .\templates\app\inc\files-list.html:29
+#: .\templates\app\inc\files-list.html:80 .\templates\app\list.html:78
+#: .\templates\mysql\list.html:68
+msgid "Delete"
+msgstr "حذف"
+
+#: .\templates\app\inc\files-list.html:59 .\templates\app\text.html:4
+#: .\templates\app\text.html:5 .\templates\mysql\edit.html:4
+#: .\templates\mysql\edit.html:5
+msgid "Edit"
+msgstr "تعديل"
+
+#: .\templates\app\inc\files-list.html:67
+msgid "Extract here"
+msgstr "استخرج هنا"
+
+#: .\templates\app\inc\files-list.html:73
+msgid "Extract to folder"
+msgstr "استخراج إلى المجلد"
+
+#: .\templates\app\list.html:10
+msgid "Environment"
+msgstr "البيئة"
+
+#: .\templates\app\list.html:11
+msgid "SSL"
+msgstr "SSL"
+
+#: .\templates\app\list.html:34
+msgid ""
+"Paste the command in the terminal to activate virtual environment of this "
+"app"
+msgstr "الصق الأمر في سطر الأوامر لتنشيط البيئة الافتراضية لهذا التطبيق"
+
+#: .\templates\app\list.html:34
+msgid "Terminal environment command"
+msgstr "أمر البيئة الطرفية"
+
+#: .\templates\app\list.html:38
+msgid "File manager"
+msgstr "مدير الملفات"
+
+#: .\templates\app\list.html:46
+msgid "Installed"
+msgstr "مثبت"
+
+#: .\templates\app\list.html:46
+msgid "Not installed"
+msgstr "غير مثبت"
+
+#: .\templates\app\list.html:57
+msgid "Configuration"
+msgstr "إعدادات"
+
+#: .\templates\app\list.html:64
+msgid "Manage files"
+msgstr "إدارة الملفات"
+
+#: .\templates\app\new.html:15
+msgid "Create"
+msgstr "إنشاء"
+
+#: .\templates\app\text.html:22 .\templates\settings\settings.html:29
+msgid "Save"
+msgstr "حفظ"
+
+#: .\templates\app\text.html:26
+msgid "Full screen"
+msgstr "شاشة كاملة"
+
+#: .\templates\base.html:58
+msgid "All rights reserved"
+msgstr "جميع الحقوق محفوظة"
+
+#: .\templates\inc\header.html:26
+msgid "MySQL"
+msgstr "MySql"
+
+#: .\templates\inc\header.html:31 .\templates\settings\settings.html:5
+#: .\templates\settings\settings.html:6
+msgid "Settings"
+msgstr "الإعدادات"
+
+#: .\templates\inc\header.html:61
+msgid "Logout"
+msgstr "تسجيل خروج"
+
+#: .\templates\inc\header.html:68
+msgid "Check updates"
+msgstr "تفقد التحديثات"
+
+#: .\templates\inc\header.html:75
+msgid "Language"
+msgstr "لغة"
+
+#: .\templates\inc\header.html:98
+msgid "Support the developer"
+msgstr "دعم المطور"
+
+#: .\templates\inc\scripts.html:7
+msgid "Are you sure to continue?"
+msgstr "هل أنت متأكد من الاستمرار؟"
+
+#: .\templates\inc\scripts.html:40
+msgid "Copied"
+msgstr "تم النسخ"
+
+#: .\templates\inc\scripts.html:65
+msgid "New version available"
+msgstr "الإصدار الجديد متاح"
+
+#: .\templates\inc\scripts.html:66
+msgid "Please carefully before updating? please take a backup first"
+msgstr "الرجاء الحذر قبل التحديث؟ يرجى أخذ نسخة احتياطية أولا"
+
+#: .\templates\inc\scripts.html:71 .\templates\mysql\edit.html:13
+msgid "Update"
+msgstr "تحديث"
+
+#: .\templates\inc\scripts.html:86
+msgid "Update successful"
+msgstr "تم التحديث بنجاح"
+
+#: .\templates\inc\scripts.html:90 .\templates\inc\scripts.html:106
+#: .\templates\inc\scripts.html:118 .\templates\inc\scripts.html:126
+#: .\templates\inc\scripts.html:137
+msgid "Ok"
+msgstr "نعم"
+
+#: .\templates\inc\scripts.html:101
+msgid "Error when updating"
+msgstr "خطأ عند التحديث"
+
+#: .\templates\inc\scripts.html:114
+msgid "You are using the latest version"
+msgstr "أنت تستخدم أحدث إصدار"
+
+#: .\templates\inc\scripts.html:122 .\templates\inc\scripts.html:133
+msgid "Error occurred. Please try again later"
+msgstr "حدث خطأ. الرجاء معاودة المحاولة في وقت لاحق"
+
+#: .\templates\mysql\databases.html:4
+msgid "Databases"
+msgstr "قواعد بيانات"
+
+#: .\templates\mysql\databases.html:5
+msgid "All databases"
+msgstr "جميع قواعد البيانات"
+
+#: .\templates\mysql\databases.html:10 .\templates\mysql\new.html:4
+#: .\templates\mysql\new.html:5
+msgid "New database"
+msgstr "قاعدة بيانات جديدة"
+
+#: .\templates\mysql\databases.html:23
+msgid "No databases found"
+msgstr "لم يتم العثور على قواعد بيانات"
+
+#: .\templates\mysql\databases.html:29
+msgid "Mysql server not installed"
+msgstr "خادم Mysql غير مثبت"
+
+#: .\templates\mysql\databases.html:32
+msgid "Install Mysql server now"
+msgstr "قم بتثبيت خادم Mysql الآن"
+
+#: .\templates\mysql\list.html:10
+msgid "User"
+msgstr "مستخدم"
+
+#: .\templates\mysql\list.html:11
+msgid "Actions"
+msgstr "إجراءات"
+
+#: .\templates\mysql\list.html:43
+msgid "Import"
+msgstr "إستيراد"
+
+#: .\templates\mysql\list.html:56
+msgid "Export"
+msgstr "تصدير"
+
+#: .\templates\mysql\list.html:61
+msgid "Do you want to change password for this user?"
+msgstr "هل تريد تغيير كلمة المرور لهذا المستخدم؟"
+
+#: .\templates\settings\settings.html:15
+msgid "Company name"
+msgstr "اسم الشركة"
+
+#: .\templates\settings\settings.html:22
+msgid "Number of items in lists"
+msgstr "عدد العناصر في القوائم"
+
+#~ msgid "Text copied"
+#~ msgstr "تم نسخ النص"

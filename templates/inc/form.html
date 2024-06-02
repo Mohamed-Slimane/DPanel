@@ -1,0 +1,52 @@
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% if form.errors %}
+  <div class="alert alert-danger">
+    <ul>
+      {% for field, errors in form.errors.items %}
+        <li>{{ field }}: {{ errors.0 }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+
+{% for element in form %}
+<div class="{{col}} mb-3">
+    {{element.label_tag}}
+
+    {% if element.field.widget.input_type == 'hidden' %}
+    {% render_field element class="form-control" %}
+
+    {% elif element.field.widget.input_type == 'color' %}
+    {% render_field element class="form-control form-control-color" %}
+
+    {% elif element.field.widget.input_type == 'select' %}
+    {% render_field element class="form-select" %}
+
+    {% elif element.field.widget.input_type == 'checkbox' or element.field.widget.input_type == 'radio' %}
+    {% render_field element class="form-check-input" %}
+
+    {% elif element.field.widget.input_type == 'range' %}
+    {% render_field element class="form-range" %}
+
+    {% else %}
+    {% render_field element class="form-control" %}
+    {% endif %}
+
+
+    {% for error in element.errors %}
+        <div class="invalid-feedback">
+            {{ error }}
+        </div>
+    {% endfor %}
+
+    {% if element.help_text %}
+        <div class="w-100 form-text text-muted">
+            {{ element.help_text }}
+        </div>
+    {% endif %}
+
+</div>
+{% endfor %}

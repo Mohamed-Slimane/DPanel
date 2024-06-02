@@ -1,0 +1,71 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+
+<!DOCTYPE html>
+<html lang="{{LANGUAGE_CODE}}" {% if LANGUAGE_BIDI == True %} dir="rtl" {%endif%}>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/static/favicon.png"/>
+    <title>DPanel - {% block title%}{% endblock %}</title>
+
+    {% if LANGUAGE_BIDI == True %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.rtl.min.css' %}">
+    {% else %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/root.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/font/bootstrap-icons.css' %}">
+
+    <link rel="stylesheet" href="{% static 'dropzone/dropzone.min.css' %}">
+    <script src="{% static 'dropzone/dropzone.min.js' %}"></script>
+
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+</head>
+<body>
+
+{% include 'inc/header.html' %}
+<div id="main-content" class="container">
+    <div class="bg-white rounded shadow-sm p-3 mb-3">
+        <div class="row g-3">
+            <div class="col">
+                <div class="h4 mb-0">
+                    {% block page_title%}{% endblock %}
+                </div>
+            </div>
+            <div class="col-auto">
+                {% block title_button %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">{{ message|safe }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+
+    <div class="row mt-4">
+        <div class="col-md text-center text-md-start mb-3">{% translate 'All rights reserved' %} &copy; <a href="https://dpanel.de-ver.com" class="fw-bold" target="_blank">DPanel</a>  - {% now 'Y' %}</div>
+        <div class="col-md text-center text-md-end"><b><a href="https://dpanel.de-ver.com" class="fw-bold" target="_blank">DPanel</a> 2.1</b> With <i class="bi bi-heart-fill text-danger"></i> by <a href="https://de-ver.com" class="fw-bold" target="_blank">Dever</a> </div>
+    </div>
+</div>
+
+<script src="{% static 'sweetalert2.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'scripts.js' %}"></script>
+
+{% include 'inc/preloader.html' %}
+{% include 'inc/scripts.html' %}
+</body>
+
+</html>

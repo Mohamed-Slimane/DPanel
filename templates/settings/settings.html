@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %} {% trans 'Settings' %} {% endblock %}
+{% block page_title %} {% trans 'Settings' %} {% endblock %}
+
+{% block content %}
+<form class="" method="post">
+    <div class="row g-3">
+        {% csrf_token %}
+        <div class="col-md-6">
+            <div class="bg-white rounded border p-3 h-100">
+                <label for="paginator" class="form-label">{% trans 'Number of items in lists' %}</label>
+                <input name="paginator" type="number" class="form-control" id="paginator" value="{{config.paginator}}">
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary mt-3">
+                {% trans 'Save' %}
+            </button>
+        </div>
+    </div>
+</form>
+{% endblock %}

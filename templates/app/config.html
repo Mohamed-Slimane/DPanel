@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %} {% trans 'Apps' %} - {{app}} {% endblock %}
+{% block page_title %}<a href="{% url 'apps' %}">{% trans 'Apps' %}</a> - {{app}} - {% translate 'config' %}{% endblock %}
+{% block title_button %}{% endblock %}
+
+{% block content %}
+<div class="shadow-sm bg-white p-3 rounded h-100">
+    <form class="" method="post" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <textarea class="textarea-code" id="config-code" name="config_code">{{config_code}}</textarea>
+        <button type="submit" class="btn btn-primary mt-3">
+            {% translate 'Submit' %}
+        </button>
+    </form>
+</div>
+
+<script src="{% static 'codemirror/codemirror.min.js' %}"></script>
+
+<script src="{% static 'codemirror/addons/matchbrackets.js' %}"></script>
+<script src="{% static 'codemirror/addons/closebrackets.js' %}"></script>
+
+<script src="{% static 'codemirror/modes/nginx/nginx.js' %}"></script>
+<script src="{% static 'codemirror/modes/meta.js' %}"></script>
+
+<link rel="stylesheet" href="{% static 'codemirror/codemirror.min.css' %}" />
+<link rel="stylesheet" href="{% static 'codemirror/themes/monokai.css' %}" />
+<script>
+    jQuery(".textarea-code").each(function() {
+        CodeMirror.fromTextArea(document.getElementById(jQuery(this).attr('id')), {
+            mode: 'text/x-nginx-conf',
+            theme: 'monokai',
+            lineNumbers : true,
+            matchBrackets : true,
+            autoCloseBrackets : true,
+            highlightSelectionMatches : true,
+            tabMode: "indent",
+        });
+    });
+
+</script>
+<style>
+    .CodeMirror {
+        border: 1px solid #eee;
+        height: 70vh;
+    }
+</style>
+{% endblock %}

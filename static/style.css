@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+
+
+body{
+    background: #f4f5fb;
+    font-family: 'Nunito', sans-serif;
+    font-family: 'Tajawal', sans-serif;
+}
+
+a{
+    color: #01204e;
+    text-decoration: none;
+}
+
+.boxed-image{
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.blured-text {
+  filter: blur(5px);
+}
+
+.dropdown-hover:hover .dropdown-menu{
+    display: block !important;
+}
+.last-child:last-child{
+    display: none;
+}
+
+.btn-min-text{
+    display: inline-block;
+    max-width: 0px;
+    opacity:0;
+    transition: max-width  0.2s, opacity  0s;
+    }
+.btn-min:hover .btn-min-text{
+    max-width: 100px;
+    opacity:1;
+    transition: max-width  0.2s, opacity  0.2s;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #d6d6d6;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #2d4095;
+}

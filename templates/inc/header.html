@@ -1,0 +1,124 @@
+{% load i18n %}
+{% load static %}
+
+<div class="container">
+    <div class="bg-white rounded shadow-sm py-1 px-3 my-4">
+        <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand" href="{% url 'apps' %}">{{config.company_name}}</a>
+            <button type="button" class="fs-4 navbar-toggler border-0 p-0 shadow-none" data-bs-toggle="offcanvas" data-bs-target="#MainNavbar">
+                <i class="bi bi-list pointer"></i>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="MainNavbar" aria-labelledby="MainNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="MainNavbarLabel">{{config.company_name}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav">
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'apps' %}">
+                                {% trans 'Apps' %}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'mysql_databases' %}">
+                                {% trans 'MySQL' %}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'settings' %}">
+                                {% trans 'Settings' %}
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div>
+                {% if user.is_authenticated %}
+                <div class="dropdown dropdown-hover d-inline-block me-2">
+                    <div class="pointer"  id="dropdownProfile" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person fs-5"></i>
+                    </div>
+                    <ul class="dropdown-menu end-0 dropdown-menu-end" aria-labelledby="dropdownProfile">
+                        <li>
+                            <a class="dropdown-item disabled">
+                                {{request.user}}
+                                <i class="bi bi-person float-end"></i>
+                            </a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'password_change' %}">
+                                {% translate 'Password' %}
+                                <i class="bi bi-shield-lock float-end"></i>
+                            </a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'logout' %}">
+                                {% translate 'Logout' %}
+                                <i class="bi bi-box-arrow-right float-end"></i>
+                            </a>
+                        </li>
+                        <li><div class="dropdown-divider"></div></li>
+                        <li>
+                            <button type="button" id="check-update" class="dropdown-item text-center">
+                                {% translate 'Check updates' %}
+                                <i class="bi bi-arrow-repeat float-end"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
+                <div class="dropdown dropdown-hover d-inline-block" title="{% trans 'Language' %}">
+                    <div class="pointer" id="dropdownLanguage" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-translate fs-5"></i>
+                    </div>
+                    <ul class="dropdown-menu end-0 dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                        {% for language in languages %}
+                        <li>
+                            <a class="dropdown-item {% if language.code == LANGUAGE_CODE %} active{% endif %}" href="/{{ language.code }}/{{request.get_full_path_info|slice:'4:'}}">
+                                {{ language.name_local }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="dropdown dropdown-hover d-inline-block ms-2">
+                    <div class="pointer " id="dropdownDonate" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div data-bs-toggle="tooltip" data-bs-target="#donateModal">
+                            <i class="bi bi-paypal fs-5"></i>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu end-0 dropdown-menu-end" aria-labelledby="dropdownDonate">
+                        <li>
+                            <div class="text-center fw-bold px-2 text-muted small">
+                                {% translate 'Support the developer' %}
+                            </div>
+                        </li>
+                        <li><div class="dropdown-divider"></div></li>
+                        <li>
+                            <a class="dropdown-item text-center" href="http://ufly.cc/paydon" target="_blank">
+                                <img src="{% static 'images/pp-logo.png' %}" class="w-100" alt="Donate at PayPal" />
+                            </a>
+                        </li>
+                        <li><div class="dropdown-divider"></div></li>
+                        <li>
+                            <a class="dropdown-item text-center" target="_blank" href="http://ufly.cc/buymeacoffee">
+                                <img src="{% static 'images/bmc-button.png' %}" class="w-100" alt="Donate at buymeacoffee.com" />
+                            </a>
+                        </li>
+                        <li><div class="dropdown-divider"></div></li>
+                        <li>
+                            <a class="dropdown-item text-center" href='http://ufly.cc/kofi' target='_blank'>
+                                <img src="{% static 'images/ko-fi.png' %}" class="w-100" alt='Donate at ko-fi.com' />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
