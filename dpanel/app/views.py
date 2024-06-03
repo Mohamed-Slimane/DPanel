@@ -15,7 +15,7 @@ from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
 from dpanel.forms import AppForm
 from dpanel.functions import create_app_server_block, create_venv, create_app, create_uwsgi_config, get_option, \
-    install_uwsgi_server, install_nginx_server, paginator
+    install_uwsgi_server, install_nginx_server, paginator, create_startup_file
 from dpanel.models import App, AppCertificate
 from dpanel.ssl import create_app_ssl, install_certbot
 
@@ -30,15 +30,9 @@ class apps(View):
             elif request.POST.get('nginx_install'):
                 res = install_nginx_server()
             else:
-                res = {
-                    'success': False,
-                    'message': _('Form validation error')
-                }
+                res = {'success': False, 'message': _('Form validation error')}
         else:
-            res = {
-                'success': False,
-                'message': _('There is an existing uwsgi or nginx server installed')
-            }
+            res = {'success': False, 'message': _('There is an existing uwsgi or nginx server installed')}
         return JsonResponse(res)
 
     def get(self, request):
@@ -79,14 +73,30 @@ class app_restart(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
         try:
-            pgrep_command = f'pgrep -f {app.name}'
-            pids = subprocess.check_output(pgrep_command, shell=True)
-            pids = pids.decode().strip().split()
-            for pid in pids:
-                subprocess.call(['sudo', 'kill', '-HUP', pid])
-            messages.success(request, f'Successfully restarted uWSGI app <b>{app.name}</b>.')
+            subprocess.call(['sudo', 'service', 'uwsgi', 'restart', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
+            app.is_active = True
+            app.save()
+            messages.success(request, f'Successfully restarted app <b>{app.name}</b>.')
         except subprocess.CalledProcessError as e:
-            messages.error(request, f'Error restarting uWSGI app: {e.stderr}')
+            messages.error(request, f'Error restarting app: {e.stderr}')
+
+        return redirect('apps')
+
+
+class app_status(View):
+    def get(self, request, serial):
+        app = App.objects.get(serial=serial)
+        try:
+            if app.is_active:
+                subprocess.call(['sudo', 'service', 'uwsgi', 'stop', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
+                messages.success(request, f'Successfully stopped app <b>{app.name}</b>.')
+            else:
+                subprocess.call(['sudo', 'service', 'uwsgi', 'start', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
+                messages.success(request, f'Successfully started app <b>{app.name}</b>.')
+            app.is_active = not app.is_active
+            app.save()
+        except subprocess.CalledProcessError as e:
+            messages.error(request, f'Error stopping app: {e.stderr}')
 
         return redirect('apps')
 
@@ -98,15 +108,9 @@ class app_certificates(View):
             if request.POST.get('certbot_install'):
                 res = install_certbot()
             else:
-                res = {
-                    'success': False,
-                    'message': _('Form validation error')
-                }
+                res = {'success': False, 'message': _('Form validation error')}
         else:
-            res = {
-                'success': False,
-                'message': _('Certbot is already installed')
-            }
+            res = {'success': False, 'message': _('Certbot is already installed')}
         return JsonResponse(res)
 
     def get(self, request, serial):
@@ -147,11 +151,25 @@ class app_new(View):
             sock.bind(('', 0))
             app.port = sock.getsockname()[1]
 
-            create_app_server_block(app)
-            create_venv(app.venv_path)
-            create_app(app)
-            create_uwsgi_config(app)
-
+            the_block = create_app_server_block(app)
+            if not the_block:
+                messages.add_message(request, messages.ERROR, _('Failed to create app server block'))
+                return self.get(request)
+            the_venv = create_venv(app.venv_path)
+            if not the_venv:
+                messages.add_message(request, messages.ERROR, _('Failed to create venv'))
+                return self.get(request)
+            the_wsgi = create_uwsgi_config(app)
+            if not the_wsgi:
+                messages.add_message(request, messages.ERROR, _('Failed to create uwsgi config'))
+                return self.get(request)
+            if not app.startup_file or app.startup_file == "startup.py":
+                the_startup = create_startup_file(app)
+                if not the_startup:
+                    messages.add_message(request, messages.ERROR,
+                                         _('Failed to create startup.py'))  # return self.get(request)
+            else:
+                pass
             app.save()
             os.system(f'sudo systemctl restart nginx')
             os.system(f'sudo systemctl restart uwsgi.service')
@@ -173,8 +191,8 @@ class app_config(View):
         try:
             with open(app.nginx_config, 'w') as f:
                 f.write(config_code)
+            shutil.copy(app.nginx_config, f'/etc/nginx/sites-enabled/{app.serial}.conf')
             os.system(f'sudo systemctl restart nginx')
-            os.system(f'sudo systemctl restart uwsgi')
             messages.success(request, _('App configuration updated successfully'))
         except:
             messages.error(request, _('Error in updating django_app configuration'))
@@ -193,6 +211,7 @@ class app_delete(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
         app.delete()
+        subprocess.call(['sudo', 'service', 'uwsgi', 'stop', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
         try:
             pathlib.Path('/var/www-deleted').mkdir(parents=True, exist_ok=True)
             shutil.move(app.www_path, str(app.www_path).replace('/www/', '/www-deleted/') + str(
@@ -200,19 +219,19 @@ class app_delete(View):
         except Exception as e:
             pass
         try:
-            os.remove(f'/etc/nginx/sites-available/{app.domain}.conf')
+            subprocess.call(['sudo', 'rm', f'/etc/nginx/sites-available/{app.serial}.conf'])
         except Exception as e:
             pass
         try:
-            os.remove(f'/etc/nginx/sites-enabled/{app.domain}.conf')
+            subprocess.call(['sudo', 'rm', f'/etc/nginx/sites-enabled/{app.serial}.conf'])
         except Exception as e:
             pass
         try:
-            os.remove(f'/etc/uwsgi/apps-available/{app.domain}.ini')
+            subprocess.call(['sudo', 'rm', f'/etc/uwsgi/apps-available/{app.serial}.ini'])
         except Exception as e:
             pass
         try:
-            os.remove(f'/etc/uwsgi/apps-enabled/{app.domain}.ini')
+            subprocess.call(['sudo', 'rm', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
         except Exception as e:
             pass
         try:
@@ -223,9 +242,8 @@ class app_delete(View):
             os.system(f'sudo certbot delete --cert-name {app.domain}')
         except Exception as e:
             pass
-        os.system(f'sudo killall -9 uwsgi')
         os.system(f'sudo systemctl restart nginx')
-        os.system(f'sudo systemctl restart uwsgi')
+        messages.success(request, _('App deleted successfully'))
         return redirect('apps')
 
 
@@ -277,16 +295,9 @@ class app_files_ajax_upload(View):
             if file.name:
                 fn = os.path.basename(file.name)
                 open(f'{path}/{fn}', 'wb').write(file.read())
-            req = {
-                "error": 0,
-                "success": True
-            }
+            req = {"error": 0, "success": True}
         except Exception as e:
-            req = {
-                "error": 1,
-                "error_message": str(e),
-                "success": False
-            }
+            req = {"error": 1, "error_message": str(e), "success": False}
 
         return JsonResponse(req)
 
@@ -302,16 +313,9 @@ class extract_zip(View):
                 shutil.unpack_archive(file, file.rsplit('.', 1)[0])
             else:
                 shutil.unpack_archive(file, path)
-            req = {
-                "error": 0,
-                "success": True
-            }
+            req = {"error": 0, "success": True}
         except Exception as e:
-            req = {
-                "error": 1,
-                "error_message": str(e),
-                "success": False
-            }
+            req = {"error": 1, "error_message": str(e), "success": False}
 
         return JsonResponse(req)
 
@@ -324,17 +328,10 @@ class file_remove(View):
                 os.remove(file)
             elif os.path.isdir(file):
                 shutil.rmtree(file)
-            req = {
-                "error": 0,
-                "success": True
-            }
+            req = {"error": 0, "success": True}
         except Exception as e:
             messages.error(request, str(e))
-            req = {
-                "error": 1,
-                "error_message": str(e),
-                "success": False
-            }
+            req = {"error": 1, "error_message": str(e), "success": False}
 
         return JsonResponse(req)
 

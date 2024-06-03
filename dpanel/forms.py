@@ -1,17 +1,11 @@
-from dpanel.models import App, PostgresDatabase, MysqlDatabase
+from dpanel.models import App, MysqlDatabase
 from django import forms
 
 
 class AppForm(forms.ModelForm):
     class Meta:
         model = App
-        fields = ['name', 'domain', 'uwsgi_path']
-
-
-class PostgresDatabaseForm(forms.ModelForm):
-    class Meta:
-        model = PostgresDatabase
-        exclude = ['serial', 'password']
+        fields = ['name', 'domain', 'startup_file', 'entry_point']
 
 
 class MysqlDatabaseForm(forms.ModelForm):

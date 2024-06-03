@@ -9,11 +9,8 @@ from dpanel.models import Option
 
 
 def super_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
-    actual_decorator = user_passes_test(
-        lambda u: u.is_superuser,
-        login_url=login_url,
-        redirect_field_name=redirect_field_name,
-    )
+    actual_decorator = user_passes_test(lambda u: u.is_superuser, login_url=login_url,
+                                        redirect_field_name=redirect_field_name, )
     if function:
         return actual_decorator(function)
     return function
@@ -25,10 +22,13 @@ def create_app_server_block(app):
         enabled = '/etc/nginx/sites-enabled'
         pathlib.Path(available).mkdir(parents=True, exist_ok=True)
         pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
-        nginx_conf = f'{available}/{app.domain}.conf'
+        nginx_conf = f'{available}/{app.serial}.conf'
         os.system(f'sudo touch {nginx_conf}')
-        conf = '''server
-{{
+        conf = '''
+upstream wsgi_server {{
+    server 0.0.0.0:{app.port};
+}}
+server {{
     listen 80;
     listen [::]:80;
 
@@ -36,27 +36,24 @@ def create_app_server_block(app):
     root {app.www_path};  
     
     location / {{
+        try_files $uri $uri/ =404;
+        add_header Access-Control-Allow-Origin *;
+        proxy_pass http://wsgi_server;
         include proxy_params;
-        proxy_pass http://0.0.0.0:{app.port};
     }}
 
     error_page 404 /404.html;
-
 
     location ~* \.(jpg|jpeg|gif|css|png|js|ico|html)$ {{
         access_log off;
         expires max;
     }}
 
-    location ~* \.(eot|otf|ttf|woff|woff2|svg)$ {{
-		add_header Access-Control-Allow-Origin *;
-  	}}
-
-    location ~ /\.(ht|py|txt|db|html) {{
+    location ~ /\.(ht|py|db|html) {{
         deny  all;
     }}
 
-    location  /. {{ ## Disable .htaccess and other hidden files
+    location  /. {{
         return 404;
     }}
 }}
@@ -64,9 +61,11 @@ def create_app_server_block(app):
         with open(nginx_conf, 'w') as f:
             f.write(conf)
             app.nginx_config = nginx_conf
-        os.system(f"sudo ln -s {nginx_conf} {enabled}/{app.domain}.conf")
+        os.system(f"sudo ln -s {nginx_conf} {enabled}/{app.serial}.conf")
+        return True
     except Exception as e:
         print(str(e))
+        return False
 
 
 def create_uwsgi_config(app):
@@ -75,16 +74,17 @@ def create_uwsgi_config(app):
         enabled = '/etc/uwsgi/apps-enabled'
         pathlib.Path(available).mkdir(parents=True, exist_ok=True)
         pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
-        uwsgi_conf = f'{available}/{app.domain}.ini'
+        uwsgi_conf = f'{available}/{app.serial}.ini'
+        module = "{}:{}".format(str(app.startup_file).replace('.py', ''), app.entry_point)
         os.system(f'sudo touch {uwsgi_conf}')
-        conf = '''
+        conf = f"""
 [uwsgi]
 # plugin = http
 processname = {app.name}
 processes = 1
 threads = 2
 chdir = {app.www_path}
-module = {app.uwsgi_path}.wsgi:application
+module = {module}
 http = 0.0.0.0:{app.port}
 daemonize={app.www_path}/log.log
 vacuum = true
@@ -92,20 +92,47 @@ master = true
 max-requests = 1000
 chmod-socket = 666
 venv = {app.venv_path}
-'''.format(app=app)
+"""
         with open(uwsgi_conf, 'w') as f:
             f.write(conf)
-        os.system(f"sudo ln -s {uwsgi_conf} {enabled}/{app.domain}.ini")
-        app.uwsgi_config = f'{enabled}/{app.domain}.ini'
+        os.system(f"sudo ln -s {uwsgi_conf} {enabled}/{app.serial}.ini")
+        app.uwsgi_config = f'{enabled}/{app.serial}.ini'
+        return True
     except Exception as e:
         print(str(e))
+        return False
 
 
 def create_venv(path):
     try:
         os.system(f'sudo python3 -m venv {path}')
+        return True
     except Exception as e:
         print(str(e))
+        return False
+
+
+def create_startup_file(app):
+    try:
+        if not str(app.startup_file).endswith('.py'):
+            app.startup_file = f'{app.startup_file}.py'
+        startup_file_path = f'{app.www_path}/{app.startup_file}'
+        os.system(f'sudo touch {startup_file_path}')
+        startup_content = """
+HELLO_MESSAGE = '<!doctypehtml><html lang=en><meta charset=UTF-8><meta content="width=device-width,initial-scale=1"name=viewport><title>Startup</title><style>#logo{font-size:35px;font-weight:700}#logo span{background:#1d1e2c;padding:5px 20px;border-radius:5px;color:#fff}</style><body style=text-align:center;margin-top:50px;font-family:sans-serif><div id=logo><span>DPanel</span></div><div dir=rtl><p>مرحبا!<p><p>شكرًا لاستخدامك DPanel لإدارة خدمات الويب الخاصة بك.<p>هذا الملف هو ملف تجريبي تم إنشاؤه تلقائيًا بواسطة DPanel لاختبار الإعدادات والتجربة بها.</div><hr><p>Welcome!<p>Thank you for using DPanel to manage your web services.<p>This file is a demo file automatically created by DPanel for testing and experimenting with your settings'
+def application(environ, start_response):
+    status = '200 OK'
+    headers = [('Content-type', 'text/html')]
+    start_response(status, headers)
+    return [HELLO_MESSAGE.encode()]
+        """
+        # Write content to the startup.py file
+        with open(startup_file_path, 'w') as f:
+            f.write(startup_content)
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
 
 
 def create_app(app):
@@ -127,9 +154,10 @@ def create_app(app):
             if line.startswith('ALLOWED_HOSTS = '):
                 line = f"ALLOWED_HOSTS = ['{app.domain}']\n"
             print(line, end='')
-
+        return True
     except Exception as e:
         print(str(e))
+        return False
 
 
 def check_db_installed(db_command):
@@ -156,15 +184,11 @@ def install_nginx_server():
         message = _("Nginx Server has been successfully installed")
 
         save_option('nginx_status', True)
-
     except Exception as e:
         success = False
         message = _("An error occurred while installing Nginx: {}").format(e)
 
-    return {
-        'success': success,
-        'message': message
-    }
+    return {'success': success, 'message': message}
 
 
 def install_uwsgi_server():
@@ -175,20 +199,20 @@ def install_uwsgi_server():
         subprocess.run(["python3", "-m", "pip", "install", "django"])
         file_path = "/etc/systemd/system/uwsgi.service"
         file_content = """
-        [Unit]
-        Description=uWSGI Emperor
-        After=syslog.target
+[Unit]
+Description=uWSGI Emperor
+After=syslog.target
 
-        [Service]
-        ExecStart=/usr/local/bin/uwsgi --emperor /etc/uwsgi/apps-enabled
-        Restart=always
-        KillSignal=SIGQUIT
-        Type=notify
-        StandardError=syslog
-        NotifyAccess=all
+[Service]
+ExecStart=/usr/local/bin/uwsgi --emperor /etc/uwsgi/apps-enabled
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
 
-        [Install]
-        WantedBy=multi-user.target
+[Install]
+WantedBy=multi-user.target
         """
         with open(file_path, "w") as file:
             file.write(file_content)
@@ -202,10 +226,7 @@ def install_uwsgi_server():
         success = False
         message = _("An error occurred while installing uwsgi: {}").format(e)
 
-    return {
-        'success': success,
-        'message': message
-    }
+    return {'success': success, 'message': message}
 
 
 def install_mysql_server():
@@ -223,10 +244,7 @@ def install_mysql_server():
         success = False
         message = _("An error occurred while installing MySQL: {}").format(e)
 
-    return {
-        'success': success,
-        'message': message
-    }
+    return {'success': success, 'message': message}
 
 
 def get_option(key, default=''):
@@ -243,15 +261,9 @@ def get_option(key, default=''):
 def save_option(key, value):
     option = Option.objects.filter(key=key)
     if option:
-        option.update(
-            key=key,
-            value=value
-        )
+        option.update(key=key, value=value)
     else:
-        Option(
-            key=key,
-            value=value
-        ).save()
+        Option(key=key, value=value).save()
 
 
 def paginator(request, obj, number=None, page=1):

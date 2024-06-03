@@ -11,6 +11,8 @@
             showDenyButton: true,
             confirmButtonText: '{% trans "Continue" %}',
             denyButtonText: '{% trans "Cancel" %}',
+            confirmButtonColor: '#1d1e2c',
+            denyButtonColor: '#dc3545',
         }).then((result) => {
             if (result.isConfirmed) {
                 jQuery('.loading-preloader').show();
@@ -23,22 +25,12 @@
 
     function copy_this(value, message=false){
         navigator.clipboard.writeText(value);
-        const Toast = Swal.mixin({
-              toast: true,
-              position: 'top',
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer);
-                toast.addEventListener('mouseleave', Swal.resumeTimer);
-              }
-        });
-
-        Toast.fire({
+        Swal.fire({
           icon: 'success',
           title: '{% trans "Copied" %}',
           text: message,
+          confirmButtonText: '{% trans "Okay" %}',
+          confirmButtonColor: '#1d1e2c',
         });
     }
 

@@ -31,7 +31,7 @@ def create_app_ssl(app):
                 expiration_date = datetime.strptime(expiration_date, "%B %d %Y %H:%M:%S %Z")
                 return expiration_date
     # Create a symbolic link to enable the new Nginx configuration
-    # os.system(f"sudo ln -s /etc/nginx/sites-available/{app.domain}.conf /etc/nginx/sites-enabled/{app.domain}.conf")
+    # os.system(f"sudo ln -s /etc/nginx/sites-available/{app.serial}.conf /etc/nginx/sites-enabled/{app.serial}.conf")
 
 
 def install_certbot():
