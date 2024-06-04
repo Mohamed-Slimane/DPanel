@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
@@ -6,7 +8,8 @@ from django.utils import timezone
 class App(models.Model):
     serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
     name = models.CharField(_('Name'), max_length=500)
-    domain = models.CharField(max_length=50, verbose_name=_('Domain'), unique=True, help_text=_('For example: mayproject.com, app.mayproject.com'))
+    domain = models.CharField(max_length=50, verbose_name=_('Domain'), unique=True,
+                              help_text=_('For example: mayproject.com, app.mayproject.com'))
     port = models.IntegerField(_('Port'), unique=True)
     www_path = models.CharField(max_length=5000, verbose_name=_('Path'))
     startup_file = models.CharField(_('Startup file'), default='startup.py', max_length=5000, help_text=_(
@@ -26,14 +29,14 @@ class App(models.Model):
         return self.certificate_app.order_by('-created_date')
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            import uuid
-            self.serial = uuid.uuid4()
+        # if not self.pk:
+        #     import uuid
+        #     self.serial = uuid.uuid4()
         if not self.name:
             if 'http' in self.domain or 'https' in self.domain:
                 self.domain = self.domain.split('//')[1]
             self.name = self.domain
-        super(App, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 
 class MysqlDatabase(models.Model):
@@ -49,7 +52,38 @@ class MysqlDatabase(models.Model):
         if not self.pk:
             import uuid
             self.serial = uuid.uuid4()
-        super(MysqlDatabase, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
+
+
+class MysqlDatabaseBackup(models.Model):
+    serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
+    database = models.ForeignKey(MysqlDatabase, verbose_name=_('Database'), related_name='backup_database',
+                                 on_delete=models.SET_NULL, null=True, blank=True)
+    path = models.CharField(_('Path'), max_length=5000)
+    created_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.database
+
+    def filename(self):
+        try:
+            return os.path.basename(str(self.path).split('?')[0])
+        except Exception as e:
+            return self.serial
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            import uuid
+            self.serial = uuid.uuid4()
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        try:
+            import os
+            os.remove(str(self.path))
+        except Exception as e:
+            print(e)
+        super().delete(*args, **kwargs)
 
 
 class AppCertificate(models.Model):
@@ -68,7 +102,7 @@ class AppCertificate(models.Model):
             self.serial = uuid.uuid4()
         else:
             self.domain = self.app.domain
-        super(AppCertificate, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 
 class Option(models.Model):

@@ -39,8 +39,8 @@ def install_certbot():
         subprocess.run(["sudo", "apt", "update"])
         subprocess.run(["sudo", "apt", "install", "-y", "certbot"])
         subprocess.run(["sudo", "apt", "install", "-y", "python3-certbot-nginx"])
-        subprocess.run(['sudo', 'ufw', 'allow', 'https'])
-        subprocess.run(['sudo', 'ufw', 'allow', '443'])
+        subprocess.run(['ufw', 'allow', 'https'])
+        subprocess.run(['ufw', 'allow', '443'])
         success = True
         message = _("Certbot has been successfully installed")
         save_option('certbot_status', True)

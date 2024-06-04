@@ -132,5 +132,26 @@
         jQuery('.loading-preloader').hide();
     });
 
+    jQuery('.backup-import').on('change', function () {
+        restore_form = jQuery(this).parents('form');
+        if(jQuery(this).val() != '') {
+            Swal.fire({
+                title: '{% trans 'Restore backup' %}',
+                text: '{% trans 'Are you sure you want to restore backup for this database ?' %}',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#1d1e2c',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '{% trans 'Yes' %}',
+                cancelButtonText: '{% trans 'No' %}',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    jQuery('.loading-preloader').show();
+                    restore_form.submit();
+                }
+            });
+        }
+    });
+
 
 </script>

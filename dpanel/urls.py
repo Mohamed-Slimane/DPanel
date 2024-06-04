@@ -16,6 +16,7 @@ urlpatterns = [
     # Apps
     path('', super_required(app_views.apps.as_view()), name="apps"),
     path('apps/new/', super_required(app_views.app_new.as_view()), name="app_new"),
+    path('apps/<str:serial>/edit/', super_required(app_views.app_edit.as_view()), name="app_edit"),
     path('apps/<str:serial>/restart/', super_required(app_views.app_restart.as_view()), name="app_restart"),
     path('apps/<str:serial>/status/', super_required(app_views.app_status.as_view()), name="app_status"),
     path('apps/<str:serial>/ssl/new/', super_required(app_views.app_certificate_new.as_view()), name="app_ssl_new"),
@@ -36,11 +37,17 @@ urlpatterns = [
 
     # Mysql
     path('mysql/', super_required(mysql_views.databases.as_view()), name="mysql_databases"),
+    path('mysql/<str:serial>/', super_required(mysql_views.database.as_view()), name="mysql_database"),
     path('mysql/new/', super_required(mysql_views.new.as_view()), name="mysql_database_new"),
     path('mysql/<str:serial>/delete/', super_required(mysql_views.delete.as_view()), name="mysql_database_delete"),
-    path('mysql/<str:serial>/export/', super_required(mysql_views.export_sql.as_view()), name="mysql_database_export"),
-    path('mysql/<str:serial>/import/', super_required(mysql_views.import_sql.as_view()), name="mysql_database_import"),
     path('mysql/<str:serial>/password/change/', super_required(mysql_views.password_change.as_view()), name="mysql_database_password_change"),
+
+    # Mysql Backup
+    path('mysql/<str:serial>/backup/', super_required(mysql_views.backup_create.as_view()), name="mysql_backup_create"),
+    path('mysql/backup/<str:serial>/restore/', super_required(mysql_views.backup_restore.as_view()), name="mysql_backup_restore"),
+    path('mysql/backup/<str:serial>/import/', super_required(mysql_views.backup_import.as_view()), name="mysql_backup_import"),
+    path('mysql/backup/<str:serial>/delete/', super_required(mysql_views.backup_delete.as_view()), name="mysql_backup_delete"),
+    path('mysql/backup/<str:serial>/download/', super_required(mysql_views.backup_download.as_view()), name="mysql_backup_download"),
 
     # Settings
     path('settings/', super_required(setting_views.settings.as_view()), name="settings"),

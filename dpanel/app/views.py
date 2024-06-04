@@ -3,6 +3,7 @@ import pathlib
 import shutil
 import socket
 import subprocess
+import uuid
 from datetime import datetime
 
 from django.contrib.auth.hashers import make_password
@@ -13,7 +14,7 @@ from django.views import View
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
-from dpanel.forms import AppForm
+from dpanel.forms import AppForm, AppEditForm
 from dpanel.functions import create_app_server_block, create_venv, create_app, create_uwsgi_config, get_option, \
     install_uwsgi_server, install_nginx_server, paginator, create_startup_file
 from dpanel.models import App, AppCertificate
@@ -39,6 +40,81 @@ class apps(View):
         apps = App.objects.all()
         apps = paginator(request, apps, int(get_option('paginator', '20')))
         return render(request, 'app/apps.html', {'apps': apps})
+
+
+class app_new(View):
+    def post(self, request):
+        form = AppForm(request.POST)
+        if form.is_valid():
+            from engine.settings import WWW_FOLDER
+            from engine.settings import VENV_FOLDER
+
+            app = form.save(commit=False)
+
+            app.serial = uuid.uuid4()
+            app.www_path = f'{WWW_FOLDER}{app.domain}'
+            app.venv_path = f'{VENV_FOLDER}{app.serial}'
+
+            pathlib.Path(app.www_path).mkdir(parents=True, exist_ok=True)
+            pathlib.Path(app.venv_path).mkdir(parents=True, exist_ok=True)
+
+            sock = socket.socket()
+            sock.bind(('', 0))
+            app.port = sock.getsockname()[1]
+
+            the_block = create_app_server_block(app)
+            if not the_block:
+                messages.add_message(request, messages.ERROR, _('Failed to create app server block'))
+                return self.get(request)
+            the_venv = create_venv(app.venv_path)
+            if not the_venv:
+                messages.add_message(request, messages.ERROR, _('Failed to create venv'))
+                return self.get(request)
+            the_wsgi = create_uwsgi_config(app)
+            if not the_wsgi:
+                messages.add_message(request, messages.ERROR, _('Failed to create uwsgi config'))
+                return self.get(request)
+            if not app.startup_file or app.startup_file == "startup.py":
+                the_startup = create_startup_file(app)
+                if not the_startup:
+                    messages.add_message(request, messages.ERROR,
+                                         _('Failed to create startup.py'))  # return self.get(request)
+            else:
+                pass
+            app.save()
+            os.system(f'sudo systemctl restart nginx')
+            os.system(f'sudo systemctl restart uwsgi.service')
+            messages.add_message(request, messages.SUCCESS, _('App successfully created'))
+            return redirect('apps')
+        else:
+            messages.add_message(request, messages.ERROR, _('Form validation error'))
+            return render(request, 'app/new.html', {'form': form})
+
+    def get(self, request):
+        form = AppForm(request.POST or None)
+        return render(request, 'app/new.html', {'form': form})
+
+
+class app_edit(View):
+    def post(self, request, serial):
+        app = App.objects.get(serial=serial)
+        form = AppEditForm(request.POST, instance=app)
+        if form.is_valid():
+            form.save()
+            the_wsgi = create_uwsgi_config(app)
+            if not the_wsgi:
+                messages.add_message(request, messages.ERROR, _('Failed to update uwsgi config'))
+            messages.success(request, _('App updated successfully'))
+            if app.is_active:
+                subprocess.call(['service', 'uwsgi', 'restart', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
+            return redirect('apps')
+        messages.error(request, _('Form validation error'))
+        return self.get(request, serial)
+
+    def get(self, request, serial):
+        app = App.objects.get(serial=serial)
+        form = AppEditForm(request.POST or None, instance=app)
+        return render(request, 'app/edit.html', {'app': app, 'form': form})
 
 
 class app_user_new(View):
@@ -73,9 +149,10 @@ class app_restart(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
         try:
-            subprocess.call(['sudo', 'service', 'uwsgi', 'restart', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
-            app.is_active = True
-            app.save()
+            subprocess.call(['service', 'uwsgi', 'restart', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
+            if not app.is_active:
+                app.is_active = True
+                app.save()
             messages.success(request, f'Successfully restarted app <b>{app.name}</b>.')
         except subprocess.CalledProcessError as e:
             messages.error(request, f'Error restarting app: {e.stderr}')
@@ -88,10 +165,10 @@ class app_status(View):
         app = App.objects.get(serial=serial)
         try:
             if app.is_active:
-                subprocess.call(['sudo', 'service', 'uwsgi', 'stop', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
+                subprocess.call(['service', 'uwsgi', 'stop', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
                 messages.success(request, f'Successfully stopped app <b>{app.name}</b>.')
             else:
-                subprocess.call(['sudo', 'service', 'uwsgi', 'start', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
+                subprocess.call(['service', 'uwsgi', 'start', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
                 messages.success(request, f'Successfully started app <b>{app.name}</b>.')
             app.is_active = not app.is_active
             app.save()
@@ -134,56 +211,6 @@ class app_certificate_new(View):
         return redirect('app_certificates', app.serial)
 
 
-class app_new(View):
-    def post(self, request):
-        form = AppForm(request.POST)
-        if form.is_valid():
-            app = form.save(commit=False)
-            from engine.settings import WWW_FOLDER
-            app.www_path = f'{WWW_FOLDER}{app.domain}'
-            from engine.settings import VENV_FOLDER
-            app.venv_path = f'{VENV_FOLDER}{app.domain}'
-
-            pathlib.Path(app.www_path).mkdir(parents=True, exist_ok=True)
-            pathlib.Path(app.venv_path).mkdir(parents=True, exist_ok=True)
-
-            sock = socket.socket()
-            sock.bind(('', 0))
-            app.port = sock.getsockname()[1]
-
-            the_block = create_app_server_block(app)
-            if not the_block:
-                messages.add_message(request, messages.ERROR, _('Failed to create app server block'))
-                return self.get(request)
-            the_venv = create_venv(app.venv_path)
-            if not the_venv:
-                messages.add_message(request, messages.ERROR, _('Failed to create venv'))
-                return self.get(request)
-            the_wsgi = create_uwsgi_config(app)
-            if not the_wsgi:
-                messages.add_message(request, messages.ERROR, _('Failed to create uwsgi config'))
-                return self.get(request)
-            if not app.startup_file or app.startup_file == "startup.py":
-                the_startup = create_startup_file(app)
-                if not the_startup:
-                    messages.add_message(request, messages.ERROR,
-                                         _('Failed to create startup.py'))  # return self.get(request)
-            else:
-                pass
-            app.save()
-            os.system(f'sudo systemctl restart nginx')
-            os.system(f'sudo systemctl restart uwsgi.service')
-            messages.add_message(request, messages.SUCCESS, _('App successfully created'))
-            return redirect('apps')
-        else:
-            messages.add_message(request, messages.ERROR, _('Form validation error'))
-            return render(request, 'app/new.html', {'form': form})
-
-    def get(self, request):
-        form = AppForm(request.POST or None)
-        return render(request, 'app/new.html', {'form': form})
-
-
 class app_config(View):
     def post(self, request, serial):
         config_code = request.POST.get('config_code')
@@ -211,7 +238,7 @@ class app_delete(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
         app.delete()
-        subprocess.call(['sudo', 'service', 'uwsgi', 'stop', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
+        subprocess.call(['service', 'uwsgi', 'stop', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
         try:
             pathlib.Path('/var/www-deleted').mkdir(parents=True, exist_ok=True)
             shutil.move(app.www_path, str(app.www_path).replace('/www/', '/www-deleted/') + str(
@@ -219,19 +246,19 @@ class app_delete(View):
         except Exception as e:
             pass
         try:
-            subprocess.call(['sudo', 'rm', f'/etc/nginx/sites-available/{app.serial}.conf'])
+            subprocess.call(['rm', f'/etc/nginx/sites-available/{app.serial}.conf'])
         except Exception as e:
             pass
         try:
-            subprocess.call(['sudo', 'rm', f'/etc/nginx/sites-enabled/{app.serial}.conf'])
+            subprocess.call(['rm', f'/etc/nginx/sites-enabled/{app.serial}.conf'])
         except Exception as e:
             pass
         try:
-            subprocess.call(['sudo', 'rm', f'/etc/uwsgi/apps-available/{app.serial}.ini'])
+            subprocess.call(['rm', f'/etc/uwsgi/apps-available/{app.serial}.ini'])
         except Exception as e:
             pass
         try:
-            subprocess.call(['sudo', 'rm', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
+            subprocess.call(['rm', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
         except Exception as e:
             pass
         try:

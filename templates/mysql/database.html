@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} {% trans 'Databases' %} - MySql - {{database.name}} {% endblock %}
+{% block page_title %}{% trans 'Databases' %} - MySql - {{database.name}} {% endblock %}
+
+{% block title_button %}
+<form class="d-none" method="post" action="{% url 'mysql_backup_import' database.serial %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="sql_file" id="backup-import-{{database.serial}}" class="backup-import" accept=".sql,.sql.gz" required hidden>
+</form>
+<div class="dropdown">
+    <i class="bi bi-three-dots-vertical float-end pointer" data-bs-toggle="dropdown"></i>
+    <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+           <span onclick="open_link_confirm('{% url 'mysql_backup_create' database.serial %}', '{% trans 'Database' %}: {{database.name}}', '{% trans 'Do you want to create backup for this database?' %}')" class="dropdown-item pointer">
+               {% trans 'Create backup' %}
+               <i class="bi bi-database float-end text-info"></i>
+            </span>
+        </li>
+        <li><div class="dropdown-divider"></div></li>
+        <li>
+            <span class="dropdown-item pointer database-restore" onclick="document.getElementById('backup-import-{{database.serial}}').click()">
+                {% trans 'Import backup' %}
+                <i class="bi bi-pc-display float-end text-success"></i>
+            </span>
+        </li>
+        <li><div class="dropdown-divider"></div></li>
+        <li>
+            <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'mysql_database_delete' database.serial %}')">
+                {% trans 'Delete' %}
+                <i class="bi bi-trash float-end text-danger"></i>
+            </span>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block content %}
+{% if status.mysql_status %}
+{% if database.backup_database.all %}
+<table class="table align-middle">
+    <thead>
+        <tr>
+            <th style="width: 0">#</th>
+            <th>{% trans 'Name' %}</th>
+            <th>{% trans 'Date' %}</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for backup in database.backup_database.all %}
+        <tr class="database-{{backup.serial}}">
+            <td>
+                {% if database.backup_database.all.start_index %}
+                {{database.backup_database.all.start_index|add:forloop.counter0}}
+                {% else %}
+                {{forloop.counter}}
+                {% endif %}
+            </td>
+            <td>{{backup.filename}}</td>
+            <td>{{backup.created_date|date:'d-m-Y H:i:s, l'}}</td>
+            <td>
+                <div class="dropdown">
+                    <i class="bi bi-three-dots-vertical float-end pointer" data-bs-toggle="dropdown"></i>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item pointer" href="{% url 'mysql_backup_download' backup.serial %}">
+                                <i class="bi bi-download float-end text-info"></i>
+                                {% trans 'Download' %}
+                            </a>
+                        </li>
+                        <li><div class="dropdown-divider"></div></li>
+                        <li>
+                            <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'mysql_backup_restore' backup.serial %}', '{% trans 'Backup' %}: {{backup.filename}}', '{% trans 'Do you want to restore this backup?' %}')">
+                                <i class="bi bi-arrow-counterclockwise float-end text-success"></i>
+                                {% trans 'Restore' %}
+                            </span>
+                        </li>
+                        <li><div class="dropdown-divider"></div></li>
+                        <li>
+                            <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'mysql_backup_delete' backup.serial %}', '{% trans 'Backup' %}: {{backup.filename}}', '{% trans 'Do you want to delete this backup?' %}')">
+                                <i class="bi bi-trash float-end text-danger"></i>
+                                {% trans 'Delete' %}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <div class="bg-white shadow-sm p-3 rounded text-center">
+        <div class="fw-bold h5 m-0">
+            {% trans 'No backups yet' %}
+        </div>
+    </div>
+{% endif %}
+{% else %}
+    <div class="bg-white shadow-sm p-3 rounded text-center">
+        <div class="fw-bold h5">
+            {% trans 'Mysql server not installed' %}
+        </div>
+        <button type="button" class="btn btn-warning btn-sm rounded-pill" id="install-mysql">
+            {% translate 'Install Mysql server now' %}
+        </button>
+    </div>
+<script>
+jQuery(document).ready(function () {
+    jQuery("#install-mysql").click(function(event) {
+        jQuery('.loading-preloader').show();
+        jQuery.ajax({
+            type: "POST",
+            data: {
+                'csrfmiddlewaretoken': '{{csrf_token}}',
+                'mysql_install': true
+            },
+            success: function (response) {
+                jQuery('.loading-preloader').hide();
+                Swal.fire({
+                    icon: response.success ? 'success' : 'error',
+                    text: response.message,
+                    allowOutsideClick: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "{% url 'mysql_databases' %}";
+                    }
+                });
+            },
+            error: function () {
+                jQuery('.loading-preloader').hide();
+                alert('{% trans "An error occurred while submitting the form" %}');
+            }
+        });
+    });
+});
+</script>
+
+{% endif %}
+{% endblock %}

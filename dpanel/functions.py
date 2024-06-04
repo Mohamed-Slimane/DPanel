@@ -173,12 +173,12 @@ def install_nginx_server():
     try:
         subprocess.run(["sudo", "apt", "update"])
         subprocess.run(["sudo", "apt", "install", "-y", "nginx"])
-        subprocess.run(['sudo', 'ufw', 'allow', '80'])
-        subprocess.run(['sudo', 'ufw', 'allow', 'http'])
-        subprocess.run(['sudo', 'ufw', 'allow', 'Nginx Full'])
-        subprocess.run(['sudo', 'ufw', 'allow', '8080'])
-        subprocess.run(['sudo', 'systemctl', 'start', 'nginx'])
-        subprocess.run(['sudo', 'systemctl', 'enable', 'nginx'])
+        subprocess.run(['ufw', 'allow', '80'])
+        subprocess.run(['ufw', 'allow', 'http'])
+        subprocess.run(['ufw', 'allow', 'Nginx Full'])
+        subprocess.run(['ufw', 'allow', '8080'])
+        subprocess.run(['systemctl', 'start', 'nginx'])
+        subprocess.run(['systemctl', 'enable', 'nginx'])
 
         success = True
         message = _("Nginx Server has been successfully installed")
@@ -217,8 +217,8 @@ WantedBy=multi-user.target
         with open(file_path, "w") as file:
             file.write(file_content)
 
-        subprocess.run(['sudo', 'systemctl', 'start', 'uwsgi'])
-        subprocess.run(['sudo', 'systemctl', 'enable', 'uwsgi'])
+        subprocess.run(['systemctl', 'start', 'uwsgi'])
+        subprocess.run(['systemctl', 'enable', 'uwsgi'])
         success = True
         message = _("uwsgi Server has been successfully installed")
         save_option('uwsgi_status', True)

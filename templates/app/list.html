@@ -57,40 +57,49 @@
                         <i class="bi bi-shield"></i>
                     </a>
                 </td>
-                <td class="float-end">
-                    {% if app.is_active %}
-                    <a href="{% url 'app_status' app.serial %}" class="text-danger" data-bs-toggle="tooltip" title="{% trans 'Stop' %}">
-                        <i class="bi bi-stop-circle fs-4"></i>
-                    </a>
-                    {% else %}
-                    <a href="{% url 'app_status' app.serial %}" class="text-success" data-bs-toggle="tooltip" title="{% trans 'Start' %}">
-                        <i class="bi bi-play-circle fs-4"></i>
-                    </a>
-                    {% endif %}
-                    <div class="dropdown d-inline ms-1">
-                        <i class="bi bi-gear fs-4 pointer" data-bs-toggle="dropdown"></i>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                                <a class="dropdown-item" href="{% url 'app_config' app.serial %}" target="_blank">
-                                    {% trans 'Configuration' %}
-                                    <i class="bi bi-hdd-network float-end"></i>
-                                </a>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'app_restart' app.serial %}', '{% trans 'Restart app' %}', '{% trans 'Do you want to restart this app    ?' %}')">
-                                    {% trans 'Restart' %}
-                                    <i class="bi bi-arrow-clockwise float-end"></i>
-                                </span>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <span class="dropdown-item pointer text-danger" onclick="open_link_confirm('{% url 'app_delete' app.serial %}')">
-                                    {% trans 'Delete' %}
-                                    <i class="bi bi-trash float-end"></i>
-                                </span>
-                            </li>
-                        </ul>
+                <td>
+                    <div class="float-end">
+                        {% if app.is_active %}
+                        <a href="{% url 'app_status' app.serial %}" class="text-danger" data-bs-toggle="tooltip" title="{% trans 'Stop' %}">
+                            <i class="bi bi-stop-circle fs-4"></i>
+                        </a>
+                        {% else %}
+                        <a href="{% url 'app_status' app.serial %}" class="text-success" data-bs-toggle="tooltip" title="{% trans 'Start' %}">
+                            <i class="bi bi-play-circle fs-4"></i>
+                        </a>
+                        {% endif %}
+                        <div class="dropdown d-inline ms-1">
+                            <i class="bi bi-gear fs-4 pointer" data-bs-toggle="dropdown"></i>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'app_edit' app.serial %}">
+                                        {% trans 'Edit' %}
+                                        <i class="bi bi-pencil-square float-end"></i>
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'app_config' app.serial %}">
+                                        {% trans 'Server config' %}
+                                        <i class="bi bi-hdd-network float-end"></i>
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'app_restart' app.serial %}', '{% trans 'Restart app' %}', '{% trans 'Do you want to restart this app    ?' %}')">
+                                        {% trans 'Restart' %}
+                                        <i class="bi bi-arrow-clockwise float-end"></i>
+                                    </span>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <span class="dropdown-item pointer text-danger" onclick="open_link_confirm('{% url 'app_delete' app.serial %}')">
+                                        {% trans 'Delete' %}
+                                        <i class="bi bi-trash float-end"></i>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </td>
             </tr>

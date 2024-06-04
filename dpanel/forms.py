@@ -8,6 +8,12 @@ class AppForm(forms.ModelForm):
         fields = ['name', 'domain', 'startup_file', 'entry_point']
 
 
+class AppEditForm(forms.ModelForm):
+    class Meta:
+        model = App
+        fields = ['name', 'startup_file', 'entry_point']
+
+
 class MysqlDatabaseForm(forms.ModelForm):
     class Meta:
         model = MysqlDatabase

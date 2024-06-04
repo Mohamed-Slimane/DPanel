@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} {% translate 'Edit app' %} - {{app.name}} {% endblock %}
+{% block page_title %} {% translate 'Edit app' %} - {{app.name}} {% endblock %}
+
+
+{% block content %}
+<div class="bg-white shadow-sm rounded p-3">
+    <form class="row preloader-form" method="post">
+        {% csrf_token %}
+        {% include 'inc/form.html'%}
+        <div class="">
+            <button type="submit" class="btn btn-primary">
+                {% translate 'Update' %}
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $('#id_domain').on('change', function () {
+        domain = $(this).val();
+        if (domain){
+            domain = domain.replace('https://', '').replace('http://', '');
+            if (domain.endsWith('/')) {
+                domain = domain.slice(0, -1);
+            }
+            $('#id_domain').val(domain);
+        }
+    });
+</script>
+{% endblock %}

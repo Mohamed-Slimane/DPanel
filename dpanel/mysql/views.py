@@ -14,7 +14,7 @@ from django.views import View
 
 from dpanel.forms import MysqlDatabaseForm
 from dpanel.functions import get_option, install_mysql_server, paginator
-from dpanel.models import MysqlDatabase
+from dpanel.models import MysqlDatabase, MysqlDatabaseBackup
 
 
 class databases(View):
@@ -24,21 +24,21 @@ class databases(View):
             if request.POST.get('mysql_install'):
                 res = install_mysql_server()
             else:
-                res = {
-                    'success': False,
-                    'message': _('Form validation error')
-                }
+                res = {'success': False, 'message': _('Form validation error')}
         else:
-            res = {
-                'success': False,
-                'message': _('There is an existing Mysql server installed')
-            }
+            res = {'success': False, 'message': _('There is an existing Mysql server installed')}
         return JsonResponse(res)
 
     def get(self, request):
         databases = MysqlDatabase.objects.all()
         databases = paginator(request, databases, int(get_option('paginator', '20')))
         return render(request, 'mysql/databases.html', {'databases': databases})
+
+
+class database(View):
+    def get(self, request, serial):
+        database = MysqlDatabase.objects.get(serial=serial)
+        return render(request, 'mysql/database.html', {'database': database})
 
 
 class new(View):
@@ -49,9 +49,11 @@ class new(View):
             database.password = str(uuid.uuid4()).replace('-', '')[:15]
 
             try:
-                subprocess.run(['sudo', 'mysql', '-e', f'CREATE DATABASE {database.name};'])
-                subprocess.run(['sudo', 'mysql', '-e', f"CREATE USER '{database.username}'@'localhost' IDENTIFIED BY '{database.password}';"])
-                subprocess.run(['sudo', 'mysql', '-e', f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{database.username}'@'localhost';"])
+                subprocess.run(['mysql', '-e', f'CREATE DATABASE {database.name};'])
+                subprocess.run(['mysql', '-e',
+                                f"CREATE USER '{database.username}'@'localhost' IDENTIFIED BY '{database.password}';"])
+                subprocess.run(
+                    ['mysql', '-e', f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{database.username}'@'localhost';"])
 
                 database.save()
                 messages.add_message(request, messages.SUCCESS, _('Database successfully created'))
@@ -72,34 +74,44 @@ class new(View):
 class delete(View):
     def get(self, request, serial):
         database = MysqlDatabase.objects.get(serial=serial)
-        os.system(f'sudo mysql -e "DROP DATABASE {database.name};"')
-        os.system(f'sudo mysql -e "DROP USER \'{database.username}\'@\'localhost\';"')
+        os.system(f'mysql -e "DROP DATABASE {database.name};"')
+        os.system(f'mysql -e "DROP USER \'{database.username}\'@\'localhost\';"')
         database.delete()
+        messages.warning(request, _('Database successfully deleted'))
         return redirect('mysql_databases')
 
 
-class export_sql(View):
+class backup_create(View):
     def get(self, request, serial):
         database = MysqlDatabase.objects.get(serial=serial)
-        Path('/var/server/dpanel/backups/mysql/').mkdir(parents=True, exist_ok=True)
-        database_file = f'/var/server/dpanel/backups/mysql/{database.name}_{datetime.datetime.today().strftime("%d-%m-%Y_%H-%M")}.sql.gz'
-        os.system(f'sudo mysqldump {database.name} | gzip > {database_file}')
+        folder = '/var/server/dpanel/backups/mysql/'
+        Path(folder).mkdir(parents=True, exist_ok=True)
+        database_file = f'{folder}{database.name}_{datetime.datetime.today().strftime("%d-%m-%Y_%H-%M-%S")}.sql.gz'
+        os.system(f'mysqldump {database.name} | gzip > {database_file}')
+        backup = MysqlDatabaseBackup(database=database, path=database_file)
+        backup.save()
+        messages.success(request, _('Backup created successfully for {}').format(database.name))
+        return redirect('mysql_database', database.serial)
 
-        if os.path.exists(database_file):
-            file_size = os.path.getsize(database_file)
-            filename = os.path.basename(database_file)
-            response = HttpResponse(FileWrapper(open(database_file, 'rb')), content_type='application/gzip')
-            response['Content-Disposition'] = 'attachment; filename=%s' % filename
-            response['Content-Length'] = file_size
-            return response
+
+class backup_restore(View):
+    def get(self, request, serial):
+        backup = MysqlDatabaseBackup.objects.get(serial=serial)
+        subprocess.run(['mysql', '-e', f'DROP DATABASE IF EXISTS {backup.database.name};'])
+        subprocess.run(['mysql', '-e', f'CREATE DATABASE {backup.database.name};'])
+        subprocess.run(['mysql', '-e',
+                        f"GRANT ALL PRIVILEGES ON {backup.database.name}.* TO '{backup.database.username}'@'localhost';"])
+        if backup.path.endswith('.gz'):
+            with gzip.open(backup.path, 'rb') as f:
+                sql_content = f.read().decode('utf-8')
         else:
-            return HttpResponse("The file does not exist")
+            sql_content = backup.path.read().decode('utf-8')
+        subprocess.run(['mysql', backup.database.name], input=sql_content, text=True)
+        messages.success(request, _('Backup restored successfully for {}').format(backup.database.name))
+        return redirect('mysql_database', backup.database.serial)
 
-        # return serve(request, os.path.basename(database_file), os.path.dirname(database_file))
-        # return redirect('mysql_databases')
 
-
-class import_sql(View):
+class backup_import(View):
     def post(self, request, serial):
         database = MysqlDatabase.objects.get(serial=serial)
         try:
@@ -110,21 +122,16 @@ class import_sql(View):
 
         if sql_file.name.endswith('.gz') or sql_file.name.endswith('.sql'):
             try:
-                os.system(f'sudo mysql -e "DROP DATABASE {database.name};"')
-                subprocess.run(['sudo', 'mysql', '-e', f'CREATE DATABASE {database.name};'])
-                subprocess.run(['sudo', 'mysql', '-e', f"CREATE USER '{database.username}'@'localhost' IDENTIFIED BY '{database.password}';"])
-                subprocess.run(['sudo', 'mysql', '-e', f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{database.username}'@'localhost';"])
-                mysql_command = ['mysql', database.name]
-                # Check if the file is a gzipped file
+                os.system(f'mysql -e "DROP DATABASE IF EXISTS {database.name};"')
+                subprocess.run(['mysql', '-e', f'CREATE DATABASE {database.name};'])
+                subprocess.run(
+                    ['mysql', '-e', f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{database.username}'@'localhost';"])
                 if sql_file.name.endswith('.gz'):
-                    # Read the gzipped content, decompress, and then decode it as text
                     with gzip.open(sql_file, 'rb') as f:
                         sql_content = f.read().decode('utf-8')
                 else:
-                    # Read the content of a regular SQL file directly
                     sql_content = sql_file.read().decode('utf-8')
-
-                subprocess.run(mysql_command, input=sql_content, text=True, check=True)
+                subprocess.run(['mysql', database.name], input=sql_content, text=True)
                 messages.success(request, _("SQL file imported successfully!"))
             except subprocess.CalledProcessError as e:
                 messages.error(request, _(f"Failed to import SQL file: {e}"))
@@ -132,7 +139,33 @@ class import_sql(View):
                 messages.error(request, _(f"Error handling the SQL file: {e}"))
         else:
             messages.error(request, _("File format is not supported!"))
-        return redirect('mysql_databases')  # Redirect to the desired URL after handling the file
+        return redirect('mysql_database', database.serial)
+
+
+class backup_delete(View):
+    def get(self, request, serial):
+        backup = MysqlDatabaseBackup.objects.get(serial=serial)
+        backup.delete()
+        messages.warning(request, _('Backup deleted successfully {}').format(backup.filename()))
+        if backup.database:
+            return redirect('mysql_database', backup.database.serial)
+        else:
+            return redirect('mysql_databases')
+
+
+class backup_download(View):
+    def get(self, request, serial):
+        backup = MysqlDatabaseBackup.objects.get(serial=serial)
+        if os.path.exists(backup.path):
+            file_size = os.path.getsize(backup.path)
+            filename = os.path.basename(backup.path)
+            response = HttpResponse(FileWrapper(open(backup.path, 'rb')), content_type='application/gzip')
+            response['Content-Disposition'] = 'attachment; filename=%s' % filename
+            response['Content-Length'] = file_size
+            return response
+        else:
+            messages.error(request, _('Backup file not found'))
+            return redirect('mysql_database', backup.database.serial)
 
 
 class password_change(View):
@@ -141,7 +174,7 @@ class password_change(View):
         database.password = str(uuid.uuid4()).replace('-', '')[:15]
         mysql_command = f"ALTER USER '{database.username}'@'localhost' IDENTIFIED BY '{database.password}';"
         try:
-            subprocess.run(['sudo', 'mysql', '-e', mysql_command])
+            subprocess.run(['mysql', '-e', mysql_command])
             database.save()
             messages.success(request, f"Password for user '{database.username}' changed successfully!")
         except subprocess.CalledProcessError as e:
