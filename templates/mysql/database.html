@@ -37,6 +37,21 @@
 {% endblock %}
 
 {% block content %}
+<div class="bg-white shadow-sm p-3 rounded mb-3">
+    <div class="h5">
+        {% trans 'Password' %}
+    </div>
+    <div class="blur-group input-group input-group-sm border rounded-pill">
+        <input class="blur-text blured-text form-control rounded-start-pill border-0" value="{{database.password}}" readonly>
+        <button type="button" class="remove-blur btn btn-warning" data-text="{{database.password}}">
+            <i class="bi bi-eye"></i>
+        </button>
+        <button type="button" class="copy-this pointer btn btn-dark rounded-end-pill"
+                onclick="copy_this('{{database.password}}', '{% trans 'Database user password copied' %}')">
+            <i class="bi bi-clipboard"></i>
+        </button>
+    </div>
+</div>
 {% if status.mysql_status %}
 {% if database.backup_database.all %}
 <table class="table align-middle">

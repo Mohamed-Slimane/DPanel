@@ -47,7 +47,6 @@ class new(View):
         if form.is_valid():
             database = form.save(commit=False)
             database.password = str(uuid.uuid4()).replace('-', '')[:15]
-
             try:
                 subprocess.run(['mysql', '-e', f'CREATE DATABASE {database.name};'])
                 subprocess.run(['mysql', '-e',

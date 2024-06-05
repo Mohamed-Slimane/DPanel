@@ -4,7 +4,7 @@
 <div class="container">
     <div class="bg-white rounded shadow-sm py-1 px-3 my-4">
         <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand" href="{% url 'apps' %}">{{config.company_name}}</a>
+            <a class="navbar-brand" href="{% url 'apps' %}">DPanel</a>
             <button type="button" class="fs-4 navbar-toggler border-0 p-0 shadow-none" data-bs-toggle="offcanvas" data-bs-target="#MainNavbar">
                 <i class="bi bi-list pointer"></i>
             </button>
@@ -14,7 +14,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav w-100">
                         {% if request.user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'apps' %}">
@@ -33,92 +33,110 @@
                         </li>
                         {% endif %}
                     </ul>
+                    <ul class="navbar-nav me-lg-2">
+                        <li class="nav-item">
+                            {% if user.is_authenticated %}
+                            <div class="nav-link dropdown" title="{% trans 'Profile' %}">
+                                <div class="pointer" id="dropdownProfile" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person fs-5"></i>
+                                </div>
+                                <ul class="dropdown-menu end-0 dropdown-menu-end" aria-labelledby="dropdownProfile">
+                                    <li>
+                                        <a class="dropdown-item disabled">
+                                            {{request.user}}
+                                            <i class="bi bi-person float-end"></i>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'password_change' %}">
+                                            {% translate 'Password' %}
+                                            <i class="bi bi-shield-lock float-end"></i>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'logout' %}">
+                                            {% translate 'Logout' %}
+                                            <i class="bi bi-box-arrow-right float-end"></i>
+                                        </a>
+                                    </li>
+                                    <li><div class="dropdown-divider"></div></li>
+                                    <li>
+                                        <button type="button" id="check-update" class="dropdown-item text-center">
+                                            {% translate 'Check updates' %}
+                                            <i class="bi bi-arrow-repeat float-end"></i>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            {% endif %}
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link dropdown" title="{% trans 'Language' %}">
+                                <div class="pointer" id="dropdownLanguage" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-translate fs-5"></i>
+                                </div>
+                                <ul class="dropdown-menu end-0 dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                                    {% for language in languages %}
+                                    <li>
+                                        <a class="dropdown-item {% if language.code == LANGUAGE_CODE %} active{% endif %}" href="/{{ language.code }}/{{request.get_full_path_info|slice:'4:'}}">
+                                            {{ language.name_local }}
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div>
-                {% if user.is_authenticated %}
-                <div class="dropdown dropdown-hover d-inline-block me-2">
-                    <div class="pointer"  id="dropdownProfile" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person fs-5"></i>
-                    </div>
-                    <ul class="dropdown-menu end-0 dropdown-menu-end" aria-labelledby="dropdownProfile">
-                        <li>
-                            <a class="dropdown-item disabled">
-                                {{request.user}}
-                                <i class="bi bi-person float-end"></i>
-                            </a>
-                        </li>
-                        <li class="dropdown-divider"></li>
-                        <li>
-                            <a class="dropdown-item" href="{% url 'password_change' %}">
-                                {% translate 'Password' %}
-                                <i class="bi bi-shield-lock float-end"></i>
-                            </a>
-                        </li>
-                        <li class="dropdown-divider"></li>
-                        <li>
-                            <a class="dropdown-item" href="{% url 'logout' %}">
-                                {% translate 'Logout' %}
-                                <i class="bi bi-box-arrow-right float-end"></i>
-                            </a>
-                        </li>
-                        <li><div class="dropdown-divider"></div></li>
-                        <li>
-                            <button type="button" id="check-update" class="dropdown-item text-center">
-                                {% translate 'Check updates' %}
-                                <i class="bi bi-arrow-repeat float-end"></i>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-                {% endif %}
-                <div class="dropdown dropdown-hover d-inline-block" title="{% trans 'Language' %}">
-                    <div class="pointer" id="dropdownLanguage" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-translate fs-5"></i>
-                    </div>
-                    <ul class="dropdown-menu end-0 dropdown-menu-end" aria-labelledby="dropdownLanguage">
-                        {% for language in languages %}
-                        <li>
-                            <a class="dropdown-item {% if language.code == LANGUAGE_CODE %} active{% endif %}" href="/{{ language.code }}/{{request.get_full_path_info|slice:'4:'}}">
-                                {{ language.name_local }}
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="dropdown dropdown-hover d-inline-block ms-2">
-                    <div class="pointer " id="dropdownDonate" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div data-bs-toggle="tooltip" data-bs-target="#donateModal">
-                            <i class="bi bi-paypal fs-5"></i>
-                        </div>
-                    </div>
-                    <ul class="dropdown-menu end-0 dropdown-menu-end" aria-labelledby="dropdownDonate">
-                        <li>
-                            <div class="text-center fw-bold px-2 text-muted small">
-                                {% translate 'Support the developer' %}
-                            </div>
-                        </li>
-                        <li><div class="dropdown-divider"></div></li>
-                        <li>
-                            <a class="dropdown-item text-center" href="http://ufly.cc/paydon" target="_blank">
-                                <img src="{% static 'images/pp-logo.png' %}" class="w-100" alt="Donate at PayPal" />
-                            </a>
-                        </li>
-                        <li><div class="dropdown-divider"></div></li>
-                        <li>
-                            <a class="dropdown-item text-center" target="_blank" href="http://ufly.cc/buymeacoffee">
-                                <img src="{% static 'images/bmc-button.png' %}" class="w-100" alt="Donate at buymeacoffee.com" />
-                            </a>
-                        </li>
-                        <li><div class="dropdown-divider"></div></li>
-                        <li>
-                            <a class="dropdown-item text-center" href='http://ufly.cc/kofi' target='_blank'>
-                                <img src="{% static 'images/ko-fi.png' %}" class="w-100" alt='Donate at ko-fi.com' />
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <button type="button" class="btn btn-primary btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#donateModal">
+                    {% translate 'Support' %}
+                    <i class="bi bi-paypal"></i>
+                </button>
             </div>
         </nav>
+    </div>
+</div>
+<div class="modal fade" id="donateModal" tabindex="-1" aria-labelledby="donateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="donateModalLabel">
+                    {% translate 'Support the developer' %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    {% translate 'The developer is very grateful for your support to make this project up to date' %}
+                </div>
+                <div class="border-top my-3"></div>
+                <div class="text-center">
+                    <a href="http://ufly.cc/paydon" target="_blank">
+                        <img src="{% static 'images/pp-logo.png' %}" width="150px" alt="Donate at PayPal" />
+                    </a>
+                </div>
+                <div class="border-top my-3"></div>
+                <div class="text-center">
+                    <a href="http://ufly.cc/buymeacoffee" target="_blank">
+                        <img src="{% static 'images/bmc-button.png' %}" width="150px" alt="Donate at buymeacoffee.com" />
+                    </a>
+                </div>
+                <div class="border-top my-3"></div>
+                <div class="text-center">
+                    <a href='http://ufly.cc/kofi' target='_blank'>
+                        <img src="{% static 'images/ko-fi.png' %}" width="150px" alt='Donate at ko-fi.com' />
+                    </a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {% translate 'Close' %}
+                </button>
+            </div>
+        </div>
     </div>
 </div>

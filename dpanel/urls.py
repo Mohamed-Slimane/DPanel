@@ -19,11 +19,13 @@ urlpatterns = [
     path('apps/<str:serial>/edit/', super_required(app_views.app_edit.as_view()), name="app_edit"),
     path('apps/<str:serial>/restart/', super_required(app_views.app_restart.as_view()), name="app_restart"),
     path('apps/<str:serial>/status/', super_required(app_views.app_status.as_view()), name="app_status"),
-    path('apps/<str:serial>/ssl/new/', super_required(app_views.app_certificate_new.as_view()), name="app_ssl_new"),
-    path('apps/<str:serial>/user/new/', super_required(app_views.app_user_new.as_view()), name="app_user_new"),
     path('apps/<str:serial>/delete/', super_required(app_views.app_delete.as_view()), name="app_delete"),
+
     path('apps/<str:serial>/config/', super_required(app_views.app_config.as_view()), name="app_config"),
+
     path('apps/<str:serial>/certificate/', super_required(app_views.app_certificates.as_view()), name="app_certificates"),
+    path('apps/<str:serial>/ssl/new/', super_required(app_views.app_certificate_new.as_view()), name="app_ssl_new"),
+
     path('apps/<str:serial>/files/', super_required(app_views.app_files.as_view()), name="app_files"),
     path('apps/<str:serial>/files/ajax/', super_required(app_views.app_files_ajax.as_view()), name="app_files_ajax"),
     path('apps/files/upload/ajax/', super_required(app_views.app_files_ajax_upload.as_view()), name="app_files_ajax_upload"),
@@ -37,8 +39,8 @@ urlpatterns = [
 
     # Mysql
     path('mysql/', super_required(mysql_views.databases.as_view()), name="mysql_databases"),
-    path('mysql/<str:serial>/', super_required(mysql_views.database.as_view()), name="mysql_database"),
     path('mysql/new/', super_required(mysql_views.new.as_view()), name="mysql_database_new"),
+    path('mysql/<str:serial>/', super_required(mysql_views.database.as_view()), name="mysql_database"),
     path('mysql/<str:serial>/delete/', super_required(mysql_views.delete.as_view()), name="mysql_database_delete"),
     path('mysql/<str:serial>/password/change/', super_required(mysql_views.password_change.as_view()), name="mysql_database_password_change"),
 

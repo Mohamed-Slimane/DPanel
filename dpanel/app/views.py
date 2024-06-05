@@ -117,34 +117,6 @@ class app_edit(View):
         return render(request, 'app/edit.html', {'app': app, 'form': form})
 
 
-class app_user_new(View):
-    def post(self, request, serial):
-        app = App.objects.get(serial=serial)
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        superuser = request.POST.get('superuser')
-        if superuser == 'on':
-            is_superuser = True
-        else:
-            is_superuser = False
-        if username and password and email:
-            try:
-                from django.contrib.auth.models import User
-                cmd = f"from django.contrib.auth.models import User; User.objects.create_user(username='{username}', email='{email}', password='{password}', is_superuser={is_superuser})"
-                full_command = f"sudo {app.venv_path}/bin/python {app.www_path}/manage.py shell -c \"{cmd}\""
-                # Execute the command using os.system()
-                os.system(full_command)
-
-                messages.success(request, full_command)
-                messages.success(request, _('User created successfully for app {}').format(app.name))
-            except Exception as e:
-                messages.error(request, str(e))
-        else:
-            messages.error(request, _('Please enter a username and password and email and try again.'))
-        return render(request, 'app/certificate.html', {'app': app})
-
-
 class app_restart(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
@@ -411,7 +383,7 @@ class server_restart(View):
     def get(self, request):
         try:
             subprocess.run(['reboot'])
-            messages.success(request, _('Server restarted successfully'))
+            messages.success(request, _('Server restarted successfully, please wait the server rebooting'))
         except subprocess.CalledProcessError as e:
             messages.error(request, _('Server restart failed'))
         return redirect('apps')
