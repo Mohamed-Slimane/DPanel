@@ -45,11 +45,40 @@
 
 {% block content %}
 <div class="bg-white shadow-sm p-3 rounded mb-3">
-    <div class="h5">
-        {% trans 'Password' %}
+    <div class="h4">
+        {% trans 'Connection details' %}
     </div>
-    <div class="blur-group input-group input-group-sm border rounded-pill">
-        <input class="blur-text blured-text form-control rounded-start-pill border-0" value="{{database.password}}" readonly>
+    <div class="row g-3">
+        <div class="col-lg-4 col-12">
+            <div class="input-group input-group-sm rounded-pill">
+                <div class="input-group-text rounded-start-pill">
+                    {% trans 'Database' %}
+                </div>
+                <input class="form-control" value="{{database.name}}" readonly>
+                <button type="button" class="copy-this pointer btn btn-dark rounded-end-pill"
+                        onclick="copy_this('{{database.name}}', '{% trans 'Database name copied' %}')">
+                    <i class="bi bi-clipboard"></i>
+                </button>
+            </div>
+        </div>
+        <div class="col-lg-4 col-12">
+            <div class="input-group input-group-sm rounded-pill">
+                <div class="input-group-text rounded-start-pill">
+                    {% trans 'User' %}
+                </div>
+                <input class="form-control" value="{{database.username}}" readonly>
+                <button type="button" class="copy-this pointer btn btn-dark rounded-end-pill"
+                        onclick="copy_this('{{database.username}}', '{% trans 'Database user name copied' %}')">
+                    <i class="bi bi-clipboard"></i>
+                </button>
+            </div>
+        </div>
+        <div class="col-lg-4 col-12">
+            <div class="blur-group input-group input-group-sm rounded-pill">
+        <div class="input-group-text rounded-start-pill">
+            {% trans 'Password' %}
+        </div>
+        <input class="blur-text blured-text form-control" value="{{database.password}}" readonly>
         <button type="button" class="remove-blur btn btn-warning" data-text="{{database.password}}">
             <i class="bi bi-eye"></i>
         </button>
@@ -57,6 +86,8 @@
                 onclick="copy_this('{{database.password}}', '{% trans 'Database user password copied' %}')">
             <i class="bi bi-clipboard"></i>
         </button>
+    </div>
+        </div>
     </div>
 </div>
 {% if status.mysql_status %}
