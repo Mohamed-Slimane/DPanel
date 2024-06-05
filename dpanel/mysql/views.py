@@ -178,4 +178,4 @@ class password_change(View):
             messages.success(request, f"Password for user '{database.username}' changed successfully!")
         except subprocess.CalledProcessError as e:
             messages.error(request, f"Failed to change password: {e}")
-        return redirect('mysql_databases')
+        return redirect('mysql_database', database.serial)

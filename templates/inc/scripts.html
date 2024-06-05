@@ -4,23 +4,53 @@
 
     jQuery('[href="{{request.path}}"]').addClass('fw-bold');
 
-    function open_link_confirm(u, title='{% trans 'Are you sure to continue?' %}', text='{% trans 'This risk cannot be reversed.' %}') {
-        Swal.fire({
-            title: title,
-            text: text,
-            showDenyButton: true,
-            confirmButtonText: '{% trans "Continue" %}',
-            denyButtonText: '{% trans "Cancel" %}',
-            confirmButtonColor: '#1d1e2c',
-            denyButtonColor: '#dc3545',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                jQuery('.loading-preloader').show();
-                location.href = u;
-            }else if(result.isDenied) {
-                return false;
-            }
-        });
+    function open_link_confirm(u, title, text, captcha) {
+        title = title || '{% trans 'Are you sure to continue?' %}';
+        text = text || '{% trans 'This risk cannot be reversed.' %}';
+        captcha = captcha || false;
+        if(captcha){
+            captcha_number = Math.floor(1000 + Math.random() * 9000);
+            Swal.fire({
+                title: title,
+                html: text + '<br><br><div class="h4 fw-bold text-danger">' + captcha_number + '</div>{% trans "Enter the number in the box below to confirm" %}',
+                icon: 'warning',
+                input: 'number',
+                inputAttributes: {
+                    autocapitalize: 'off',
+                },
+                showCancelButton: true,
+                confirmButtonText: '{% trans "Continue" %}',
+                denyButtonText: '{% trans "Cancel" %}',
+                confirmButtonColor: '#1d1e2c',
+                denyButtonColor: '#dc3545',
+                inputValidator: (value) => {
+                    if (value == captcha_number) {
+                        jQuery('.loading-preloader').show();
+                        location.href = u;
+                    }else{
+                        return '{% trans "Wrong captcha" %}';
+                    }
+                }
+            })
+        }else{
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: 'warning',
+                showDenyButton: true,
+                confirmButtonText: '{% trans "Continue" %}',
+                denyButtonText: '{% trans "Cancel" %}',
+                confirmButtonColor: '#1d1e2c',
+                denyButtonColor: '#dc3545',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    jQuery('.loading-preloader').show();
+                    location.href = u;
+                }else if(result.isDenied) {
+                    return false;
+                }
+            });
+        }
     }
 
     function copy_this(value, message=false){

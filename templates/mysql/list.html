@@ -55,14 +55,7 @@
                             </li>
                             <li><div class="dropdown-divider"></div></li>
                             <li>
-                                <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'mysql_database_password_change' database.serial %}', '{% trans 'User' %}: {{database.username}}', '{% trans 'Do you want to change password for this database user?' %}')">
-                                    {% trans 'Password' %}
-                                    <i class="bi bi-arrow-clockwise float-end"></i>
-                                </span>
-                            </li>
-                            <li><div class="dropdown-divider"></div></li>
-                            <li>
-                                <span class="dropdown-item pointer text-danger" onclick="open_link_confirm('{% url 'mysql_database_delete' database.serial %}')">
+                                <span class="dropdown-item pointer text-danger" onclick="open_link_confirm('{% url 'mysql_database_delete' database.serial %}', '{% trans 'Delete database' %}: {{database.name}}', '', true)">
                                     {% trans 'Delete' %}
                                     <i class="bi bi-trash float-end"></i>
                                 </span>
