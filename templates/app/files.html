@@ -76,8 +76,18 @@
             success: function(data){
                 jQuery('#files').html(data);
                 jQuery('#upload-path').val(jQuery('#path').val());
+                jQuery('.loading-preloader-2').hide();
             }
         });
     }
+
+    jQuery('body').on('keydown', function(e){
+        keyCode = e.keyCode || e.which;
+        if(keyCode == 116){
+            e.preventDefault();
+            jQuery('.loading-preloader-2').show();
+            reload_folder();
+        }
+    });
 </script>
 {% endblock %}

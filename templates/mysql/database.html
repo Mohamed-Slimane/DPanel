@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %} {% trans 'Databases' %} - MySql - {{database.name}} {% endblock %}
-{% block page_title %}{% trans 'Databases' %} - MySql - {{database.name}} {% endblock %}
+{% block title %} MySql - {{database.name}} {% endblock %}
+{% block page_title %} <a href="{% url 'mysql_databases' %}">MySQL</a> - {{database.name}} {% endblock %}
 
 {% block title_button %}
 <form class="d-none" method="post" action="{% url 'mysql_backup_import' database.serial %}" enctype="multipart/form-data">
