@@ -290,7 +290,7 @@ class app_files_ajax(View):
                 dirs.append(f)
         files.sort()
         dirs.sort()
-        return render(request, 'file/files-list.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path,
+        return render(request, 'file/list.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path,
                                                            'parent': pathlib.Path(path).parent.absolute()})
 
 
