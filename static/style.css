@@ -11,7 +11,9 @@ a{
     color: #01204e;
     text-decoration: none;
 }
-
+#files .folder{
+    background: #f4f5fb;
+}
 .boxed-image{
     aspect-ratio: 1/1;
     object-fit: cover;

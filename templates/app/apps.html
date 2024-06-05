@@ -35,6 +35,15 @@
         </li>
         <li><hr class="dropdown-divider"></li>
         {% endif %}
+        {% if status.mysql_status %}
+        <li>
+            <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'mysql_restart' %}', '{% trans 'Restart' %}', '{% translate 'Mysql server will be restarted immediately and al apps will be stopped until restarting' %}')">
+                Mysql
+                <i class="bi bi-database float-end"></i>
+            </span>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+        {% endif %}
         <li>
             <span class="dropdown-item pointer text-danger" onclick="open_link_confirm('{% url 'server_restart' %}', '{% trans 'Restart' %}', '{% trans 'The server will be restarted immediately and al apps will be stopped until restarting' %}')">
                 {% translate 'Server' %}

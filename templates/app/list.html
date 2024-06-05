@@ -8,7 +8,7 @@
             <th>{% translate 'Domain' %}</th>
             <th>{% translate 'Port' %}</th>
             <th style="min-width: 300px">{% translate 'Environment' %}</th>
-            <th style="width: 150px">{% translate 'SSL' %}</th>
+            <th style="width: 150px">{% translate 'SSL' %} <small class="text-muted">(beta)</small></th>
             <th></th>
         </tr>
         </thead>
@@ -32,29 +32,34 @@
                 <td>
                     <div class="input-group input-group-sm">
                         <input type="text" class="form-control rounded-start-pill" value="source {{app.venv_path}}/bin/activate && cd {{app.www_path}}" readonly dir="ltr">
-                        <div class="input-group-text dropdown rounded-end-pill">
+                        <button type="button" class="btn btn-light border" data-bs-toggle="tooltip" title="{% trans 'Copy command' %}" onclick="jQuery(this).parents('.input-group').find('input').select();copy_this('source {{app.venv_path}}/bin/activate && cd {{app.www_path}}','{% trans 'Paste the command in the terminal to activate virtual environment of this app' %}')">
+                            <i class="bi bi-clipboard text-danger"></i>
+                        </button>
+                        <a href="{% url 'app_files' app.serial %}" class="btn btn-light border" target="_blank" data-bs-toggle="tooltip" title="{% trans 'File manager' %}">
+                            <i class="bi bi-folder float-end text-success"></i>
+                        </a>
+                        <div class="input-group-text rounded-end-pill dropdown">
                             <i class="bi bi-three-dots-vertical pointer" data-bs-toggle="dropdown"></i>
-                            <ul class="dropdown-menu">
-                               <li>
-                                   <span class="dropdown-item pointer" onclick="jQuery(this).parents('.input-group').find('input').select();copy_this('source {{app.venv_path}}/bin/activate && cd {{app.www_path}}','{% trans 'Paste the command in the terminal to activate virtual environment of this app' %}')">
-                                       <i class="bi bi-terminal float-end text-secondary"></i>
-                                       {% trans 'Venv command' %}
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li class="dropdown-item">
+                                    <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'app_requirements_install' app.serial %}', '{% trans 'Install requirements' %}', '{% trans 'All libraries in requirements will be installed' %}')">
+                                        {% translate 'Requirements' %}
+                                        <i class="bi bi-box-arrow-in-right float-end"></i>
                                     </span>
-                               </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a href="{% url 'app_files' app.serial %}" class="dropdown-item" target="_blank">
-                                        <i class="bi bi-folder float-end text-success"></i>
-                                        {% trans 'File manager' %}
-                                    </a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </td>
                 <td>
-                    <a href="{% url 'app_certificates' app.serial %}" class="btn btn-{% if app.certificate_app.all %}success{% else %}light border{% endif %} btn-sm rounded-pill" data-bs-toggle="tooltip" title="{% if app.certificate_app.all %}{% trans 'Installed' %}{% else %}{% trans 'Not installed' %}{% endif %}">
+                    <a href="{% url 'app_certificates' app.serial %}" class="btn btn-{% if app.certificate_app.all %}success{% else %}light border{% endif %} btn-sm rounded-pill"  >
+                        {% if app.certificate_app.all %}
+                        {% translate 'Installed' %}
+                        <i class="bi bi-shield-check"></i>
+                        {% else %}
+                        {% translate 'Not installed' %}
                         <i class="bi bi-shield"></i>
+                        {% endif %}
                     </a>
                 </td>
                 <td>

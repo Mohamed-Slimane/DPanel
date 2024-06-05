@@ -21,6 +21,8 @@ urlpatterns = [
     path('apps/<str:serial>/status/', super_required(app_views.app_status.as_view()), name="app_status"),
     path('apps/<str:serial>/delete/', super_required(app_views.app_delete.as_view()), name="app_delete"),
     path('apps/<str:serial>/log/', super_required(app_views.app_log.as_view()), name="app_log"),
+    path('apps/<str:serial>/pip/requirements/', super_required(app_views.requirements_install.as_view()), name="app_requirements_install"),
+    path('apps/<str:serial>/pip/install/', super_required(app_views.pip_install.as_view()), name="app_pip_install"),
 
     path('apps/<str:serial>/config/', super_required(app_views.app_config.as_view()), name="app_config"),
 
@@ -36,8 +38,9 @@ urlpatterns = [
     path('apps/files/manage/download/', super_required(app_views.file_download.as_view()), name="app_file_download"),
     path('apps/files/manage/edit/', super_required(app_views.file_edit.as_view()), name="app_file_edit"),
 
-    path('restart/nginx/', super_required(app_views.nginx_restart.as_view()), name="nginx_restart"),
     path('restart/uwsgi/', super_required(app_views.uwsgi_restart.as_view()), name="uwsgi_restart"),
+    path('restart/nginx/', super_required(app_views.nginx_restart.as_view()), name="nginx_restart"),
+    path('restart/mysql/', super_required(app_views.mysql_restart.as_view()), name="mysql_restart"),
     path('restart/server/', super_required(app_views.server_restart.as_view()), name="server_restart"),
 
     # Mysql

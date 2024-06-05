@@ -16,7 +16,7 @@
 <div class="row g-3 mb-3">
 {% for dir in dirs %}
     <div class="col-lg-3 col-md-4 col-6">
-    <div class="border text-bg-secondary rounded pointer position-relative">
+    <div class="border folder rounded pointer position-relative">
         <div class="clickable-folder p-2" data-path="{{path}}/{{dir}}">
             <i class="bi bi-folder"></i>
             {{dir|truncatechars:15}}
@@ -51,6 +51,9 @@
                         {% if file.lower|slice:'-3:' == 'zip' %}bi-file-earmark-zip{% endif %}"></i>
                     {{file|truncatechars:15}}
                     <i class="bi bi-three-dots-vertical float-end"></i>
+                    <span class="small float-end">
+                        {{file|slice:'-3:'}}
+                    </span>
                 </div>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
@@ -63,11 +66,11 @@
                     <li>
                         <a class="dropdown-item" href="{% url 'app_file_download'%}?file={{path}}/{{file}}" target="_blank">
                             {% trans 'Download' %}
-                            <i class="bi bi-download float-end"></i>
+                            <i class="bi bi-arrow-bar-down float-end"></i>
                         </a>
                     </li>
-                    {% if file.lower|slice:'-3:' == "txt" or file.lower|slice:'-2:' == "py" or file.lower|slice:'-3:' == "log" or file.lower|slice:'-3:' == "ini" or file.lower|slice:'-4:' == "html" or file.lower|slice:'-3:' == "css" or file.lower|slice:'-2:' == "js" or file.lower|slice:'-4:' == "json" %}
                     <li><hr class="dropdown-divider"></li>
+                    {% if file.lower|slice:'-3:' == "txt" or file.lower|slice:'-2:' == "py" or file.lower|slice:'-3:' == "log" or file.lower|slice:'-3:' == "ini" or file.lower|slice:'-4:' == "html" or file.lower|slice:'-3:' == "css" or file.lower|slice:'-2:' == "js" or file.lower|slice:'-4:' == "json" %}
                     <li>
                         <a class="dropdown-item" href="{% url 'app_file_edit'%}?file={{path}}/{{file}}" target="_blank">
                             {% trans 'Edit' %}

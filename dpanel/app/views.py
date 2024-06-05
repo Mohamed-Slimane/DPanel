@@ -1,25 +1,27 @@
+import imghdr
+import mimetypes
 import os
 import pathlib
 import shutil
 import socket
 import subprocess
 import uuid
-from datetime import datetime
 
-from django.contrib.auth.hashers import make_password
+from django.contrib import messages
+from django.http import FileResponse
+from django.http import HttpResponse
 from django.http import JsonResponse
+from django.shortcuts import redirect
 from django.shortcuts import render
 from django.utils import timezone
-from django.views import View
-from django.contrib import messages
-from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
+from django.views import View
+
 from dpanel.forms import AppForm, AppEditForm
-from dpanel.functions import create_app_server_block, create_venv, create_app, create_uwsgi_config, get_option, \
+from dpanel.functions import create_app_server_block, create_venv, create_uwsgi_config, get_option, \
     install_uwsgi_server, install_nginx_server, paginator, create_startup_file
 from dpanel.models import App, AppCertificate
 from dpanel.ssl import create_app_ssl, install_certbot
-from django.http import HttpResponse
 
 
 class apps(View):
@@ -83,8 +85,8 @@ class app_new(View):
             else:
                 pass
             app.save()
-            os.system(f'sudo systemctl restart nginx')
-            os.system(f'sudo systemctl restart uwsgi.service')
+            os.system(f'systemctl restart nginx')
+            os.system(f'systemctl restart uwsgi.service')
             messages.add_message(request, messages.SUCCESS, _('App successfully created'))
             return redirect('apps')
         else:
@@ -129,6 +131,34 @@ class app_log(View):
         with open(file, "r") as file:
             text = file.read()
         return render(request, 'file/preview.html', {'text': text, 'filename': filename})
+
+
+class requirements_install(View):
+    def get(self, request, serial):
+        app = App.objects.get(serial=serial)
+        requirements_file = app.www_path + '/requirements.txt'
+        try:
+            with open(requirements_file, 'r', encoding='utf8') as f:
+                pass
+            if os.path.isfile(requirements_file):
+                subprocess.call([app.venv_path+'/bin/pip', 'install', '-r', requirements_file])
+                messages.success(request, _('Successfully installed requirements for app <b>{}</b>.').format(app.name))
+            else:
+                messages.error(request, _('File <b>requirements.txt</b> not found.'))
+        except subprocess.CalledProcessError as e:
+            messages.error(request, _('Error installing requirements: {}').format(e.stderr))
+        return redirect('apps')
+
+
+class pip_install(View):
+    def get(self, request, serial):
+        app = App.objects.get(serial=serial)
+        lib = request.GET.get('lib')
+        try:
+            subprocess.call(['pip', 'install', app.venv_path + lib])
+            return JsonResponse({'success': True, 'message': _('Successfully installed library <b>{}</b>.').format(lib)})
+        except subprocess.CalledProcessError as e:
+            return JsonResponse({'success': False, 'message': _('Error installing library: {}').format(e.stderr)})
 
 
 class app_restart(View):
@@ -189,7 +219,7 @@ class app_certificate_new(View):
             if expiration_date:
                 AppCertificate.objects.create(app=app, expire_date=expiration_date)
             messages.success(request, _('Certificate created successfully'))
-            subprocess.run("sudo systemctl reload nginx", shell=True, check=True)
+            subprocess.run("systemctl reload nginx", shell=True, check=True)
         except subprocess.CalledProcessError as e:
             messages.error(request, _('Certificate created failed'))
             messages.warning(request, str(e))
@@ -205,7 +235,7 @@ class app_config(View):
             with open(app.nginx_config, 'w') as f:
                 f.write(config_code)
             shutil.copy(app.nginx_config, f'/etc/nginx/sites-enabled/{app.serial}.conf')
-            os.system(f'sudo systemctl restart nginx')
+            os.system(f'systemctl restart nginx')
             messages.success(request, _('App configuration updated successfully'))
         except:
             messages.error(request, _('Error in updating django_app configuration'))
@@ -252,10 +282,10 @@ class app_delete(View):
         except Exception as e:
             pass
         try:
-            os.system(f'sudo certbot delete --cert-name {app.domain}')
+            os.system(f'certbot delete --cert-name {app.domain}')
         except Exception as e:
             pass
-        os.system(f'sudo systemctl restart nginx')
+        os.system(f'systemctl restart nginx')
         messages.success(request, _('App deleted successfully'))
         return redirect('apps')
 
@@ -272,7 +302,7 @@ class app_files(View):
             else:
                 dirs.append(f)
         return render(request, 'file/files.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path,
-                                                  'parent': pathlib.Path(path).parent.absolute()})
+                                                   'parent': pathlib.Path(path).parent.absolute()})
 
 
 class app_files_ajax(View):
@@ -291,19 +321,33 @@ class app_files_ajax(View):
         files.sort()
         dirs.sort()
         return render(request, 'file/list.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path,
-                                                           'parent': pathlib.Path(path).parent.absolute()})
+                                                  'parent': pathlib.Path(path).parent.absolute()})
 
 
 class app_files_ajax_upload(View):
     def post(self, request):
-        print(request.POST.get)
         serial = request.POST.get('app')
         app = App.objects.get(serial=serial)
         path = request.POST.get('path')
-        print(path, '   *****  ', app.www_path)
         if not path.startswith(app.www_path):
             return JsonResponse({"error": 1, "success": False})
         try:
+            if 'remote_file' in request.POST:
+                url = request.POST.get('remote_file')
+                import urllib.request
+                try:
+                    response = urllib.request.urlopen(url)
+                    file_content = response.read()
+                    filename = os.path.basename(url)
+                    filename = filename.split('?')[0]
+                    file_path = os.path.join(path, filename)
+                    with open(file_path, 'wb') as f:
+                        f.write(file_content)
+                    return JsonResponse({'error': 0, 'success': True, 'message': 'File uploaded successfully.'})
+                except urllib.error.URLError as e:
+                    return JsonResponse(
+                        {'error': 1, 'success': False, 'message': 'Failed to download the file: ' + str(e)})
+
             file = request.FILES['file']
             if file.name:
                 fn = os.path.basename(file.name)
@@ -355,10 +399,22 @@ class file_preview(View):
         if not os.path.isfile(file):
             return redirect('apps')
         filename = os.path.basename(file)
-        with open(file, "r") as file:
-            text = file.read()
-
-        return render(request, 'file/preview.html', {'text': text, 'filename': filename})
+        try:
+            if file.endswith('.jpg') or file.endswith('.png') or file.endswith('.jpeg') or file.endswith(
+                    '.svg') or file.endswith('.gif') or file.endswith('.webp') or file.endswith(
+                '.ico') or file.endswith('.bmp') or file.endswith('.tiff'):
+                return HttpResponse(open(file, 'rb'), content_type=mimetypes.guess_type(file)[0])
+            if file.endswith('.pdf'):
+                return FileResponse(open(file, 'rb'), content_type=mimetypes.guess_type(file)[0])
+            if file.endswith('.mp4') or file.endswith('.mkv') or file.endswith('.webm') or file.endswith(
+                    '.mp3') or file.endswith('.m4a') or file.endswith('.ogg') or file.endswith('.avi') or file.endswith(
+                '.wmv') or file.endswith('.mov') or file.endswith('.flv') or file.endswith('.3gp'):
+                return FileResponse(open(file, 'rb'), content_type=mimetypes.guess_type(file)[0])
+            with open(file, "r") as file:
+                text = file.read()
+            return render(request, 'file/preview.html', {'text': text, 'filename': filename})
+        except:
+            return HttpResponse(_('Cannot preview this file'))
 
 
 class file_download(View):
@@ -370,7 +426,7 @@ class file_download(View):
         with open(file, "r") as file:
             text = file.read()
 
-        response = HttpResponse(text, content_type='text/plain')
+        response = HttpResponse(text, content_type=mimetypes.guess_type(file)[0])
         response['Content-Disposition'] = f'attachment; filename={filename}'
         return response
 
@@ -399,8 +455,8 @@ class uwsgi_restart(View):
     def get(self, request):
         try:
             # subprocess.call(['uwsgi', '--reload', '/path/to/uwsgi.ini'])
-            os.system(f'sudo systemctl restart nginx')
-            os.system(f'sudo systemctl restart uwsgi')
+            os.system(f'systemctl restart nginx')
+            os.system(f'systemctl restart uwsgi')
             messages.success(request, _('uwsgi restarted successfully'))
         except subprocess.CalledProcessError as e:
             messages.error(request, _('uwsgi restart failed'))
@@ -411,10 +467,21 @@ class uwsgi_restart(View):
 class nginx_restart(View):
     def get(self, request):
         try:
-            os.system(f'sudo systemctl restart nginx')
+            os.system(f'systemctl restart nginx')
             messages.success(request, _('nginx restarted successfully'))
         except subprocess.CalledProcessError as e:
             messages.error(request, _('nginx restart failed'))
+
+        return redirect('apps')
+
+
+class mysql_restart(View):
+    def get(self, request):
+        try:
+            os.system(f'systemctl restart mysql')
+            messages.success(request, _('mysql restarted successfully'))
+        except subprocess.CalledProcessError as e:
+            messages.error(request, _('mysql restart failed'))
 
         return redirect('apps')
 

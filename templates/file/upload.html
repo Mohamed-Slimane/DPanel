@@ -1,9 +1,34 @@
-<form method="post" action="{% url 'app_files_ajax_upload' %}"
-      class="dropzone text-primary rounded"
-      id="file-upload-dropzone">
-    <input name="path" id="upload-path" value="{{path}}" hidden>
-    {% csrf_token %}
-</form>
+{% load i18n %}
+<div class="bg-white shadow-sm rounded p-3">
+    <form method="post" action="{% url 'app_files_ajax_upload' %}" id="remote-form" class="mb-3">
+        <div class="input-group mx-auto" style="width: 500px; max-width: 100%;">
+            <input class="form-control" type="url" name="remote_file" placeholder="{% trans 'Get file from URL' %}">
+            <input type="hidden" name="path" value="{{path}}">
+            <input type="hidden" name="app" value="{{app.serial}}">
+            {% csrf_token %}
+            <button class="btn btn-light border" type="submit" name="remote">
+                <i class="bi bi-cloud-arrow-down"></i>
+            </button>
+        </div>
+    </form>
+    <form method="post" action="{% url 'app_files_ajax_upload' %}" class="dropzone border rounded" id="file-upload-dropzone">
+        <input name="path" id="upload-path" value="{{path}}" hidden>
+        {% csrf_token %}
+    </form>
+</div>
+<script>
+    jQuery('body').on('submit', '#remote-form', function(e){
+        e.preventDefault();
+        jQuery.ajax({
+            type: "POST",
+            url: jQuery(this).attr('action'),
+            data: jQuery(this).serialize(),
+            success: function(data){
+                reload_folder();
+            }
+        });
+    });
+</script>
 <script>
     Dropzone.autoDiscover = false;
     jQuery(document).ready(function () {

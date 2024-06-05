@@ -11,9 +11,7 @@
     </div>
     {% include 'inc/preloader2.html' %}
 </div>
-<div class="bg-white shadow-sm rounded p-3">
-    {% include 'file/upload.html' %}
-</div>
+{% include 'file/upload.html' %}
 
 <script>
     jQuery('body').on('click', '.clickable-folder', function(){
@@ -80,14 +78,5 @@
             }
         });
     }
-
-    jQuery('body').on('keydown', function(e){
-        keyCode = e.keyCode || e.which;
-        if(keyCode == 116){
-            e.preventDefault();
-            jQuery('.loading-preloader-2').show();
-            reload_folder();
-        }
-    });
 </script>
 {% endblock %}

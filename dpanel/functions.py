@@ -23,7 +23,7 @@ def create_app_server_block(app):
         pathlib.Path(available).mkdir(parents=True, exist_ok=True)
         pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
         nginx_conf = f'{available}/{app.serial}.conf'
-        os.system(f'sudo touch {nginx_conf}')
+        os.system(f'touch {nginx_conf}')
         conf = '''
 upstream wsgi_server {{
     server 0.0.0.0:{app.port};
@@ -61,7 +61,7 @@ server {{
         with open(nginx_conf, 'w') as f:
             f.write(conf)
             app.nginx_config = nginx_conf
-        os.system(f"sudo ln -s {nginx_conf} {enabled}/{app.serial}.conf")
+        os.system(f"ln -s {nginx_conf} {enabled}/{app.serial}.conf")
         return True
     except Exception as e:
         print(str(e))
@@ -76,7 +76,7 @@ def create_uwsgi_config(app):
         pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
         uwsgi_conf = f'{available}/{app.serial}.ini'
         module = "{}:{}".format(str(app.startup_file).replace('.py', ''), app.entry_point)
-        os.system(f'sudo touch {uwsgi_conf}')
+        os.system(f'touch {uwsgi_conf}')
         conf = f"""
 [uwsgi]
 # plugin = http
@@ -95,7 +95,7 @@ venv = {app.venv_path}
 """
         with open(uwsgi_conf, 'w') as f:
             f.write(conf)
-        os.system(f"sudo ln -s {uwsgi_conf} {enabled}/{app.serial}.ini")
+        os.system(f"ln -s {uwsgi_conf} {enabled}/{app.serial}.ini")
         app.uwsgi_config = f'{enabled}/{app.serial}.ini'
         return True
     except Exception as e:
@@ -105,7 +105,7 @@ venv = {app.venv_path}
 
 def create_venv(path):
     try:
-        os.system(f'sudo python3 -m venv {path}')
+        os.system(f'python3 -m venv {path}')
         return True
     except Exception as e:
         print(str(e))
@@ -117,7 +117,7 @@ def create_startup_file(app):
         if not str(app.startup_file).endswith('.py'):
             app.startup_file = f'{app.startup_file}.py'
         startup_file_path = f'{app.www_path}/{app.startup_file}'
-        os.system(f'sudo touch {startup_file_path}')
+        os.system(f'touch {startup_file_path}')
         startup_content = """
 HELLO_MESSAGE = '<!doctypehtml><html lang=en><meta charset=UTF-8><meta content="width=device-width,initial-scale=1"name=viewport><title>Startup</title><style>#logo{font-size:35px;font-weight:700}#logo span{background:#1d1e2c;padding:5px 20px;border-radius:5px;color:#fff}</style><body style=text-align:center;margin-top:50px;font-family:sans-serif><div id=logo><span>DPanel</span></div><div dir=rtl><p>مرحبا!<p><p>شكرًا لاستخدامك DPanel لإدارة خدمات الويب الخاصة بك.<p>هذا الملف هو ملف تجريبي تم إنشاؤه تلقائيًا بواسطة DPanel لاختبار الإعدادات والتجربة بها.</div><hr><p>Welcome!<p>Thank you for using DPanel to manage your web services.<p>This file is a demo file automatically created by DPanel for testing and experimenting with your settings'
 def application(environ, start_response):
@@ -145,8 +145,8 @@ def create_app(app):
         {app.venv_path}/bin/pip install uwsgi        
         cd {app.www_path}
         django-admin startproject {app.uwsgi_path} .   
-        sudo {app.venv_path}/bin/python manage.py collectstatic --noinput   
-        sudo {app.venv_path}/bin/python manage.py migrate   
+        {app.venv_path}/bin/python manage.py collectstatic --noinput   
+        {app.venv_path}/bin/python manage.py migrate   
         '''.format(app=app))
 
         import fileinput
