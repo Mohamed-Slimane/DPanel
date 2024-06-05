@@ -19,6 +19,7 @@ from dpanel.functions import create_app_server_block, create_venv, create_app, c
     install_uwsgi_server, install_nginx_server, paginator, create_startup_file
 from dpanel.models import App, AppCertificate
 from dpanel.ssl import create_app_ssl, install_certbot
+from django.http import HttpResponse
 
 
 class apps(View):
@@ -117,6 +118,19 @@ class app_edit(View):
         return render(request, 'app/edit.html', {'app': app, 'form': form})
 
 
+class app_log(View):
+    def get(self, request, serial):
+        app = App.objects.get(serial=serial)
+        file = app.www_path + '/log.log'
+        if not os.path.isfile(file):
+            messages.error(request, _('File not found'))
+            return redirect('apps')
+        filename = os.path.basename(file)
+        with open(file, "r") as file:
+            text = file.read()
+        return render(request, 'file/preview.html', {'text': text, 'filename': filename})
+
+
 class app_restart(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
@@ -203,7 +217,7 @@ class app_config(View):
             config_code = pathlib.Path(app.nginx_config).read_text()
         except:
             config_code = None
-        return render(request, 'app/config.html', {'app': app, 'config_code': config_code})
+        return render(request, 'file/config.html', {'app': app, 'config_code': config_code})
 
 
 class app_delete(View):
@@ -257,7 +271,7 @@ class app_files(View):
                 files.append(f)
             else:
                 dirs.append(f)
-        return render(request, 'app/files.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path,
+        return render(request, 'file/files.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path,
                                                   'parent': pathlib.Path(path).parent.absolute()})
 
 
@@ -276,7 +290,7 @@ class app_files_ajax(View):
                 dirs.append(f)
         files.sort()
         dirs.sort()
-        return render(request, 'app/inc/files-list.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path,
+        return render(request, 'file/files-list.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path,
                                                            'parent': pathlib.Path(path).parent.absolute()})
 
 
@@ -335,6 +349,32 @@ class file_remove(View):
         return JsonResponse(req)
 
 
+class file_preview(View):
+    def get(self, request):
+        file = request.GET.get('file')
+        if not os.path.isfile(file):
+            return redirect('apps')
+        filename = os.path.basename(file)
+        with open(file, "r") as file:
+            text = file.read()
+
+        return render(request, 'file/preview.html', {'text': text, 'filename': filename})
+
+
+class file_download(View):
+    def get(self, request):
+        file = request.GET.get('file')
+        if not os.path.isfile(file):
+            return redirect('apps')
+        filename = os.path.basename(file)
+        with open(file, "r") as file:
+            text = file.read()
+
+        response = HttpResponse(text, content_type='text/plain')
+        response['Content-Disposition'] = f'attachment; filename={filename}'
+        return response
+
+
 class file_edit(View):
     def get(self, request):
         file = request.GET.get('file')
@@ -344,7 +384,7 @@ class file_edit(View):
         with open(file, "r") as file:
             text = file.read()
 
-        return render(request, 'app/text.html', {'text': text, 'filename': filename})
+        return render(request, 'file/edit.html', {'text': text, 'filename': filename})
 
     def post(self, request):
         file = request.GET.get('file')

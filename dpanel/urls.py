@@ -20,6 +20,7 @@ urlpatterns = [
     path('apps/<str:serial>/restart/', super_required(app_views.app_restart.as_view()), name="app_restart"),
     path('apps/<str:serial>/status/', super_required(app_views.app_status.as_view()), name="app_status"),
     path('apps/<str:serial>/delete/', super_required(app_views.app_delete.as_view()), name="app_delete"),
+    path('apps/<str:serial>/log/', super_required(app_views.app_log.as_view()), name="app_log"),
 
     path('apps/<str:serial>/config/', super_required(app_views.app_config.as_view()), name="app_config"),
 
@@ -31,6 +32,8 @@ urlpatterns = [
     path('apps/files/manage/upload/ajax/', super_required(app_views.app_files_ajax_upload.as_view()), name="app_files_ajax_upload"),
     path('apps/files/manage/zip/extract/ajax/', super_required(app_views.extract_zip.as_view()), name="app_zip_extract"),
     path('apps/files/manage/remove/', super_required(app_views.file_remove.as_view()), name="app_file_remove"),
+    path('apps/files/manage/preview/', super_required(app_views.file_preview.as_view()), name="app_file_preview"),
+    path('apps/files/manage/download/', super_required(app_views.file_download.as_view()), name="app_file_download"),
     path('apps/files/manage/edit/', super_required(app_views.file_edit.as_view()), name="app_file_edit"),
 
     path('restart/nginx/', super_required(app_views.nginx_restart.as_view()), name="nginx_restart"),

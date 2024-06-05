@@ -54,6 +54,20 @@
                 </div>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
+                        <a class="dropdown-item text-success" href="{% url 'app_file_preview'%}?file={{path}}/{{file}}" target="_blank">
+                            {% trans 'Preview' %}
+                            <i class="bi bi-eye float-end"></i>
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item text-success" href="{% url 'app_file_download'%}?file={{path}}/{{file}}" target="_blank">
+                            {% trans 'Download' %}
+                            <i class="bi bi-download float-end"></i>
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
                         {% if file.lower|slice:'-3:' == "txt" or file.lower|slice:'-2:' == "py" or file.lower|slice:'-3:' == "log" or file.lower|slice:'-3:' == "ini" or file.lower|slice:'-4:' == "html" or file.lower|slice:'-3:' == "css" or file.lower|slice:'-2:' == "js" or file.lower|slice:'-4:' == "json" %}
                         <a class="dropdown-item text-success" href="{% url 'app_file_edit'%}?file={{path}}/{{file}}" target="_blank">
                             {% trans 'Edit' %}
