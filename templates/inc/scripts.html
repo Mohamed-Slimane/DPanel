@@ -24,6 +24,9 @@
                 confirmButtonColor: '#1d1e2c',
                 denyButtonColor: '#dc3545',
                 inputValidator: (value) => {
+                    if (!value) {
+                        return '{% trans "Captcha is required" %}';
+                    }
                     if (value == captcha_number) {
                         jQuery('.loading-preloader').show();
                         location.href = u;
