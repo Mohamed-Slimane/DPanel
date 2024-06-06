@@ -10,7 +10,7 @@ def context(request):
         'certbot_status': get_option('certbot_status', default=False),
         }
     return {
-        # 'status': status,
+        'status': status,
         'config': {
             'paginator': int(get_option('paginator', '20')),
         }
