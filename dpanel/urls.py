@@ -43,14 +43,14 @@ urlpatterns = [
     path('restart/mysql/', super_required(app_views.mysql_restart.as_view()), name="mysql_restart"),
     path('restart/server/', super_required(app_views.server_restart.as_view()), name="server_restart"),
 
-    # Mysql
+    # MySQL
     path('mysql/', super_required(mysql_views.databases.as_view()), name="mysql_databases"),
     path('mysql/new/', super_required(mysql_views.new.as_view()), name="mysql_database_new"),
     path('mysql/<str:serial>/', super_required(mysql_views.database.as_view()), name="mysql_database"),
     path('mysql/<str:serial>/delete/', super_required(mysql_views.delete.as_view()), name="mysql_database_delete"),
     path('mysql/<str:serial>/password/change/', super_required(mysql_views.password_change.as_view()), name="mysql_database_password_change"),
 
-    # Mysql Backup
+    # MySQL Backup
     path('mysql/<str:serial>/backup/', super_required(mysql_views.backup_create.as_view()), name="mysql_backup_create"),
     path('mysql/backup/<str:serial>/restore/', super_required(mysql_views.backup_restore.as_view()), name="mysql_backup_restore"),
     path('mysql/backup/<str:serial>/import/', super_required(mysql_views.backup_import.as_view()), name="mysql_backup_import"),

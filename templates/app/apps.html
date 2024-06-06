@@ -37,8 +37,8 @@
         {% endif %}
         {% if status.mysql_status %}
         <li>
-            <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'mysql_restart' %}', '{% trans 'Restart' %}', '{% translate 'Mysql server will be restarted immediately and al apps will be stopped until restarting' %}')">
-                Mysql
+            <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'mysql_restart' %}', '{% trans 'Restart' %}', '{% translate 'MySQL server will be restarted immediately and al apps will be stopped until restarting' %}')">
+                MySQL
                 <i class="bi bi-database float-end"></i>
             </span>
         </li>
@@ -88,36 +88,45 @@
             </div>
         </div>
         <script>
-            jQuery(document).ready(function () {
-                jQuery(".install-server").click(function(event) {
-                    jQuery('.loading-preloader').show();
-                    server_name = jQuery(this).data('name');
-                    jQuery.ajax({
-                        type: "POST",
-                        data: {
-                            'csrfmiddlewaretoken': '{{csrf_token}}',
-                            [server_name + '_install']: true
-                        },
-                        success: function (response) {
-                            jQuery('.loading-preloader').hide();
-                            Swal.fire({
-                                icon: response.success ? 'success' : 'error',
-                                text: response.message,
-                                allowOutsideClick: false,
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = "{% url 'apps' %}"
-                                }
-                            });
-                        },
-                        error: function () {
-                            jQuery('.loading-preloader').hide();
-                            alert('{% trans "An error occurred while submitting the form" %}');
-                        }
-                    });
+            jQuery(".install-server").click(function() {
+                server_name = jQuery(this).data('name');
+                Swal.fire({
+                    title: '{% translate 'Install' %} ' + server_name,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#1d1e2c',
+                    cancelButtonColor: '#dc3545',
+                    confirmButtonText: '{% translate 'Yes, install it!' %}',
+                    allowOutsideClick: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        jQuery('.loading-preloader').show();
+                        jQuery.ajax({
+                            type: "POST",
+                            data: {
+                                'csrfmiddlewaretoken': '{{csrf_token}}',
+                                [server_name + '_install']: true
+                            },
+                            success: function (response) {
+                                jQuery('.loading-preloader').hide();
+                                Swal.fire({
+                                    icon: response.success ? 'success' : 'error',
+                                    text: response.message,
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = "{% url 'apps' %}"
+                                    }
+                                });
+                            },
+                            error: function () {
+                                jQuery('.loading-preloader').hide();
+                                alert('{% trans "An error occurred while submitting the form" %}');
+                            }
+                        });
+                    }
                 });
             });
-
         </script>
     {% endif %}
 </div>

@@ -135,7 +135,7 @@
     jQuery('body').on('click', '#check-update', function(){
         jQuery('.loading-preloader').show();
         $.getJSON('https://dpanel.de-ver.com/api/update/check', function(data){
-            if(data.version > 21){
+            if(data.version > 22){
                 Swal.fire({
                     title: '{% trans "New version available" %}',
                     text: '{% trans "Please carefully before updating? please take a backup first" %}',
@@ -184,7 +184,7 @@
                         });
                     }
                 });
-            }else if(data.version == 21){
+            }else if(data.version == 22){
                 Swal.fire({
                     title: '{% trans "You are using the latest version" %}',
                     icon: 'success',

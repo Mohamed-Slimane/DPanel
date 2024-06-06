@@ -26,39 +26,50 @@
 {% else %}
     <div class="bg-white shadow-sm p-3 rounded text-center">
         <div class="fw-bold h5">
-            {% trans 'Mysql server not installed' %}
+            {% trans 'MySQL server not installed' %}
         </div>
         <button type="button" class="btn btn-warning btn-sm rounded-pill" id="install-mysql">
-            {% translate 'Install Mysql server now' %}
+            {% translate 'Install MySQL server now' %}
         </button>
     </div>
 <script>
-jQuery(document).ready(function () {
-    jQuery("#install-mysql").click(function(event) {
-        jQuery('.loading-preloader').show();
-        jQuery.ajax({
-            type: "POST",
-            data: {
-                'csrfmiddlewaretoken': '{{csrf_token}}',
-                'mysql_install': true
-            },
-            success: function (response) {
-                jQuery('.loading-preloader').hide();
-                Swal.fire({
-                    icon: response.success ? 'success' : 'error',
-                    text: response.message,
-                    allowOutsideClick: false,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = "{% url 'mysql_databases' %}";
-                    }
-                });
-            },
-            error: function () {
-                jQuery('.loading-preloader').hide();
-                alert('{% trans "An error occurred while submitting the form" %}');
-            }
-        });
+
+jQuery("#install-mysql").click(function() {
+    Swal.fire({
+        title: '{% translate 'Install' %} MySQL',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#1d1e2c',
+        cancelButtonColor: '#dc3545',
+        confirmButtonText: '{% translate 'Yes, install it!' %}',
+        allowOutsideClick: false,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            jQuery('.loading-preloader').show();
+            jQuery.ajax({
+                type: "POST",
+                data: {
+                    'csrfmiddlewaretoken': '{{csrf_token}}',
+                    'mysql_install': true
+                },
+                success: function (response) {
+                    jQuery('.loading-preloader').hide();
+                    Swal.fire({
+                        icon: response.success ? 'success' : 'error',
+                        text: response.message,
+                        allowOutsideClick: false,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "{% url 'mysql_databases' %}";
+                        }
+                    });
+                },
+                error: function () {
+                    jQuery('.loading-preloader').hide();
+                    alert('{% trans "An error occurred while submitting the form" %}');
+                }
+            });
+        }
     });
 });
 </script>

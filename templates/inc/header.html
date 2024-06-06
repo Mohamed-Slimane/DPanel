@@ -56,10 +56,13 @@
                                     </li>
                                     <li class="dropdown-divider"></li>
                                     <li>
-                                        <a class="dropdown-item" href="{% url 'logout' %}">
-                                            {% translate 'Logout' %}
-                                            <i class="bi bi-box-arrow-right float-end"></i>
-                                        </a>
+                                        <form method="post" action="{% url 'logout' %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="dropdown-item">
+                                                {% translate 'Logout' %}
+                                                <i class="bi bi-box-arrow-right float-end"></i>
+                                            </button>
+                                        </form>
                                     </li>
                                     <li><div class="dropdown-divider"></div></li>
                                     <li>

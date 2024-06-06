@@ -26,7 +26,7 @@ class databases(View):
             else:
                 res = {'success': False, 'message': _('Form validation error')}
         else:
-            res = {'success': False, 'message': _('There is an existing Mysql server installed')}
+            res = {'success': False, 'message': _('There is an existing MySQL server installed')}
         return JsonResponse(res)
 
     def get(self, request):
