@@ -21,8 +21,8 @@ urlpatterns = [
     path('apps/<str:serial>/status/', super_required(app_views.app_status.as_view()), name="app_status"),
     path('apps/<str:serial>/delete/', super_required(app_views.app_delete.as_view()), name="app_delete"),
     path('apps/<str:serial>/log/', super_required(app_views.app_log.as_view()), name="app_log"),
-    path('apps/<str:serial>/pip/requirements/', super_required(app_views.requirements_install.as_view()), name="app_requirements_install"),
-    path('apps/<str:serial>/pip/install/', super_required(app_views.pip_install.as_view()), name="app_pip_install"),
+    path('apps/package/install/', super_required(app_views.package_install.as_view()), name="app_package_install"),
+    path('apps/<str:serial>/package/requirements/', super_required(app_views.requirements_install.as_view()), name="app_requirements_install"),
 
     path('apps/<str:serial>/config/', super_required(app_views.app_config.as_view()), name="app_config"),
 

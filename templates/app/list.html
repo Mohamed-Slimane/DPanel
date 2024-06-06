@@ -41,10 +41,20 @@
                         <div class="input-group-text rounded-end-pill dropdown">
                             <i class="bi bi-three-dots-vertical pointer" data-bs-toggle="dropdown"></i>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li class="dropdown-item">
-                                    <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'app_requirements_install' app.serial %}', '{% trans 'Install requirements' %}', '{% trans 'All libraries in requirements will be installed' %}')">
+                                <li>
+                                    <h6 class="dropdown-header">{% translate 'Install' %}</h6>
+                                </li>
+                                <li class="dropdown-item pointer" onclick="install_package('{{app.serial}}')">
+                                    <span class="dropdown-link">
+                                        {% translate 'Package' %}
+                                        <i class="bi bi-box float-end"></i>
+                                    </span>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li class="dropdown-item pointer" onclick="open_link_confirm('{% url 'app_requirements_install' app.serial %}', '{% trans 'Install requirements' %}', '{% trans 'All libraries in requirements.txt will be installed' %}')">
+                                    <span class="dropdown-link">
                                         {% translate 'Requirements' %}
-                                        <i class="bi bi-box-arrow-in-right float-end"></i>
+                                        <i class="bi bi-boxes float-end"></i>
                                     </span>
                                 </li>
                             </ul>

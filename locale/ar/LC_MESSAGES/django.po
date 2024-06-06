@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dever stoke\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-05 22:41+0100\n"
+"POT-Creation-Date: 2024-06-06 13:44+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,12 +11,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
 "X-Generator: Poedit 3.3.2\n"
 
 #: .\dpanel\app\views.py:37 .\dpanel\app\views.py:93 .\dpanel\app\views.py:114
-#: .\dpanel\app\views.py:176 .\dpanel\mysql\views.py:27
+#: .\dpanel\app\views.py:205 .\dpanel\mysql\views.py:27
 #: .\dpanel\mysql\views.py:65
 msgid "Form validation error"
 msgstr "خطأ في التحقق من صحة النموذج"
@@ -57,67 +56,87 @@ msgstr "تم تحديث التطبيق بنجاح"
 msgid "File not found"
 msgstr "لم يتم العثور على الملف"
 
-#: .\dpanel\app\views.py:178
+#: .\dpanel\app\views.py:145
+msgid "Successfully installed requirements for app <b>{}</b>."
+msgstr "تم تثبيت مكاتب التطبيق <b>{}</b> بنجاح."
+
+#: .\dpanel\app\views.py:147
+msgid "File <b>requirements.txt</b> not found."
+msgstr "لم يتم العثور على الملف <b>requirements.txt</b>."
+
+#: .\dpanel\app\views.py:149
+msgid "Error installing requirements: {}"
+msgstr "خطأ في تثبيت المكاتب: {}"
+
+#: .\dpanel\app\views.py:160
+msgid "Successfully installed library <b>{}</b> to app <b>{}</b>."
+msgstr "تم تثبيت المكتبة <b>{}</b> بنجاح في التطبيق <b>{}</b>."
+
+#: .\dpanel\app\views.py:162
+msgid "Error installing library: {}"
+msgstr "خطأ في تثبيت المكتبة: {}"
+
+#: .\dpanel\app\views.py:207
 msgid "Certbot is already installed"
 msgstr "تم تثبيت Certbot بالفعل"
 
-#: .\dpanel\app\views.py:193
+#: .\dpanel\app\views.py:222
 msgid "Certificate created successfully"
 msgstr "تم إنشاء الشهادة بنجاح"
 
-#: .\dpanel\app\views.py:196
+#: .\dpanel\app\views.py:225
 msgid "Certificate created failed"
 msgstr "فشل إنشاء الشهادة"
 
-#: .\dpanel\app\views.py:211
+#: .\dpanel\app\views.py:240
 msgid "App configuration updated successfully"
 msgstr "تم تحديث تكوين التطبيق بنجاح"
 
-#: .\dpanel\app\views.py:213
+#: .\dpanel\app\views.py:242
 msgid "Error in updating django_app configuration"
 msgstr "خطأ في تحديث تكوين النطاق"
 
-#: .\dpanel\app\views.py:261
+#: .\dpanel\app\views.py:290
 msgid "App deleted successfully"
 msgstr "تم حذف التطبيق بنجاح"
 
-#: .\dpanel\app\views.py:385
+#: .\dpanel\app\views.py:418
 msgid "Cannot preview this file"
 msgstr "لا يمكن معاينة هذا الملف"
 
-#: .\dpanel\app\views.py:418
+#: .\dpanel\app\views.py:451
 msgid "File was successfully updated"
 msgstr "تم تحديث الملف بنجاح"
 
-#: .\dpanel\app\views.py:428
+#: .\dpanel\app\views.py:461
 msgid "uwsgi restarted successfully"
 msgstr "تمت إعادة تشغيل uwsgi بنجاح"
 
-#: .\dpanel\app\views.py:430
+#: .\dpanel\app\views.py:463
 msgid "uwsgi restart failed"
 msgstr "فشل إعادة تشغيل uwsgi"
 
-#: .\dpanel\app\views.py:439
+#: .\dpanel\app\views.py:472
 msgid "nginx restarted successfully"
 msgstr "تمت إعادة تشغيل nginx بنجاح"
 
-#: .\dpanel\app\views.py:441
+#: .\dpanel\app\views.py:474
 msgid "nginx restart failed"
 msgstr "فشل إعادة تشغيل nginx"
 
-#: .\dpanel\app\views.py:449
+#: .\dpanel\app\views.py:483
 msgid "mysql restarted successfully"
 msgstr "تمت إعادة تشغيل mysql بنجاح"
 
-#: .\dpanel\app\views.py:451
+#: .\dpanel\app\views.py:485
 msgid "mysql restart failed"
 msgstr "فشل في إعادة تشغيل MySQL"
 
-#: .\dpanel\app\views.py:458
+#: .\dpanel\app\views.py:494
 msgid "Server restarted successfully, please wait the server rebooting"
 msgstr "تم إعادة تشغيل الخادم بنجاح، يرجى الانتظار حتى يتم إعادة تشغيل الخادم"
 
-#: .\dpanel\app\views.py:460
+#: .\dpanel\app\views.py:496
 msgid "Server restart failed"
 msgstr "فشلت إعادة تشغيل الخادم"
 
@@ -302,8 +321,7 @@ msgstr "فشل الأمر {e.returncode}: {e.stderr}"
 msgid ""
 "Command not found. Please make sure 'wget' and 'bash' are installed on your "
 "system"
-msgstr ""
-"لم يتم العثور على الأمر. الرجاء التأكد من تثبيت \"wget\" و\"bash\" على نظامك"
+msgstr "لم يتم العثور على الأمر. الرجاء التأكد من تثبيت \"wget\" و\"bash\" على نظامك"
 
 #: .\dpanel\setting\views.py:54
 #, python-brace-format
@@ -363,14 +381,14 @@ msgstr "تطبيق جديد"
 
 #: .\templates\app\apps.html:17 .\templates\app\apps.html:22
 #: .\templates\app\apps.html:31 .\templates\app\apps.html:40
-#: .\templates\app\apps.html:48 .\templates\app\list.html:91
+#: .\templates\app\apps.html:48 .\templates\app\list.html:112
 msgid "Restart"
 msgstr "إعادة تشغيل"
 
 #: .\templates\app\apps.html:22
 msgid ""
-"Nginx server will be restarted immediately and al apps will be stopped until "
-"restarting"
+"Nginx server will be restarted immediately and al apps will be stopped until"
+" restarting"
 msgstr ""
 "سيتم إعادة تشغيل خادم Nginx على الفور وسيتم إيقاف جميع التطبيقات حتى تتم "
 "إعادة التشغيل"
@@ -381,8 +399,8 @@ msgstr "Nginx"
 
 #: .\templates\app\apps.html:31
 msgid ""
-"Uwsgi server will be restarted immediately and al apps will be stopped until "
-"restarting"
+"Uwsgi server will be restarted immediately and al apps will be stopped until"
+" restarting"
 msgstr ""
 "سيتم إعادة تشغيل خادم Uwsgi على الفور وسيتم إيقاف جميع التطبيقات حتى إعادة "
 "التشغيل"
@@ -393,8 +411,8 @@ msgstr "Uwsgi"
 
 #: .\templates\app\apps.html:40
 msgid ""
-"Mysql server will be restarted immediately and al apps will be stopped until "
-"restarting"
+"Mysql server will be restarted immediately and al apps will be stopped until"
+" restarting"
 msgstr ""
 "سيتم إعادة تشغيل خادم MySQL على الفور وسيتم إيقاف جميع التطبيقات حتى إعادة "
 "التشغيل"
@@ -428,7 +446,8 @@ msgid "Install uwsgi"
 msgstr "قم بتثبيت uwsgi"
 
 #: .\templates\app\apps.html:115 .\templates\app\certificate.html:85
-#: .\templates\mysql\database.html:187 .\templates\mysql\databases.html:59
+#: .\templates\inc\scripts.html:111 .\templates\mysql\database.html:187
+#: .\templates\mysql\databases.html:59
 msgid "An error occurred while submitting the form"
 msgstr "حدث خطأ أثناء إرسال النموذج"
 
@@ -464,7 +483,7 @@ msgstr "قم بتثبيت Certbot الآن"
 msgid "Edit app"
 msgstr "تعديل التطبيق"
 
-#: .\templates\app\edit.html:15 .\templates\inc\scripts.html:96
+#: .\templates\app\edit.html:15 .\templates\inc\scripts.html:146
 msgid "Update"
 msgstr "تحديث"
 
@@ -482,59 +501,82 @@ msgstr "نسخ الامر"
 
 #: .\templates\app\list.html:35
 msgid ""
-"Paste the command in the terminal to activate virtual environment of this app"
+"Paste the command in the terminal to activate virtual environment of this "
+"app"
 msgstr "الصق الأمر في سطر الأوامر لتنشيط البيئة الافتراضية لهذا التطبيق"
 
 #: .\templates\app\list.html:38
 msgid "File manager"
 msgstr "مدير الملفات"
 
-#: .\templates\app\list.html:44 .\templates\app\list.html:46
+#: .\templates\app\list.html:45
+#| msgid "Installed"
+msgid "Install"
+msgstr "تثبيت"
+
+#: .\templates\app\list.html:49
+msgid "Package"
+msgstr "حزمة"
+
+#: .\templates\app\list.html:54
+#| msgid "Install nginx"
+msgid "Install requirements"
+msgstr "تثبيت المكاتب"
+
+#: .\templates\app\list.html:54
+msgid "All libraries in requirements.txt will be installed"
+msgstr "سيتم تثبيت جميع المكتبات الموجودة في الملف requirements.txt"
+
+#: .\templates\app\list.html:56
+msgid "Requirements"
+msgstr "Requirements"
+
+#: .\templates\app\list.html:67
 msgid "Installed"
 msgstr "مثبت"
 
-#: .\templates\app\list.html:44 .\templates\app\list.html:49
+#: .\templates\app\list.html:70
 msgid "Not installed"
 msgstr "غير مثبت"
 
-#: .\templates\app\list.html:57
+#: .\templates\app\list.html:78
 msgid "Stop"
 msgstr "ايقاف"
 
-#: .\templates\app\list.html:61
+#: .\templates\app\list.html:82
 msgid "Start"
 msgstr "تشغيل"
 
-#: .\templates\app\list.html:70
+#: .\templates\app\list.html:91
 msgid "Log"
 msgstr "السجل"
 
-#: .\templates\app\list.html:77 .\templates\file\edit.html:4
+#: .\templates\app\list.html:98 .\templates\file\edit.html:4
 #: .\templates\file\edit.html:5 .\templates\file\list.html:76
 msgid "Edit"
 msgstr "تعديل"
 
-#: .\templates\app\list.html:84
+#: .\templates\app\list.html:105
 msgid "Server config"
 msgstr "تكوين الخادم"
 
-#: .\templates\app\list.html:90
+#: .\templates\app\list.html:111
 msgid "Restart app"
 msgstr "إعادة تشغيل التطبيق"
 
-#: .\templates\app\list.html:90
+#: .\templates\app\list.html:111
 msgid "Do you want to restart this app    ?"
 msgstr "هل تريد إعادة تشغيل هذا التطبيق؟"
 
-#: .\templates\app\list.html:97
+#: .\templates\app\list.html:118
 msgid "Delete app"
 msgstr "حذف التطبيق"
 
-#: .\templates\app\list.html:97
+#: .\templates\app\list.html:118
 msgid "Do you want to delete this app ?"
 msgstr "هل تريد حذف هذا التطبيق؟"
 
-#: .\templates\app\list.html:98 .\templates\file\list.html:29
+#: .\templates\app\list.html:119 .\templates\file\list.html:29
 #: .\templates\file\list.html:100 .\templates\mysql\database.html:38
 #: .\templates\mysql\database.html:137 .\templates\mysql\list.html:59
 msgid "Delete"
@@ -577,12 +619,13 @@ msgid "This risk cannot be reversed."
 msgstr "لا يمكن التراجع عن هذا الأمر."
 
 #: .\templates\file\files.html:51 .\templates\inc\scripts.html:22
-#: .\templates\inc\scripts.html:44
+#: .\templates\inc\scripts.html:44 .\templates\inc\scripts.html:81
 msgid "Continue"
 msgstr "متابعة"
 
 #: .\templates\file\files.html:52 .\templates\inc\scripts.html:23
-#: .\templates\inc\scripts.html:45 .\templates\inc\scripts.html:97
+#: .\templates\inc\scripts.html:45 .\templates\inc\scripts.html:82
+#: .\templates\inc\scripts.html:147
 msgid "Cancel"
 msgstr "إلغاء"
 
@@ -615,7 +658,7 @@ msgstr "استخرج هنا"
 msgid "Extract to folder"
 msgstr "استخراج إلى المجلد"
 
-#: .\templates\file\upload.html:8
+#: .\templates\file\upload.html:5
 msgid "Get file from URL"
 msgstr "الحصول على الملف من URL"
 
@@ -686,49 +729,66 @@ msgstr "تم النسخ"
 msgid "Okay"
 msgstr "حسنا"
 
-#: .\templates\inc\scripts.html:90
+#: .\templates\inc\scripts.html:72
+msgid "Installing package"
+msgstr "تثبيت الحزمة"
+
+#: .\templates\inc\scripts.html:73
+msgid "Please type library name to install"
+msgstr "الرجاء كتابة اسم المكتبة للتثبيت"
+
+#: .\templates\inc\scripts.html:78
+msgid "Example: django"
+msgstr "مثال: django"
+
+#: .\templates\inc\scripts.html:87
+#| msgid "Captcha is required"
+msgid "Package name is required"
+msgstr "اسم الحزمة مطلوب"
+
+#: .\templates\inc\scripts.html:140
 msgid "New version available"
 msgstr "الإصدار الجديد متاح"
 
-#: .\templates\inc\scripts.html:91
+#: .\templates\inc\scripts.html:141
 msgid "Please carefully before updating? please take a backup first"
 msgstr "الرجاء الحذر قبل التحديث؟ يرجى أخذ نسخة احتياطية أولا"
 
-#: .\templates\inc\scripts.html:111
+#: .\templates\inc\scripts.html:161
 msgid "Update successful"
 msgstr "تم التحديث بنجاح"
 
-#: .\templates\inc\scripts.html:115 .\templates\inc\scripts.html:131
-#: .\templates\inc\scripts.html:143 .\templates\inc\scripts.html:151
-#: .\templates\inc\scripts.html:162
+#: .\templates\inc\scripts.html:165 .\templates\inc\scripts.html:181
+#: .\templates\inc\scripts.html:193 .\templates\inc\scripts.html:201
+#: .\templates\inc\scripts.html:212
 msgid "Ok"
 msgstr "نعم"
 
-#: .\templates\inc\scripts.html:126
+#: .\templates\inc\scripts.html:176
 msgid "Error when updating"
 msgstr "خطأ عند التحديث"
 
-#: .\templates\inc\scripts.html:139
+#: .\templates\inc\scripts.html:189
 msgid "You are using the latest version"
 msgstr "أنت تستخدم أحدث إصدار"
 
-#: .\templates\inc\scripts.html:147 .\templates\inc\scripts.html:158
+#: .\templates\inc\scripts.html:197 .\templates\inc\scripts.html:208
 msgid "Error occurred. Please try again later"
 msgstr "حدث خطأ. الرجاء معاودة المحاولة في وقت لاحق"
 
-#: .\templates\inc\scripts.html:172
+#: .\templates\inc\scripts.html:222
 msgid "Restore backup"
 msgstr "استرجاع النسخة الاحتياطية"
 
-#: .\templates\inc\scripts.html:173
+#: .\templates\inc\scripts.html:223
 msgid "Are you sure you want to restore backup for this database ?"
 msgstr "هل أنت متأكد أنك تريد استعادة النسخة الاحتياطية لقاعدة البيانات هذه؟"
 
-#: .\templates\inc\scripts.html:178
+#: .\templates\inc\scripts.html:228
 msgid "Yes"
 msgstr "نعم"
 
-#: .\templates\inc\scripts.html:179
+#: .\templates\inc\scripts.html:229
 msgid "No"
 msgstr "لا"
 

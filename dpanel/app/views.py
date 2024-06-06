@@ -150,13 +150,14 @@ class requirements_install(View):
         return redirect('apps')
 
 
-class pip_install(View):
-    def get(self, request, serial):
+class package_install(View):
+    def get(self, request):
+        serial = request.GET.get('app')
         app = App.objects.get(serial=serial)
-        lib = request.GET.get('lib')
+        package = request.GET.get('package')
         try:
-            subprocess.call(['pip', 'install', app.venv_path + lib])
-            return JsonResponse({'success': True, 'message': _('Successfully installed library <b>{}</b>.').format(lib)})
+            subprocess.call([app.venv_path + '/bin/pip', 'install', package])
+            return JsonResponse({'success': True, 'message': _('Successfully installed library <b>{}</b> to app <b>{}</b>.').format(package, app.name)})
         except subprocess.CalledProcessError as e:
             return JsonResponse({'success': False, 'message': _('Error installing library: {}').format(e.stderr)})
 

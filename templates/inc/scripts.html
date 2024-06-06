@@ -18,7 +18,7 @@
                 inputAttributes: {
                     autocapitalize: 'off',
                 },
-                showCancelButton: true,
+                showDenyButton: true,
                 confirmButtonText: '{% trans "Continue" %}',
                 denyButtonText: '{% trans "Cancel" %}',
                 confirmButtonColor: '#1d1e2c',
@@ -34,7 +34,7 @@
                         return '{% trans "Wrong captcha" %}';
                     }
                 }
-            })
+            });
         }else{
             Swal.fire({
                 title: title,
@@ -64,6 +64,56 @@
           text: message,
           confirmButtonText: '{% trans "Okay" %}',
           confirmButtonColor: '#1d1e2c',
+        });
+    }
+
+    function install_package(app){
+        Swal.fire({
+            title: '{% trans "Installing package" %}',
+            text: '{% trans "Please type library name to install" %}',
+            icon: 'info',
+            input: 'text',
+            inputAttributes: {
+                autocapitalize: 'off',
+                placeholder: '{% trans "Example: django" %}'
+            },
+            showDenyButton: true,
+            confirmButtonText: '{% trans "Continue" %}',
+            denyButtonText: '{% trans "Cancel" %}',
+            confirmButtonColor: '#1d1e2c',
+            denyButtonColor: '#dc3545',
+            inputValidator: (value) => {
+                if (!value) {
+                    return '{% trans "Package name is required" %}';
+                }else{
+                    jQuery.ajax({
+                        type: "GET",
+                        url: "{% url 'app_package_install' %}",
+                        dataType: "json",
+                        data: {
+                            'package': value,
+                            'app': app
+                        },
+                        beforeSend: function () {
+                            jQuery('.loading-preloader').show();
+                        },
+                        success: function (response) {
+                            jQuery('.loading-preloader').hide();
+                            Swal.fire({
+                                icon: response.success ? 'success' : 'error',
+                                html: response.message,
+                            })
+                        },
+                        error: function () {
+                            jQuery('.loading-preloader').hide();
+                            Swal.fire({
+                                icon: 'error',
+                                html: '{% trans "An error occurred while submitting the form" %}',
+                            });
+                        }
+                    });
+                }
+            }
         });
     }
 
