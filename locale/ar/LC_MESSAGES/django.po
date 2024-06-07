@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dever stoke\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-06 13:44+0100\n"
+"POT-Creation-Date: 2024-06-07 15:58+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -259,8 +259,9 @@ msgid "Value"
 msgstr "القيمة"
 
 #: .\dpanel\mysql\views.py:29
-msgid "There is an existing Mysql server installed"
-msgstr "يوجد خادم Mysql مثبت"
+#| msgid "There is an existing Mysql server installed"
+msgid "There is an existing MySQL server installed"
+msgstr "يوجد خادم MySQL مثبت بالفعل"
 
 #: .\dpanel\mysql\views.py:58
 msgid "Database successfully created"
@@ -410,12 +411,15 @@ msgid "Uwsgi"
 msgstr "Uwsgi"
 
 #: .\templates\app\apps.html:40
+#| msgid ""
+#| "Mysql server will be restarted immediately and al apps will be stopped until"
+#| " restarting"
 msgid ""
-"Mysql server will be restarted immediately and al apps will be stopped until"
+"MySQL server will be restarted immediately and al apps will be stopped until"
 " restarting"
 msgstr ""
-"سيتم إعادة تشغيل خادم MySQL على الفور وسيتم إيقاف جميع التطبيقات حتى إعادة "
-"التشغيل"
+"سيتم إعادة تشغيل خادم MySQL على الفور وسيتم إيقاف جميع التطبيقات حتى تتم "
+"إعادة التشغيل"
 
 #: .\templates\app\apps.html:48
 msgid ""
@@ -445,9 +449,18 @@ msgstr "قم بتثبيت إنجينكس"
 msgid "Install uwsgi"
 msgstr "قم بتثبيت uwsgi"
 
-#: .\templates\app\apps.html:115 .\templates\app\certificate.html:85
+#: .\templates\app\apps.html:94 .\templates\app\list.html:45
+#: .\templates\mysql\databases.html:39
+msgid "Install"
+msgstr "تثبيت"
+
+#: .\templates\app\apps.html:99 .\templates\mysql\databases.html:44
+msgid "Yes, install it!"
+msgstr "نعم، قم بتثبيته!"
+
+#: .\templates\app\apps.html:124 .\templates\app\certificate.html:85
 #: .\templates\inc\scripts.html:111 .\templates\mysql\database.html:187
-#: .\templates\mysql\databases.html:59
+#: .\templates\mysql\databases.html:69
 msgid "An error occurred while submitting the form"
 msgstr "حدث خطأ أثناء إرسال النموذج"
 
@@ -509,17 +522,11 @@ msgstr "الصق الأمر في سطر الأوامر لتنشيط البيئة
 msgid "File manager"
 msgstr "مدير الملفات"
 
-#: .\templates\app\list.html:45
-#| msgid "Installed"
-msgid "Install"
-msgstr "تثبيت"
-
 #: .\templates\app\list.html:49
 msgid "Package"
 msgstr "حزمة"
 
 #: .\templates\app\list.html:54
-#| msgid "Install nginx"
 msgid "Install requirements"
 msgstr "تثبيت المكاتب"
 
@@ -675,33 +682,33 @@ msgstr "الإعدادات"
 msgid "Profile"
 msgstr "الملف التعريفي"
 
-#: .\templates\inc\header.html:60
+#: .\templates\inc\header.html:62
 msgid "Logout"
 msgstr "تسجيل خروج"
 
-#: .\templates\inc\header.html:67
+#: .\templates\inc\header.html:70
 msgid "Check updates"
 msgstr "تفقد التحديثات"
 
-#: .\templates\inc\header.html:76
+#: .\templates\inc\header.html:79
 msgid "Language"
 msgstr "لغة"
 
-#: .\templates\inc\header.html:96
+#: .\templates\inc\header.html:99
 msgid "Support"
 msgstr "دعم"
 
-#: .\templates\inc\header.html:108
+#: .\templates\inc\header.html:111
 msgid "Support the developer"
 msgstr "دعم المطور"
 
-#: .\templates\inc\header.html:114
+#: .\templates\inc\header.html:117
 msgid ""
 "The developer is very grateful for your support to make this project up to "
 "date"
 msgstr "المطور ممتن جدًا لدعمكم لتحديث هذا المشروع"
 
-#: .\templates\inc\header.html:137
+#: .\templates\inc\header.html:140
 msgid "Close"
 msgstr "اغلاق"
 
@@ -742,7 +749,6 @@ msgid "Example: django"
 msgstr "مثال: django"
 
 #: .\templates\inc\scripts.html:87
-#| msgid "Captcha is required"
 msgid "Package name is required"
 msgstr "اسم الحزمة مطلوب"
 
@@ -858,12 +864,15 @@ msgid "No backups yet"
 msgstr "لا توجد نسخ احتياطية بعد"
 
 #: .\templates\mysql\database.html:157 .\templates\mysql\databases.html:29
-msgid "Mysql server not installed"
-msgstr "خادم Mysql غير مثبت"
+#, fuzzy
+#| msgid "Mysql server not installed"
+msgid "MySQL server not installed"
+msgstr "خادم MySQL غير مثبت"
 
 #: .\templates\mysql\database.html:160 .\templates\mysql\databases.html:32
-msgid "Install Mysql server now"
-msgstr "قم بتثبيت خادم Mysql الآن"
+#| msgid "Install Mysql server now"
+msgid "Install MySQL server now"
+msgstr "قم بتثبيت خادم MySQL الآن"
 
 #: .\templates\mysql\databases.html:4
 msgid "Databases"
