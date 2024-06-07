@@ -31,6 +31,16 @@
                                 {% trans 'Settings' %}
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'more' %}">
+                                {% trans 'More' %}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link pointer text-success" id="check-updates">
+                                {% trans 'Updates' %}
+                            </span>
+                        </li>
                         {% endif %}
                     </ul>
                     <ul class="navbar-nav me-lg-2">
@@ -63,13 +73,6 @@
                                                 <i class="bi bi-box-arrow-right float-end"></i>
                                             </button>
                                         </form>
-                                    </li>
-                                    <li><div class="dropdown-divider"></div></li>
-                                    <li>
-                                        <button type="button" id="check-update" class="dropdown-item text-center">
-                                            {% translate 'Check updates' %}
-                                            <i class="bi bi-arrow-repeat float-end"></i>
-                                        </button>
                                     </li>
                                 </ul>
                             </div>

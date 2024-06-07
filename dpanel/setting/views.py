@@ -26,10 +26,10 @@ class settings(View):
         return render(request, 'settings/settings.html')
 
 
-class about(View):
+class more(View):
 
     def get(self, request):
-        return render(request, 'settings/about.html')
+        return render(request, 'settings/more.html')
 
 
 class dpanel_update(View):

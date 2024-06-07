@@ -132,7 +132,7 @@
 </script>
 
 <script>
-    jQuery('body').on('click', '#check-update', function(){
+    jQuery('body').on('click', '#check-updates', function(){
         jQuery('.loading-preloader').show();
         $.getJSON('https://dpanel.de-ver.com/api/update/check', function(data){
             if(data.version > 25){

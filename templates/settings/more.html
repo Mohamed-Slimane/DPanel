@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %} {% trans 'More' %} {% endblock %}
+{% block page_title %} {% trans 'More' %} {% endblock %}
+
+{% block content %}
+<div id="dpanel-more" class="bg-white rounded shadow-sm p-3"></div>
+<script>
+    jQuery.ajax({
+        url: "https://dpanel.de-ver.com/api/more",
+        success: function (data) {
+            jQuery('#dpanel-more').html(data);
+        },
+        error: function (data) {
+            jQuery('#dpanel-more').html("{% trans 'Failed to load' %}");
+        }
+    });
+</script>
+{% endblock %}
