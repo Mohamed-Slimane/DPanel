@@ -23,7 +23,7 @@ Once the installation is complete, follow these steps to log in:
 2. Use the login credentials displayed on your access window.
    
     - Username: admin
-    - Password: admin
+    - Password: will be random after install
 
 3. **Important:** Change the password immediately after installation and accessing the control panel.
 
