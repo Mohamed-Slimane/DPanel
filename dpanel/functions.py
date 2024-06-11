@@ -276,3 +276,49 @@ def paginator(request, obj, number=None, page=1):
     except PageNotAnInteger:
         objects = paginator.page(1)
     return objects
+
+
+def get_cpu_usage():
+    with open('/proc/stat') as file:
+        line = file.readline()
+        fields = line.split()
+        idle = float(fields[4])
+        total = sum(float(field) for field in fields[1:])
+        cpu_percent = 100.0 - (idle / total * 100.0)
+    return cpu_percent
+
+
+def get_memory_usage():
+    with open('/proc/meminfo') as file:
+        total_mem = int(file.readline().split()[1])
+        free_mem = int(file.readline().split()[1])
+    used_mem = total_mem - free_mem
+    mem_percent = (used_mem / total_mem) * 100.0
+    return mem_percent
+
+
+def get_dir_usage(directory='/var/www'):
+    result = subprocess.run(['df', '-h', directory], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    if result.returncode != 0:
+        raise Exception(f"Error getting filesystem info: {result.stderr}")
+    lines = result.stdout.strip().split('\n')
+    fs_info = lines[-1].split()
+    total_space = fs_info[1]
+    used_space = fs_info[2]
+    percent_used = fs_info[4]
+    return {'total': total_space, 'used': used_space, 'percent': percent_used}
+
+
+def get_number_of_threads():
+    with open('/proc/stat') as file:
+        for line in file:
+            if line.startswith('processes'):
+                return int(line.split()[1])
+
+
+def get_number_of_processes():
+    with open('/proc/stat') as file:
+        for line in file:
+            if line.startswith('processes'):
+                return int(line.split()[1])
+

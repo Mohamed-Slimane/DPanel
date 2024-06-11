@@ -25,7 +25,7 @@ INSTALLED_APPS = [
 ]
 
 
-LOGIN_REDIRECT_URL = 'apps'
+LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
 ROOT_URLCONF = 'engine.urls'

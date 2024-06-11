@@ -10,7 +10,7 @@ To install DPanel, follow these steps:
 2. Copy and paste the following code:
 
     ```bash
-    wget -O - https://dpanel.de-ver.com/api/download/install.sh | bash
+    wget -O - https://dpanel.top/api/download/install.sh | bash
     ```
 
 3. Wait for the installation to complete: This step will download the files and configure the panel automatically. Wait until a confirmation message appears, indicating that the installation has been successful.
@@ -23,7 +23,7 @@ Once the installation is complete, follow these steps to log in:
 2. Use the login credentials displayed on your access window.
    
     - Username: admin
-    - Password: will be random after install
+    - Password: admin
 
 3. **Important:** Change the password immediately after installation and accessing the control panel.
 

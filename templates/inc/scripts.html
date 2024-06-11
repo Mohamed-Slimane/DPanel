@@ -134,7 +134,7 @@
 <script>
     jQuery('body').on('click', '#check-updates', function(){
         jQuery('.loading-preloader').show();
-        $.getJSON('https://dpanel.de-ver.com/api/update/check', function(data){
+        $.getJSON('https://dpanel.top/api/update/check', function(data){
             if(data.version > 25){
                 Swal.fire({
                     title: '{% trans "New version available" %}',
@@ -236,5 +236,26 @@
         }
     });
 
-
+    jQuery('body').on('submit', '#remote-form', function(e){
+        e.preventDefault();
+        if(jQuery('#remote-file').val()==''){
+            Swal.fire({
+                title: '{% trans "Error" %}',
+                text: '{% trans 'Please add file url to get it' %}',
+                icon: 'error',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '{% trans "Ok" %}',
+            });
+            return;
+        }
+        jQuery.ajax({
+            type: "POST",
+            url: jQuery(this).attr('action'),
+            data: jQuery(this).serialize(),
+            success: function(data){
+                reload_folder();
+            }
+        });
+    });
 </script>

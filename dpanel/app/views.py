@@ -1,4 +1,3 @@
-import imghdr
 import mimetypes
 import os
 import pathlib

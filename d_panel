@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+import os
+def display_menu():
+    print("Select the operation you want to perform:")
+    print("1. Change DPanel admin password")
+    print("2. Change DPanel Port")
+    print("3. Start DPanel")
+    print("4. Stop DPanel")
+    print("5. Restart DPanel")
+    print("0. Exit")
+def change_password():
+    os.system(f"/var/server/dpanel/venv/bin/python3 /var/server/dpanel/app/manage.py changepassword admin")
+def change_port():
+    port = input("Enter new port: ")
+    service_file_path = '/etc/systemd/system/dpanel.service'
+    with open(service_file_path, 'r') as file:
+        service_file_content = file.readlines()
+    for i, line in enumerate(service_file_content):
+        if 'ExecStart' in line:
+            service_file_content[
+                i] = f'ExecStart=/var/server/dpanel/venv/bin/python /var/server/dpanel/app/manage.py runserver 0.0.0.0:{port}\n'
+    with open(service_file_path, 'w') as file:
+        file.writelines(service_file_content)
+    os.system("sudo systemctl daemon-reload")
+    os.system("sudo systemctl restart dpanel.service")
+    print("Port changed successfully.")
+
+def start_dpanel():
+    os.system("sudo systemctl start dpanel.service")
+    print("DPanel started successfully.")
+def restart_dpanel():
+    os.system("sudo systemctl restart dpanel.service")
+    print("DPanel restarted successfully.")
+def stop_dpanel():
+    os.system("sudo systemctl stop dpanel.service")
+    print("DPanel stopped successfully.")
+def main():
+    while True:
+        display_menu()
+        choice = input("Enter your choice: ")
+        if choice == '1':
+            change_password()
+        elif choice == '2':
+            change_port()
+        elif choice == '3':
+            start_dpanel()
+        elif choice == '4':
+            stop_dpanel()
+        elif choice == '5':
+            restart_dpanel()
+        elif choice == '0':
+            break
+        else:
+            print("Invalid choice, please try again.")
+if __name__ == "__main__":
+    main()

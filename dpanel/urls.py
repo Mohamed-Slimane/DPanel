@@ -1,5 +1,6 @@
 from django.urls import path
 
+from dpanel import views
 from dpanel.app import views as app_views
 from dpanel.mysql import views as mysql_views
 from dpanel.setting import views as setting_views
@@ -14,7 +15,8 @@ urlpatterns = [
     path('password/change/done', super_required(auth_views.PasswordChangeDoneView.as_view(template_name='account/password-change-done.html')), name="password_change_done"),
 
     # Apps
-    path('', super_required(app_views.apps.as_view()), name="apps"),
+    path('', super_required(views.dashboard.as_view()), name="dashboard"),
+    path('apps', super_required(app_views.apps.as_view()), name="apps"),
     path('apps/new/', super_required(app_views.app_new.as_view()), name="app_new"),
     path('apps/<str:serial>/edit/', super_required(app_views.app_edit.as_view()), name="app_edit"),
     path('apps/<str:serial>/restart/', super_required(app_views.app_restart.as_view()), name="app_restart"),

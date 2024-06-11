@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} {% translate 'Dashboard' %} {% endblock%}
+{% block page_title %}{% trans 'Dashboard' %}{% endblock %}
+
+{% block title_button %}{% endblock %}
+{% block content %}
+<div class="row g-3">
+    <div class="col-lg-6">
+    <div class="row g-3 text-center" id="dpanel-stats">
+        <div class="col-sm-6" id="cpu-stats">
+            <div class="bg-white shadow-sm rounded p-3 position-relative">
+                <i class="bi bi-cpu fs-1 position-absolute top-0 start-0 m-2 d-flex"></i>
+                <svg width="150" height="150" viewBox="0 0 36 36" class="mw-100">
+                    <circle cx="18" cy="18" r="15.91549431" fill="none" stroke="#eee" stroke-width="3.8"/>
+                    <circle class="counter" cx="18" cy="18" r="15.91549431" fill="none" stroke="#1d1e2c" stroke-width="3.8" stroke-dasharray="{{cpu_percent}}, 100" stroke-dashoffset="0" transform="rotate(-90 18 18)" stroke-linecap="round"/>
+                    <text x="18" y="20.35" font-size="8" text-anchor="middle" fill="#333">{{cpu_percent}}%</text>
+                </svg>
+                <div class="fs-4 mt-2">{% trans 'CPU' %}</div>
+            </div>
+        </div>
+        <div class="col-sm-6" id="ram-stats">
+            <div class="bg-white shadow-sm rounded p-3 position-relative">
+                <i class="bi bi-memory fs-1 position-absolute top-0 start-0 m-2 d-flex"></i>
+                <svg width="150" height="150" viewBox="0 0 36 36" class="mw-100">
+                    <circle cx="18" cy="18" r="15.91549431" fill="none" stroke="#eee" stroke-width="3.8"/>
+                    <circle class="counter" cx="18" cy="18" r="15.91549431" fill="none" stroke="#1d1e2c" stroke-width="3.8" stroke-dasharray="{{ram_percent}}, 100" stroke-dashoffset="0" transform="rotate(-90 18 18)" stroke-linecap="round"/>
+                    <text x="18" y="20.35" font-size="8" text-anchor="middle" fill="#333">{{ram_percent}}%</text>
+                </svg>
+                <div class="fs-4 mt-2">{% trans 'RAM' %}</div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="bg-white shadow-sm rounded p-3 mb-3">
+            <div class="row g-3 align-items-center">
+                <div class="col"><i class="bi bi-app-indicator fs-2 d-flex"></i></div>
+                <div id="apps-stats" class="col text-center">{{apps.count}}</div>
+                <div class="col fs-5 text-end">{% trans 'Apps' %}</div>
+            </div>
+        </div>
+        <div class="bg-white shadow-sm rounded p-3 mb-3">
+            <div class="row g-3 align-items-center">
+                <div class="col"><i class="bi bi-database fs-2 d-flex"></i></div>
+                <div id="database-stats" class="col text-center">{{databases.count}}</div>
+                <div class="col fs-5 text-end">{% trans 'Databases' %}</div>
+            </div>
+        </div>
+        <div class="bg-white shadow-sm rounded p-3 mb-3">
+            <div class="row g-3 align-items-center">
+                <div class="col"><i class="bi bi-folder fs-2 d-flex"></i></div>
+                <div id="www-stats" class="col text-center">{{www_status.used}}/{{www_status.total}} ({{www_status.percent}})</div>
+                <div class="col fs-5 text-end">{% trans 'Space' %}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    setInterval(function () {
+        jQuery.ajax({
+            method: 'POST',
+            url: '{% url 'dashboard' %}',
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (data) {
+                jQuery('#dpanel-stats #cpu-stats svg text').text(data.cpu_percent + '%')
+                jQuery('#dpanel-stats #cpu-stats svg circle.counter').attr('stroke-dasharray', data.cpu_percent +', 100')
+                jQuery('#dpanel-stats #ram-stats svg text').text(data.ram_percent + '%')
+                jQuery('#dpanel-stats #ram-stats svg circle.counter').attr('stroke-dasharray', data.ram_percent +', 100')
+
+            }
+        });
+    }, 10000);
+</script>
+<style>
+    circle.counter{
+        transition: 0.5s;
+    }
+</style>
+{% endblock %}

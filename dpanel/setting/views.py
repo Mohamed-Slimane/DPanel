@@ -36,7 +36,7 @@ class dpanel_update(View):
 
     def post(self, request):
 
-        command = "wget -O - https://dpanel.de-ver.com/api/update/update.sh | bash"
+        command = "wget -O - https://dpanel.top/api/update/update.sh | bash"
         try:
             subprocess.run(command)
         except subprocess.CalledProcessError as e:
