@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dever stoke\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-11 16:26+0100\n"
+"POT-Creation-Date: 2024-06-12 14:43+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -170,7 +170,8 @@ msgid "Serial"
 msgstr "الرقم التسلسي"
 
 #: .\dpanel\models.py:10 .\dpanel\models.py:44 .\templates\app\list.html:7
-#: .\templates\mysql\database.html:99 .\templates\mysql\list.html:9
+#: .\templates\mysql\database.html:64 .\templates\mysql\list.html:9
+#: .\templates\mysql\manage.html:18
 msgid "Name"
 msgstr "الإسم"
 
@@ -236,13 +237,13 @@ msgstr "إسم المستخدم"
 #: .\templates\account\password-change-done.html:5
 #: .\templates\account\password-change.html:4
 #: .\templates\account\password-change.html:5 .\templates\inc\header.html:68
-#: .\templates\mysql\database.html:31 .\templates\mysql\database.html:79
+#: .\templates\mysql\action.html:33 .\templates\mysql\database.html:44
 #: .\templates\mysql\list.html:11
 msgid "Password"
 msgstr "كلمة المرور"
 
-#: .\dpanel\models.py:60 .\templates\mysql\database.html:16
-#: .\templates\mysql\database.html:55
+#: .\dpanel\models.py:60 .\templates\mysql\action.html:18
+#: .\templates\mysql\database.html:20
 msgid "Database"
 msgstr "قاعدة البيانات"
 
@@ -270,37 +271,42 @@ msgstr "تم إنشاء قاعدة البيانات بنجاح"
 msgid "Database successfully deleted"
 msgstr "تم حذف قاعدة البيانات بنجاح"
 
-#: .\dpanel\mysql\views.py:92
+#: .\dpanel\mysql\views.py:90
+#| msgid "Database successfully created"
+msgid "Database successfully reset"
+msgstr "تمت إعادة تعيين قاعدة البيانات بنجاح"
+
+#: .\dpanel\mysql\views.py:103
 msgid "Backup created successfully for {}"
 msgstr "تم إنشاء النسخة الاحتياطية بنجاح لـ {}"
 
-#: .\dpanel\mysql\views.py:109
+#: .\dpanel\mysql\views.py:120
 msgid "Backup restored successfully for {}"
 msgstr "تمت استعادة النسخة الاحتياطية بنجاح لـ {}"
 
-#: .\dpanel\mysql\views.py:134
+#: .\dpanel\mysql\views.py:145
 msgid "SQL file imported successfully!"
 msgstr "تم استيراد ملف SQL بنجاح!"
 
-#: .\dpanel\mysql\views.py:136
+#: .\dpanel\mysql\views.py:147
 #, python-brace-format
 msgid "Failed to import SQL file: {e}"
 msgstr "فشل استيراد ملف SQL: {e}"
 
-#: .\dpanel\mysql\views.py:138
+#: .\dpanel\mysql\views.py:149
 #, python-brace-format
 msgid "Error handling the SQL file: {e}"
 msgstr "خطأ في معالجة ملف SQL: {e}"
 
-#: .\dpanel\mysql\views.py:140
+#: .\dpanel\mysql\views.py:151
 msgid "File format is not supported!"
 msgstr "تنسيق الملف غير معتمد!"
 
-#: .\dpanel\mysql\views.py:148
+#: .\dpanel\mysql\views.py:159
 msgid "Backup deleted successfully {}"
 msgstr "تم حذف النسخة الاحتياطية بنجاح {}"
 
-#: .\dpanel\mysql\views.py:166
+#: .\dpanel\mysql\views.py:177
 msgid "Backup file not found"
 msgstr "لم يتم العثور على ملف النسخ الاحتياطي"
 
@@ -456,8 +462,8 @@ msgid "Yes, install it!"
 msgstr "نعم، قم بتثبيته!"
 
 #: .\templates\app\apps.html:124 .\templates\app\certificate.html:85
-#: .\templates\inc\scripts.html:111 .\templates\mysql\database.html:187
-#: .\templates\mysql\databases.html:69
+#: .\templates\inc\scripts.html:111 .\templates\mysql\database.html:152
+#: .\templates\mysql\databases.html:69 .\templates\mysql\manage.html:70
 msgid "An error occurred while submitting the form"
 msgstr "حدث خطأ أثناء إرسال النموذج"
 
@@ -581,8 +587,8 @@ msgid "Do you want to delete this app ?"
 msgstr "هل تريد حذف هذا التطبيق؟"
 
 #: .\templates\app\list.html:119 .\templates\file\list.html:29
-#: .\templates\file\list.html:100 .\templates\mysql\database.html:38
-#: .\templates\mysql\database.html:137 .\templates\mysql\list.html:59
+#: .\templates\file\list.html:100 .\templates\mysql\action.html:47
+#: .\templates\mysql\database.html:102 .\templates\mysql\list.html:59
 msgid "Delete"
 msgstr "حذف"
 
@@ -672,7 +678,7 @@ msgstr "تحديث"
 msgid "Preview"
 msgstr "معاينة"
 
-#: .\templates\file\list.html:68 .\templates\mysql\database.html:123
+#: .\templates\file\list.html:68 .\templates\mysql\database.html:88
 msgid "Download"
 msgstr "تحميل"
 
@@ -808,7 +814,7 @@ msgstr "حدث خطأ. الرجاء معاودة المحاولة في وقت ل
 
 #: .\templates\inc\scripts.html:222
 msgid "Restore backup"
-msgstr "استرجاع النسخة الاحتياطية"
+msgstr "استرجاع نسخة احتياطية"
 
 #: .\templates\inc\scripts.html:223
 msgid "Are you sure you want to restore backup for this database ?"
@@ -830,76 +836,90 @@ msgstr "خطأ"
 msgid "Please add file url to get it"
 msgstr "يرجى ادخال رابط الملف لجلبه"
 
-#: .\templates\mysql\database.html:16
+#: .\templates\mysql\action.html:12
+#| msgid "Manage files"
+msgid "Manage"
+msgstr "إدارة"
+
+#: .\templates\mysql\action.html:18
 msgid "Do you want to create backup for this database?"
 msgstr "هل تريد إنشاء نسخة احتياطية لقاعدة البيانات هذه؟"
 
-#: .\templates\mysql\database.html:17
+#: .\templates\mysql\action.html:19
 msgid "Create backup"
-msgstr "انشئ نسخة احتياطية"
+msgstr "انشاء نسخة احتياطية"
 
-#: .\templates\mysql\database.html:24
+#: .\templates\mysql\action.html:26
 msgid "Import backup"
-msgstr "استيراد النسخة الاحتياطية"
+msgstr "استيراد نسخة احتياطية"
 
-#: .\templates\mysql\database.html:30 .\templates\mysql\database.html:67
+#: .\templates\mysql\action.html:32 .\templates\mysql\database.html:32
 #: .\templates\mysql\list.html:10
 msgid "User"
 msgstr "مستخدم"
 
-#: .\templates\mysql\database.html:30
+#: .\templates\mysql\action.html:32
 msgid "Do you want to change password for this database user?"
 msgstr "هل تريد تغيير كلمة المرور لمستخدم قاعدة البيانات هذا؟"
 
-#: .\templates\mysql\database.html:37 .\templates\mysql\list.html:58
+#: .\templates\mysql\action.html:39
+#| msgid "Delete database"
+msgid "Reset database"
+msgstr "إعادة تعيين قاعدة البيانات"
+
+#: .\templates\mysql\action.html:40
+msgid "Reset"
+msgstr "إعادة ضبط"
+
+#: .\templates\mysql\action.html:46 .\templates\mysql\list.html:58
 msgid "Delete database"
 msgstr "حذف قاعدة البيانات"
 
-#: .\templates\mysql\database.html:49
+#: .\templates\mysql\database.html:14
 msgid "Connection details"
 msgstr "تفاصيل الاتصال"
 
-#: .\templates\mysql\database.html:59
+#: .\templates\mysql\database.html:24
 msgid "Database name copied"
 msgstr "تم نسخ اسم قاعدة البيانات"
 
-#: .\templates\mysql\database.html:71
+#: .\templates\mysql\database.html:36
 msgid "Database user name copied"
 msgstr "تم نسخ اسم مستخدم قاعدة البيانات"
 
-#: .\templates\mysql\database.html:86 .\templates\mysql\list.html:41
+#: .\templates\mysql\database.html:51 .\templates\mysql\list.html:41
 msgid "Database user password copied"
 msgstr "تم نسخ كلمة مرور مستخدم قاعدة البيانات"
 
-#: .\templates\mysql\database.html:100
+#: .\templates\mysql\database.html:65
 msgid "Date"
 msgstr "التاريخ"
 
-#: .\templates\mysql\database.html:128 .\templates\mysql\database.html:135
+#: .\templates\mysql\database.html:93 .\templates\mysql\database.html:100
 msgid "Backup"
 msgstr "نسخة احتياطية"
 
-#: .\templates\mysql\database.html:128
+#: .\templates\mysql\database.html:93
 msgid "Do you want to restore this backup?"
 msgstr "هل تريد استعادة هذه النسخة الاحتياطية؟"
 
-#: .\templates\mysql\database.html:130
+#: .\templates\mysql\database.html:95
 msgid "Restore"
-msgstr "يعيد"
+msgstr "استعادة"
 
-#: .\templates\mysql\database.html:135
+#: .\templates\mysql\database.html:100
 msgid "Do you want to delete this backup?"
 msgstr "هل تريد حذف هذه النسخة الاحتياطية؟"
 
-#: .\templates\mysql\database.html:150
+#: .\templates\mysql\database.html:115
 msgid "No backups yet"
 msgstr "لا توجد نسخ احتياطية بعد"
 
-#: .\templates\mysql\database.html:157 .\templates\mysql\databases.html:29
+#: .\templates\mysql\database.html:122 .\templates\mysql\databases.html:29
 msgid "MySQL server not installed"
 msgstr "خادم MySQL غير مثبت"
 
-#: .\templates\mysql\database.html:160 .\templates\mysql\databases.html:32
+#: .\templates\mysql\database.html:125 .\templates\mysql\databases.html:32
 msgid "Install MySQL server now"
 msgstr "قم بتثبيت خادم MySQL الآن"
 
@@ -919,6 +939,32 @@ msgstr "لم يتم العثور على قواعد بيانات"
 #: .\templates\mysql\list.html:53
 msgid "Details"
 msgstr "التفاصيل"
+
+#: .\templates\mysql\manage.html:5
+#| msgid "File manager"
+msgid "manage"
+msgstr "إدارة"
+
+#: .\templates\mysql\manage.html:19
+msgid "Rows"
+msgstr "الصفوف"
+
+#: .\templates\mysql\manage.html:20
+msgid "Type"
+msgstr "النوع"
+
+#: .\templates\mysql\manage.html:21
+#| msgid "Configuration"
+msgid "Collation"
+msgstr "التجميع"
+
+#: .\templates\mysql\manage.html:22
+msgid "Size"
+msgstr "الحجم"
+
+#: .\templates\mysql\manage.html:62 .\templates\mysql\manage.html:65
+msgid "There is no tables in this database"
+msgstr "لا توجد جداول في قاعدة البيانات هذه"
 
 #: .\templates\settings\more.html:17
 msgid "Failed to load"
@@ -958,12 +1004,6 @@ msgstr "عدد العناصر في القوائم"
 
 #~ msgid "Terminal environment command"
 #~ msgstr "أمر البيئة الطرفية"
-
-#~ msgid "Configuration"
-#~ msgstr "إعدادات"
-
-#~ msgid "Manage files"
-#~ msgstr "إدارة الملفات"
 
 #~ msgid "Actions"
 #~ msgstr "إجراءات"

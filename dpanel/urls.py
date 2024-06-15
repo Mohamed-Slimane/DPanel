@@ -2,7 +2,7 @@ from django.urls import path
 
 from dpanel import views
 from dpanel.app import views as app_views
-from dpanel.mysql import views as mysql_views
+from dpanel.mysql import views as mysql_views, manage as mysql_manage
 from dpanel.setting import views as setting_views
 from dpanel.functions import super_required
 from django.contrib.auth import views as auth_views
@@ -50,6 +50,7 @@ urlpatterns = [
     path('mysql/new/', super_required(mysql_views.new.as_view()), name="mysql_database_new"),
     path('mysql/<str:serial>/', super_required(mysql_views.database.as_view()), name="mysql_database"),
     path('mysql/<str:serial>/delete/', super_required(mysql_views.delete.as_view()), name="mysql_database_delete"),
+    path('mysql/<str:serial>/reset/', super_required(mysql_views.reset.as_view()), name="mysql_database_reset"),
     path('mysql/<str:serial>/password/change/', super_required(mysql_views.password_change.as_view()), name="mysql_database_password_change"),
 
     # MySQL Backup
@@ -58,6 +59,11 @@ urlpatterns = [
     path('mysql/backup/<str:serial>/import/', super_required(mysql_views.backup_import.as_view()), name="mysql_backup_import"),
     path('mysql/backup/<str:serial>/delete/', super_required(mysql_views.backup_delete.as_view()), name="mysql_backup_delete"),
     path('mysql/backup/<str:serial>/download/', super_required(mysql_views.backup_download.as_view()), name="mysql_backup_download"),
+
+    # MySQL Manage
+    path('mysql/<str:serial>/manage/', super_required(mysql_manage.manage.as_view()), name="mysql_database_manage"),
+    path('mysql/<str:serial>/manage/tables/', super_required(mysql_manage.tables.as_view()), name="mysql_database_manage_tables"),
+
 
     # Settings
     path('settings/', super_required(setting_views.settings.as_view()), name="settings"),

@@ -5,42 +5,7 @@
 {% block page_title %} <a href="{% url 'mysql_databases' %}">MySQL</a> - {{database.name}} {% endblock %}
 
 {% block title_button %}
-<form class="d-none" method="post" action="{% url 'mysql_backup_import' database.serial %}" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="file" name="sql_file" id="backup-import-{{database.serial}}" class="backup-import" accept=".sql,.sql.gz" required hidden>
-</form>
-<div class="dropdown">
-    <i class="bi bi-three-dots-vertical float-end pointer" data-bs-toggle="dropdown"></i>
-    <ul class="dropdown-menu dropdown-menu-end">
-        <li>
-           <span onclick="open_link_confirm('{% url 'mysql_backup_create' database.serial %}', '{% trans 'Database' %}: {{database.name}}', '{% trans 'Do you want to create backup for this database?' %}')" class="dropdown-item pointer">
-               {% trans 'Create backup' %}
-               <i class="bi bi-database float-end text-info"></i>
-            </span>
-        </li>
-        <li><div class="dropdown-divider"></div></li>
-        <li>
-            <span class="dropdown-item pointer database-restore" onclick="document.getElementById('backup-import-{{database.serial}}').click()">
-                {% trans 'Import backup' %}
-                <i class="bi bi-pc-display float-end text-success"></i>
-            </span>
-        </li>
-        <li><div class="dropdown-divider"></div></li>
-        <li>
-            <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'mysql_database_password_change' database.serial %}', '{% trans 'User' %}: {{database.username}}', '{% trans 'Do you want to change password for this database user?' %}')">
-                {% trans 'Password' %}
-                <i class="bi bi-arrow-clockwise float-end"></i>
-            </span>
-        </li>
-        <li><div class="dropdown-divider"></div></li>
-        <li>
-            <span class="dropdown-item pointer text-danger" onclick="open_link_confirm('{% url 'mysql_database_delete' database.serial %}', '{% trans 'Delete database' %}: {{database.name}}', '', true)">
-                {% trans 'Delete' %}
-                <i class="bi bi-trash float-end text-danger"></i>
-            </span>
-        </li>
-    </ul>
-</div>
+{% include 'mysql/action.html' %}
 {% endblock %}
 
 {% block content %}

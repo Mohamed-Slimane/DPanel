@@ -38,14 +38,14 @@
             <div class="row g-3 align-items-center">
                 <div class="col"><i class="bi bi-app-indicator fs-2 d-flex"></i></div>
                 <div id="apps-stats" class="col text-center">{{apps.count}}</div>
-                <div class="col fs-5 text-end">{% trans 'Apps' %}</div>
+                <div class="col fs-5 text-end"><a href="{% url 'apps' %}">{% trans 'Apps' %}</a></div>
             </div>
         </div>
         <div class="bg-white shadow-sm rounded p-3 mb-3">
             <div class="row g-3 align-items-center">
                 <div class="col"><i class="bi bi-database fs-2 d-flex"></i></div>
                 <div id="database-stats" class="col text-center">{{databases.count}}</div>
-                <div class="col fs-5 text-end">{% trans 'Databases' %}</div>
+                <div class="col fs-5 text-end"><a href="{% url 'mysql_databases' %}">{% trans 'Databases' %}</a></div>
             </div>
         </div>
         <div class="bg-white shadow-sm rounded p-3 mb-3">

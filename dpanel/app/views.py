@@ -245,8 +245,8 @@ class app_config(View):
         app = App.objects.get(serial=serial)
         try:
             config_code = pathlib.Path(app.nginx_config).read_text()
-        except:
-            config_code = None
+        except Exception as e:
+            config_code = ''
         return render(request, 'file/config.html', {'app': app, 'config_code': config_code})
 
 

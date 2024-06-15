@@ -80,6 +80,17 @@ class delete(View):
         return redirect('mysql_databases')
 
 
+class reset(View):
+    def get(self, request, serial):
+        database = MysqlDatabase.objects.get(serial=serial)
+        os.system(f'mysql -e "DROP DATABASE IF EXISTS {database.name};"')
+        subprocess.run(['mysql', '-e', f'CREATE DATABASE {database.name};'])
+        subprocess.run(
+            ['mysql', '-e', f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{database.username}'@'localhost';"])
+        messages.warning(request, _('Database successfully reset'))
+        return redirect('mysql_database', serial)
+
+
 class backup_create(View):
     def get(self, request, serial):
         database = MysqlDatabase.objects.get(serial=serial)

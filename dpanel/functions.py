@@ -75,7 +75,7 @@ def create_uwsgi_config(app):
         pathlib.Path(available).mkdir(parents=True, exist_ok=True)
         pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
         uwsgi_conf = f'{available}/{app.serial}.ini'
-        module = "{}:{}".format(str(app.startup_file).replace('.py', ''), app.entry_point)
+        module = "{}:{}".format(str(app.startup_file).replace('.py', '').replace('/', '.'), app.entry_point)
         os.system(f'touch {uwsgi_conf}')
         conf = f"""
 [uwsgi]
