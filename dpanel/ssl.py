@@ -36,9 +36,9 @@ def create_app_ssl(app):
 
 def install_certbot():
     try:
-        subprocess.run(["sudo", "apt", "update"])
-        subprocess.run(["sudo", "apt", "install", "-y", "certbot"])
-        subprocess.run(["sudo", "apt", "install", "-y", "python3-certbot-nginx"])
+        subprocess.run(["apt", "update"])
+        subprocess.run(["apt", "install", "-y", "certbot"])
+        subprocess.run(["apt", "install", "-y", "python3-certbot-nginx"])
         subprocess.run(['ufw', 'allow', 'https'])
         subprocess.run(['ufw', 'allow', '443'])
         success = True

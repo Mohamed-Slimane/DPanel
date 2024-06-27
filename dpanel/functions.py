@@ -24,11 +24,7 @@ def create_app_server_block(app):
         pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
         nginx_conf = f'{available}/{app.serial}.conf'
         os.system(f'touch {nginx_conf}')
-        conf = '''
-upstream wsgi_server {{
-    server 0.0.0.0:{app.port};
-}}
-server {{
+        conf = '''server {{
     listen 80;
     listen [::]:80;
 
@@ -36,15 +32,14 @@ server {{
     root {app.www_path};  
     
     location / {{
-        try_files $uri $uri/ =404;
-        add_header Access-Control-Allow-Origin *;
-        proxy_pass http://wsgi_server;
-        include proxy_params;
+        include uwsgi_params;
+        uwsgi_pass 0.0.0.0:{app.port};
     }}
 
+    
     error_page 404 /404.html;
-
-    location ~* \.(jpg|jpeg|gif|css|png|js|ico|html)$ {{
+       
+    location ~* \.(jpg|jpeg|gif|css|png|js|ico|html|svg|webp|woff|woff2|ttf|eot|mp4|webm|ogg|mp3|txt|xml|json)$ {{
         access_log off;
         expires max;
     }}
@@ -79,19 +74,19 @@ def create_uwsgi_config(app):
         os.system(f'touch {uwsgi_conf}')
         conf = f"""
 [uwsgi]
-# plugin = http
 processname = {app.name}
 processes = 1
 threads = 2
 chdir = {app.www_path}
 module = {module}
-http = 0.0.0.0:{app.port}
+socket = 0.0.0.0:{app.port}
 daemonize={app.www_path}/log.log
 vacuum = true
 master = true
 max-requests = 1000
 chmod-socket = 666
 venv = {app.venv_path}
+plugin = python3
 """
         with open(uwsgi_conf, 'w') as f:
             f.write(conf)
@@ -171,8 +166,8 @@ def check_db_installed(db_command):
 
 def install_nginx_server():
     try:
-        subprocess.run(["sudo", "apt", "update"])
-        subprocess.run(["sudo", "apt", "install", "-y", "nginx"])
+        subprocess.run(["apt", "update"])
+        subprocess.run(["apt", "install", "-y", "nginx"])
         subprocess.run(['ufw', 'allow', '80'])
         subprocess.run(['ufw', 'allow', 'http'])
         subprocess.run(['ufw', 'allow', 'Nginx Full'])
@@ -193,9 +188,10 @@ def install_nginx_server():
 
 def install_uwsgi_server():
     try:
-        subprocess.run(["sudo", "apt", "update"])
-        subprocess.run(["sudo", "apt", "install", "-y", "uwsgi"])
-        subprocess.run(["python3", "-m", "pip", "install", "uwsgi"])
+        subprocess.run(["apt", "update"])
+        subprocess.run(["apt", "install", "-y", "uwsgi"])
+        subprocess.run(["apt", "install", "-y", "uwsgi-plugin-python3"])
+        # subprocess.run(["python3", "-m", "pip", "install", "uwsgi"])
         subprocess.run(["python3", "-m", "pip", "install", "django"])
         file_path = "/etc/systemd/system/uwsgi.service"
         file_content = """
@@ -204,7 +200,7 @@ Description=uWSGI Emperor
 After=syslog.target
 
 [Service]
-ExecStart=/usr/local/bin/uwsgi --emperor /etc/uwsgi/apps-enabled
+ExecStart=/usr/bin/uwsgi --emperor /etc/uwsgi/apps-enabled
 Restart=always
 KillSignal=SIGQUIT
 Type=notify
@@ -231,10 +227,10 @@ WantedBy=multi-user.target
 
 def install_mysql_server():
     try:
-        subprocess.run(["sudo", "apt", "update"])
-        subprocess.run(["sudo", "apt", "install", "-y", "mysql-server"])
-        subprocess.run(["sudo", "systemctl", "start", "mysql"])
-        subprocess.run(["sudo", "systemctl", "enable", "mysql"])
+        subprocess.run(["apt", "update"])
+        subprocess.run(["apt", "install", "-y", "mysql-server"])
+        subprocess.run(["systemctl", "start", "mysql"])
+        subprocess.run(["systemctl", "enable", "mysql"])
         success = True
         message = _("MySQL Server has been successfully installed")
 

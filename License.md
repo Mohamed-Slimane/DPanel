@@ -31,8 +31,7 @@ Users are reminded to carefully read and fully understand this agreement. Users 
 1. Any partially or completely invalid clause does not affect the validity of the remaining clauses.
 2. **Dever** reserves the full right to interpret this agreement.
 
---------------------------------------------------------------------------------
-
+-------------------------------------------------------------------------------
 ### اتفاقية ترخيص **Dpanel**
 
 #### تنبيه هام:

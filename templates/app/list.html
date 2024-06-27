@@ -8,7 +8,8 @@
             <th>{% translate 'Domain' %}</th>
             <th>{% translate 'Port' %}</th>
             <th style="min-width: 300px">{% translate 'Environment' %}</th>
-            <th style="width: 150px">{% translate 'SSL' %} <small class="text-muted">(beta)</small></th>
+            <th>{% translate 'SSL' %} <small class="text-muted">(beta)</small></th>
+            <th>{% translate 'Date' %}</th>
             <th></th>
         </tr>
         </thead>
@@ -33,12 +34,12 @@
                     <div class="input-group input-group-sm">
                         <input type="text" class="form-control rounded-start-pill" value="source {{app.venv_path}}/bin/activate && cd {{app.www_path}}" readonly dir="ltr">
                         <button type="button" class="btn btn-light border" data-bs-toggle="tooltip" title="{% trans 'Copy command' %}" onclick="jQuery(this).parents('.input-group').find('input').select();copy_this('source {{app.venv_path}}/bin/activate && cd {{app.www_path}}','{% trans 'Paste the command in the terminal to activate virtual environment of this app' %}')">
-                            <i class="bi bi-clipboard text-danger"></i>
+                            <i class="bi bi-copy text-danger"></i>
                         </button>
                         <a href="{% url 'app_files' app.serial %}" class="btn btn-light border" target="_blank" data-bs-toggle="tooltip" title="{% trans 'File manager' %}">
                             <i class="bi bi-folder float-end text-success"></i>
                         </a>
-                        <div class="input-group-text rounded-end-pill dropdown">
+                        <div class="input-group-text rounded-end-pill dropdown" data-bs-toggle="tooltip" title="{% trans 'More' %}">
                             <i class="bi bi-three-dots-vertical pointer" data-bs-toggle="dropdown"></i>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
@@ -54,7 +55,7 @@
                                 <li class="dropdown-item pointer" onclick="open_link_confirm('{% url 'app_requirements_install' app.serial %}', '{% trans 'Install requirements' %}', '{% trans 'All libraries in requirements.txt will be installed' %}')">
                                     <span class="dropdown-link">
                                         {% translate 'Requirements' %}
-                                        <i class="bi bi-boxes float-end"></i>
+                                        <i class="bi bi-file-earmark-text float-end"></i>
                                     </span>
                                 </li>
                             </ul>
@@ -72,6 +73,9 @@
                         {% endif %}
                     </a>
                 </td>
+                <td data-bs-toggle="tooltip" title="{{app.created|date:"H:i, l"}}">
+                    {{app.created|date:"d-m-Y"}}
+                </td>
                 <td>
                     <div class="float-end">
                         {% if app.is_active %}
@@ -83,7 +87,7 @@
                             <i class="bi bi-play-circle fs-4"></i>
                         </a>
                         {% endif %}
-                        <div class="dropdown d-inline ms-1">
+                        <div class="dropdown d-inline ms-1" data-bs-toggle="tooltip" title="{% trans 'Settings' %}">
                             <i class="bi bi-gear fs-4 pointer" data-bs-toggle="dropdown"></i>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>

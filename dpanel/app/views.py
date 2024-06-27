@@ -39,7 +39,7 @@ class apps(View):
         return JsonResponse(res)
 
     def get(self, request):
-        apps = App.objects.all()
+        apps = App.objects.all().order_by('-created')
         apps = paginator(request, apps, int(get_option('paginator', '20')))
         return render(request, 'app/apps.html', {'apps': apps})
 
@@ -146,6 +146,8 @@ class requirements_install(View):
                 messages.error(request, _('File <b>requirements.txt</b> not found.'))
         except subprocess.CalledProcessError as e:
             messages.error(request, _('Error installing requirements: {}').format(e.stderr))
+        except Exception as e:
+            messages.error(request, str(e))
         return redirect('apps')
 
 
@@ -234,11 +236,12 @@ class app_config(View):
         try:
             with open(app.nginx_config, 'w') as f:
                 f.write(config_code)
-            shutil.copy(app.nginx_config, f'/etc/nginx/sites-enabled/{app.serial}.conf')
+            with open(str(app.nginx_config).replace('sites-enabled/', 'sites-available/'), 'w') as f:
+                f.write(config_code)
             os.system(f'systemctl restart nginx')
             messages.success(request, _('App configuration updated successfully'))
-        except:
-            messages.error(request, _('Error in updating django_app configuration'))
+        except Exception as e:
+            messages.error(request, _('Error in updating app configuration') + str(e))
         return self.get(request, serial)
 
     def get(self, request, serial):
@@ -394,41 +397,48 @@ class file_remove(View):
 
 
 class file_preview(View):
+    image_extensions = ['.jpg', '.png', '.jpeg', '.svg', '.gif', '.webp', '.ico', '.bmp', '.tiff']
+    pdf_extensions = ['.pdf']
+    video_audio_extensions = ['.mp4', '.mkv', '.webm', '.mp3', '.m4a', '.ogg', '.avi', '.wmv', '.mov', '.flv', '.3gp']
+
     def get(self, request):
         file = request.GET.get('file')
         if not os.path.isfile(file):
             return redirect('apps')
         filename = os.path.basename(file)
         try:
-            if file.endswith('.jpg') or file.endswith('.png') or file.endswith('.jpeg') or file.endswith(
-                    '.svg') or file.endswith('.gif') or file.endswith('.webp') or file.endswith(
-                '.ico') or file.endswith('.bmp') or file.endswith('.tiff'):
+            file_extension = file.lower()
+
+            if any(file_extension.endswith(ext) for ext in self.image_extensions):
                 return HttpResponse(open(file, 'rb'), content_type=mimetypes.guess_type(file)[0])
-            if file.endswith('.pdf'):
+
+            if any(file_extension.endswith(ext) for ext in self.pdf_extensions):
                 return FileResponse(open(file, 'rb'), content_type=mimetypes.guess_type(file)[0])
-            if file.endswith('.mp4') or file.endswith('.mkv') or file.endswith('.webm') or file.endswith(
-                    '.mp3') or file.endswith('.m4a') or file.endswith('.ogg') or file.endswith('.avi') or file.endswith(
-                '.wmv') or file.endswith('.mov') or file.endswith('.flv') or file.endswith('.3gp'):
+
+            if any(file_extension.endswith(ext) for ext in self.video_audio_extensions):
                 return FileResponse(open(file, 'rb'), content_type=mimetypes.guess_type(file)[0])
-            with open(file, "r") as file:
-                text = file.read()
+
+            with open(file, "r") as f:
+                text = f.read()
             return render(request, 'file/preview.html', {'text': text, 'filename': filename})
-        except:
-            return HttpResponse(_('Cannot preview this file'))
+
+        except Exception as e:
+            return HttpResponse(_('Cannot preview this file: {}'.format(str(e))))
 
 
 class file_download(View):
     def get(self, request):
-        file = request.GET.get('file')
-        if not os.path.isfile(file):
+        try:
+            file = request.GET.get('file')
+            if not os.path.isfile(file):
+                return redirect('apps')
+            filename = os.path.basename(file)
+            response = FileResponse(open(file, 'rb'), content_type=mimetypes.guess_type(file)[0])
+            response['Content-Disposition'] = f'attachment; filename={filename}'
+            return response
+        except Exception as e:
+            messages.error(request, str(e))
             return redirect('apps')
-        filename = os.path.basename(file)
-        with open(file, "r") as file:
-            text = file.read()
-
-        response = HttpResponse(text, content_type=mimetypes.guess_type(file)[0])
-        response['Content-Disposition'] = f'attachment; filename={filename}'
-        return response
 
 
 class file_edit(View):

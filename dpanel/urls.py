@@ -1,12 +1,11 @@
+from django.contrib.auth import views as auth_views
 from django.urls import path
 
 from dpanel import views
 from dpanel.app import views as app_views
+from dpanel.functions import super_required
 from dpanel.mysql import views as mysql_views, manage as mysql_manage
 from dpanel.setting import views as setting_views
-from dpanel.functions import super_required
-from django.contrib.auth import views as auth_views
-
 
 urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),

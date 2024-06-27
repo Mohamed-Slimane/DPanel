@@ -7,11 +7,10 @@
 
 {% block content %}
 <textarea name="text" id="text-review">{{text}}</textarea>
-<script src="{% static 'codemirror/codemirror.min.js' %}"></script>
 
+<script src="{% static 'codemirror/codemirror.min.js' %}"></script>
 <script src="{% static 'codemirror/addons/matchbrackets.js' %}"></script>
 <script src="{% static 'codemirror/addons/closebrackets.js' %}"></script>
-
 <script src="{% static 'codemirror/modes/meta.js' %}"></script>
 
 <link rel="stylesheet" href="{% static 'codemirror/codemirror.min.css' %}" />
@@ -19,9 +18,9 @@
 
 {% if filename|slice:'-2:' == "py" %}
 <script src="{% static 'codemirror/modes/python/python.js' %}"></script>
-{% elif filename|slice:'-3:' == "html" %}
+{% elif filename|slice:'-4:' == "html" %}
 <script src="{% static 'codemirror/modes/xml/xml.js' %}"></script>
-{% elif filename|slice:'-3:' == "css" %}
+{% elif filename|slice:'-3:' in "css, php" %}
 <script src="{% static 'codemirror/modes/css/css.js' %}"></script>
 {% elif filename|slice:'-2:' == "js" or filename|slice:'-4:' == "json" %}
 <script src="{% static 'codemirror/modes/javascript/javascript.js' %}"></script>
@@ -34,17 +33,18 @@ jQuery(document).ready(function() {
         theme: 'monokai',
         lineNumbers : true,
         lineWrapping : true,
-        readOnly : true,
         matchBrackets : true,
         autoCloseBrackets : true,
+        matchBrackets : true,
         highlightSelectionMatches : true,
         tabMode: "indent",
+        readOnly : true,
 
         {% if filename|slice:'-2:' == "py" %}
         mode: 'text/x-python',
-        {% elif filename|slice:'-3:' == "html" %}
+        {% elif filename|slice:'-4:' == "html" %}
         mode: 'application/xml',
-        {% elif filename|slice:'-3:' == "css" %}
+        {% elif filename|slice:'-3:' in "css, php" %}
         mode: 'text/css',
         {% elif filename|slice:'-2:' == "js" or filename|slice:'-4:' == "json" %}
         mode: 'text/javascript',

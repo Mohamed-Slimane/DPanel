@@ -40,7 +40,7 @@
 
 {% if filename|slice:'-2:' == "py" %}
 <script src="{% static 'codemirror/modes/python/python.js' %}"></script>
-{% elif filename|slice:'-3:' == "html" %}
+{% elif filename|slice:'-4:' == "html" %}
 <script src="{% static 'codemirror/modes/xml/xml.js' %}"></script>
 {% elif filename|slice:'-3:' == "css" %}
 <script src="{% static 'codemirror/modes/css/css.js' %}"></script>
@@ -55,14 +55,16 @@ jQuery(document).ready(function() {
     CodeMirror.fromTextArea(document.getElementById('edit-text'), {
         theme: 'monokai',
         lineNumbers : true,
+        lineWrapping : true,
         matchBrackets : true,
         autoCloseBrackets : true,
+        matchBrackets : true,
         highlightSelectionMatches : true,
         tabMode: "indent",
 
         {% if filename|slice:'-2:' == "py" %}
         mode: 'text/x-python',
-        {% elif filename|slice:'-3:' == "html" %}
+        {% elif filename|slice:'-4:' == "html" %}
         mode: 'application/xml',
         {% elif filename|slice:'-3:' == "css" %}
         mode: 'text/css',

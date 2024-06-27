@@ -21,6 +21,7 @@ class App(models.Model):
     uwsgi_config = models.CharField(max_length=5000, verbose_name=_('Uwsgi config'))
     force_https = models.BooleanField(verbose_name=_('Force HTTPS'), default=False)
     is_active = models.BooleanField(verbose_name=_('Is active'), default=True)
+    created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
