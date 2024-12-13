@@ -2,7 +2,10 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 
 from dpanel import views
-from dpanel.app import views as app_views
+from dpanel.domain import views as domain
+from dpanel.app import views as app
+from dpanel.certificate import views as certificate
+from dpanel.file import views as file
 from dpanel.functions import super_required
 from dpanel.mysql import views as mysql_views, manage as mysql_manage
 from dpanel.setting import views as setting_views
@@ -10,39 +13,42 @@ from dpanel.setting import views as setting_views
 urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),
     path('logout/', super_required(auth_views.LogoutView.as_view()), name="logout"),
-    path('password/change/', super_required(auth_views.PasswordChangeView.as_view(template_name='account/password-change.html', form_class=auth_views.SetPasswordForm)), name="password_change"),
-    path('password/change/done', super_required(auth_views.PasswordChangeDoneView.as_view(template_name='account/password-change-done.html')), name="password_change_done"),
+    path('password/change/', super_required(auth_views.PasswordChangeView.as_view(
+        template_name='account/password-change.html', form_class=auth_views.SetPasswordForm)
+    ), name="password_change"),
+    path('password/change/done', super_required(auth_views.PasswordChangeDoneView.as_view(
+        template_name='account/password-change-done.html')
+    ), name="password_change_done"),
+
+    # Dashboard
+    path('', super_required(views.dashboard.as_view()), name="dashboard"),
+
+    # Domains
+    path('domains/', super_required(domain.domains.as_view()), name="domains"),
+    path('domains/new/', super_required(domain.new.as_view()), name="domain_new"),
+    path('domains/<str:serial>/delete/', super_required(domain.delete.as_view()), name="domain_delete"),
+    path('domains/<str:serial>/config/', super_required(domain.config.as_view()), name="domain_config"),
+
+    # Certificate
+    path('domains/<str:serial>/certificates/', super_required(certificate.certificates.as_view()), name="certificates"),
+    path('domains/<str:serial>/certificates/new/', super_required(certificate.certificate_new.as_view()), name="certificate_new"),
 
     # Apps
-    path('', super_required(views.dashboard.as_view()), name="dashboard"),
-    path('apps', super_required(app_views.apps.as_view()), name="apps"),
-    path('apps/new/', super_required(app_views.app_new.as_view()), name="app_new"),
-    path('apps/<str:serial>/edit/', super_required(app_views.app_edit.as_view()), name="app_edit"),
-    path('apps/<str:serial>/restart/', super_required(app_views.app_restart.as_view()), name="app_restart"),
-    path('apps/<str:serial>/status/', super_required(app_views.app_status.as_view()), name="app_status"),
-    path('apps/<str:serial>/delete/', super_required(app_views.app_delete.as_view()), name="app_delete"),
-    path('apps/<str:serial>/log/', super_required(app_views.app_log.as_view()), name="app_log"),
-    path('apps/package/install/', super_required(app_views.package_install.as_view()), name="app_package_install"),
-    path('apps/<str:serial>/package/requirements/', super_required(app_views.requirements_install.as_view()), name="app_requirements_install"),
+    path('apps', super_required(app.apps.as_view()), name="apps"),
+    path('apps/new/', super_required(app.app_new.as_view()), name="app_new"),
+    path('apps/<str:serial>/edit/', super_required(app.edit.as_view()), name="app_edit"),
+    path('apps/<str:serial>/delete/', super_required(app.delete.as_view()), name="app_delete"),
+    path('apps/<str:serial>/status/', super_required(app.status.as_view()), name="app_status"),
+    path('apps/<str:serial>/restart/', super_required(app.restart.as_view()), name="app_restart"),
+    path('apps/<str:serial>/log/', super_required(app.log.as_view()), name="app_log"),
+    path('apps/package/install/', super_required(app.package_install.as_view()), name="app_package_install"),
+    path('apps/<str:serial>/package/requirements/', super_required(app.requirements_install.as_view()), name="app_requirements_install"),
 
-    path('apps/<str:serial>/config/', super_required(app_views.app_config.as_view()), name="app_config"),
-
-    path('apps/<str:serial>/certificate/', super_required(app_views.app_certificates.as_view()), name="app_certificates"),
-    path('apps/<str:serial>/ssl/new/', super_required(app_views.app_certificate_new.as_view()), name="app_ssl_new"),
-
-    path('apps/<str:serial>/files/', super_required(app_views.app_files.as_view()), name="app_files"),
-    path('apps/<str:serial>/files/ajax/', super_required(app_views.app_files_ajax.as_view()), name="app_files_ajax"),
-    path('apps/files/manage/upload/ajax/', super_required(app_views.app_files_ajax_upload.as_view()), name="app_files_ajax_upload"),
-    path('apps/files/manage/zip/extract/ajax/', super_required(app_views.extract_zip.as_view()), name="app_zip_extract"),
-    path('apps/files/manage/remove/', super_required(app_views.file_remove.as_view()), name="app_file_remove"),
-    path('apps/files/manage/preview/', super_required(app_views.file_preview.as_view()), name="app_file_preview"),
-    path('apps/files/manage/download/', super_required(app_views.file_download.as_view()), name="app_file_download"),
-    path('apps/files/manage/edit/', super_required(app_views.file_edit.as_view()), name="app_file_edit"),
-
-    path('restart/uwsgi/', super_required(app_views.uwsgi_restart.as_view()), name="uwsgi_restart"),
-    path('restart/nginx/', super_required(app_views.nginx_restart.as_view()), name="nginx_restart"),
-    path('restart/mysql/', super_required(app_views.mysql_restart.as_view()), name="mysql_restart"),
-    path('restart/server/', super_required(app_views.server_restart.as_view()), name="server_restart"),
+    # Manage
+    path('restart/uwsgi/', super_required(views.uwsgi_restart.as_view()), name="uwsgi_restart"),
+    path('restart/nginx/', super_required(views.nginx_restart.as_view()), name="nginx_restart"),
+    path('restart/mysql/', super_required(views.mysql_restart.as_view()), name="mysql_restart"),
+    path('restart/server/', super_required(views.server_restart.as_view()), name="server_restart"),
 
     # MySQL
     path('mysql/', super_required(mysql_views.databases.as_view()), name="mysql_databases"),
@@ -63,6 +69,15 @@ urlpatterns = [
     path('mysql/<str:serial>/manage/', super_required(mysql_manage.manage.as_view()), name="mysql_database_manage"),
     path('mysql/<str:serial>/manage/tables/', super_required(mysql_manage.tables.as_view()), name="mysql_database_manage_tables"),
 
+    # Files
+    path('apps/files/', super_required(file.files.as_view()), name="files"),
+    path('apps/files/ajax/', super_required(file.files_ajax.as_view()), name="files_ajax"),
+    path('apps/files/manage/upload/ajax/', super_required(file.files_ajax_upload.as_view()), name="files_ajax_upload"),
+    path('apps/files/manage/preview/', super_required(file.file_preview.as_view()), name="file_preview"),
+    path('apps/files/manage/edit/', super_required(file.file_edit.as_view()), name="file_edit"),
+    path('apps/files/manage/remove/', super_required(file.file_remove.as_view()), name="file_remove"),
+    path('apps/files/manage/download/', super_required(file.file_download.as_view()), name="file_download"),
+    path('apps/files/manage/zip/extract/ajax/', super_required(file.extract_zip.as_view()), name="zip_extract"),
 
     # Settings
     path('settings/', super_required(setting_views.settings.as_view()), name="settings"),

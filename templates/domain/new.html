@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} {% translate 'New domain' %} {% endblock %}
+{% block page_title %} {% translate 'New domain' %} {% endblock %}
+
+
+{% block content %}
+<div class="bg-white shadow-sm rounded p-3">
+    <form class="row preloader-form" method="post">
+        {% csrf_token %}
+        {% include 'inc/form.html'%}
+        <button type="submit" class="btn btn-primary">
+            {% translate 'Create' %}
+        </button>
+    </form>
+</div>
+{% endblock %}

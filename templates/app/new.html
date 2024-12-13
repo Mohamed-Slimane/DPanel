@@ -17,17 +17,4 @@
         </div>
     </form>
 </div>
-
-<script>
-    $('#id_domain').on('change', function () {
-        domain = $(this).val();
-        if (domain){
-            domain = domain.replace('https://', '').replace('http://', '');
-            if (domain.endsWith('/')) {
-                domain = domain.slice(0, -1);
-            }
-            $('#id_domain').val(domain);
-        }
-    });
-</script>
 {% endblock %}

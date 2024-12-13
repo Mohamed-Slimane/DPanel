@@ -2,10 +2,10 @@
 {% load i18n %}
 {% load static %}
 
-{% block title %} {{app}} - {% trans 'SSL certificates' %} {% endblock %}
-{% block page_title %} {{app}} - {% trans 'SSL certificates' %} {% endblock %}
+{% block title %} {{domain}} - {% trans 'SSL certificates' %} {% endblock %}
+{% block page_title %} {{domain}} - {% trans 'SSL certificates' %} {% endblock %}
 {% block title_button %}
-<span class="btn btn-primary btn-sm rounded-pill" onclick="open_link_confirm('{% url 'app_ssl_new' app.serial %}')">
+<span class="btn btn-primary btn-sm rounded-pill" onclick="open_link_confirm('{% url 'domain_ssl_new' domain.serial %}')">
     {% trans 'New certificate' %}
     <i class="bi bi-shield"></i>
 </span>
@@ -14,7 +14,7 @@
 {% block content %}
 <div class="bg-white shadow-sm rounded p-3">
     {% if status.certbot_status %}
-        {% if app.certificates %}
+        {% if domain.certificates %}
         <div class="responsive-table-md">
             <table class="table table-hover">
                 <thead>
@@ -25,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for certificate in app.certificates %}
+                    {% for certificate in domain.certificates %}
                     <tr>
                         <td>
                             {% if certificate.start_index %}
@@ -46,7 +46,7 @@
             </table>
         </div>
         {% else %}
-        {% trans 'This app have no certificates yet' %}
+        {% trans 'This domain have no certificates yet' %}
         {% endif %}
     {% else %}
     <div class="text-center">
@@ -76,7 +76,7 @@
                         allowOutsideClick: false,
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = "{% url 'app_certificates' app.serial %}"
+                            window.location.href = "{% url 'domain_certificates' domain.serial %}"
                         }
                     });
                 },

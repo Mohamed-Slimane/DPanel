@@ -1,0 +1,5 @@
+{% if query.start_index %}
+{{query.start_index|add:forloop.counter0}}
+{% else %}
+{{forloop.counter}}
+{% endif %}

@@ -10,15 +10,15 @@ def has_certbot_cert(domain):
     return os.path.exists(cert_dir)
 
 
-def create_app_ssl(app):
+def create_ssl(domain):
     command = [
         "certbot",
         "certonly",
         "--nginx",
         "-d",
-        app.domain,
+        domain.name,
         "--email",
-        f"admin@{app.domain}",
+        f"admin@{domain.name}",
         "--agree-tos"
     ]
     result = subprocess.run(command, capture_output=True, text=True, check=True)

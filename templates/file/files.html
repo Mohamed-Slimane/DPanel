@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %} {% translate 'Files' %} - {{app.name}} {% endblock %}
-{% block page_title %} {% translate 'Files' %} - {{app.name}} {% endblock %}
+{% block title %}{% translate 'Files' %}{% endblock %}
+{% block page_title %}{% translate 'Files' %}{% endblock %}
 
 {% block content %}
 <div class="bg-white shadow-sm rounded p-3 mb-3 position-relative">
@@ -14,69 +14,6 @@
 {% include 'file/upload.html' %}
 
 <script>
-    jQuery('body').on('click', '.clickable-folder', function(){
-        jQuery.ajax({
-             type: "GET",
-             url: "{% url 'app_files_ajax' app.serial %}?path="+jQuery(this).attr('data-path'),
-             beforeSend: function(){
-                jQuery('.loading-preloader-2').show();
-             },
-             success: function(data){
-                jQuery('#files').html(data);
-                jQuery('#upload-path').val(jQuery('#path').val());
-                jQuery('.loading-preloader-2').hide();
-             }
-        });
-    });
 
-    jQuery('body').on('click', '.extract-zip', function(){
-        jQuery.ajax({
-             type: "GET",
-             url: "{% url 'app_zip_extract' %}?path="+jQuery('#path').val()+"&file="+jQuery(this).attr('data-file')+"&folder="+jQuery(this).attr('data-folder'),
-             beforeSend: function(){
-                jQuery('.loading-preloader-2').show();
-             },
-             success: function(data){
-                reload_folder();
-                jQuery('.loading-preloader-2').hide();
-             }
-        });
-    });
-
-    jQuery('body').on('click', '.remove-file', function(){
-        Swal.fire({
-            title: '{% trans "Are you sure?" %}',
-            text: '{% trans "This risk cannot be reversed." %}',
-            showDenyButton: true,
-            confirmButtonText: '{% trans "Continue" %}',
-            denyButtonText: '{% trans "Cancel" %}',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                jQuery.ajax({
-                    type: "GET",
-                    url: "{% url 'app_file_remove' %}?file="+jQuery(this).attr('data-file'),
-                    beforeSend: function(){
-                        jQuery('.loading-preloader-2').show();
-                    },
-                    success: function(data){
-                        reload_folder();
-                        jQuery('.loading-preloader-2').hide();
-                    }
-                });
-            }
-        });
-    });
-
-    function reload_folder(){
-        jQuery.ajax({
-            type: "GET",
-            url: "{% url 'app_files_ajax' app.serial %}?path="+jQuery('#path').val(),
-            success: function(data){
-                jQuery('#files').html(data);
-                jQuery('#upload-path').val(jQuery('#path').val());
-                jQuery('.loading-preloader-2').hide();
-            }
-        });
-    }
 </script>
 {% endblock %}

@@ -1,4 +1,4 @@
-import mimetypes
+import os
 import os
 import pathlib
 import shutil
@@ -7,8 +7,6 @@ import subprocess
 import uuid
 
 from django.contrib import messages
-from django.http import FileResponse
-from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -17,10 +15,10 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from dpanel.forms import AppForm, AppEditForm
-from dpanel.functions import create_app_server_block, create_venv, create_uwsgi_config, get_option, \
+from dpanel.functions import create_venv, create_uwsgi_config, get_option, \
     install_uwsgi_server, install_nginx_server, paginator, create_startup_file
-from dpanel.models import App, AppCertificate
-from dpanel.ssl import create_app_ssl, install_certbot
+from dpanel.models import SSLCertificate, App
+from dpanel.ssl import create_ssl, install_certbot
 
 
 class apps(View):
@@ -64,10 +62,6 @@ class app_new(View):
             sock.bind(('', 0))
             app.port = sock.getsockname()[1]
 
-            the_block = create_app_server_block(app)
-            if not the_block:
-                messages.add_message(request, messages.ERROR, _('Failed to create app server block'))
-                return self.get(request)
             the_venv = create_venv(app.venv_path)
             if not the_venv:
                 messages.add_message(request, messages.ERROR, _('Failed to create venv'))
@@ -97,7 +91,7 @@ class app_new(View):
         return render(request, 'app/new.html', {'form': form})
 
 
-class app_edit(View):
+class edit(View):
     def post(self, request, serial):
         app = App.objects.get(serial=serial)
         form = AppEditForm(request.POST, instance=app)
@@ -118,8 +112,28 @@ class app_edit(View):
         form = AppEditForm(request.POST or None, instance=app)
         return render(request, 'app/edit.html', {'app': app, 'form': form})
 
+class delete(View):
+    def get(self, request, serial):
+        app = App.objects.get(serial=serial)
+        app.delete()
+        subprocess.call(['service', 'uwsgi', 'stop', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
+        try:
+            subprocess.call(['rm', f'/etc/uwsgi/apps-available/{app.serial}.ini'])
+        except Exception as e:
+            pass
+        try:
+            subprocess.call(['rm', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
+        except Exception as e:
+            pass
+        try:
+            shutil.rmtree(app.venv_path)
+        except Exception as e:
+            pass
+        os.system(f'systemctl restart uwsgi')
+        messages.success(request, _('App deleted successfully'))
+        return redirect('apps')
 
-class app_log(View):
+class log(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
         file = app.www_path + '/log.log'
@@ -163,7 +177,7 @@ class package_install(View):
             return JsonResponse({'success': False, 'message': _('Error installing library: {}').format(e.stderr)})
 
 
-class app_restart(View):
+class restart(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
         try:
@@ -178,7 +192,7 @@ class app_restart(View):
         return redirect('apps')
 
 
-class app_status(View):
+class status(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
         try:
@@ -217,16 +231,16 @@ class app_certificate_new(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
         try:
-            expiration_date = create_app_ssl(app)
+            expiration_date = create_ssl(app)
             if expiration_date:
-                AppCertificate.objects.create(app=app, expire_date=expiration_date)
+                SSLCertificate.objects.create(app=app, expire_date=expiration_date)
             messages.success(request, _('Certificate created successfully'))
             subprocess.run("systemctl reload nginx", shell=True, check=True)
         except subprocess.CalledProcessError as e:
             messages.error(request, _('Certificate created failed'))
             messages.warning(request, str(e))
 
-        return redirect('app_certificates', app.serial)
+        return redirect('certificates', app.serial)
 
 
 class app_config(View):
@@ -251,256 +265,3 @@ class app_config(View):
         except Exception as e:
             config_code = ''
         return render(request, 'file/config.html', {'app': app, 'config_code': config_code})
-
-
-class app_delete(View):
-    def get(self, request, serial):
-        app = App.objects.get(serial=serial)
-        app.delete()
-        subprocess.call(['service', 'uwsgi', 'stop', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
-        try:
-            pathlib.Path('/var/www-deleted').mkdir(parents=True, exist_ok=True)
-            shutil.move(app.www_path, str(app.www_path).replace('/www/', '/www-deleted/') + str(
-                timezone.now().strftime("_%Y-%m-%d_time_%H.%M.%S")))
-        except Exception as e:
-            pass
-        try:
-            subprocess.call(['rm', f'/etc/nginx/sites-available/{app.serial}.conf'])
-        except Exception as e:
-            pass
-        try:
-            subprocess.call(['rm', f'/etc/nginx/sites-enabled/{app.serial}.conf'])
-        except Exception as e:
-            pass
-        try:
-            subprocess.call(['rm', f'/etc/uwsgi/apps-available/{app.serial}.ini'])
-        except Exception as e:
-            pass
-        try:
-            subprocess.call(['rm', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
-        except Exception as e:
-            pass
-        try:
-            shutil.rmtree(app.venv_path)
-        except Exception as e:
-            pass
-        try:
-            os.system(f'certbot delete --cert-name {app.domain}')
-        except Exception as e:
-            pass
-        os.system(f'systemctl restart nginx')
-        messages.success(request, _('App deleted successfully'))
-        return redirect('apps')
-
-
-class app_files(View):
-    def get(self, request, serial):
-        app = App.objects.get(serial=serial)
-        path = app.www_path
-        files = []
-        dirs = []
-        for f in os.listdir(path):
-            if os.path.isfile(os.path.join(path, f)):
-                files.append(f)
-            else:
-                dirs.append(f)
-        return render(request, 'file/files.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path,
-                                                   'parent': pathlib.Path(path).parent.absolute()})
-
-
-class app_files_ajax(View):
-    def get(self, request, serial):
-        app = App.objects.get(serial=serial)
-        path = request.GET.get('path')
-        if not path.startswith(app.www_path):
-            path = app.www_path
-        files = []
-        dirs = []
-        for f in os.listdir(path):
-            if os.path.isfile(os.path.join(path, f)):
-                files.append(f)
-            else:
-                dirs.append(f)
-        files.sort()
-        dirs.sort()
-        return render(request, 'file/list.html', {'app': app, 'files': files, 'dirs': dirs, 'path': path,
-                                                  'parent': pathlib.Path(path).parent.absolute()})
-
-
-class app_files_ajax_upload(View):
-    def post(self, request):
-        serial = request.POST.get('app')
-        app = App.objects.get(serial=serial)
-        path = request.POST.get('path')
-        if not path.startswith(app.www_path):
-            return JsonResponse({"error": 1, "success": False})
-        try:
-            if 'remote_file' in request.POST:
-                url = request.POST.get('remote_file')
-                import urllib.request
-                try:
-                    response = urllib.request.urlopen(url)
-                    file_content = response.read()
-                    filename = os.path.basename(url)
-                    filename = filename.split('?')[0]
-                    file_path = os.path.join(path, filename)
-                    with open(file_path, 'wb') as f:
-                        f.write(file_content)
-                    return JsonResponse({'error': 0, 'success': True, 'message': 'File uploaded successfully.'})
-                except urllib.error.URLError as e:
-                    return JsonResponse(
-                        {'error': 1, 'success': False, 'message': 'Failed to download the file: ' + str(e)})
-
-            file = request.FILES['file']
-            if file.name:
-                fn = os.path.basename(file.name)
-                open(f'{path}/{fn}', 'wb').write(file.read())
-            req = {"error": 0, "success": True}
-        except Exception as e:
-            req = {"error": 1, "error_message": str(e), "success": False}
-
-        return JsonResponse(req)
-
-
-class extract_zip(View):
-    def get(self, request):
-        path = request.GET.get('path')
-        file = request.GET.get('file')
-        folder = request.GET.get('folder')
-        try:
-            if folder == 'true':
-                print(file.rsplit('.', 1)[0])
-                shutil.unpack_archive(file, file.rsplit('.', 1)[0])
-            else:
-                shutil.unpack_archive(file, path)
-            req = {"error": 0, "success": True}
-        except Exception as e:
-            req = {"error": 1, "error_message": str(e), "success": False}
-
-        return JsonResponse(req)
-
-
-class file_remove(View):
-    def get(self, request):
-        file = request.GET.get('file')
-        try:
-            if os.path.isfile(file):
-                os.remove(file)
-            elif os.path.isdir(file):
-                shutil.rmtree(file)
-            req = {"error": 0, "success": True}
-        except Exception as e:
-            messages.error(request, str(e))
-            req = {"error": 1, "error_message": str(e), "success": False}
-
-        return JsonResponse(req)
-
-
-class file_preview(View):
-    image_extensions = ['.jpg', '.png', '.jpeg', '.svg', '.gif', '.webp', '.ico', '.bmp', '.tiff']
-    pdf_extensions = ['.pdf']
-    video_audio_extensions = ['.mp4', '.mkv', '.webm', '.mp3', '.m4a', '.ogg', '.avi', '.wmv', '.mov', '.flv', '.3gp']
-
-    def get(self, request):
-        file = request.GET.get('file')
-        if not os.path.isfile(file):
-            return redirect('apps')
-        filename = os.path.basename(file)
-        try:
-            file_extension = file.lower()
-
-            if any(file_extension.endswith(ext) for ext in self.image_extensions):
-                return HttpResponse(open(file, 'rb'), content_type=mimetypes.guess_type(file)[0])
-
-            if any(file_extension.endswith(ext) for ext in self.pdf_extensions):
-                return FileResponse(open(file, 'rb'), content_type=mimetypes.guess_type(file)[0])
-
-            if any(file_extension.endswith(ext) for ext in self.video_audio_extensions):
-                return FileResponse(open(file, 'rb'), content_type=mimetypes.guess_type(file)[0])
-
-            with open(file, "r") as f:
-                text = f.read()
-            return render(request, 'file/preview.html', {'text': text, 'filename': filename})
-
-        except Exception as e:
-            return HttpResponse(_('Cannot preview this file: {}'.format(str(e))))
-
-
-class file_download(View):
-    def get(self, request):
-        try:
-            file = request.GET.get('file')
-            if not os.path.isfile(file):
-                return redirect('apps')
-            filename = os.path.basename(file)
-            response = FileResponse(open(file, 'rb'), content_type=mimetypes.guess_type(file)[0])
-            response['Content-Disposition'] = f'attachment; filename={filename}'
-            return response
-        except Exception as e:
-            messages.error(request, str(e))
-            return redirect('apps')
-
-
-class file_edit(View):
-    def get(self, request):
-        file = request.GET.get('file')
-        if not os.path.isfile(file):
-            return redirect('apps')
-        filename = os.path.basename(file)
-        with open(file, "r") as file:
-            text = file.read()
-
-        return render(request, 'file/edit.html', {'text': text, 'filename': filename})
-
-    def post(self, request):
-        file = request.GET.get('file')
-        text = request.POST.get('text')
-        with open(file, "w") as file:
-            file.write(text)
-        messages.success(request, _('File was successfully updated'))
-        return self.get(request)
-
-
-class uwsgi_restart(View):
-    def get(self, request):
-        try:
-            # subprocess.call(['uwsgi', '--reload', '/path/to/uwsgi.ini'])
-            os.system(f'systemctl restart nginx')
-            os.system(f'systemctl restart uwsgi')
-            messages.success(request, _('uwsgi restarted successfully'))
-        except subprocess.CalledProcessError as e:
-            messages.error(request, _('uwsgi restart failed'))
-
-        return redirect('apps')
-
-
-class nginx_restart(View):
-    def get(self, request):
-        try:
-            os.system(f'systemctl restart nginx')
-            messages.success(request, _('nginx restarted successfully'))
-        except subprocess.CalledProcessError as e:
-            messages.error(request, _('nginx restart failed'))
-
-        return redirect('apps')
-
-
-class mysql_restart(View):
-    def get(self, request):
-        try:
-            os.system(f'systemctl restart mysql')
-            messages.success(request, _('mysql restarted successfully'))
-        except subprocess.CalledProcessError as e:
-            messages.error(request, _('mysql restart failed'))
-
-        return redirect('apps')
-
-
-class server_restart(View):
-    def get(self, request):
-        try:
-            subprocess.run(['reboot'])
-            messages.success(request, _('Server restarted successfully, please wait the server rebooting'))
-        except subprocess.CalledProcessError as e:
-            messages.error(request, _('Server restart failed'))
-        return redirect('apps')

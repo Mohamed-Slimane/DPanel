@@ -16,57 +16,117 @@ def super_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login
     return function
 
 
-def create_app_server_block(app):
+def create_domain_server_block(domain):
     try:
-        available = '/etc/nginx/sites-available'
-        enabled = '/etc/nginx/sites-enabled'
+        from engine.settings import NGINX_FOLDER
+        available = NGINX_FOLDER + 'sites-available'
+        enabled = NGINX_FOLDER + 'sites-enabled'
         pathlib.Path(available).mkdir(parents=True, exist_ok=True)
         pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
-        nginx_conf = f'{available}/{app.serial}.conf'
+        nginx_conf = f'{available}/{domain.serial}.conf'
         os.system(f'touch {nginx_conf}')
-        conf = '''server {{
+        conf = f"""server {{
     listen 80;
     listen [::]:80;
 
-    server_name {app.domain};    
-    root {app.www_path};  
-    
+    server_name {domain.name};    
+    root {domain.www_path};  
+
     location / {{
-        include uwsgi_params;
-        uwsgi_pass 0.0.0.0:{app.port};
+        index index.html;
+        try_files $uri $uri/ =404;
     }}
 
-    
     error_page 404 /404.html;
-       
+
     location ~* \.(jpg|jpeg|gif|css|png|js|ico|html|svg|webp|woff|woff2|ttf|eot|mp4|webm|ogg|mp3|txt|xml|json)$ {{
         access_log off;
         expires max;
     }}
 
-    location ~ /\.(ht|py|db|html) {{
-        deny  all;
+    location ~ /\.(ht|git|svn|db|bak|env) {{
+        deny all;
     }}
 
-    location  /. {{
+    location /. {{
         return 404;
     }}
-}}
-'''.format(app=app)
+}}"""
+
         with open(nginx_conf, 'w') as f:
             f.write(conf)
-            app.nginx_config = nginx_conf
-        os.system(f"ln -s {nginx_conf} {enabled}/{app.serial}.conf")
+            domain.nginx_config = nginx_conf
+        os.system(f"ln -s {nginx_conf} {enabled}/{domain.serial}.conf")
         return True
     except Exception as e:
         print(str(e))
         return False
 
 
+def create_index_file(domain):
+    pathlib.Path(domain.www_path).mkdir(parents=True, exist_ok=True)
+    index_path = domain.www_path + '/index.html'
+    if not os.path.exists(index_path):
+        pathlib.Path(index_path).touch()
+
+        content = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Dpanel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            color: #0078d7;
+        }
+        p {
+            margin: 10px 0;
+        }
+        a {
+            color: #0078d7;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Dpanel</h1>
+        <p>Your development environment is set up and ready to go!</p>
+        <p>Feel free to explore and manage your applications.</p>
+    </div>
+</body>
+</html>'''
+        with open(domain.www_path + '/index.html', 'w') as f:
+            f.write(content)
+
 def create_uwsgi_config(app):
     try:
-        available = '/etc/uwsgi/apps-available'
-        enabled = '/etc/uwsgi/apps-enabled'
+        from engine.settings import UWSGI_FOLDER
+        available = UWSGI_FOLDER + 'apps-available'
+        enabled = UWSGI_FOLDER + 'apps-enabled'
         pathlib.Path(available).mkdir(parents=True, exist_ok=True)
         pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
         uwsgi_conf = f'{available}/{app.serial}.ini'
@@ -147,7 +207,7 @@ def create_app(app):
         import fileinput
         for line in fileinput.input(f'{app.www_path}/{app.uwsgi_path}/settings.py', inplace=True):
             if line.startswith('ALLOWED_HOSTS = '):
-                line = f"ALLOWED_HOSTS = ['{app.domain}']\n"
+                line = f"ALLOWED_HOSTS = ['{app.domain.name}']\n"
             print(line, end='')
         return True
     except Exception as e:

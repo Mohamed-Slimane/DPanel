@@ -17,6 +17,11 @@
                     <ul class="navbar-nav w-100">
                         {% if request.user.is_authenticated %}
                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'domains' %}">
+                                {% trans 'Domains' %}
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'apps' %}">
                                 {% trans 'Apps' %}
                             </a>

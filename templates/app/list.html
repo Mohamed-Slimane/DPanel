@@ -16,17 +16,11 @@
         <tbody>
             {% for app in apps %}
             <tr class="align-middle">
-                <td>
-                    {% if apps.start_index %}
-                    {{apps.start_index|add:forloop.counter0}}
-                    {% else %}
-                    {{forloop.counter}}
-                    {% endif %}
-                </td>
+                <td>{% include 'inc/loop.html' with query=apps %}</td>
                 <td>{{app.name}}</td>
                 <td>
-                    <a href="http://{{app.domain}}" target="_blank">
-                        {{app.domain}}
+                    <a href="http://{{app.domain.name}}" target="_blank">
+                        {{app.domain.name}}
                     </a>
                 </td>
                 <td>{{app.port}}</td>
@@ -36,7 +30,7 @@
                         <button type="button" class="btn btn-light border" data-bs-toggle="tooltip" title="{% trans 'Copy command' %}" onclick="jQuery(this).parents('.input-group').find('input').select();copy_this('source {{app.venv_path}}/bin/activate && cd {{app.www_path}}','{% trans 'Paste the command in the terminal to activate virtual environment of this app' %}')">
                             <i class="bi bi-copy text-danger"></i>
                         </button>
-                        <a href="{% url 'app_files' app.serial %}" class="btn btn-light border" target="_blank" data-bs-toggle="tooltip" title="{% trans 'File manager' %}">
+                        <a href="{% url 'files' %}?path={{app.www_path}}" class="btn btn-light border" target="_blank" data-bs-toggle="tooltip" title="{% trans 'File manager' %}">
                             <i class="bi bi-folder float-end text-success"></i>
                         </a>
                         <div class="input-group-text rounded-end-pill dropdown" data-bs-toggle="tooltip" title="{% trans 'More' %}">
@@ -63,8 +57,8 @@
                     </div>
                 </td>
                 <td>
-                    <a href="{% url 'app_certificates' app.serial %}" class="btn btn-{% if app.certificate_app.all %}success{% else %}light border{% endif %} btn-sm rounded-pill"  >
-                        {% if app.certificate_app.all %}
+                    <a href="{% url 'certificates' app.serial %}" class="btn btn-{% if app.certificate_app.all %}success{% else %}light border{% endif %} btn-sm rounded-pill"  >
+                        {% if app.app_certificates.all %}
                         {% translate 'Installed' %}
                         <i class="bi bi-shield-check"></i>
                         {% else %}
@@ -101,13 +95,6 @@
                                     <a class="dropdown-item" href="{% url 'app_edit' app.serial %}">
                                         {% trans 'Edit' %}
                                         <i class="bi bi-pencil-square float-end"></i>
-                                    </a>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a class="dropdown-item" href="{% url 'app_config' app.serial %}">
-                                        {% trans 'Server config' %}
-                                        <i class="bi bi-hdd-network float-end"></i>
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>

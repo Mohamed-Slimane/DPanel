@@ -1,0 +1,71 @@
+{% load i18n %}
+<div class="table-responsive-md">
+    <table class="table">
+        <thead>
+        <tr>
+            <th style="width: 0">#</th>
+            <th>{% translate 'Name' %}</th>
+            <th style="min-width: 300px">{% translate 'Path' %}</th>
+            <th>{% translate 'SSL' %} <small class="text-muted">(beta)</small></th>
+            <th>{% translate 'Date' %}</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for domain in domains %}
+            <tr class="align-middle">
+                <td>{% include 'inc/loop.html' with query=domains %}</td>
+                <td>
+                    <a href="http://{{domain.name}}" target="_blank">
+                        {{domain.name}}
+                    </a>
+                </td>
+                <td>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control rounded-start-pill" value="{{domain.www_path}}" readonly dir="ltr">
+                        <a href="{% url 'files' %}?path={{domain.www_path}}" class="btn btn-light border rounded-end-pill" target="_blank" data-bs-toggle="tooltip" title="{% trans 'File manager' %}">
+                            <i class="bi bi-folder float-end text-success"></i>
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <a href="{% url 'certificates' domain.serial %}" class="btn btn-{% if domain.certificate_domain.all %}success{% else %}light border{% endif %} btn-sm rounded-pill"  >
+                        {% if domain.domain_certificates.all %}
+                        {% translate 'Installed' %}
+                        <i class="bi bi-shield-check"></i>
+                        {% else %}
+                        {% translate 'Not installed' %}
+                        <i class="bi bi-shield"></i>
+                        {% endif %}
+                    </a>
+                </td>
+                <td data-bs-toggle="tooltip" title="{{domain.created|date:'H:i, l'}}">
+                    {{domain.created|date:"d-m-Y"}}
+                </td>
+                <td>
+                    <div class="float-end">
+                        <div class="dropdown d-inline ms-1" data-bs-toggle="tooltip" title="{% trans 'Settings' %}">
+                            <i class="bi bi-gear fs-4 pointer" data-bs-toggle="dropdown"></i>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'domain_config' domain.serial %}">
+                                        {% trans 'Server config' %}
+                                        <i class="bi bi-hdd-network float-end"></i>
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <span class="dropdown-item pointer text-danger" onclick="open_link_confirm('{% url 'domain_delete' domain.serial %}', '{% trans 'Delete domain' %} : {{domain.name}}', '{% trans 'Do you want to delete this domain ?' %}', true)">
+                                        {% trans 'Delete' %}
+                                        <i class="bi bi-trash float-end"></i>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor  %}
+        </tbody>
+    </table>
+</div>
