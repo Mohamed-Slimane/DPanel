@@ -372,7 +372,7 @@
     jQuery('.domain-validator').on('change', function () {
         domain = jQuery(this).val();
         if (domain){
-            domain = domain.replace('https://', '').replace('http://', '');
+            domain = domain.replace('https://', '').replace('http://', '').replace('www.', '').replace(' ', '').replace('\'', '');
             if (domain.endsWith('/')) {
                 domain = domain.slice(0, -1);
             }

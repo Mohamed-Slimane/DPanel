@@ -23,7 +23,7 @@ class Domain(models.Model):
         return self.domain_certificates.order_by('-created')
 
     def save(self, *args, **kwargs):
-        if not self.pk:
+        if not self.serial:
             import uuid
             self.serial = uuid.uuid4()
         if 'http' in self.name or 'https' in self.name:
@@ -33,7 +33,7 @@ class Domain(models.Model):
 class App(models.Model):
     serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
     name = models.CharField(_('Name'), max_length=500)
-    domain = models.ForeignKey(Domain, verbose_name=_('Domain'), related_name='domain_apps', on_delete=models.SET_NULL, null=True, blank=True, unique=True)
+    domain = models.OneToOneField(Domain, verbose_name=_('Domain'), related_name='domain_apps', on_delete=models.SET_NULL, null=True, blank=True, unique=True)
     port = models.IntegerField(_('Port'), unique=True)
     www_path = models.CharField(max_length=5000, verbose_name=_('Path'))
     startup_file = models.CharField(_('Startup file'), default='startup.py', max_length=5000, help_text=_(
@@ -49,11 +49,9 @@ class App(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        if not self.pk:
+        if not self.serial:
             import uuid
             self.serial = uuid.uuid4()
-        if not self.name:
-            self.name = self.domain.name
         super().save(*args, **kwargs)
 
 

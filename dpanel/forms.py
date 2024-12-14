@@ -19,6 +19,7 @@ class AppForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['name'].widget.attrs.update({'class': 'domain-validator'})
+        self.fields['domain'].widget.attrs.update({'required': True})
 
 
 class AppEditForm(forms.ModelForm):

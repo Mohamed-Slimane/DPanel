@@ -3,9 +3,9 @@
 
 {% if form.errors %}
 <div class="alert alert-danger">
-    <ul>
+    <ul class="m-0">
         {% for field, errors in form.errors.items %}
-        <li>{{ field }}: {{ errors.0 }}</li>
+        <li>{{ errors.0 }}</li>
         {% endfor %}
     </ul>
 </div>

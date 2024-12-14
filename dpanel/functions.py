@@ -4,19 +4,23 @@ import subprocess
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 from dpanel.models import Option
 
 
 def super_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
-    actual_decorator = user_passes_test(lambda u: u.is_superuser, login_url=login_url,
-                                        redirect_field_name=redirect_field_name, )
+    actual_decorator = user_passes_test(
+        lambda u: u.is_superuser,
+        login_url=login_url,
+        redirect_field_name=redirect_field_name
+    )
     if function:
         return actual_decorator(function)
     return function
 
 
-def create_domain_server_block(domain):
+def create_domain_server_block(domain, port=None, is_python_app=False):
     try:
         from engine.settings import NGINX_FOLDER
         available = NGINX_FOLDER + 'sites-available'
@@ -25,100 +29,22 @@ def create_domain_server_block(domain):
         pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
         nginx_conf = f'{available}/{domain.serial}.conf'
         os.system(f'touch {nginx_conf}')
-        conf = f"""server {{
-    listen 80;
-    listen [::]:80;
-
-    server_name {domain.name};    
-    root {domain.www_path};  
-
-    location / {{
-        index index.html;
-        try_files $uri $uri/ =404;
-    }}
-
-    error_page 404 /404.html;
-
-    location ~* \.(jpg|jpeg|gif|css|png|js|ico|html|svg|webp|woff|woff2|ttf|eot|mp4|webm|ogg|mp3|txt|xml|json)$ {{
-        access_log off;
-        expires max;
-    }}
-
-    location ~ /\.(ht|git|svn|db|bak|env) {{
-        deny all;
-    }}
-
-    location /. {{
-        return 404;
-    }}
-}}"""
-
+        conf = render_to_string('templates/nginx_config.conf', {'server_name': domain.name, 'root': domain.www_path, 'port': port, 'is_python_app': is_python_app})
         with open(nginx_conf, 'w') as f:
             f.write(conf)
             domain.nginx_config = nginx_conf
         os.system(f"ln -s {nginx_conf} {enabled}/{domain.serial}.conf")
         return True
     except Exception as e:
-        print(str(e))
+        print(e)
         return False
-
 
 def create_index_file(domain):
     pathlib.Path(domain.www_path).mkdir(parents=True, exist_ok=True)
     index_path = domain.www_path + '/index.html'
     if not os.path.exists(index_path):
         pathlib.Path(index_path).touch()
-
-        content = '''<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Dpanel</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-        .container {
-            max-width: 600px;
-            padding: 20px;
-            background: #fff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-        h1 {
-            color: #0078d7;
-        }
-        p {
-            margin: 10px 0;
-        }
-        a {
-            color: #0078d7;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Welcome to Dpanel</h1>
-        <p>Your development environment is set up and ready to go!</p>
-        <p>Feel free to explore and manage your applications.</p>
-    </div>
-</body>
-</html>'''
+        content = render_to_string('templates/index.html')
         with open(domain.www_path + '/index.html', 'w') as f:
             f.write(content)
 
@@ -132,22 +58,8 @@ def create_uwsgi_config(app):
         uwsgi_conf = f'{available}/{app.serial}.ini'
         module = "{}:{}".format(str(app.startup_file).replace('.py', '').replace('/', '.'), app.entry_point)
         os.system(f'touch {uwsgi_conf}')
-        conf = f"""
-[uwsgi]
-processname = {app.name}
-processes = 1
-threads = 2
-chdir = {app.www_path}
-module = {module}
-socket = 0.0.0.0:{app.port}
-daemonize={app.www_path}/log.log
-vacuum = true
-master = true
-max-requests = 1000
-chmod-socket = 666
-venv = {app.venv_path}
-plugin = python3
-"""
+        conf = render_to_string('templates/uwsgi_config.ini', {'processname': app.name, 'chdir': app.www_path, 'module': module, 'socket': app.port, 'daemonize': f'{app.www_path}/log.log', 'venv': app.venv_path})
+
         with open(uwsgi_conf, 'w') as f:
             f.write(conf)
         os.system(f"ln -s {uwsgi_conf} {enabled}/{app.serial}.ini")
@@ -157,7 +69,6 @@ plugin = python3
         print(str(e))
         return False
 
-
 def create_venv(path):
     try:
         os.system(f'python3 -m venv {path}')
@@ -166,22 +77,13 @@ def create_venv(path):
         print(str(e))
         return False
 
-
 def create_startup_file(app):
     try:
         if not str(app.startup_file).endswith('.py'):
             app.startup_file = f'{app.startup_file}.py'
         startup_file_path = f'{app.www_path}/{app.startup_file}'
         os.system(f'touch {startup_file_path}')
-        startup_content = """
-HELLO_MESSAGE = '<!doctypehtml><html lang=en><meta charset=UTF-8><meta content="width=device-width,initial-scale=1"name=viewport><title>Startup</title><style>#logo{font-size:35px;font-weight:700}#logo span{background:#1d1e2c;padding:5px 20px;border-radius:5px;color:#fff}</style><body style=text-align:center;margin-top:50px;font-family:sans-serif><div id=logo><span>DPanel</span></div><div dir=rtl><p>مرحبا!<p><p>شكرًا لاستخدامك DPanel لإدارة خدمات الويب الخاصة بك.<p>هذا الملف هو ملف تجريبي تم إنشاؤه تلقائيًا بواسطة DPanel لاختبار الإعدادات والتجربة بها.</div><hr><p>Welcome!<p>Thank you for using DPanel to manage your web services.<p>This file is a demo file automatically created by DPanel for testing and experimenting with your settings'
-def application(environ, start_response):
-    status = '200 OK'
-    headers = [('Content-type', 'text/html')]
-    start_response(status, headers)
-    return [HELLO_MESSAGE.encode()]
-        """
-        # Write content to the startup.py file
+        startup_content = render_to_string('templates/startup.py')
         with open(startup_file_path, 'w') as f:
             f.write(startup_content)
         return True
@@ -254,22 +156,7 @@ def install_uwsgi_server():
         # subprocess.run(["python3", "-m", "pip", "install", "uwsgi"])
         subprocess.run(["python3", "-m", "pip", "install", "django"])
         file_path = "/etc/systemd/system/uwsgi.service"
-        file_content = """
-[Unit]
-Description=uWSGI Emperor
-After=syslog.target
-
-[Service]
-ExecStart=/usr/bin/uwsgi --emperor /etc/uwsgi/apps-enabled
-Restart=always
-KillSignal=SIGQUIT
-Type=notify
-StandardError=syslog
-NotifyAccess=all
-
-[Install]
-WantedBy=multi-user.target
-        """
+        file_content = render_to_string('templates/uwsgi_service.ini')
         with open(file_path, "w") as file:
             file.write(file_content)
 

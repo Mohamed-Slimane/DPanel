@@ -19,9 +19,11 @@
                 <td>{% include 'inc/loop.html' with query=apps %}</td>
                 <td>{{app.name}}</td>
                 <td>
-                    <a href="http://{{app.domain.name}}" target="_blank">
-                        {{app.domain.name}}
-                    </a>
+                    {% if app.domain %}
+                    <a href="http://{{app.domain.name}}" target="_blank">{{app.domain.name}}</a>
+                    {% else %}
+                    {% translate 'N/A' %}
+                    {% endif %}
                 </td>
                 <td>{{app.port}}</td>
                 <td>
@@ -84,6 +86,13 @@
                         <div class="dropdown d-inline ms-1" data-bs-toggle="tooltip" title="{% trans 'Settings' %}">
                             <i class="bi bi-gear fs-4 pointer" data-bs-toggle="dropdown"></i>
                             <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'app_config' app.serial %}">
+                                        {% trans 'Config' %}
+                                        <i class="bi bi-hdd-network float-end"></i>
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <a class="dropdown-item" href="{% url 'app_log' app.serial %}" >
                                         {% trans 'Log' %}

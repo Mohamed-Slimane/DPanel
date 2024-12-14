@@ -16,7 +16,7 @@ from django.views import View
 
 from dpanel.forms import AppForm, AppEditForm
 from dpanel.functions import create_venv, create_uwsgi_config, get_option, \
-    install_uwsgi_server, install_nginx_server, paginator, create_startup_file
+    install_uwsgi_server, install_nginx_server, paginator, create_startup_file, create_domain_server_block
 from dpanel.models import SSLCertificate, App
 from dpanel.ssl import create_ssl, install_certbot
 
@@ -50,7 +50,6 @@ class app_new(View):
             from engine.settings import VENV_FOLDER
 
             app = form.save(commit=False)
-
             app.serial = uuid.uuid4()
             app.www_path = f'{WWW_FOLDER}{app.domain}'
             app.venv_path = f'{VENV_FOLDER}{app.serial}'
@@ -73,13 +72,14 @@ class app_new(View):
             if not app.startup_file or app.startup_file == "startup.py":
                 the_startup = create_startup_file(app)
                 if not the_startup:
-                    messages.add_message(request, messages.ERROR,
-                                         _('Failed to create startup.py'))  # return self.get(request)
-            else:
-                pass
+                    messages.add_message(request, messages.ERROR, _('Failed to create startup.py'))
+            the_block = create_domain_server_block(app.domain, app.port, is_python_app=True)
+            if not the_block:
+                messages.add_message(request, messages.ERROR, _('Failed to create domain server block'))
+                return self.get(request)
             app.save()
             os.system(f'systemctl restart nginx')
-            os.system(f'systemctl restart uwsgi.service')
+            os.system(f'systemctl restart uwsgi')
             messages.add_message(request, messages.SUCCESS, _('App successfully created'))
             return redirect('apps')
         else:
@@ -115,6 +115,10 @@ class edit(View):
 class delete(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
+        the_block = create_domain_server_block(app.domain)
+        if not the_block:
+            messages.error(request, _('Failed to delete app'))
+            return redirect('apps')
         app.delete()
         subprocess.call(['service', 'uwsgi', 'stop', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
         try:
@@ -130,8 +134,34 @@ class delete(View):
         except Exception as e:
             pass
         os.system(f'systemctl restart uwsgi')
+        os.system(f'systemctl reload nginx')
         messages.success(request, _('App deleted successfully'))
         return redirect('apps')
+
+class config(View):
+    def post(self, request, serial):
+        config_code = request.POST.get('config_code')
+        app = App.objects.get(serial=serial)
+        try:
+            with open(app.uwsgi_config, 'w') as f:
+                f.write(config_code)
+            with open(str(app.uwsgi_config).replace('apps-enabled/', 'apps-available/'), 'w') as f:
+                f.write(config_code)
+            os.system(f'systemctl restart uwsgi')
+            messages.success(request, _('App configuration updated successfully'))
+        except Exception as e:
+            messages.error(request, _('Error in updating app configuration') + str(e))
+        return self.get(request, serial)
+
+    def get(self, request, serial):
+        app = App.objects.get(serial=serial)
+        try:
+            config_code = pathlib.Path(app.uwsgi_config).read_text()
+        except Exception as e:
+            config_code = ''
+        return render(request, 'file/config.html', {'name': app.name, 'config_code': config_code})
+
+
 
 class log(View):
     def get(self, request, serial):
@@ -209,59 +239,3 @@ class status(View):
 
         return redirect('apps')
 
-
-class app_certificates(View):
-    def post(self, request, serial):
-        certbot_status = get_option('certbot_status')
-        if not certbot_status or certbot_status == 'False':
-            if request.POST.get('certbot_install'):
-                res = install_certbot()
-            else:
-                res = {'success': False, 'message': _('Form validation error')}
-        else:
-            res = {'success': False, 'message': _('Certbot is already installed')}
-        return JsonResponse(res)
-
-    def get(self, request, serial):
-        app = App.objects.get(serial=serial)
-        return render(request, 'app/certificate.html', {'app': app})
-
-
-class app_certificate_new(View):
-    def get(self, request, serial):
-        app = App.objects.get(serial=serial)
-        try:
-            expiration_date = create_ssl(app)
-            if expiration_date:
-                SSLCertificate.objects.create(app=app, expire_date=expiration_date)
-            messages.success(request, _('Certificate created successfully'))
-            subprocess.run("systemctl reload nginx", shell=True, check=True)
-        except subprocess.CalledProcessError as e:
-            messages.error(request, _('Certificate created failed'))
-            messages.warning(request, str(e))
-
-        return redirect('certificates', app.serial)
-
-
-class app_config(View):
-    def post(self, request, serial):
-        config_code = request.POST.get('config_code')
-        app = App.objects.get(serial=serial)
-        try:
-            with open(app.nginx_config, 'w') as f:
-                f.write(config_code)
-            with open(str(app.nginx_config).replace('sites-enabled/', 'sites-available/'), 'w') as f:
-                f.write(config_code)
-            os.system(f'systemctl restart nginx')
-            messages.success(request, _('App configuration updated successfully'))
-        except Exception as e:
-            messages.error(request, _('Error in updating app configuration') + str(e))
-        return self.get(request, serial)
-
-    def get(self, request, serial):
-        app = App.objects.get(serial=serial)
-        try:
-            config_code = pathlib.Path(app.nginx_config).read_text()
-        except Exception as e:
-            config_code = ''
-        return render(request, 'file/config.html', {'app': app, 'config_code': config_code})

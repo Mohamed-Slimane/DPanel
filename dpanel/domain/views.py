@@ -2,6 +2,7 @@ import os
 import pathlib
 import shutil
 import subprocess
+import uuid
 
 from django.contrib import messages
 from django.http import JsonResponse
@@ -44,16 +45,17 @@ class new(View):
         if form.is_valid():
             from engine.settings import WWW_FOLDER
             domain = form.save(commit=False)
+            domain.serial = uuid.uuid4()
             domain.www_path = f'{WWW_FOLDER}{domain.name}'
-            domain.save()
-
             pathlib.Path(domain.www_path).mkdir(parents=True, exist_ok=True)
             the_block = create_domain_server_block(domain)
             if not the_block:
                 messages.add_message(request, messages.ERROR, _('Failed to create domain server block'))
+                domain.delete()
                 return self.get(request)
             create_index_file(domain)
             os.system(f'systemctl reload nginx')
+            domain.save()
             messages.add_message(request, messages.SUCCESS, _('Domain successfully created'))
             return redirect('domains')
         else:
@@ -97,7 +99,7 @@ class config(View):
                 f.write(config_code)
             with open(str(domain.nginx_config).replace('sites-enabled/', 'sites-available/'), 'w') as f:
                 f.write(config_code)
-            os.system(f'systemctl restart nginx')
+            os.system(f'systemctl reload nginx')
             messages.success(request, _('Domain configuration updated successfully'))
         except Exception as e:
             messages.error(request, _('Error in updating app configuration') + str(e))
@@ -105,6 +107,7 @@ class config(View):
 
     def get(self, request, serial):
         domain = Domain.objects.get(serial=serial)
+        print(domain.nginx_config)
         try:
             config_code = pathlib.Path(domain.nginx_config).read_text()
         except Exception as e:
