@@ -1,6 +1,6 @@
 from dpanel.models import Domain, MysqlDatabase, App
 from django import forms
-
+from django.utils.translation import gettext_lazy as _
 class DomainForm(forms.ModelForm):
     class Meta:
         model = Domain
@@ -25,7 +25,7 @@ class AppForm(forms.ModelForm):
 class AppEditForm(forms.ModelForm):
     class Meta:
         model = App
-        fields = ['name', 'startup_file', 'entry_point']
+        fields = ['name', 'startup_file', 'entry_point', 'processes', 'threads', 'max_requests', 'chmod_socket', 'plugin', 'vacuum', 'master']
 
 
 class MysqlDatabaseForm(forms.ModelForm):

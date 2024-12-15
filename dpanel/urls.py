@@ -38,7 +38,6 @@ urlpatterns = [
     path('apps/new/', super_required(app.app_new.as_view()), name="app_new"),
     path('apps/<str:serial>/edit/', super_required(app.edit.as_view()), name="app_edit"),
     path('apps/<str:serial>/delete/', super_required(app.delete.as_view()), name="app_delete"),
-    path('apps/<str:serial>/config/', super_required(app.config.as_view()), name="app_config"),
     path('apps/<str:serial>/status/', super_required(app.status.as_view()), name="app_status"),
     path('apps/<str:serial>/restart/', super_required(app.restart.as_view()), name="app_restart"),
     path('apps/<str:serial>/log/', super_required(app.log.as_view()), name="app_log"),

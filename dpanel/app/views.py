@@ -10,15 +10,13 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
-from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from dpanel.forms import AppForm, AppEditForm
 from dpanel.functions import create_venv, create_uwsgi_config, get_option, \
     install_uwsgi_server, install_nginx_server, paginator, create_startup_file, create_domain_server_block
-from dpanel.models import SSLCertificate, App
-from dpanel.ssl import create_ssl, install_certbot
+from dpanel.models import App
 
 
 class apps(View):
@@ -137,30 +135,6 @@ class delete(View):
         os.system(f'systemctl reload nginx')
         messages.success(request, _('App deleted successfully'))
         return redirect('apps')
-
-class config(View):
-    def post(self, request, serial):
-        config_code = request.POST.get('config_code')
-        app = App.objects.get(serial=serial)
-        try:
-            with open(app.uwsgi_config, 'w') as f:
-                f.write(config_code)
-            with open(str(app.uwsgi_config).replace('apps-enabled/', 'apps-available/'), 'w') as f:
-                f.write(config_code)
-            os.system(f'systemctl restart uwsgi')
-            messages.success(request, _('App configuration updated successfully'))
-        except Exception as e:
-            messages.error(request, _('Error in updating app configuration') + str(e))
-        return self.get(request, serial)
-
-    def get(self, request, serial):
-        app = App.objects.get(serial=serial)
-        try:
-            config_code = pathlib.Path(app.uwsgi_config).read_text()
-        except Exception as e:
-            config_code = ''
-        return render(request, 'file/config.html', {'name': app.name, 'config_code': config_code})
-
 
 
 class log(View):

@@ -56,9 +56,9 @@ def create_uwsgi_config(app):
         pathlib.Path(available).mkdir(parents=True, exist_ok=True)
         pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
         uwsgi_conf = f'{available}/{app.serial}.ini'
-        module = "{}:{}".format(str(app.startup_file).replace('.py', '').replace('/', '.'), app.entry_point)
+        app.module = "{}:{}".format(str(app.startup_file).replace('.py', '').replace('/', '.'), app.entry_point)
         os.system(f'touch {uwsgi_conf}')
-        conf = render_to_string('templates/uwsgi_config.ini', {'processname': app.name, 'chdir': app.www_path, 'module': module, 'socket': app.port, 'daemonize': f'{app.www_path}/log.log', 'venv': app.venv_path})
+        conf = render_to_string('templates/uwsgi_config.ini', {'app': app})
 
         with open(uwsgi_conf, 'w') as f:
             f.write(conf)

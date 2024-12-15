@@ -36,12 +36,19 @@ class App(models.Model):
     domain = models.OneToOneField(Domain, verbose_name=_('Domain'), related_name='domain_apps', on_delete=models.SET_NULL, null=True, blank=True, unique=True)
     port = models.IntegerField(_('Port'), unique=True)
     www_path = models.CharField(max_length=5000, verbose_name=_('Path'))
-    startup_file = models.CharField(_('Startup file'), default='startup.py', max_length=5000, help_text=_(
+    startup_file = models.CharField(_('Startup file'), default='startup.py', max_length=500, help_text=_(
         'The folder that contains the startup file, for example: mayproject/wsgi.py'))
-    entry_point = models.CharField(_('entry point'), default='application', max_length=5000, null=True, blank=True,
+    entry_point = models.CharField(_('entry point'), default='application', max_length=500,
                                    help_text=_('Entry point in startup file for example: application'))
     venv_path = models.CharField(max_length=5000, verbose_name=_('Environment Path'))
     uwsgi_config = models.CharField(max_length=5000, verbose_name=_('Uwsgi config'))
+    processes = models.IntegerField(_('Processes'), default=1)
+    threads = models.IntegerField(_('Threads'), default=1)
+    max_requests = models.IntegerField(_('Max requests'), default=1000)
+    chmod_socket = models.IntegerField(_('Chmod socket'), default=666)
+    plugin = models.CharField(_('Plugin'), default='python3', max_length=500, null=True, blank=True, choices=[('', 'None'), ('python3', 'python3')])
+    vacuum = models.BooleanField(_('Vacuum'), default=True)
+    master = models.BooleanField(_('Master'), default=True)
     is_active = models.BooleanField(verbose_name=_('Is active'), default=True)
     created = models.DateTimeField(auto_now=True)
 
