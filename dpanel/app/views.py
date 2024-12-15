@@ -49,8 +49,8 @@ class app_new(View):
 
             app = form.save(commit=False)
             app.serial = uuid.uuid4()
-            app.www_path = f'{WWW_FOLDER}{app.domain}'
-            app.venv_path = f'{VENV_FOLDER}{app.serial}'
+            app.www_path = os.path.join(WWW_FOLDER, str(app.domain))
+            app.venv_path = os.path.join(VENV_FOLDER, str(app.serial))
 
             pathlib.Path(app.www_path).mkdir(parents=True, exist_ok=True)
             pathlib.Path(app.venv_path).mkdir(parents=True, exist_ok=True)

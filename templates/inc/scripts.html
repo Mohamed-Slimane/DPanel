@@ -276,29 +276,6 @@
             });
         }
     });
-
-    jQuery('body').on('submit', '#remote-form', function(e){
-        e.preventDefault();
-        if(jQuery('#remote-file').val()==''){
-            Swal.fire({
-                title: '{% trans "Error" %}',
-                text: '{% trans 'Please add file url to get it' %}',
-                icon: 'error',
-                showCancelButton: false,
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: '{% trans "Ok" %}',
-            });
-            return;
-        }
-        jQuery.ajax({
-            type: "POST",
-            url: jQuery(this).attr('action'),
-            data: jQuery(this).serialize(),
-            success: function(data){
-                reload_folder();
-            }
-        });
-    });
 </script>
 
 <script>
@@ -311,7 +288,7 @@
              },
              success: function(data){
                 jQuery('#files').html(data);
-                jQuery('#upload-path').val(jQuery('#path').val());
+                jQuery('.upload-path').val(jQuery('#path').val());
                 jQuery('.loading-preloader-2').hide();
              }
         });
@@ -361,7 +338,7 @@
             url: "{% url 'files_ajax' %}?path="+jQuery('#path').val(),
             success: function(data){
                 jQuery('#files').html(data);
-                jQuery('#upload-path').val(jQuery('#path').val());
+                jQuery('.upload-path').val(jQuery('#path').val());
                 jQuery('.loading-preloader-2').hide();
             }
         });

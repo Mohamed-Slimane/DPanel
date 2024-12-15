@@ -23,8 +23,8 @@ def super_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login
 def create_domain_server_block(domain, port=None, is_python_app=False):
     try:
         from engine.settings import NGINX_FOLDER
-        available = NGINX_FOLDER + 'sites-available'
-        enabled = NGINX_FOLDER + 'sites-enabled'
+        available = os.path.join(NGINX_FOLDER, 'sites-available')
+        enabled = os.path.join(NGINX_FOLDER, 'sites-enabled')
         pathlib.Path(available).mkdir(parents=True, exist_ok=True)
         pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
         nginx_conf = f'{available}/{domain.serial}.conf'
@@ -51,8 +51,8 @@ def create_index_file(domain):
 def create_uwsgi_config(app):
     try:
         from engine.settings import UWSGI_FOLDER
-        available = UWSGI_FOLDER + 'apps-available'
-        enabled = UWSGI_FOLDER + 'apps-enabled'
+        available = os.path.join(UWSGI_FOLDER, 'apps-available')
+        enabled = os.path.join(UWSGI_FOLDER, 'apps-enabled')
         pathlib.Path(available).mkdir(parents=True, exist_ok=True)
         pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
         uwsgi_conf = f'{available}/{app.serial}.ini'

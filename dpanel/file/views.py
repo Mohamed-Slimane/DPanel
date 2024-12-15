@@ -2,6 +2,7 @@ import mimetypes
 import os
 import pathlib
 import shutil
+import subprocess
 
 from django.contrib import messages
 from django.http import FileResponse
@@ -27,6 +28,8 @@ class files(View):
                 files.append(f)
             else:
                 dirs.append(f)
+            files.sort()
+            dirs.sort()
         context = {
             'files': files,
             'dirs': dirs,
@@ -62,22 +65,20 @@ class files_ajax(View):
 class files_ajax_upload(View):
     def post(self, request):
         path = request.POST.get('path')
-        if not path:
+        if not path or not path.startswith(WWW_FOLDER):
             return JsonResponse({"error": 1, "success": False, "message": _("Invalid path")})
         try:
             if 'remote_file' in request.POST:
                 url = request.POST.get('remote_file')
                 import urllib.request
+                response = urllib.request.urlopen(url)
+                if response.status != 200:
+                    return JsonResponse(
+                        {'error': 1, 'success': False, 'message': 'Failed to download the file.'})
                 try:
-                    response = urllib.request.urlopen(url)
-                    file_content = response.read()
-                    filename = os.path.basename(url)
-                    filename = filename.split('?')[0]
-                    file_path = os.path.join(path, filename)
-                    with open(file_path, 'wb') as f:
-                        f.write(file_content)
+                    subprocess.run(['wget', '-O', f'{path}/{os.path.basename(url)}', url])
                     return JsonResponse({'error': 0, 'success': True, 'message': 'File uploaded successfully.'})
-                except urllib.error.URLError as e:
+                except Exception as e:
                     return JsonResponse(
                         {'error': 1, 'success': False, 'message': 'Failed to download the file: ' + str(e)})
 
@@ -87,7 +88,7 @@ class files_ajax_upload(View):
                 open(f'{path}/{fn}', 'wb').write(file.read())
             req = {"error": 0, "success": True}
         except Exception as e:
-            req = {"error": 1, "error_message": str(e), "success": False}
+            req = {"error": 1, "message": str(e), "success": False}
 
         return JsonResponse(req)
 

@@ -140,7 +140,7 @@ MESSAGE_TAGS = {
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 DPANEL_FOLDER = f'{BASE_DIR}/'
-WWW_FOLDER = '/var/www/'
-VENV_FOLDER = '/var/venv/'
-NGINX_FOLDER = '/etc/nginx/'
-UWSGI_FOLDER = '/etc/uwsgi/'
+WWW_FOLDER = '/var/www'
+VENV_FOLDER = '/var/venv'
+NGINX_FOLDER = '/etc/nginx'
+UWSGI_FOLDER = '/etc/uwsgi'

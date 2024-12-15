@@ -3,7 +3,7 @@
     <form method="post" action="{% url 'files_ajax_upload' %}" id="remote-form" class="mb-3">
         <div class="input-group mx-auto" style="width: 500px; max-width: 100%;">
             <input class="form-control" id="remote-file" type="url" name="remote_file" placeholder="{% trans 'Get file from URL' %}">
-            <input type="hidden" name="path" value="{{path}}">
+            <input name="path" class="upload-path" value="{{path}}" hidden>
             {% csrf_token %}
             <button class="btn btn-light border" type="submit" name="remote">
                 {% trans 'Get' %}
@@ -12,7 +12,7 @@
         </div>
     </form>
     <form method="post" action="{% url 'files_ajax_upload' %}" class="dropzone border rounded" id="file-upload-dropzone">
-        <input name="path" id="upload-path" value="{{path}}" hidden>
+        <input name="path" class="upload-path" value="{{path}}" hidden>
         {% csrf_token %}
     </form>
 </div>
@@ -31,6 +31,61 @@
         });
         myDropzone.on("complete", function(file) {
             reload_folder();
+        });
+    });
+
+    jQuery('body').on('submit', '#remote-form', function(e){
+        e.preventDefault();
+        if(jQuery('#remote-file').val()==''){
+            Swal.fire({
+                title: '{% trans "Error" %}',
+                text: '{% trans 'Please add file url to get it' %}',
+                icon: 'error',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '{% trans "Ok" %}',
+            });
+            return;
+        }
+        jQuery.ajax({
+            type: "POST",
+            url: jQuery(this).attr('action'),
+            data: jQuery(this).serialize(),
+            beforeSend: function(){
+                jQuery('#remote-form button').html('{% trans "Processing" %}...').prop('disabled', true);
+                jQuery('#remote-file').prop('disabled', true);
+            },
+            complete: function(){
+                jQuery('#remote-form button').html('{% trans "Get" %} <i class="bi bi-cloud-arrow-down"></i>').prop('disabled', false);
+                jQuery('#remote-file').prop('disabled', false);
+            },
+            success: function(data){
+                jQuery('#remote-form #remote-file').val('');
+                reload_folder();
+                if(!data.success){
+                    Swal.fire({
+                        title: '{% trans "Error" %}',
+                        text: data.message,
+                        icon: 'error',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: '{% trans "Ok" %}',
+                    });
+                }
+            },
+            error: function(data){
+                reload_folder();
+                Swal.fire({
+                    title: '{% trans "Error" %}',
+                    text: data.message,
+                    icon: 'error',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '{% trans "Ok" %}',
+                });
+                jQuery('#remote-form button').html('{% trans "Get" %} <i class="bi bi-cloud-arrow-down"></i>').prop('disabled', false);
+                jQuery('#remote-file').prop('disabled', false);
+            }
         });
     });
 </script>
