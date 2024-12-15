@@ -85,7 +85,7 @@ class delete(View):
             subprocess.call(['rm', f'/etc/nginx/sites-enabled/{domain.serial}.conf'])
         except Exception as e:
             pass
-        os.system(f'systemctl restart nginx')
+        os.system(f'systemctl reload nginx')
         messages.success(request, _('Domain deleted successfully'))
         return redirect('domains')
 

@@ -37,7 +37,6 @@ class dashboard(View):
 class uwsgi_restart(View):
     def get(self, request):
         try:
-            os.system(f'systemctl restart nginx')
             os.system(f'systemctl restart uwsgi')
             messages.success(request, _('uwsgi restarted successfully'))
         except subprocess.CalledProcessError as e:

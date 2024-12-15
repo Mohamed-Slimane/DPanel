@@ -76,7 +76,7 @@ class app_new(View):
                 messages.add_message(request, messages.ERROR, _('Failed to create domain server block'))
                 return self.get(request)
             app.save()
-            os.system(f'systemctl restart nginx')
+            os.system(f'systemctl reload nginx')
             os.system(f'systemctl restart uwsgi')
             messages.add_message(request, messages.SUCCESS, _('App successfully created'))
             return redirect('apps')

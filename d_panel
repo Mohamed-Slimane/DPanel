@@ -12,7 +12,7 @@ def change_password():
     os.system(f"/var/server/dpanel/venv/bin/python3 /var/server/dpanel/app/manage.py changepassword admin")
 def change_port():
     port = input("Enter new port: ")
-    service_file_path = '/etc/systemd/system/dpanel.service'
+    service_file_path = '/etc/systemd/system/dpanel'
     with open(service_file_path, 'r') as file:
         service_file_content = file.readlines()
     for i, line in enumerate(service_file_content):
@@ -22,17 +22,17 @@ def change_port():
     with open(service_file_path, 'w') as file:
         file.writelines(service_file_content)
     os.system("sudo systemctl daemon-reload")
-    os.system("sudo systemctl restart dpanel.service")
+    os.system("sudo systemctl restart dpanel")
     print("Port changed successfully.")
 
 def start_dpanel():
-    os.system("sudo systemctl start dpanel.service")
+    os.system("sudo systemctl start dpanel")
     print("DPanel started successfully.")
 def restart_dpanel():
-    os.system("sudo systemctl restart dpanel.service")
+    os.system("sudo systemctl restart dpanel")
     print("DPanel restarted successfully.")
 def stop_dpanel():
-    os.system("sudo systemctl stop dpanel.service")
+    os.system("sudo systemctl stop dpanel")
     print("DPanel stopped successfully.")
 def main():
     while True:
