@@ -19,13 +19,13 @@ class AppForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['name'].widget.attrs.update({'class': 'domain-validator'})
-        self.fields['domain'].widget.attrs.update({'required': True})
+        # self.fields['domain'].widget.attrs.update({'required': True})
 
 
 class AppEditForm(forms.ModelForm):
     class Meta:
         model = App
-        fields = ['name', 'startup_file', 'entry_point', 'processes', 'threads', 'max_requests', 'chmod_socket', 'plugin', 'vacuum', 'master']
+        fields = ['domain', 'name', 'startup_file', 'entry_point', 'processes', 'threads', 'max_requests', 'chmod_socket', 'plugin', 'vacuum', 'master']
 
 
 class MysqlDatabaseForm(forms.ModelForm):

@@ -71,7 +71,7 @@ class app_new(View):
                 the_startup = create_startup_file(app)
                 if not the_startup:
                     messages.add_message(request, messages.ERROR, _('Failed to create startup.py'))
-            the_block = create_domain_server_block(app.domain, app.port, is_python_app=True)
+            the_block = create_domain_server_block(app.domain)
             if not the_block:
                 messages.add_message(request, messages.ERROR, _('Failed to create domain server block'))
                 return self.get(request)
@@ -110,21 +110,18 @@ class edit(View):
         form = AppEditForm(request.POST or None, instance=app)
         return render(request, 'app/edit.html', {'app': app, 'form': form})
 
+
 class delete(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
-        the_block = create_domain_server_block(app.domain)
-        if not the_block:
-            messages.error(request, _('Failed to delete app'))
-            return redirect('apps')
         app.delete()
-        subprocess.call(['service', 'uwsgi', 'stop', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
+        create_domain_server_block(app.domain)
         try:
-            subprocess.call(['rm', f'/etc/uwsgi/apps-available/{app.serial}.ini'])
+            subprocess.call(['rm', app.uwsgi_config])
         except Exception as e:
             pass
         try:
-            subprocess.call(['rm', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
+            subprocess.call(['rm', str(app.uwsgi_config).replace('enabled', 'available')])
         except Exception as e:
             pass
         try:
@@ -135,6 +132,41 @@ class delete(View):
         os.system(f'systemctl reload nginx')
         messages.success(request, _('App deleted successfully'))
         return redirect('apps')
+
+
+class restart(View):
+    def get(self, request, serial):
+        app = App.objects.get(serial=serial)
+        try:
+            subprocess.call(['service', 'uwsgi', 'restart', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
+            if not app.is_active:
+                app.is_active = True
+                app.save()
+            messages.success(request, f'Successfully restarted app <b>{app.name}</b>.')
+        except subprocess.CalledProcessError as e:
+            messages.error(request, f'Error restarting app: {e.stderr}')
+
+        return redirect('apps')
+
+
+class status(View):
+    def get(self, request, serial):
+        app = App.objects.get(serial=serial)
+        try:
+            if app.is_active:
+                subprocess.call(['rm', app.uwsgi_config])
+                messages.success(request, f'Successfully stopped app <b>{app.name}</b>.')
+            else:
+                create_uwsgi_config(app)
+                messages.success(request, f'Successfully started app <b>{app.name}</b>.')
+            app.is_active = not app.is_active
+            app.save()
+            create_domain_server_block(app.domain)
+            os.system(f'systemctl reload uwsgi')
+        except subprocess.CalledProcessError as e:
+            messages.error(request, f'Error stopping app: {e.stderr}')
+        return redirect('apps')
+
 
 
 class log(View):
@@ -179,37 +211,3 @@ class package_install(View):
             return JsonResponse({'success': True, 'message': _('Successfully installed library <b>{}</b> to app <b>{}</b>.').format(package, app.name)})
         except subprocess.CalledProcessError as e:
             return JsonResponse({'success': False, 'message': _('Error installing library: {}').format(e.stderr)})
-
-
-class restart(View):
-    def get(self, request, serial):
-        app = App.objects.get(serial=serial)
-        try:
-            subprocess.call(['service', 'uwsgi', 'restart', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
-            if not app.is_active:
-                app.is_active = True
-                app.save()
-            messages.success(request, f'Successfully restarted app <b>{app.name}</b>.')
-        except subprocess.CalledProcessError as e:
-            messages.error(request, f'Error restarting app: {e.stderr}')
-
-        return redirect('apps')
-
-
-class status(View):
-    def get(self, request, serial):
-        app = App.objects.get(serial=serial)
-        try:
-            if app.is_active:
-                subprocess.call(['service', 'uwsgi', 'stop', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
-                messages.success(request, f'Successfully stopped app <b>{app.name}</b>.')
-            else:
-                subprocess.call(['service', 'uwsgi', 'start', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
-                messages.success(request, f'Successfully started app <b>{app.name}</b>.')
-            app.is_active = not app.is_active
-            app.save()
-        except subprocess.CalledProcessError as e:
-            messages.error(request, f'Error stopping app: {e.stderr}')
-
-        return redirect('apps')
-

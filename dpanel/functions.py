@@ -1,5 +1,6 @@
 import os
 import pathlib
+import shutil
 import subprocess
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import user_passes_test
@@ -20,7 +21,7 @@ def super_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login
     return function
 
 
-def create_domain_server_block(domain, port=None, is_python_app=False):
+def create_domain_server_block(domain):
     try:
         from engine.settings import NGINX_FOLDER
         available = os.path.join(NGINX_FOLDER, 'sites-available')
@@ -29,11 +30,12 @@ def create_domain_server_block(domain, port=None, is_python_app=False):
         pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
         nginx_conf = f'{available}/{domain.serial}.conf'
         os.system(f'touch {nginx_conf}')
-        conf = render_to_string('templates/nginx_config.conf', {'server_name': domain.name, 'root': domain.www_path, 'port': port, 'is_python_app': is_python_app})
+        conf = render_to_string('templates/nginx_config.conf', {'domain': domain})
         with open(nginx_conf, 'w') as f:
             f.write(conf)
             domain.nginx_config = nginx_conf
         os.system(f"ln -s {nginx_conf} {enabled}/{domain.serial}.conf")
+        os.system(f'systemctl reload nginx')
         return True
     except Exception as e:
         print(e)
@@ -55,15 +57,16 @@ def create_uwsgi_config(app):
         enabled = os.path.join(UWSGI_FOLDER, 'apps-enabled')
         pathlib.Path(available).mkdir(parents=True, exist_ok=True)
         pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
-        uwsgi_conf = f'{available}/{app.serial}.ini'
+        conf_path = f'{available}/{app.serial}.ini'
         app.module = "{}:{}".format(str(app.startup_file).replace('.py', '').replace('/', '.'), app.entry_point)
-        os.system(f'touch {uwsgi_conf}')
+        os.system(f'touch {conf_path}')
         conf = render_to_string('templates/uwsgi_config.ini', {'app': app})
 
-        with open(uwsgi_conf, 'w') as f:
+        with open(conf_path, 'w') as f:
             f.write(conf)
-        os.system(f"ln -s {uwsgi_conf} {enabled}/{app.serial}.ini")
+        os.system(f"ln -s {conf_path} {enabled}/{app.serial}.ini")
         app.uwsgi_config = f'{enabled}/{app.serial}.ini'
+        os.system(f'systemctl reload uwsgi')
         return True
     except Exception as e:
         print(str(e))

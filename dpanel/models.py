@@ -5,12 +5,12 @@ from django.utils.translation import gettext_lazy as _
 
 class Domain(models.Model):
     serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
-    name = models.CharField(max_length=50, verbose_name=_('Domain'), unique=True, help_text=_('For example: mayproject.com, dpanel.top'))
+    name = models.CharField(max_length=50, verbose_name=_('Name'), unique=True, help_text=_('For example: mayproject.com, dpanel.top'))
     www_path = models.CharField(max_length=5000, verbose_name=_('Path'))
     nginx_config = models.CharField(max_length=5000, verbose_name=_('Nginx config'))
     force_https = models.BooleanField(verbose_name=_('Force HTTPS'), default=False)
     is_active = models.BooleanField(_('Active'), default=True)
-    created = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -33,7 +33,7 @@ class Domain(models.Model):
 class App(models.Model):
     serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
     name = models.CharField(_('Name'), max_length=500)
-    domain = models.OneToOneField(Domain, verbose_name=_('Domain'), related_name='domain_apps', on_delete=models.SET_NULL, null=True, blank=True, unique=True)
+    domain = models.OneToOneField(Domain, verbose_name=_('Domain'), related_name='domain_app', on_delete=models.SET_NULL, null=True, blank=True, unique=True)
     port = models.IntegerField(_('Port'), unique=True)
     www_path = models.CharField(max_length=5000, verbose_name=_('Path'))
     startup_file = models.CharField(_('Startup file'), default='startup.py', max_length=500, help_text=_(
@@ -50,7 +50,7 @@ class App(models.Model):
     vacuum = models.BooleanField(_('Vacuum'), default=True)
     master = models.BooleanField(_('Master'), default=True)
     is_active = models.BooleanField(verbose_name=_('Is active'), default=True)
-    created = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -83,7 +83,7 @@ class MysqlDatabaseBackup(models.Model):
     database = models.ForeignKey(MysqlDatabase, verbose_name=_('Database'), related_name='backup_database',
                                  on_delete=models.SET_NULL, null=True, blank=True)
     path = models.CharField(_('Path'), max_length=5000)
-    created = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.database
@@ -113,7 +113,7 @@ class SSLCertificate(models.Model):
     serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
     app = models.ForeignKey(Domain, verbose_name=_('App'), related_name='app_certificates', on_delete=models.CASCADE)
     domain = models.CharField(max_length=50, verbose_name=_('Domain'))
-    created = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
     expire_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):

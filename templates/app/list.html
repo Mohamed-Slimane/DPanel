@@ -8,7 +8,6 @@
             <th>{% translate 'Domain' %}</th>
             <th>{% translate 'Port' %}</th>
             <th style="min-width: 300px">{% translate 'Environment' %}</th>
-            <th>{% translate 'SSL' %} <small class="text-muted">(beta)</small></th>
             <th>{% translate 'Date' %}</th>
             <th></th>
         </tr>
@@ -57,17 +56,6 @@
                             </ul>
                         </div>
                     </div>
-                </td>
-                <td>
-                    <a href="{% url 'certificates' app.serial %}" class="btn btn-{% if app.certificate_app.all %}success{% else %}light border{% endif %} btn-sm rounded-pill"  >
-                        {% if app.app_certificates.all %}
-                        {% translate 'Installed' %}
-                        <i class="bi bi-shield-check"></i>
-                        {% else %}
-                        {% translate 'Not installed' %}
-                        <i class="bi bi-shield"></i>
-                        {% endif %}
-                    </a>
                 </td>
                 <td data-bs-toggle="tooltip" title="{{app.created|date:"H:i, l"}}">
                     {{app.created|date:"d-m-Y"}}

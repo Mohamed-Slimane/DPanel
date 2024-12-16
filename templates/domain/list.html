@@ -19,6 +19,9 @@
                     <a href="http://{{domain.name}}" target="_blank">
                         {{domain.name}}
                     </a>
+                    {% if domain.domain_app %}
+                    <i class="bi bi-app-indicator small text-success" data-bs-toggle="tooltip" title="{{domain.domain_app.name}}"></i>
+                    {% endif %}
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
@@ -48,8 +51,8 @@
                             <i class="bi bi-gear fs-4 pointer" data-bs-toggle="dropdown"></i>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a class="dropdown-item" href="javascript:void(0)" onclick="open_link_confirm('{% url 'domain_config' domain.serial %}', '{% trans 'Config' %}: {{domain.name}}', '{% trans 'Be careful with this action, edit only if you know what you are doing' %}')">
-                                        {% trans 'Config' %}
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="open_link_confirm('{% url 'domain_config' domain.serial %}', '{% trans 'Confing' %}: {{domain.name}}', '{% trans 'Be careful with this action, edit only if you know what you are doing' %}')">
+                                        {% trans 'Confing' %}
                                         <i class="bi bi-hdd-network float-end"></i>
                                     </a>
                                 </li>
