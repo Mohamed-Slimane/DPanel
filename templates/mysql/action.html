@@ -4,7 +4,7 @@
     {% csrf_token %}
     <input type="file" name="sql_file" id="backup-import-{{database.serial}}" class="backup-import" accept=".sql,.sql.gz" required hidden>
 </form>
-<div class="dropdown">
+<div class="dropdown d-inline">
     <i class="bi bi-three-dots-vertical float-end pointer" data-bs-toggle="dropdown"></i>
     <ul class="dropdown-menu dropdown-menu-end mw-100" style="min-width: 250px">
         <li>

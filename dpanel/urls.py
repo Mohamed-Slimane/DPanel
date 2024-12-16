@@ -58,6 +58,10 @@ urlpatterns = [
     path('mysql/<str:serial>/reset/', super_required(mysql_views.reset.as_view()), name="mysql_database_reset"),
     path('mysql/<str:serial>/password/change/', super_required(mysql_views.password_change.as_view()), name="mysql_database_password_change"),
 
+    # MySQL Manage
+    path('mysql/<str:serial>/manage/', super_required(mysql_manage.manage.as_view()), name="mysql_database_manage"),
+    path('mysql/<str:serial>/manage/table/<name>/', super_required(mysql_manage.table.as_view()), name="mysql_database_manage_table"),
+
     # MySQL Backup
     path('mysql/<str:serial>/backup/', super_required(mysql_views.backup_create.as_view()), name="mysql_backup_create"),
     path('mysql/backup/<str:serial>/restore/', super_required(mysql_views.backup_restore.as_view()), name="mysql_backup_restore"),
@@ -65,9 +69,6 @@ urlpatterns = [
     path('mysql/backup/<str:serial>/delete/', super_required(mysql_views.backup_delete.as_view()), name="mysql_backup_delete"),
     path('mysql/backup/<str:serial>/download/', super_required(mysql_views.backup_download.as_view()), name="mysql_backup_download"),
 
-    # MySQL Manage
-    path('mysql/<str:serial>/manage/', super_required(mysql_manage.manage.as_view()), name="mysql_database_manage"),
-    path('mysql/<str:serial>/manage/tables/', super_required(mysql_manage.tables.as_view()), name="mysql_database_manage_tables"),
 
     # Files
     path('apps/files/', super_required(file.files.as_view()), name="files"),

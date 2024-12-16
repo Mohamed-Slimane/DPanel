@@ -23,53 +23,21 @@
         </tr>
         </thead>
         <tbody>
+        {% for table in tables %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>
+                <a href="{% url 'mysql_database_manage_table' database.serial table.name %}">
+                    {{table.name}}
+                </a>
+            </td>
+            <td>{{table.rows}}</td>
+            <td>{{table.type}}</td>
+            <td>{{table.collation}}</td>
+            <td>{{table.size|filesizeformat}}</td>
+        </tr>
+        {% endfor %}
         </tbody>
     </table>
 </div>
-<script>
-    function formatSize(sizeInBytes) {
-        if (sizeInBytes >= 1024 * 1024) {
-            return (sizeInBytes / (1024 * 1024)).toFixed(2) + ' MB'; // Convert to MB and format to 2 decimal places
-        } else {
-            return (sizeInBytes / 1024).toFixed(2) + ' KB'; // Convert to KB and format to 2 decimal places
-        }
-    }
-
-    jQuery(document).ready(function(){
-        jQuery('.loading-preloader').show();
-        jQuery.ajax({
-            url: '{% url 'mysql_database_manage_tables' database.serial %}',
-            method: 'GET',
-            dataType: 'json',
-            success: function(data){
-                if(data.success){
-                    jQuery('.loading-preloader').hide();
-                    if(data.tables != ''){
-                        jQuery(data.tables).each(function(i, e){
-                            let formattedSize = formatSize(e.size);
-                            jQuery('tbody').append(`
-                                <tr>
-                                    <td>${i+1}</td>
-                                    <td>${e.name}</td>
-                                    <td>${e.rows}</td>
-                                    <td>${e.type}</td>
-                                    <td>${e.collation}</td>
-                                    <td>${formattedSize}</td>
-                                </tr>
-                            `);
-                        });
-                    }else{
-                        jQuery('table').after('{% trans 'There is no tables in this database' %}');
-                    }
-                }else{
-                    jQuery('table').after('{% trans 'There is no tables in this database' %}');
-                }
-            },
-            error: function (error) {
-                jQuery('.loading-preloader').hide();
-                alert('{% trans "An error occurred while submitting the form" %}');
-            }
-        });
-    });
-</script>
 {% endblock %}

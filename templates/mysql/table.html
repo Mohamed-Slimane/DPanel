@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} MySql - {{database.name}}{% endblock %}
+{% block page_title %}<a href="{% url 'mysql_databases' %}">MySQL</a> - <a href="{% url 'mysql_database' database.serial %}">{{database.name}}</a> - <a href="{% url 'mysql_database_manage' database.serial %}">{% trans 'manage' %}</a>{% endblock %}
+
+
+{% block title_button %}
+{% include 'mysql/action.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow-sm p-3 rounded mb-3">
+    <table class="table">
+        <thead>
+        <tr>
+            {% for column in column_names %}
+            <th>{{column}}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in table_data %}
+        <tr>
+            {% for key, value in row.items %}
+                <td>{{ value }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

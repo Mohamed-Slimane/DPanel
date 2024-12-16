@@ -175,22 +175,24 @@ class file_download(View):
 
 
 class file_edit(View):
+    def post(self, request):
+        file = request.GET.get('file')
+        if not file.startswith(WWW_FOLDER):
+            return self.get(request)
+        text = request.POST.get('text')
+        with open(file, "w") as file:
+            file.write(text)
+        return self.get(request)
     def get(self, request):
         file = request.GET.get('file')
         if not os.path.isfile(file):
+            return redirect('dashboard')
+        if not file.startswith(WWW_FOLDER):
             return redirect('dashboard')
         filename = os.path.basename(file)
         with open(file, "r") as file:
             text = file.read()
 
         return render(request, 'file/edit.html', {'text': text, 'filename': filename})
-
-    def post(self, request):
-        file = request.GET.get('file')
-        text = request.POST.get('text')
-        with open(file, "w") as file:
-            file.write(text)
-        messages.success(request, _('File was successfully updated'))
-        return self.get(request)
 
 

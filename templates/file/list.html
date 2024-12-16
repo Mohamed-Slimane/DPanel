@@ -57,7 +57,7 @@
                 </div>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                        <a class="dropdown-item" href="{% url 'file_preview'%}?file={{path}}/{{file}}" target="_blank">
+                        <a class="dropdown-item" href="javascript:void(0)" onclick="dPanelPopup('{% url 'file_preview'%}?file={{path}}/{{file}}')">
                             {% trans 'Preview' %}
                             <i class="bi bi-eye float-end"></i>
                         </a>
@@ -72,7 +72,7 @@
                     <li><hr class="dropdown-divider"></li>
                     {% if file.lower|slice:'-3:' == "txt" or file.lower|slice:'-2:' == "py" or file.lower|slice:'-3:' == "log" or file.lower|slice:'-3:' == "ini" or file.lower|slice:'-4:' == "html" or file.lower|slice:'-3:' == "css" or file.lower|slice:'-2:' == "js" or file.lower|slice:'-4:' == "json" %}
                     <li>
-                        <a class="dropdown-item" href="{% url 'file_edit'%}?file={{path}}/{{file}}" target="_blank">
+                        <a class="dropdown-item" href="javascript:void(0)" onclick="dPanelPopup('{% url 'file_edit'%}?file={{path}}/{{file}}')">
                             {% trans 'Edit' %}
                             <i class="bi bi-pencil float-end"></i>
                         </a>

@@ -20,7 +20,7 @@
                         {{domain.name}}
                     </a>
                     {% if domain.domain_app %}
-                    <i class="bi bi-app-indicator small text-success" data-bs-toggle="tooltip" title="{{domain.domain_app.name}}"></i>
+                    <i class="bi bi-app-indicator small text-{% if not domain.domain_app.is_active %}danger{% else %}success{% endif %}" data-bs-toggle="tooltip" title="{{domain.domain_app.name}}"></i>
                     {% endif %}
                 </td>
                 <td>

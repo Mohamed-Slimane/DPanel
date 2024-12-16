@@ -95,7 +95,7 @@ def create_startup_file(app):
         return False
 
 
-def create_app(app):
+def create_django_app(app):
     try:
         os.system('''
         cd {app.venv_path}

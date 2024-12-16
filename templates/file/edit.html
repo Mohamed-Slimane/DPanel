@@ -1,32 +1,14 @@
-{% extends "base.html" %}
 {% load i18n %}
 {% load static %}
-{% block title %} {% trans 'Edit' %} {{filename}} {% endblock %}
-{% block page_title %} {% trans 'Edit' %} {{filename}} {% endblock %}
+<title>{{filename}}</title>
+<form class="" method="post" enctype="multipart/form-data">
+    <textarea name="text" id="edit-text">{{text}}</textarea>
+    {% csrf_token %}
+    <button type="submit" class="save-btn">
+        {% trans 'Save' %}
+    </button>
+</form>
 
-{% block content %}
-<div class="bg-white shadow-sm rounded p-3">
-    <div class="input-group input-group-sm mb-3">
-        <button type="button" class="btn btn-secondary" onclick="copy_this('{{request.GET.file}}')">
-            <i class="bi bi-clipboard"></i>
-        </button>
-        <input type="text" class="form-control" value="{{request.GET.file}}" readonly style="width: 400px;" dir="ltr">
-    </div>
-    <form class="" method="post" enctype="multipart/form-data">
-        <div class="mb-3" style="height: 70vh">
-            <textarea name="text" id="edit-text">{{text}}</textarea>
-        </div>
-        {% csrf_token %}
-        <button type="submit" class="btn btn-primary ">
-            <i class="bi bi-save2"></i>
-            {% trans 'Save' %}
-        </button>
-        <div id="toggle-fullscreen" class="btn btn-light border float-md-end">
-            <i class="bi bi-arrows-fullscreen"></i>
-            {% trans 'Full screen' %}
-        </div>
-    </form>
-</div>
 
 <script src="{% static 'codemirror/codemirror.min.js' %}"></script>
 
@@ -51,7 +33,7 @@
 {% endif %}
 
 <script>
-jQuery(document).ready(function() {
+document.addEventListener("DOMContentLoaded", function() {
     CodeMirror.fromTextArea(document.getElementById('edit-text'), {
         theme: 'monokai',
         lineNumbers : true,
@@ -76,17 +58,22 @@ jQuery(document).ready(function() {
     });
 });
 
-
-jQuery('#toggle-fullscreen').on('click', function(){
-    if (document.fullscreenElement) {
-        document.exitFullscreen();
-    } else {
-        jQuery('div.CodeMirror').get(0).requestFullscreen();
-    }
-});
-
 </script>
 <style>
-    div.CodeMirror{height: 100%}
+    div.CodeMirror{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+    .save-btn{
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        background-color: #000000;
+        color: white;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
 </style>
-{% endblock %}
