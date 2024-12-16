@@ -5,10 +5,6 @@
 {% block page_title %} <a href="{% url 'mysql_databases' %}">MySQL</a> - <a href="{% url 'mysql_database' database.serial %}">{{database.name}}</a> - {% trans 'manage' %} {% endblock %}
 
 
-{% block title_button %}
-{% include 'mysql/action.html' %}
-{% endblock %}
-
 {% block content %}
 <div class="bg-white shadow-sm p-3 rounded mb-3">
     <table class="table">
