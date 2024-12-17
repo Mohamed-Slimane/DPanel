@@ -111,10 +111,15 @@ class MysqlDatabaseBackup(models.Model):
 
 class SSLCertificate(models.Model):
     serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
-    app = models.ForeignKey(Domain, verbose_name=_('App'), related_name='app_certificates', on_delete=models.CASCADE)
-    domain = models.CharField(max_length=50, verbose_name=_('Domain'))
-    created = models.DateTimeField(auto_now_add=True)
+    domain = models.ForeignKey(Domain, verbose_name=_('Domain'), related_name='domain_certificates', on_delete=models.CASCADE)
+    certificate  = models.TextField(_('Certificate (CRT)'))
+    private_key = models.TextField(_('Private key (KEY)'))
+    intermediate_cert = models.TextField(_('Intermediate cert (CRT)'))
+    is_wildcard = models.BooleanField(_('Wildcard'), default=False)
+    start_date = models.DateTimeField(null=True, blank=True)
     expire_date = models.DateTimeField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.app

@@ -1,11 +1,10 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n tags %}
 
 {% block title %} MySql - {{database.name}}{% endblock %}
 {% block page_title %}<a href="{% url 'mysql_databases' %}">MySQL</a> - <a href="{% url 'mysql_database' database.serial %}">{{database.name}}</a> - <a href="{% url 'mysql_database_manage' database.serial %}">{% trans 'manage' %} {% trans '(beta)' %}</a>{% endblock %}
 
 {% block content %}
-{{table_data}}
 <div class="bg-white shadow-sm p-3 rounded mb-3">
     <table class="table">
         <thead>
@@ -18,8 +17,8 @@
         <tbody>
         {% for row in table_data %}
         <tr>
-            {% for value in row %}
-                <td><input value="{{value}}" readonly class="form-control form-control-sm border-0 shadow-none"></td>
+            {% for column in column_names %}
+            <td><input type="text" value="{{row|get_item:column|default:'NULL'}}" class="form-control form-control-sm border-0" readonly></td>
             {% endfor %}
         </tr>
         {% endfor %}

@@ -1,12 +1,13 @@
 import os
 import pathlib
-import shutil
 import subprocess
+
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
+
 from dpanel.models import Option
 
 
@@ -19,6 +20,36 @@ def super_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login
     if function:
         return actual_decorator(function)
     return function
+
+def get_option(key, default=''):
+    option = default
+    try:
+        op = Option.objects.filter(key=key).first()
+        if op and op.value != '':
+            option = op.value
+    except:
+        pass
+    return option
+
+
+def save_option(key, value):
+    option = Option.objects.filter(key=key)
+    if option:
+        option.update(key=key, value=value)
+    else:
+        Option(key=key, value=value).save()
+
+
+def paginator(request, obj, number=None, page=1):
+    paginator = Paginator(obj, get_option('paginator', '20') if not number else number)
+    request_page = request.GET.get('page', page)
+    try:
+        objects = paginator.page(request_page)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
+    except PageNotAnInteger:
+        objects = paginator.page(1)
+    return objects
 
 
 def create_domain_server_block(domain):
@@ -41,6 +72,7 @@ def create_domain_server_block(domain):
         print(e)
         return False
 
+
 def create_index_file(domain):
     pathlib.Path(domain.www_path).mkdir(parents=True, exist_ok=True)
     index_path = domain.www_path + '/index.html'
@@ -49,6 +81,7 @@ def create_index_file(domain):
         content = render_to_string('templates/index.html')
         with open(domain.www_path + '/index.html', 'w') as f:
             f.write(content)
+
 
 def create_uwsgi_config(app):
     try:
@@ -72,6 +105,7 @@ def create_uwsgi_config(app):
         print(str(e))
         return False
 
+
 def create_venv(path):
     try:
         os.system(f'python3 -m venv {path}')
@@ -79,6 +113,7 @@ def create_venv(path):
     except Exception as e:
         print(str(e))
         return False
+
 
 def create_startup_file(app):
     try:
@@ -191,37 +226,6 @@ def install_mysql_server():
         message = _("An error occurred while installing MySQL: {}").format(e)
 
     return {'success': success, 'message': message}
-
-
-def get_option(key, default=''):
-    option = default
-    try:
-        op = Option.objects.filter(key=key).first()
-        if op and op.value != '':
-            option = op.value
-    except:
-        pass
-    return option
-
-
-def save_option(key, value):
-    option = Option.objects.filter(key=key)
-    if option:
-        option.update(key=key, value=value)
-    else:
-        Option(key=key, value=value).save()
-
-
-def paginator(request, obj, number=None, page=1):
-    paginator = Paginator(obj, get_option('paginator', '20') if not number else number)
-    request_page = request.GET.get('page', page)
-    try:
-        objects = paginator.page(request_page)
-    except EmptyPage:
-        objects = paginator.page(paginator.num_pages)
-    except PageNotAnInteger:
-        objects = paginator.page(1)
-    return objects
 
 
 def get_cpu_usage():

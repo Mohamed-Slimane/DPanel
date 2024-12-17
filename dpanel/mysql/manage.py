@@ -52,8 +52,8 @@ def mysql_table_rows(user, password, host, database, table):
         for row in rows:
             # TODO: يتم تجاهل القيم التي لا توجد بها قيمة ويسبب ذلك خطأ ويجب ان يصلح
             values = row.split('\t')  # القيم في الصف
-            # row_dict = dict(zip(column_names, values))  # دمج الأعمدة مع القيم
-            data.append(values)  # إضافة الصف إلى القائمة
+            row_dict = dict(zip(column_names, values))  # دمج الأعمدة مع القيم
+            data.append(row_dict)  # إضافة الصف إلى القائمة
 
         return column_names, data  # إرجاع أسماء الأعمدة وقيم البيانات
 
