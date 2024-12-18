@@ -33,7 +33,7 @@
                 </td>
                 <td>
                     <a href="{% url 'certificates' domain.serial %}" class="btn btn-{% if domain.certificate_domain.all %}success{% else %}light border{% endif %} btn-sm rounded-pill"  >
-                        {% if domain.domain_certificates.all %}
+                        {% if domain.ssl_certificates.all %}
                         {% translate 'Installed' %}
                         <i class="bi bi-shield-check"></i>
                         {% else %}

@@ -139,8 +139,11 @@ MESSAGE_TAGS = {
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
-DPANEL_FOLDER = f'{BASE_DIR}/'
+SERVER_FOLDER = '/var/server'
+DPANEL_FOLDER = f'{SERVER_FOLDER}/dpanel'
+VENV_FOLDER = f'{SERVER_FOLDER}/venv'
+SSL_FOLDER = f'{SERVER_FOLDER}/ssl'
+BACKUP_FOLDER = f'{SERVER_FOLDER}/backup'
 WWW_FOLDER = '/var/www'
-VENV_FOLDER = '/var/venv'
 NGINX_FOLDER = '/etc/nginx'
 UWSGI_FOLDER = '/etc/uwsgi'

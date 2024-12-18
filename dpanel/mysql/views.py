@@ -15,6 +15,7 @@ from django.views import View
 from dpanel.forms import MysqlDatabaseForm
 from dpanel.functions import get_option, install_mysql_server, paginator
 from dpanel.models import MysqlDatabase, MysqlDatabaseBackup
+from engine.settings import BACKUP_FOLDER
 
 
 class databases(View):
@@ -94,7 +95,7 @@ class reset(View):
 class backup_create(View):
     def get(self, request, serial):
         database = MysqlDatabase.objects.get(serial=serial)
-        folder = '/var/server/dpanel/backups/mysql/'
+        folder = f'{BACKUP_FOLDER}/mysql/'
         Path(folder).mkdir(parents=True, exist_ok=True)
         database_file = f'{folder}{database.name}_{datetime.datetime.today().strftime("%d-%m-%Y_%H-%M-%S")}.sql.gz'
         os.system(f'mysqldump {database.name} | gzip > {database_file}')
@@ -109,8 +110,7 @@ class backup_restore(View):
         backup = MysqlDatabaseBackup.objects.get(serial=serial)
         subprocess.run(['mysql', '-e', f'DROP DATABASE IF EXISTS {backup.database.name};'])
         subprocess.run(['mysql', '-e', f'CREATE DATABASE {backup.database.name};'])
-        subprocess.run(['mysql', '-e',
-                        f"GRANT ALL PRIVILEGES ON {backup.database.name}.* TO '{backup.database.username}'@'localhost';"])
+        subprocess.run(['mysql', '-e', f"GRANT ALL PRIVILEGES ON {backup.database.name}.* TO '{backup.database.username}'@'localhost';"])
         if backup.path.endswith('.gz'):
             with gzip.open(backup.path, 'rb') as f:
                 sql_content = f.read().decode('utf-8')

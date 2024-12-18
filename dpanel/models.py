@@ -20,7 +20,10 @@ class Domain(models.Model):
         verbose_name_plural = _('Domains')
 
     def certificates(self):
-        return self.domain_certificates.order_by('-created')
+        return self.ssl_certificates.order_by('-created')
+
+    def active_certificate(self):
+        return self.ssl_certificates.filter(is_active=True).first()
 
     def save(self, *args, **kwargs):
         if not self.serial:
@@ -111,25 +114,23 @@ class MysqlDatabaseBackup(models.Model):
 
 class SSLCertificate(models.Model):
     serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
-    domain = models.ForeignKey(Domain, verbose_name=_('Domain'), related_name='domain_certificates', on_delete=models.CASCADE)
-    certificate  = models.TextField(_('Certificate (CRT)'))
-    private_key = models.TextField(_('Private key (KEY)'))
-    intermediate_cert = models.TextField(_('Intermediate cert (CRT)'))
+    domain = models.ForeignKey(Domain, verbose_name=_('Domain'), related_name='ssl_certificates', on_delete=models.CASCADE)
+    certificate_path  = models.CharField(_('Certificate (CRT)'), max_length=500)
+    private_key_path = models.CharField(_('Private key (KEY)'), max_length=500)
     is_wildcard = models.BooleanField(_('Wildcard'), default=False)
     start_date = models.DateTimeField(null=True, blank=True)
     expire_date = models.DateTimeField(null=True, blank=True)
+    is_active = models.BooleanField(_('Active'), default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.app
+        return self.domain.name
 
     def save(self, *args, **kwargs):
         if not self.pk:
             import uuid
             self.serial = uuid.uuid4()
-        else:
-            self.domain = self.app.domain
         super().save(*args, **kwargs)
 
 

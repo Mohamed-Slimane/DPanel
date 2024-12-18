@@ -5,7 +5,7 @@
 {% block title %} {{domain}} - {% trans 'SSL certificates' %} {% endblock %}
 {% block page_title %} {{domain}} - {% trans 'SSL certificates' %} {% endblock %}
 {% block title_button %}
-<span class="btn btn-primary btn-sm rounded-pill" onclick="open_link_confirm('{% url 'domain_ssl_new' domain.serial %}')">
+<span class="btn btn-primary btn-sm rounded-pill" onclick="open_link_confirm('{% url 'certificate_new' domain.serial %}')">
     {% trans 'New certificate' %}
     <i class="bi bi-shield"></i>
 </span>
@@ -76,7 +76,7 @@
                         allowOutsideClick: false,
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = "{% url 'domain_certificates' domain.serial %}"
+                            window.location.href = "{% url 'certificates' domain.serial %}"
                         }
                     });
                 },

@@ -228,6 +228,27 @@ def install_mysql_server():
     return {'success': success, 'message': message}
 
 
+def install_certbot():
+    try:
+        subprocess.run(["apt", "update"])
+        subprocess.run(["apt", "install", "-y", "certbot"])
+        # subprocess.run(["apt", "install", "-y", "python3-certbot-nginx"])
+        subprocess.run(['ufw', 'allow', 'https'])
+        subprocess.run(['ufw', 'allow', '443'])
+        success = True
+        message = _("Certbot has been successfully installed")
+        save_option('certbot_status', True)
+
+    except subprocess.CalledProcessError as e:
+        success = False
+        message = _("An error occurred while installing Certbot: {}").format(e)
+
+    return {
+        'success': success,
+        'message': message
+    }
+
+
 def get_cpu_usage():
     with open('/proc/stat') as file:
         line = file.readline()

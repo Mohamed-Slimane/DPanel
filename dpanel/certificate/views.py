@@ -1,15 +1,19 @@
 import subprocess
+import uuid
+from datetime import timedelta
+from pathlib import Path
 
 from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 
-from dpanel.functions import get_option
+from dpanel.functions import get_option, install_certbot, create_domain_server_block
 from dpanel.models import Domain, SSLCertificate
-from dpanel.ssl import create_ssl, install_certbot
+from engine.settings import SSL_FOLDER
 
 
 class certificates(View):
@@ -25,21 +29,50 @@ class certificates(View):
         return JsonResponse(res)
 
     def get(self, request, serial):
-        app = Domain.objects.get(serial=serial)
-        return render(request, 'app/certificate.html', {'app': app})
+        domain = Domain.objects.get(serial=serial)
+        return render(request, 'domain/certificate.html', {'domain': domain})
 
 
 class certificate_new(View):
     def get(self, request, serial):
-        app = Domain.objects.get(serial=serial)
+        domain = Domain.objects.get(serial=serial)
+        random_serial = str(uuid.uuid4()).replace('-', '')
+        path = f'{SSL_FOLDER}/{random_serial}'
+        Path(path).mkdir(parents=True, exist_ok=True)
         try:
-            expiration_date = create_ssl(app)
-            if expiration_date:
-                SSLCertificate.objects.create(app=app, expire_date=expiration_date)
+            commend = f'openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout {path}/private.key -out {path}/certificate.crt -subj "/C=US/ST=California/L=San Francisco/O=MyOrg/OU=Dev/CN=localhost"'
+            print(commend)
+            # commend = [
+            #     'certbot', 'certonly',
+            #     '--webroot', '-w', path,
+            #     '-d', domain.name,
+            #     '--agree-tos',
+            #     '--email', f'admin@{domain.name}',
+            #     '--non-interactive'
+            # ]
+            result = subprocess.run(commend, shell=True, check=True)
+            if result.returncode != 0:
+                messages.error(request, _('Certificate created failed'))
+                messages.warning(request, result.stderr)
+                return redirect('certificates', domain.serial)
+
+            start_date = timezone.now()
+            expiration_date = timezone.now() + timedelta(days=90)
+
+            ssl = domain.ssl_certificates.create(
+                start_date=start_date,
+                expire_date=expiration_date,
+                certificate_path=f'{path}/certificate.crt',
+                private_key_path=f'{path}/private.key'
+            )
+            domain.ssl_certificates.update(is_active=False)
+            ssl.is_active = True
+            ssl.save()
+            create_domain_server_block(domain)
             messages.success(request, _('Certificate created successfully'))
             subprocess.run("systemctl reload nginx", shell=True, check=True)
         except subprocess.CalledProcessError as e:
             messages.error(request, _('Certificate created failed'))
             messages.warning(request, str(e))
 
-        return redirect('certificates', app.serial)
+        return redirect('certificates', domain.serial)
