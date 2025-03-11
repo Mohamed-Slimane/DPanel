@@ -51,7 +51,6 @@ class new(View):
             the_block = create_domain_server_block(domain)
             if not the_block:
                 messages.add_message(request, messages.ERROR, _('Failed to create domain server block'))
-                domain.delete()
                 return self.get(request)
             create_index_file(domain)
             os.system(f'systemctl reload nginx')

@@ -30,26 +30,28 @@ class certificates(View):
 
     def get(self, request, serial):
         domain = Domain.objects.get(serial=serial)
-        return render(request, 'domain/certificate.html', {'domain': domain})
+        return render(request, 'certificate/certificates.html', {'domain': domain})
 
 
 class certificate_new(View):
     def get(self, request, serial):
+        cr_type = request.GET.get('cr_type')
         domain = Domain.objects.get(serial=serial)
         random_serial = str(uuid.uuid4()).replace('-', '')
         path = f'{SSL_FOLDER}/{random_serial}'
         Path(path).mkdir(parents=True, exist_ok=True)
         try:
-            commend = f'openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout {path}/private.key -out {path}/certificate.crt -subj "/C=US/ST=California/L=San Francisco/O=MyOrg/OU=Dev/CN=localhost"'
-            print(commend)
-            # commend = [
-            #     'certbot', 'certonly',
-            #     '--webroot', '-w', path,
-            #     '-d', domain.name,
-            #     '--agree-tos',
-            #     '--email', f'admin@{domain.name}',
-            #     '--non-interactive'
-            # ]
+            if cr_type == 'self_signed':
+                commend = f'openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout {path}/private.key -out {path}/certificate.crt -subj "/C=US/ST=California/L=San Francisco/O=MyOrg/OU=Dev/CN=localhost"'
+            else:
+                commend = [
+                    'certbot', 'certonly',
+                    '--webroot', '-w', path,
+                    '-d', domain.name,
+                    '--agree-tos',
+                    '--email', f'admin@{domain.name}',
+                    '--non-interactive'
+                ]
             result = subprocess.run(commend, shell=True, check=True)
             if result.returncode != 0:
                 messages.error(request, _('Certificate created failed'))

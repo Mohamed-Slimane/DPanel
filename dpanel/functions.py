@@ -169,9 +169,10 @@ def install_nginx_server():
         subprocess.run(["apt", "update"])
         subprocess.run(["apt", "install", "-y", "nginx"])
         subprocess.run(['ufw', 'allow', '80'])
+        subprocess.run(['ufw', 'allow', '8080'])
+        subprocess.run(['ufw', 'allow', '443'])
         subprocess.run(['ufw', 'allow', 'http'])
         subprocess.run(['ufw', 'allow', 'Nginx Full'])
-        subprocess.run(['ufw', 'allow', '8080'])
         subprocess.run(['systemctl', 'start', 'nginx'])
         subprocess.run(['systemctl', 'enable', 'nginx'])
 

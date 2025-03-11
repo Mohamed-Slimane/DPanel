@@ -1,5 +1,7 @@
 import os
 from django.db import models
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
 
@@ -133,6 +135,15 @@ class SSLCertificate(models.Model):
             self.serial = uuid.uuid4()
         super().save(*args, **kwargs)
 
+@receiver(post_delete, sender=SSLCertificate)
+def delete_certificate(sender, instance, **kwargs):
+    try:
+        import os
+        parent_folder = os.path.dirname(str(instance.certificate_path))
+        if os.path.isdir(parent_folder):
+            os.rmdir(parent_folder)
+    except Exception as e:
+        print(e)
 
 class Option(models.Model):
     key = models.CharField(max_length=50, verbose_name=_('Key'), null=True, blank=True, unique=True)

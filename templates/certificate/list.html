@@ -1,0 +1,51 @@
+{% load i18n %}
+<div class="responsive-table-md">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>{% trans 'Start' %}</th>
+                <th>{% trans 'Expires' %}</th>
+                <th>{% trans 'Status' %}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for certificate in domain.certificates %}
+            <tr>
+                <td>{% include 'inc/loop.html' %}</td>
+                <td>{{certificate.start_date|date:"Y-m-d H:i, l"}}</td>
+                <td>{{certificate.expire_date|date:"Y-m-d H:i, l"}}</td>
+                <td>
+                    {% if certificate.is_active %}
+                    <span class="badge bg-success">{% trans 'Active' %}</span>
+                    {% else %}
+                    <span class="badge bg-danger">{% trans 'Inactive' %}</span>
+                    {% endif %}
+                </td>
+                <td>
+                   <div class="float-end dropdown">
+                       <a href="javascript:void(0)" class="dropdown-toggle" data-bs-toggle="dropdown">
+                           <i class="bi bi-three-dots-vertical"></i>
+                       </a>
+                       <ul class="dropdown-menu dropdown-menu-end">
+                           <li>
+                               <a class="dropdown-item" href="{% url 'certificate' domain.serial %}">
+                                   {% trans 'Active' %}
+                                   <i class="bi bi-info-circle float-end"></i>
+                               </a>
+                           </li>
+                           <li>
+                               <a class="dropdown-item" href="{% url 'certificate_delete' certificate.serial %}">
+                                   {% trans 'Delete' %}
+                                   <i class="bi bi-trash float-end"></i>
+                               </a>
+                           </li>
+                       </ul>
+                   </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
