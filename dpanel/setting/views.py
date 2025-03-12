@@ -31,39 +31,3 @@ class more(View):
     def get(self, request):
         return render(request, 'settings/more.html')
 
-
-class dpanel_update(View):
-
-    def post(self, request):
-
-        command = "wget -O - https://dpanel.top/api/update/update.sh | bash"
-        try:
-            subprocess.run(command)
-        except subprocess.CalledProcessError as e:
-            return JsonResponse({
-                'success': False,
-                'message': _("Command failed with return code {e.returncode}: {e.stderr}").format(e=e)
-            })
-        except FileNotFoundError:
-            return JsonResponse({
-                'success': False,
-                'message': _("Command not found. Please make sure 'wget' and 'bash' are installed on your system")
-            })
-        except Exception as e:
-            return JsonResponse({
-                'success': False,
-                'message': _("An error occurred: {e}").format(e=e)
-            })
-
-        try:
-            subprocess.run(['systemctl', 'restart', 'dpanel'])
-            return JsonResponse({
-                'success': True,
-                'message': _("Updated successfully")
-            })
-        except:
-            pass
-        return JsonResponse({
-            'success': True,
-            'message': _("Updated completed successfully")
-        })
