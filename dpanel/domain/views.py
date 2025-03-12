@@ -13,26 +13,11 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from dpanel.forms import DomainForm
-from dpanel.functions import create_domain_server_block, get_option, install_uwsgi_server, install_nginx_server, \
-    paginator, create_index_file
+from dpanel.functions import create_domain_server_block, get_option, paginator, create_index_file
 from dpanel.models import Domain
 
 
 class domains(View):
-    def post(self, request):
-        uwsgi_status = get_option('uwsgi_status')
-        nginx_status = get_option('nginx_status')
-        if not uwsgi_status or uwsgi_status == 'False' or not nginx_status or nginx_status == 'False':
-            if request.POST.get('uwsgi_install'):
-                res = install_uwsgi_server()
-            elif request.POST.get('nginx_install'):
-                res = install_nginx_server()
-            else:
-                res = {'success': False, 'message': _('Form validation error')}
-        else:
-            res = {'success': False, 'message': _('There is an existing uwsgi or nginx server installed')}
-        return JsonResponse(res)
-
     def get(self, request):
         domains = Domain.objects.all().order_by('-created')
         domains = paginator(request, domains, int(get_option('paginator', '20')))

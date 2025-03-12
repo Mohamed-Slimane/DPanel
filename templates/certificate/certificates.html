@@ -13,52 +13,10 @@
 
 {% block content %}
 <div class="bg-white shadow-sm rounded p-3">
-    {% if status.certbot_status %}
-        {% if domain.certificates %}
-        {% include 'certificate/list.html' %}
-        {% else %}
-        {% trans 'This domain have no certificates yet' %}
-        {% endif %}
+    {% if domain.certificates %}
+    {% include 'certificate/list.html' %}
     {% else %}
-    <div class="text-center">
-        <div class="fw-bold h5">
-                {% trans 'Certbot not installed' %}
-        </div>
-        <button type="button" class="btn btn-info btn-sm rounded-pill" id="install-certbot">
-            {% translate 'Install Certbot now' %}
-            <i class="bi bi-robot"></i>
-        </button>
-    </div>
-    <script>
-    jQuery(document).ready(function () {
-        jQuery("#install-certbot").click(function(event) {
-            jQuery('.loading-preloader').show();
-            jQuery.ajax({
-                type: "POST",
-                data: {
-                    'csrfmiddlewaretoken': '{{csrf_token}}',
-                    'certbot_install': true
-                },
-                success: function (response) {
-                    jQuery('.loading-preloader').hide();
-                    Swal.fire({
-                        icon: response.success ? 'success' : 'error',
-                        text: response.message,
-                        allowOutsideClick: false,
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = "{% url 'certificates' domain.serial %}"
-                        }
-                    });
-                },
-                error: function () {
-                    jQuery('.loading-preloader').hide();
-                    alert('{% trans "An error occurred while submitting the form" %}');
-                }
-            });
-        });
-    });
-    </script>
+    {% trans 'This domain have no certificates yet' %}
     {% endif %}
 </div>
 {% endblock %}

@@ -11,23 +11,12 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 
-from dpanel.functions import get_option, install_certbot, create_domain_server_block
+from dpanel.functions import get_option, create_domain_server_block
 from dpanel.models import Domain, SSLCertificate
 from engine.settings import SSL_FOLDER
 
 
 class certificates(View):
-    def post(self, request, serial):
-        certbot_status = get_option('certbot_status')
-        if not certbot_status or certbot_status == 'False':
-            if request.POST.get('certbot_install'):
-                res = install_certbot()
-            else:
-                res = {'success': False, 'message': _('Form validation error')}
-        else:
-            res = {'success': False, 'message': _('Certbot is already installed')}
-        return JsonResponse(res)
-
     def get(self, request, serial):
         domain = Domain.objects.get(serial=serial)
         return render(request, 'certificate/certificates.html', {'domain': domain})

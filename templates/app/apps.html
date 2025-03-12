@@ -5,41 +5,25 @@
 {% block page_title %}{% trans 'All apps' %}{% endblock %}
 
 {% block title_button %}
-{% if status.uwsgi_status %}
 <a class="btn btn-primary btn-sm rounded-pill" href="{% url 'app_new' %}">
     {% translate 'New app' %}
     <i class="bi bi-rocket-takeoff"></i>
 </a>
-{% endif %}
 {% endblock %}
 {% block content %}
 <div class="bg-white shadow-sm rounded">
-    {% if status.uwsgi_status %}
-        {% if apps %}
-            {% include 'app/list.html' %}
-        {% include 'inc/paginator.html' with query=apps %}
-        {% else %}
-        <div class="h5 text-center p-3">
-            {% trans 'No apps found' %}
-            <div class="">
-                <a href="{% url 'app_new' %}">
-                    <i class="bi bi-folder-plus fs-1"></i>
-                </a>
-            </div>
-        </div>
-        {% endif %}
+    {% if apps %}
+        {% include 'app/list.html' %}
+    {% include 'inc/paginator.html' with query=apps %}
     {% else %}
-        <div class="h5 text-center p-3">
-            {% trans 'You need to install uwsgi and nginx first' %}
-            <div class="mt-3">
-                {% if not status.uwsgi_status %}
-                <button id="install-uwsgi" class="install-server btn btn-warning rounded-pill" data-name="uwsgi">
-                    {% translate 'Install uwsgi' %}
-                    <i class="bi bi-play"></i>
-                </button>
-                {% endif %}
-            </div>
+    <div class="h5 text-center p-3">
+        {% trans 'No apps found' %}
+        <div class="">
+            <a href="{% url 'app_new' %}">
+                <i class="bi bi-folder-plus fs-1"></i>
+            </a>
         </div>
+    </div>
     {% endif %}
 </div>
 {% endblock %}

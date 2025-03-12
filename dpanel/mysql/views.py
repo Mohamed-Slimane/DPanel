@@ -13,23 +13,12 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from dpanel.forms import MysqlDatabaseForm
-from dpanel.functions import get_option, install_mysql_server, paginator
+from dpanel.functions import get_option, paginator
 from dpanel.models import MysqlDatabase, MysqlDatabaseBackup
 from engine.settings import BACKUP_FOLDER
 
 
 class databases(View):
-    def post(self, request):
-        mysql_status = get_option('mysql_status')
-        if not mysql_status or mysql_status == 'False':
-            if request.POST.get('mysql_install'):
-                res = install_mysql_server()
-            else:
-                res = {'success': False, 'message': _('Form validation error')}
-        else:
-            res = {'success': False, 'message': _('There is an existing MySQL server installed')}
-        return JsonResponse(res)
-
     def get(self, request):
         databases = MysqlDatabase.objects.all()
         databases = paginator(request, databases, int(get_option('paginator', '20')))

@@ -4,7 +4,6 @@
         {% translate 'Restart' %}
     </button>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownRestart">
-        {% if status.nginx_status %}
         <li>
             <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'nginx_restart' %}', '{% trans 'Restart' %}', '{% translate 'Nginx server will be restarted immediately and al domains will be stopped until restarting' %}')">
                 {% translate 'Nginx' %}
@@ -12,8 +11,6 @@
             </span>
         </li>
         <li><hr class="dropdown-divider"></li>
-        {% endif %}
-        {% if status.uwsgi_status %}
         <li>
             <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'uwsgi_restart' %}', '{% trans 'Restart' %}', '{% translate 'Uwsgi server will be restarted immediately and al domains will be stopped until restarting' %}')">
                 {% translate 'Uwsgi' %}
@@ -21,8 +18,6 @@
             </span>
         </li>
         <li><hr class="dropdown-divider"></li>
-        {% endif %}
-        {% if status.mysql_status %}
         <li>
             <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'mysql_restart' %}', '{% trans 'Restart' %}', '{% translate 'MySQL server will be restarted immediately and al domains will be stopped until restarting' %}')">
                 MySQL
@@ -30,7 +25,6 @@
             </span>
         </li>
         <li><hr class="dropdown-divider"></li>
-        {% endif %}
         <li>
             <span class="dropdown-item pointer text-danger" onclick="open_link_confirm('{% url 'server_restart' %}', '{% trans 'Restart' %}', '{% trans 'The server will be restarted immediately and al domains will be stopped until restarting' %}')">
                 {% translate 'Server' %}
