@@ -2,11 +2,12 @@ import os
 from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
 class Domain(models.Model):
-    serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
+    serial = models.CharField(_('Serial'), max_length=500, unique=True, null=True, blank=True)
     name = models.CharField(max_length=50, verbose_name=_('Name'), unique=True, help_text=_('For example: mayproject.com, dpanel.top'))
     www_path = models.CharField(max_length=5000, verbose_name=_('Path'))
     nginx_config = models.CharField(max_length=5000, verbose_name=_('Nginx config'))
@@ -28,15 +29,19 @@ class Domain(models.Model):
         return self.ssl_certificates.filter(is_active=True).first()
 
     def save(self, *args, **kwargs):
-        if not self.serial:
-            import uuid
-            self.serial = uuid.uuid4()
         if 'http' in self.name or 'https' in self.name:
             self.name = str(self.name).split('//')[1]
         super().save(*args, **kwargs)
+        if not self.serial and self.pk:
+            year = timezone.now().year
+            month = timezone.now().month
+            day = timezone.now().day
+            self.serial = f'{year % 100}{month:02d}{day:02d}{self.pk:03d}'
+            super().save(*args, **kwargs)
+
 
 class App(models.Model):
-    serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
+    serial = models.CharField(_('Serial'), max_length=500, unique=True, null=True, blank=True)
     name = models.CharField(_('Name'), max_length=500)
     domain = models.OneToOneField(Domain, verbose_name=_('Domain'), related_name='domain_app', on_delete=models.SET_NULL, null=True, blank=True, unique=True)
     port = models.IntegerField(_('Port'), unique=True)
@@ -61,14 +66,33 @@ class App(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        if not self.serial:
-            import uuid
-            self.serial = uuid.uuid4()
         super().save(*args, **kwargs)
+        if not self.serial and self.pk:
+            year = timezone.now().year
+            month = timezone.now().month
+            day = timezone.now().day
+            self.serial = f'{year % 100}{month:02d}{day:02d}{self.pk:03d}'
+            super().save(*args, **kwargs)
 
+class MysqlUser(models.Model):
+    serial = models.CharField(_('Serial'), max_length=500, unique=True, null=True, blank=True)
+    username = models.CharField(_('Username'), unique=True, max_length=500)
+    password = models.CharField(_('Password'), max_length=500)
+
+    def __str__(self):
+        return self.username
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not self.serial and self.pk:
+            year = timezone.now().year
+            month = timezone.now().month
+            day = timezone.now().day
+            self.serial = f'{year % 100}{month:02d}{day:02d}{self.pk:03d}'
+            super().save(*args, **kwargs)
 
 class MysqlDatabase(models.Model):
-    serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
+    serial = models.CharField(_('Serial'), max_length=500, unique=True, null=True, blank=True)
     name = models.CharField(_('Name'), unique=True, max_length=500)
     username = models.CharField(_('Username'), unique=True, max_length=500)
     password = models.CharField(_('Password'), max_length=500)
@@ -77,14 +101,17 @@ class MysqlDatabase(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            import uuid
-            self.serial = uuid.uuid4()
         super().save(*args, **kwargs)
+        if not self.serial and self.pk:
+            year = timezone.now().year
+            month = timezone.now().month
+            day = timezone.now().day
+            self.serial = f'{year % 100}{month:02d}{day:02d}{self.pk:03d}'
+            super().save(*args, **kwargs)
 
 
 class MysqlDatabaseBackup(models.Model):
-    serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
+    serial = models.CharField(_('Serial'), max_length=500, unique=True, null=True, blank=True)
     database = models.ForeignKey(MysqlDatabase, verbose_name=_('Database'), related_name='backup_database',
                                  on_delete=models.SET_NULL, null=True, blank=True)
     path = models.CharField(_('Path'), max_length=5000)
@@ -100,10 +127,13 @@ class MysqlDatabaseBackup(models.Model):
             return self.serial
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            import uuid
-            self.serial = uuid.uuid4()
         super().save(*args, **kwargs)
+        if not self.serial and self.pk:
+            year = timezone.now().year
+            month = timezone.now().month
+            day = timezone.now().day
+            self.serial = f'{year % 100}{month:02d}{day:02d}{self.pk:03d}'
+            super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         try:
@@ -115,7 +145,7 @@ class MysqlDatabaseBackup(models.Model):
 
 
 class SSLCertificate(models.Model):
-    serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
+    serial = models.CharField(_('Serial'), max_length=500, unique=True, null=True, blank=True)
     domain = models.ForeignKey(Domain, verbose_name=_('Domain'), related_name='ssl_certificates', on_delete=models.CASCADE)
     certificate_path  = models.CharField(_('Certificate (CRT)'), max_length=500)
     private_key_path = models.CharField(_('Private key (KEY)'), max_length=500)
@@ -130,10 +160,13 @@ class SSLCertificate(models.Model):
         return self.domain.name
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            import uuid
-            self.serial = uuid.uuid4()
         super().save(*args, **kwargs)
+        if not self.serial and self.pk:
+            year = timezone.now().year
+            month = timezone.now().month
+            day = timezone.now().day
+            self.serial = f'{year % 100}{month:02d}{day:02d}{self.pk:03d}'
+            super().save(*args, **kwargs)
 
 @receiver(post_delete, sender=SSLCertificate)
 def delete_certificate(sender, instance, **kwargs):
