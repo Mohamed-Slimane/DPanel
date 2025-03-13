@@ -6,7 +6,6 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.loader import render_to_string
-from django.utils.translation import gettext_lazy as _
 
 from dpanel.models import Option
 
@@ -55,17 +54,20 @@ def paginator(request, obj, number=None, page=1):
 def create_domain_server_block(domain):
     try:
         from engine.settings import NGINX_FOLDER
-        available = os.path.join(NGINX_FOLDER, 'sites-available')
-        enabled = os.path.join(NGINX_FOLDER, 'sites-enabled')
-        pathlib.Path(available).mkdir(parents=True, exist_ok=True)
-        pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
-        nginx_conf = f'{available}/{domain.serial}.conf'
-        os.system(f'touch {nginx_conf}')
+        available_dir = os.path.join(NGINX_FOLDER, 'sites-available')
+        enabled_dir = os.path.join(NGINX_FOLDER, 'sites-enabled')
+        pathlib.Path(available_dir).mkdir(parents=True, exist_ok=True)
+        pathlib.Path(enabled_dir).mkdir(parents=True, exist_ok=True)
+        available_conf = f'{available_dir}/{domain.serial}.conf'
+        os.system(f'touch {available_conf}')
         conf = render_to_string('templates/nginx_config.conf', {'domain': domain})
-        with open(nginx_conf, 'w') as f:
+        with open(available_conf, 'w') as f:
             f.write(conf)
-            domain.nginx_config = nginx_conf
-        os.system(f"ln -s {nginx_conf} {enabled}/{domain.serial}.conf")
+        domain.nginx_config = available_conf
+        try:
+            os.system(f"unlink {available_conf.replace('available', 'enabled')}")
+        except: pass
+        os.system(f"ln -s {available_conf} {available_conf.replace('available', 'enabled')}")
         os.system(f'systemctl reload nginx')
         return True
     except Exception as e:
@@ -90,15 +92,18 @@ def create_uwsgi_config(app):
         enabled = os.path.join(UWSGI_FOLDER, 'apps-enabled')
         pathlib.Path(available).mkdir(parents=True, exist_ok=True)
         pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
-        conf_path = f'{available}/{app.serial}.ini'
+        available_conf = f'{available}/{app.serial}.ini'
         app.module = "{}:{}".format(str(app.startup_file).replace('.py', '').replace('/', '.'), app.entry_point)
-        os.system(f'touch {conf_path}')
+        os.system(f'touch {available_conf}')
+        print(app.www_path)
         conf = render_to_string('templates/uwsgi_config.ini', {'app': app})
-
-        with open(conf_path, 'w') as f:
+        with open(available_conf, 'w') as f:
             f.write(conf)
-        os.system(f"ln -s {conf_path} {enabled}/{app.serial}.ini")
-        app.uwsgi_config = f'{enabled}/{app.serial}.ini'
+        app.uwsgi_config = available_conf
+        try:
+            os.system(f"unlink {available_conf.replace('available', 'enabled')}")
+        except: pass
+        os.system(f"ln -s {available_conf} {available_conf.replace('available', 'enabled')}")
         os.system(f'systemctl reload uwsgi')
         return True
     except Exception as e:

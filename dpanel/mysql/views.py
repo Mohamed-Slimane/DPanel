@@ -36,14 +36,8 @@ class new(View):
         form = MysqlDatabaseForm(request.POST)
         if form.is_valid():
             database = form.save(commit=False)
-            database.password = str(uuid.uuid4()).replace('-', '')[:15]
             try:
                 subprocess.run(['mysql', '-e', f'CREATE DATABASE {database.name};'])
-                subprocess.run(['mysql', '-e',
-                                f"CREATE USER '{database.username}'@'localhost' IDENTIFIED BY '{database.password}';"])
-                subprocess.run(
-                    ['mysql', '-e', f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{database.username}'@'localhost';"])
-
                 database.save()
                 messages.add_message(request, messages.SUCCESS, _('Database successfully created'))
             except Exception as e:

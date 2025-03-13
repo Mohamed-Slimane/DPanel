@@ -7,7 +7,7 @@ from dpanel.app import views as app
 from dpanel.certificate import views as certificate
 from dpanel.file import views as file
 from dpanel.functions import super_required
-from dpanel.mysql import views as mysql_views, manage as mysql_manage
+from dpanel.mysql import views as mysql_views, manage as mysql_manage, user as mysql_user
 from dpanel.setting import views as setting_views
 
 urlpatterns = [
@@ -50,7 +50,13 @@ urlpatterns = [
     path('restart/mysql/', super_required(views.mysql_restart.as_view()), name="mysql_restart"),
     path('restart/server/', super_required(views.server_restart.as_view()), name="server_restart"),
 
-    # MySQL
+    # MySQL User
+    path('mysql/users/', super_required(mysql_user.users.as_view()), name="mysql_users"),
+    path('mysql/user/<serial>/new/', super_required(mysql_user.new.as_view()), name="mysql_user_new"),
+    path('mysql/user/<serial>/edit/', super_required(mysql_user.edit.as_view()), name="mysql_user_edit"),
+    path('mysql/user/<serial>/delete/', super_required(mysql_user.delete.as_view()), name="mysql_user_delete"),
+
+    # MySQL Database
     path('mysql/', super_required(mysql_views.databases.as_view()), name="mysql_databases"),
     path('mysql/new/', super_required(mysql_views.new.as_view()), name="mysql_database_new"),
     path('mysql/<str:serial>/', super_required(mysql_views.database.as_view()), name="mysql_database"),

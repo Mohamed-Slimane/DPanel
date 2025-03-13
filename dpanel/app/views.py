@@ -7,6 +7,7 @@ import subprocess
 import uuid
 
 from django.contrib import messages
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -15,7 +16,7 @@ from django.views import View
 
 from dpanel.forms import AppForm, AppEditForm
 from dpanel.functions import create_venv, create_uwsgi_config, get_option, paginator, create_startup_file, create_domain_server_block
-from dpanel.models import App
+from dpanel.models import App, Domain
 
 
 class apps(View):
@@ -31,36 +32,28 @@ class app_new(View):
         if form.is_valid():
             from engine.settings import WWW_FOLDER
             from engine.settings import VENV_FOLDER
-
             app = form.save(commit=False)
-            app.serial = uuid.uuid4()
-            app.www_path = os.path.join(WWW_FOLDER, str(app.domain))
+            if not app.www_path.startswith('/var/www/') or app.www_path == '/var/www' or app.www_path == '/var/www/':
+                messages.add_message(request, messages.ERROR, _('Project path must be subpath of /var/www folder'))
+                return self.get(request)
+            sock = socket.socket()
+            sock.bind(('', 0))
+            app.port = sock.getsockname()[1]
+            app.save()
             app.venv_path = os.path.join(VENV_FOLDER, str(app.serial))
 
             pathlib.Path(app.www_path).mkdir(parents=True, exist_ok=True)
             pathlib.Path(app.venv_path).mkdir(parents=True, exist_ok=True)
 
-            sock = socket.socket()
-            sock.bind(('', 0))
-            app.port = sock.getsockname()[1]
-
-            the_venv = create_venv(app.venv_path)
-            if not the_venv:
-                messages.add_message(request, messages.ERROR, _('Failed to create venv'))
-                return self.get(request)
-            the_wsgi = create_uwsgi_config(app)
-            if not the_wsgi:
-                messages.add_message(request, messages.ERROR, _('Failed to create uwsgi config'))
-                return self.get(request)
+            app.save()
+            create_venv(app.venv_path)
+            create_uwsgi_config(app)
             if not app.startup_file or app.startup_file == "startup.py":
                 the_startup = create_startup_file(app)
                 if not the_startup:
                     messages.add_message(request, messages.ERROR, _('Failed to create startup.py'))
-            the_block = create_domain_server_block(app.domain)
-            if not the_block:
-                messages.add_message(request, messages.ERROR, _('Failed to create domain server block'))
-                return self.get(request)
-            app.save()
+            if app.domain:
+                create_domain_server_block(app.domain)
             os.system(f'systemctl reload nginx')
             os.system(f'systemctl restart uwsgi')
             messages.add_message(request, messages.SUCCESS, _('App successfully created'))
@@ -77,15 +70,17 @@ class app_new(View):
 class edit(View):
     def post(self, request, serial):
         app = App.objects.get(serial=serial)
+        old_www_path = app.www_path
         form = AppEditForm(request.POST, instance=app)
         if form.is_valid():
+            if not form.cleaned_data['www_path'].startswith('/var/www/') or form.cleaned_data[
+                'www_path'] == '/var/www' or form.cleaned_data['www_path'] == '/var/www/':
+                messages.add_message(request, messages.ERROR, _('Project path must be subpath of /var/www folder'))
+                return self.get(request, serial)
+            if form.cleaned_data['www_path'] != old_www_path:
+                pathlib.Path(form.cleaned_data['www_path']).mkdir(parents=True, exist_ok=True)
             form.save()
-            the_wsgi = create_uwsgi_config(app)
-            if not the_wsgi:
-                messages.add_message(request, messages.ERROR, _('Failed to update uwsgi config'))
-            messages.success(request, _('App updated successfully'))
-            if app.is_active:
-                subprocess.call(['service', 'uwsgi', 'restart', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
+            create_uwsgi_config(app)
             return redirect('apps')
         messages.error(request, _('Form validation error'))
         return self.get(request, serial)
@@ -99,20 +94,27 @@ class edit(View):
 class delete(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
-        app.delete()
-        create_domain_server_block(app.domain)
+        try:
+            os.system(f"unlink {app.uwsgi_config}")
+        except Exception as e:
+            print(e)
         try:
             subprocess.call(['rm', app.uwsgi_config])
         except Exception as e:
+            print(e)
             pass
         try:
             subprocess.call(['rm', str(app.uwsgi_config).replace('enabled', 'available')])
         except Exception as e:
+            print(e)
             pass
         try:
             shutil.rmtree(app.venv_path)
         except Exception as e:
+            print(e)
             pass
+        app.delete()
+        create_domain_server_block(app.domain)
         os.system(f'systemctl restart uwsgi')
         os.system(f'systemctl reload nginx')
         messages.success(request, _('App deleted successfully'))
@@ -139,13 +141,16 @@ class status(View):
         app = App.objects.get(serial=serial)
         try:
             if app.is_active:
-                subprocess.call(['rm', app.uwsgi_config])
+                # subprocess.call(['rm', app.uwsgi_config])
+                subprocess.call(['unlink', app.uwsgi_config.replace('available', 'enabled')])
                 messages.success(request, f'Successfully stopped app <b>{app.name}</b>.')
             else:
-                create_uwsgi_config(app)
+                # create_uwsgi_config(app)
+                subprocess.call(['ln', '-s', app.uwsgi_config, app.uwsgi_config.replace('available', 'enabled')])
                 messages.success(request, f'Successfully started app <b>{app.name}</b>.')
             app.is_active = not app.is_active
             app.save()
+            print(app.uwsgi_config)
             create_domain_server_block(app.domain)
             os.system(f'systemctl reload uwsgi')
         except subprocess.CalledProcessError as e:

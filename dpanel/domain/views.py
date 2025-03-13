@@ -30,16 +30,16 @@ class new(View):
         if form.is_valid():
             from engine.settings import WWW_FOLDER
             domain = form.save(commit=False)
-            domain.serial = uuid.uuid4()
             domain.www_path = f'{WWW_FOLDER}{domain.name}'
+            domain.save()
             pathlib.Path(domain.www_path).mkdir(parents=True, exist_ok=True)
             the_block = create_domain_server_block(domain)
             if not the_block:
                 messages.add_message(request, messages.ERROR, _('Failed to create domain server block'))
                 return self.get(request)
             create_index_file(domain)
-            os.system(f'systemctl reload nginx')
             domain.save()
+            os.system(f'systemctl reload nginx')
             messages.add_message(request, messages.SUCCESS, _('Domain successfully created'))
             return redirect('domains')
         else:
@@ -51,24 +51,29 @@ class new(View):
         return render(request, 'domain/new.html', {'form': form})
 
 
+
 class delete(View):
     def get(self, request, serial):
         domain = Domain.objects.get(serial=serial)
-        domain.delete()
+        try:
+            os.system(f"unlink {domain.nginx_config}")
+        except Exception as e:
+            print(e)
         try:
             pathlib.Path('/var/www-deleted').mkdir(parents=True, exist_ok=True)
             shutil.move(domain.www_path, str(domain.www_path).replace('/www/', '/www-deleted/') + str(
                 timezone.now().strftime("_%Y-%m-%d_time_%H.%M.%S")))
         except Exception as e:
-            pass
+            print(e)
         try:
             subprocess.call(['rm', f'/etc/nginx/sites-available/{domain.serial}.conf'])
         except Exception as e:
-            pass
+            print(e)
         try:
             subprocess.call(['rm', f'/etc/nginx/sites-enabled/{domain.serial}.conf'])
         except Exception as e:
-            pass
+            print(e)
+        domain.delete()
         os.system(f'systemctl reload nginx')
         messages.success(request, _('Domain deleted successfully'))
         return redirect('domains')
