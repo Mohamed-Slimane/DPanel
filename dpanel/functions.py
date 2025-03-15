@@ -60,10 +60,10 @@ def create_domain_server_block(domain):
         conf = render_to_string('templates/nginx_config.conf', {'domain': domain})
         with open(domain.nginx_config, 'w') as f:
             f.write(conf)
-        if os.path.exists(enabled_conf):
-            os.system(f"unlink {enabled_conf}")
-        os.system(f"ln -s {domain.nginx_config} {enabled_conf}")
-        os.system(f'systemctl reload nginx')
+        if os.path.islink(enabled_conf):
+            subprocess.call(['unlink', enabled_conf])
+        subprocess.call(['ln', '-s', domain.nginx_config, enabled_conf])
+        subprocess.call(['systemctl', 'reload', 'nginx'])
         domain.save()
         return True
     except Exception as e:
@@ -90,13 +90,14 @@ def create_uwsgi_config(app):
         conf = render_to_string('templates/uwsgi_config.ini', {'app': app})
         with open(app.uwsgi_config, 'w') as f:
             f.write(conf)
-        if os.path.exists(enabled_conf):
+        if os.path.islink(enabled_conf):
             subprocess.call(['unlink', enabled_conf])
-        subprocess.call(['ln', '-s', {app.uwsgi_config}, {enabled_conf}])
+        subprocess.call(['ln', '-s', app.uwsgi_config, enabled_conf])
         subprocess.call(['touch', f'{app.full_www_path()}/reload.trigger'])
         app.save()
         return True
     except Exception as e:
+        print(e)
         return False
 
 

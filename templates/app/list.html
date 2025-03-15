@@ -63,8 +63,9 @@
                 <td>
                     <div class="float-end">
                         <div class="dropdown d-inline ms-1" data-bs-toggle="tooltip" title="{% if app.is_active %}{% trans 'Running' %}{% else %}{% trans 'Stopped' %}{% endif %}">
-                            <button type="button" class="btn btn-{% if app.is_active %}success{% else %}danger{% endif %} btn-sm p-1 rounded-circle border" data-bs-toggle="dropdown">
-                                <i class="bi bi-lightning-charge fs-5 d-flex"></i>
+                            <button type="button" class="btn btn-{% if app.is_active %}success{% else %}danger{% endif %} btn-sm rounded-pill border" data-bs-toggle="dropdown">
+                                {% trans 'Power' %}
+                                <i class="bi bi-lightning-charge"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>

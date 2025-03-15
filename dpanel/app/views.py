@@ -65,7 +65,6 @@ class edit(View):
         if form.is_valid():
             app = form.save(commit=False)
             app.save()
-            pathlib.Path(app.full_www_path()).mkdir(parents=True, exist_ok=True)
             create_uwsgi_config(app)
             return redirect('apps')
         messages.error(request, _('Form validation error'))
