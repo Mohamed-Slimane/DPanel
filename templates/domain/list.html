@@ -25,8 +25,8 @@
                 </td>
                 <td>
                     <div class="input-group input-group-sm">
-                        <input type="text" class="form-control rounded-start-pill" value="{{domain.www_path}}" readonly dir="ltr">
-                        <a href="{% url 'files' %}?path={{domain.www_path}}" class="btn btn-light border rounded-end-pill" target="_blank" data-bs-toggle="tooltip" title="{% trans 'File manager' %}">
+                        <input type="text" class="form-control rounded-start-pill" value="{{domain.full_www_path}}" readonly dir="ltr">
+                        <a href="{% url 'files' %}?path={{domain.full_www_path}}" class="btn btn-light border rounded-end-pill" target="_blank" data-bs-toggle="tooltip" title="{% trans 'File manager' %}">
                             <i class="bi bi-folder float-end text-success"></i>
                         </a>
                     </div>

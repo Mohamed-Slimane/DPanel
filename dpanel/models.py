@@ -6,11 +6,13 @@ from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from engine.settings import WWW_FOLDER
+
 
 class Domain(models.Model):
     serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
     name = models.CharField(max_length=50, verbose_name=_('Name'), unique=True, help_text=_('For example: mayproject.com, dpanel.top'))
-    www_path = models.CharField(_('Path'), max_length=5000)
+    www_path = models.CharField(_('Path'), max_length=5000, help_text=_('The folder that contains the project, dont write /var/www/'))
     nginx_config = models.CharField(_('Nginx config'), max_length=5000)
     force_https = models.BooleanField(verbose_name=_('Force HTTPS'), default=False)
     is_active = models.BooleanField(_('Active'), default=True)
@@ -22,6 +24,9 @@ class Domain(models.Model):
     class Meta:
         verbose_name = _('Domain')
         verbose_name_plural = _('Domains')
+
+    def full_www_path(self):
+        return f'{WWW_FOLDER}{self.www_path}'
 
     def certificates(self):
         return self.ssl_certificates.order_by('-created')
@@ -46,7 +51,7 @@ class App(models.Model):
     name = models.CharField(_('Name'), max_length=500)
     domain = models.OneToOneField(Domain, verbose_name=_('Domain'), related_name='domain_app', on_delete=models.SET_NULL, null=True, blank=True, limit_choices_to={'domain_app__isnull': True})
     port = models.IntegerField(_('Port'), unique=True)
-    www_path = models.CharField(_('Path'), max_length=5000, help_text=_('The folder that contains the project, for example: /var/www/mayproject'))
+    www_path = models.CharField(_('Path'), max_length=5000, help_text=_('The folder that contains the project, dont write /var/www/'))
     startup_file = models.CharField(_('Startup file'), default='startup.py', max_length=500, help_text=_(
         'The folder that contains the startup file, for example: mayproject/wsgi.py'))
     entry_point = models.CharField(_('entry point'), default='application', max_length=500,
@@ -69,6 +74,9 @@ class App(models.Model):
 
     def __str__(self):
         return self.name
+
+    def full_www_path(self):
+        return f'{WWW_FOLDER}{self.www_path}'
 
     def save(self, *args, **kwargs):
         if not self.serial:

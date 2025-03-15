@@ -27,11 +27,11 @@
                 <td>{{app.port}}</td>
                 <td>
                     <div class="input-group input-group-sm">
-                        <input type="text" class="form-control rounded-start-pill" value="source {{app.venv_path}}/bin/activate && cd {{app.www_path}}" readonly dir="ltr">
-                        <button type="button" class="btn btn-light border" data-bs-toggle="tooltip" title="{% trans 'Copy command' %}" onclick="jQuery(this).parents('.input-group').find('input').select();copy_this('source {{app.venv_path}}/bin/activate && cd {{app.www_path}}','{% trans 'Paste the command in the terminal to activate virtual environment of this app' %}')">
+                        <input type="text" class="form-control rounded-start-pill" value="source {{app.venv_path}}/bin/activate && cd {{app.full_www_path}}" readonly dir="ltr">
+                        <button type="button" class="btn btn-light border" data-bs-toggle="tooltip" title="{% trans 'Copy command' %}" onclick="jQuery(this).parents('.input-group').find('input').select();copy_this('source {{app.venv_path}}/bin/activate && cd {{app.full_www_path}}','{% trans 'Paste the command in the terminal to activate virtual environment of this app' %}')">
                             <i class="bi bi-copy text-danger"></i>
                         </button>
-                        <a href="{% url 'files' %}?path={{app.www_path}}" class="btn btn-light border" target="_blank" data-bs-toggle="tooltip" title="{% trans 'File manager' %}">
+                        <a href="{% url 'files' %}?path={{app.full_www_path}}" class="btn btn-light border" target="_blank" data-bs-toggle="tooltip" title="{% trans 'File manager' %}">
                             <i class="bi bi-folder float-end text-success"></i>
                         </a>
                         <div class="input-group-text rounded-end-pill dropdown" data-bs-toggle="tooltip" title="{% trans 'More' %}">
@@ -62,17 +62,37 @@
                 </td>
                 <td>
                     <div class="float-end">
-                        {% if app.is_active %}
-                        <a href="{% url 'app_status' app.serial %}" class="text-danger" data-bs-toggle="tooltip" title="{% trans 'Stop' %}">
-                            <i class="bi bi-stop-circle fs-4"></i>
-                        </a>
-                        {% else %}
-                        <a href="{% url 'app_status' app.serial %}" class="text-success" data-bs-toggle="tooltip" title="{% trans 'Start' %}">
-                            <i class="bi bi-play-circle fs-4"></i>
-                        </a>
-                        {% endif %}
+                        <div class="dropdown d-inline ms-1" data-bs-toggle="tooltip" title="{% if app.is_active %}{% trans 'Running' %}{% else %}{% trans 'Stopped' %}{% endif %}">
+                            <button type="button" class="btn btn-{% if app.is_active %}success{% else %}danger{% endif %} btn-sm p-1 rounded-circle border" data-bs-toggle="dropdown">
+                                <i class="bi bi-lightning-charge fs-5 d-flex"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a href="javascript:void(0)" class="dropdown-item" onclick="open_link_confirm('{% url 'app_restart' app.serial %}', '{% trans 'Restart app' %}', '{% trans 'Do you want to restart this app    ?' %}')">
+                                        {% trans 'Restart' %}
+                                        <i class="bi bi-arrow-clockwise float-end"></i>
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    {% if app.is_active %}
+                                    <a href="javascript:void(0)" class="dropdown-item" onclick="open_link_confirm('{% url 'app_status' app.serial %}', '{% trans 'Stop app' %}', '{% trans 'Do you want to stop this app ?' %}')">
+                                        {% trans 'Stop' %}
+                                        <i class="bi bi-stop-circle text-danger float-end"></i>
+                                    </a>
+                                    {% else %}
+                                    <a href="javascript:void(0)" class="dropdown-item" onclick="open_link_confirm('{% url 'app_status' app.serial %}', '{% trans 'Start app' %}', '{% trans 'Do you want to start this app ?' %}')">
+                                        {% trans 'Start' %}
+                                        <i class="bi bi-play-circle text-success float-end"></i>
+                                    </a>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                        </div>
                         <div class="dropdown d-inline ms-1" data-bs-toggle="tooltip" title="{% trans 'Settings' %}">
-                            <i class="bi bi-gear fs-4 pointer" data-bs-toggle="dropdown"></i>
+                            <button type="button" class="btn btn-light btn-sm p-1 rounded-circle border" data-bs-toggle="dropdown">
+                                <i class="bi bi-gear fs-5 d-flex"></i>
+                            </button>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a class="dropdown-item" href="javascript:void(0)" onclick="dPanelPopup('{% url 'app_log' app.serial %}')">
@@ -86,13 +106,6 @@
                                         {% trans 'Edit' %}
                                         <i class="bi bi-pencil-square float-end"></i>
                                     </a>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'app_restart' app.serial %}', '{% trans 'Restart app' %}', '{% trans 'Do you want to restart this app    ?' %}')">
-                                        {% trans 'Restart' %}
-                                        <i class="bi bi-arrow-clockwise float-end"></i>
-                                    </span>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>

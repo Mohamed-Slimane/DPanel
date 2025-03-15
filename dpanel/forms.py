@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 class DomainForm(forms.ModelForm):
     class Meta:
         model = Domain
-        fields = ['name']
+        fields = ['name', 'www_path']
 
 
     def __init__(self, *args, **kwargs):

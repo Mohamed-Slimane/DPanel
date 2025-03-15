@@ -4,10 +4,8 @@ import pathlib
 import shutil
 import socket
 import subprocess
-import uuid
 
 from django.contrib import messages
-from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -15,8 +13,9 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from dpanel.forms import AppForm, AppEditForm
-from dpanel.functions import create_venv, create_uwsgi_config, get_option, paginator, create_startup_file, create_domain_server_block
-from dpanel.models import App, Domain
+from dpanel.functions import create_venv, create_uwsgi_config, get_option, paginator, create_startup_file, \
+    create_domain_server_block
+from dpanel.models import App
 
 
 class apps(View):
@@ -30,32 +29,25 @@ class app_new(View):
     def post(self, request):
         form = AppForm(request.POST)
         if form.is_valid():
-            from engine.settings import WWW_FOLDER
             from engine.settings import VENV_FOLDER
             app = form.save(commit=False)
-            if not app.www_path.startswith('/var/www/') or app.www_path == '/var/www' or app.www_path == '/var/www/':
-                messages.add_message(request, messages.ERROR, _('Project path must be subpath of /var/www folder'))
-                return self.get(request)
+            if not app.www_path.startswith('/'):
+                app.www_path = f'/{app.www_path}'
             sock = socket.socket()
             sock.bind(('', 0))
             app.port = sock.getsockname()[1]
-            app.save()
             app.venv_path = os.path.join(VENV_FOLDER, str(app.serial))
+            app.save()
 
-            pathlib.Path(app.www_path).mkdir(parents=True, exist_ok=True)
+            pathlib.Path(app.full_www_path()).mkdir(parents=True, exist_ok=True)
             pathlib.Path(app.venv_path).mkdir(parents=True, exist_ok=True)
 
-            app.save()
             create_venv(app.venv_path)
             create_uwsgi_config(app)
             if not app.startup_file or app.startup_file == "startup.py":
-                the_startup = create_startup_file(app)
-                if not the_startup:
-                    messages.add_message(request, messages.ERROR, _('Failed to create startup.py'))
+                create_startup_file(app)
             if app.domain:
                 create_domain_server_block(app.domain)
-            os.system(f'systemctl reload nginx')
-            os.system(f'systemctl restart uwsgi')
             messages.add_message(request, messages.SUCCESS, _('App successfully created'))
             return redirect('apps')
         else:
@@ -69,17 +61,11 @@ class app_new(View):
 
 class edit(View):
     def post(self, request, serial):
-        app = App.objects.get(serial=serial)
-        old_www_path = app.www_path
-        form = AppEditForm(request.POST, instance=app)
+        form = AppEditForm(request.POST, instance=App.objects.get(serial=serial))
         if form.is_valid():
-            if not form.cleaned_data['www_path'].startswith('/var/www/') or form.cleaned_data[
-                'www_path'] == '/var/www' or form.cleaned_data['www_path'] == '/var/www/':
-                messages.add_message(request, messages.ERROR, _('Project path must be subpath of /var/www folder'))
-                return self.get(request, serial)
-            if form.cleaned_data['www_path'] != old_www_path:
-                pathlib.Path(form.cleaned_data['www_path']).mkdir(parents=True, exist_ok=True)
-            form.save()
+            app = form.save(commit=False)
+            app.save()
+            pathlib.Path(app.full_www_path()).mkdir(parents=True, exist_ok=True)
             create_uwsgi_config(app)
             return redirect('apps')
         messages.error(request, _('Form validation error'))
@@ -94,29 +80,20 @@ class edit(View):
 class delete(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
+        domain = app.domain
         try:
-            os.system(f"unlink {app.uwsgi_config}")
-        except Exception as e:
-            print(e)
+            subprocess.call(['unlink', app.uwsgi_config.replace('available', 'enabled')])
+        except Exception as e: pass
         try:
             subprocess.call(['rm', app.uwsgi_config])
-        except Exception as e:
-            print(e)
-            pass
-        try:
-            subprocess.call(['rm', str(app.uwsgi_config).replace('enabled', 'available')])
-        except Exception as e:
-            print(e)
-            pass
+        except Exception as e: pass
         try:
             shutil.rmtree(app.venv_path)
-        except Exception as e:
-            print(e)
-            pass
+        except Exception as e: pass
         app.delete()
-        create_domain_server_block(app.domain)
-        os.system(f'systemctl restart uwsgi')
-        os.system(f'systemctl reload nginx')
+        if domain:
+            domain.domain_app = None
+            create_domain_server_block(domain)
         messages.success(request, _('App deleted successfully'))
         return redirect('apps')
 
@@ -124,15 +101,13 @@ class delete(View):
 class restart(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
+        if not app.is_active:
+            return redirect('app_status', serial)
         try:
-            subprocess.call(['service', 'uwsgi', 'restart', f'/etc/uwsgi/apps-enabled/{app.serial}.ini'])
-            if not app.is_active:
-                app.is_active = True
-                app.save()
+            subprocess.call(['touch', f'{app.full_www_path()}/reload.trigger'])
             messages.success(request, f'Successfully restarted app <b>{app.name}</b>.')
         except subprocess.CalledProcessError as e:
             messages.error(request, f'Error restarting app: {e.stderr}')
-
         return redirect('apps')
 
 
@@ -141,18 +116,15 @@ class status(View):
         app = App.objects.get(serial=serial)
         try:
             if app.is_active:
-                # subprocess.call(['rm', app.uwsgi_config])
                 subprocess.call(['unlink', app.uwsgi_config.replace('available', 'enabled')])
                 messages.success(request, f'Successfully stopped app <b>{app.name}</b>.')
             else:
-                # create_uwsgi_config(app)
                 subprocess.call(['ln', '-s', app.uwsgi_config, app.uwsgi_config.replace('available', 'enabled')])
                 messages.success(request, f'Successfully started app <b>{app.name}</b>.')
             app.is_active = not app.is_active
             app.save()
-            print(app.uwsgi_config)
+            subprocess.call(['touch', f'{app.full_www_path()}/reload.trigger'])
             create_domain_server_block(app.domain)
-            os.system(f'systemctl reload uwsgi')
         except subprocess.CalledProcessError as e:
             messages.error(request, f'Error stopping app: {e.stderr}')
         return redirect('apps')
@@ -162,7 +134,7 @@ class status(View):
 class log(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
-        file = app.www_path + '/log.log'
+        file = app.full_www_path() + '/log.log'
         if not os.path.isfile(file):
             messages.error(request, _('File not found'))
             return redirect('apps')
@@ -175,7 +147,7 @@ class log(View):
 class requirements_install(View):
     def get(self, request, serial):
         app = App.objects.get(serial=serial)
-        requirements_file = app.www_path + '/requirements.txt'
+        requirements_file = app.full_www_path() + '/requirements.txt'
         try:
             with open(requirements_file, 'r', encoding='utf8') as f:
                 pass

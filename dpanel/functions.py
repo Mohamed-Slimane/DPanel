@@ -55,20 +55,16 @@ def create_domain_server_block(domain):
     try:
         from engine.settings import NGINX_FOLDER
         available_dir = os.path.join(NGINX_FOLDER, 'sites-available')
-        enabled_dir = os.path.join(NGINX_FOLDER, 'sites-enabled')
-        pathlib.Path(available_dir).mkdir(parents=True, exist_ok=True)
-        pathlib.Path(enabled_dir).mkdir(parents=True, exist_ok=True)
-        available_conf = f'{available_dir}/{domain.serial}.conf'
-        os.system(f'touch {available_conf}')
+        domain.nginx_config = f'{available_dir}/{domain.serial}.conf'
+        enabled_conf = domain.nginx_config.replace('available', 'enabled')
         conf = render_to_string('templates/nginx_config.conf', {'domain': domain})
-        with open(available_conf, 'w') as f:
+        with open(domain.nginx_config, 'w') as f:
             f.write(conf)
-        domain.nginx_config = available_conf
-        try:
-            os.system(f"unlink {available_conf.replace('available', 'enabled')}")
-        except: pass
-        os.system(f"ln -s {available_conf} {available_conf.replace('available', 'enabled')}")
+        if os.path.exists(enabled_conf):
+            os.system(f"unlink {enabled_conf}")
+        os.system(f"ln -s {domain.nginx_config} {enabled_conf}")
         os.system(f'systemctl reload nginx')
+        domain.save()
         return True
     except Exception as e:
         print(e)
@@ -76,38 +72,31 @@ def create_domain_server_block(domain):
 
 
 def create_index_file(domain):
-    pathlib.Path(domain.www_path).mkdir(parents=True, exist_ok=True)
-    index_path = domain.www_path + '/index.html'
+    pathlib.Path(domain.full_www_path()).mkdir(parents=True, exist_ok=True)
+    index_path = domain.full_www_path() + '/index.html'
     if not os.path.exists(index_path):
-        pathlib.Path(index_path).touch()
         content = render_to_string('templates/index.html')
-        with open(domain.www_path + '/index.html', 'w') as f:
+        with open(index_path, 'w') as f:
             f.write(content)
 
 
 def create_uwsgi_config(app):
     try:
         from engine.settings import UWSGI_FOLDER
-        available = os.path.join(UWSGI_FOLDER, 'apps-available')
-        enabled = os.path.join(UWSGI_FOLDER, 'apps-enabled')
-        pathlib.Path(available).mkdir(parents=True, exist_ok=True)
-        pathlib.Path(enabled).mkdir(parents=True, exist_ok=True)
-        available_conf = f'{available}/{app.serial}.ini'
+        available_dir = os.path.join(UWSGI_FOLDER, 'apps-available')
+        app.uwsgi_config = f'{available_dir}/{app.serial}.ini'
+        enabled_conf = app.uwsgi_config.replace('available', 'enabled')
         app.module = "{}:{}".format(str(app.startup_file).replace('.py', '').replace('/', '.'), app.entry_point)
-        os.system(f'touch {available_conf}')
-        print(app.www_path)
         conf = render_to_string('templates/uwsgi_config.ini', {'app': app})
-        with open(available_conf, 'w') as f:
+        with open(app.uwsgi_config, 'w') as f:
             f.write(conf)
-        app.uwsgi_config = available_conf
-        try:
-            os.system(f"unlink {available_conf.replace('available', 'enabled')}")
-        except: pass
-        os.system(f"ln -s {available_conf} {available_conf.replace('available', 'enabled')}")
-        os.system(f'systemctl reload uwsgi')
+        if os.path.exists(enabled_conf):
+            subprocess.call(['unlink', enabled_conf])
+        subprocess.call(['ln', '-s', {app.uwsgi_config}, {enabled_conf}])
+        subprocess.call(['touch', f'{app.full_www_path()}/reload.trigger'])
+        app.save()
         return True
     except Exception as e:
-        print(str(e))
         return False
 
 
@@ -116,7 +105,6 @@ def create_venv(path):
         os.system(f'python3 -m venv {path}')
         return True
     except Exception as e:
-        print(str(e))
         return False
 
 
@@ -124,14 +112,12 @@ def create_startup_file(app):
     try:
         if not str(app.startup_file).endswith('.py'):
             app.startup_file = f'{app.startup_file}.py'
-        startup_file_path = f'{app.www_path}/{app.startup_file}'
-        os.system(f'touch {startup_file_path}')
+        startup_file_path = f'{app.full_www_path()}/{app.startup_file}'
         startup_content = render_to_string('templates/startup.py')
         with open(startup_file_path, 'w') as f:
             f.write(startup_content)
         return True
     except Exception as e:
-        print(str(e))
         return False
 
 
@@ -140,23 +126,22 @@ def create_django_app(app):
         os.system('''
         cd {app.venv_path}
         chmod 755 -R {app.venv_path}
-        chmod 755 -R {app.www_path}
+        chmod 755 -R {app.full_www_path()}
         {app.venv_path}/bin/pip install django
         {app.venv_path}/bin/pip install uwsgi        
-        cd {app.www_path}
+        cd {app.full_www_path()}
         django-admin startproject {app.uwsgi_path} .   
         {app.venv_path}/bin/python manage.py collectstatic --noinput   
         {app.venv_path}/bin/python manage.py migrate   
         '''.format(app=app))
 
         import fileinput
-        for line in fileinput.input(f'{app.www_path}/{app.uwsgi_path}/settings.py', inplace=True):
+        for line in fileinput.input(f'{app.full_www_path()}/{app.uwsgi_path}/settings.py', inplace=True):
             if line.startswith('ALLOWED_HOSTS = '):
                 line = f"ALLOWED_HOSTS = ['{app.domain.name}']\n"
             print(line, end='')
         return True
     except Exception as e:
-        print(str(e))
         return False
 
 

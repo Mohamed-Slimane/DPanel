@@ -7,9 +7,15 @@
 
 {% block content %}
 <div class="bg-white shadow-sm rounded p-3">
-    <form class="row preloader-form" method="post">
+    <form class="preloader-form" method="post">
         {% csrf_token %}
         {% include 'inc/form.html'%}
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="create_index" name="create_index">
+            <label class="form-check-label" for="create_index">
+                {% translate "Create index file" %}
+            </label>
+        </div>
         <button type="submit" class="btn btn-primary">
             {% translate 'Create' %}
         </button>
