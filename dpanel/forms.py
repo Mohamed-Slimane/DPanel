@@ -32,7 +32,17 @@ class MysqlUserForm(forms.ModelForm):
         model = MysqlUser
         exclude = ['serial']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'class': 'domain-validator'})
+
 class MysqlDatabaseForm(forms.ModelForm):
     class Meta:
         model = MysqlDatabase
         exclude = ['serial']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs.update({'class': 'domain-validator'})
+        self.fields['users'].widget.attrs.update({'class': 'select2_field'})
+

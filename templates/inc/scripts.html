@@ -2,7 +2,8 @@
 
 <script>
 
-    jQuery('[href="{{request.path}}"]').addClass('fw-bold');
+    jQuery('[href="{{request.path}}"]').addClass('active');
+    jQuery('[href="{{request.path}}"]').parents('.dropdown').find('.dropdown-toggle').addClass('active');
 
     function open_link_confirm(u, title, text, captcha) {
         title = title || '{% trans 'Are you sure to continue?' %}';
@@ -131,47 +132,6 @@
     });
 </script>
 
-<script>
-    jQuery(".install-server").click(function() {
-        server_name = jQuery(this).data('name');
-        Swal.fire({
-            title: '{% translate 'Install' %} ' + server_name,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#1d1e2c',
-            cancelButtonColor: '#dc3545',
-            confirmButtonText: '{% translate 'Yes, install it!' %}',
-            allowOutsideClick: false,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                jQuery('.loading-preloader').show();
-                jQuery.ajax({
-                    type: "POST",
-                    data: {
-                        'csrfmiddlewaretoken': '{{csrf_token}}',
-                        [server_name + '_install']: true
-                    },
-                    success: function (response) {
-                        jQuery('.loading-preloader').hide();
-                        Swal.fire({
-                            icon: response.success ? 'success' : 'error',
-                            text: response.message,
-                            allowOutsideClick: false,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = "{% url 'domains' %}"
-                            }
-                        });
-                    },
-                    error: function () {
-                        jQuery('.loading-preloader').hide();
-                        alert('{% trans "An error occurred while submitting the form" %}');
-                    }
-                });
-            }
-        });
-    });
-</script>
 <script>
     jQuery('body').on('click', '#check-updates', function(){
         jQuery('.loading-preloader').show();
@@ -317,4 +277,19 @@
             jQuery(this).val(domain);
         }
     });
+
+    jQuery(".toggle-password").click(function () {
+        let input = jQuery(this).siblings("input");
+        let icon = jQuery(this).find("i");
+
+        if (input.attr("type") === "password") {
+            input.attr("type", "text");
+            icon.removeClass("bi-eye").addClass("bi-eye-slash");
+        } else {
+            input.attr("type", "password");
+            icon.removeClass("bi-eye-slash").addClass("bi-eye");
+        }
+    });
+
+
 </script>

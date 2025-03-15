@@ -7,42 +7,20 @@
         <tr>
             <th style="width: 0">#</th>
             <th>{% translate 'Name' %}</th>
-            <th>{% translate 'User' %}</th>
-            <th>{% translate 'Password' %}</th>
+            <th>{% translate 'Users' %}</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
             {% for database in databases %}
             <tr class="database-{{database.serial}}">
-                <td>
-                    <form class="d-none" method="post" action="{% url 'mysql_backup_import' database.serial %}" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <input type="file" name="sql_file" id="backup-import-{{database.serial}}" class="backup-import" accept=".sql,.sql.gz" required hidden>
-                    </form>
-                    {% if databases.start_index %}
-                    {{databases.start_index|add:forloop.counter0}}
-                    {% else %}
-                    {{forloop.counter}}
-                    {% endif %}
-                </td>
+                <td>{% include 'inc/loop.html' with query=databases %}</td>
                 <td>
                     <a href="{% url 'mysql_database' database.serial %}" class="fw-bold">
                         {{database.name}}
                     </a>
                 </td>
-                <td>{{database.username}}</td>
-                <td>
-                    <div class="blur-group input-group input-group-sm border rounded-pill">
-                        <input class="blur-text blured-text form-control rounded-start-pill border-0" value="{{database.password}}" readonly>
-                        <button type="button" class="remove-blur btn btn-warning" data-text="{{database.password}}">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                        <button type="button" class="copy-this pointer btn btn-dark rounded-end-pill" onclick="copy_this('{{database.password}}', '{% trans 'Database user password copied' %}')">
-                            <i class="bi bi-copy"></i>
-                        </button>
-                    </div>
-                </td>
+                <td>{{database.users.all|join:', '|default:_('N/A')}}</td>
                 <td>
                     <div class="dropdown">
                         <i class="bi bi-three-dots-vertical float-end pointer" data-bs-toggle="dropdown"></i>

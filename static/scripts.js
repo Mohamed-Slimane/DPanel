@@ -20,3 +20,12 @@ function dPanelPopup(url) {
 jQuery(document).ready(function() {
     jQuery('[data-bs-toggle="tooltip"]').tooltip();
 });
+
+jQuery('.select2_field' ).select2({
+    theme: 'bootstrap-5'
+});
+
+jQuery('.select2_field_tags').select2({
+    tags: true,
+    theme: 'bootstrap-5'
+});

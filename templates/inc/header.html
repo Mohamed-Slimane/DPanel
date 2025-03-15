@@ -26,10 +26,25 @@
                                 {% trans 'Apps' %}
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'mysql_databases' %}">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown" aria-expanded="false">
                                 {% trans 'Databases' %}
                             </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'mysql_databases' %}">
+                                        {% trans 'Databases' %}
+                                        <i class="bi bi-database float-end"></i>
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'mysql_users' %}">
+                                        {% trans 'Users' %}
+                                        <i class="bi bi-people float-end"></i>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'files' %}">

@@ -20,7 +20,7 @@ def super_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login
         return actual_decorator(function)
     return function
 
-def get_option(key, default=''):
+def get_option(key, default=None):
     option = default
     try:
         op = Option.objects.filter(key=key).first()
@@ -40,7 +40,7 @@ def save_option(key, value):
 
 
 def paginator(request, obj, number=None, page=1):
-    paginator = Paginator(obj, get_option('paginator', '20') if not number else number)
+    paginator = Paginator(obj, get_option('paginator', 20) if not number else number)
     request_page = request.GET.get('page', page)
     try:
         objects = paginator.page(request_page)

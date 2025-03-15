@@ -32,7 +32,16 @@
     {% render_field element class+="form-range" %}
 
     {% else %}
-    {% render_field element class+="form-control" %}
+        {% if element.id_for_label == 'id_password' %}
+        <div class="input-group password-group">
+            {% render_field element class+="form-control" type="password" %}
+            <button type="button" class="btn btn-light border toggle-password">
+                <i class="bi bi-eye"></i>
+            </button>
+        </div>
+        {% else %}
+        {% render_field element class+="form-control" %}
+        {% endif %}
     {% endif %}
 
 

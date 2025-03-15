@@ -107,7 +107,7 @@ class MysqlUser(models.Model):
 class MysqlDatabase(models.Model):
     serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
     name = models.CharField(_('Name'), unique=True, max_length=500)
-    users = models.ManyToManyField(MysqlUser, verbose_name=_('User'), related_name='user_databases')
+    users = models.ManyToManyField(MysqlUser, verbose_name=_('Users'), related_name='user_databases', blank=True)
 
     def __str__(self):
         return self.name

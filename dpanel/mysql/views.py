@@ -58,7 +58,6 @@ class delete(View):
     def get(self, request, serial):
         database = MysqlDatabase.objects.get(serial=serial)
         os.system(f'mysql -e "DROP DATABASE {database.name};"')
-        os.system(f'mysql -e "DROP USER \'{database.username}\'@\'localhost\';"')
         database.delete()
         messages.warning(request, _('Database successfully deleted'))
         return redirect('mysql_databases')
@@ -69,8 +68,7 @@ class reset(View):
         database = MysqlDatabase.objects.get(serial=serial)
         os.system(f'mysql -e "DROP DATABASE IF EXISTS {database.name};"')
         subprocess.run(['mysql', '-e', f'CREATE DATABASE {database.name};'])
-        subprocess.run(
-            ['mysql', '-e', f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{database.username}'@'localhost';"])
+        # subprocess.run(['mysql', '-e', f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{database.username}'@'localhost';"])
         messages.warning(request, _('Database successfully reset'))
         return redirect('mysql_database', serial)
 
@@ -93,7 +91,7 @@ class backup_restore(View):
         backup = MysqlDatabaseBackup.objects.get(serial=serial)
         subprocess.run(['mysql', '-e', f'DROP DATABASE IF EXISTS {backup.database.name};'])
         subprocess.run(['mysql', '-e', f'CREATE DATABASE {backup.database.name};'])
-        subprocess.run(['mysql', '-e', f"GRANT ALL PRIVILEGES ON {backup.database.name}.* TO '{backup.database.username}'@'localhost';"])
+        # subprocess.run(['mysql', '-e', f"GRANT ALL PRIVILEGES ON {backup.database.name}.* TO '{backup.database.username}'@'localhost';"])
         if backup.path.endswith('.gz'):
             with gzip.open(backup.path, 'rb') as f:
                 sql_content = f.read().decode('utf-8')
@@ -117,8 +115,7 @@ class backup_import(View):
             try:
                 os.system(f'mysql -e "DROP DATABASE IF EXISTS {database.name};"')
                 subprocess.run(['mysql', '-e', f'CREATE DATABASE {database.name};'])
-                subprocess.run(
-                    ['mysql', '-e', f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{database.username}'@'localhost';"])
+                # subprocess.run(['mysql', '-e', f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{database.username}'@'localhost';"])
                 if sql_file.name.endswith('.gz'):
                     with gzip.open(sql_file, 'rb') as f:
                         sql_content = f.read().decode('utf-8')
@@ -161,15 +158,3 @@ class backup_download(View):
             return redirect('mysql_database', backup.database.serial)
 
 
-class password_change(View):
-    def get(self, request, serial):
-        database = MysqlDatabase.objects.get(serial=serial)
-        database.password = str(uuid.uuid4()).replace('-', '')[:15]
-        mysql_command = f"ALTER USER '{database.username}'@'localhost' IDENTIFIED BY '{database.password}';"
-        try:
-            subprocess.run(['mysql', '-e', mysql_command])
-            database.save()
-            messages.success(request, f"Password for user '{database.username}' changed successfully!")
-        except subprocess.CalledProcessError as e:
-            messages.error(request, f"Failed to change password: {e}")
-        return redirect('mysql_database', database.serial)

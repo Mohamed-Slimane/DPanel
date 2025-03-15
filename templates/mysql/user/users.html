@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} {% translate 'Mysql users' %} {% endblock%}
+{% block page_title %}{% trans 'All users' %} <small class="fs-6">(MySql)</small>{% endblock %}
+
+{% block title_button %}
+<a class="btn btn-primary btn-sm rounded-pill" href="{% url 'mysql_user_new' %}">
+    {% translate 'New user' %}
+    <i class="fas fa-plus"></i>
+</a>
+{% endblock %}
+
+{% block content %}
+
+{% if the_users %}
+{% include "mysql/user/list.html" %}
+{% include 'inc/paginator.html' with query=the_users %}
+{% else %}
+<div class="bg-white shadow-sm p-3 rounded">
+    {% trans 'No the_users found' %}
+</div>
+{% endif %}
+{% endblock %}

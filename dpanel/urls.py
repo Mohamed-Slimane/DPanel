@@ -52,7 +52,7 @@ urlpatterns = [
 
     # MySQL User
     path('mysql/users/', super_required(mysql_user.users.as_view()), name="mysql_users"),
-    path('mysql/user/<serial>/new/', super_required(mysql_user.new.as_view()), name="mysql_user_new"),
+    path('mysql/user/new/', super_required(mysql_user.new.as_view()), name="mysql_user_new"),
     path('mysql/user/<serial>/edit/', super_required(mysql_user.edit.as_view()), name="mysql_user_edit"),
     path('mysql/user/<serial>/delete/', super_required(mysql_user.delete.as_view()), name="mysql_user_delete"),
 
@@ -62,7 +62,6 @@ urlpatterns = [
     path('mysql/<str:serial>/', super_required(mysql_views.database.as_view()), name="mysql_database"),
     path('mysql/<str:serial>/delete/', super_required(mysql_views.delete.as_view()), name="mysql_database_delete"),
     path('mysql/<str:serial>/reset/', super_required(mysql_views.reset.as_view()), name="mysql_database_reset"),
-    path('mysql/<str:serial>/password/change/', super_required(mysql_views.password_change.as_view()), name="mysql_database_password_change"),
 
     # MySQL Manage
     path('mysql/<str:serial>/manage/', super_required(mysql_manage.manage.as_view()), name="mysql_database_manage"),
