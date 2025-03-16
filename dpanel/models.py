@@ -46,31 +46,18 @@ class Domain(models.Model):
         super().save(*args, **kwargs)
 
 
-class PythonApp(models.Model):
+class BaseApp(models.Model):
     serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
     name = models.CharField(_('Name'), max_length=500)
     domain = models.OneToOneField(Domain, verbose_name=_('Domain'), related_name='domain_app', on_delete=models.SET_NULL, null=True, blank=True, limit_choices_to={'domain_app__isnull': True})
     port = models.IntegerField(_('Port'), unique=True)
     www_path = models.CharField(_('Path'), max_length=5000, help_text=_('The folder that contains the project, dont write /var/www/'))
-    startup_file = models.CharField(_('Startup file'), default='startup.py', max_length=500, help_text=_(
-        'The folder that contains the startup file, for example: mayproject/wsgi.py'))
-    entry_point = models.CharField(_('entry point'), default='application', max_length=500,
-                                   help_text=_('Entry point in startup file for example: application'))
-    venv_path = models.CharField(_('Environment Path'), max_length=5000)
-    uwsgi_config = models.CharField(_('Uwsgi config'), max_length=5000)
-    processes = models.IntegerField(_('Processes'), default=1)
-    threads = models.IntegerField(_('Threads'), default=1)
-    max_requests = models.IntegerField(_('Max requests'), default=1000)
-    chmod_socket = models.IntegerField(_('Chmod socket'), default=666)
-    plugin = models.CharField(_('Plugin'), default='python3', max_length=500, null=True, blank=True, choices=[('', 'None'), ('python3', 'python3')])
-    vacuum = models.BooleanField(_('Vacuum'), default=True)
-    master = models.BooleanField(_('Master'), default=True)
+    startup_file = models.CharField(_('Startup file'), max_length=500, help_text=_('The startup file, e.g., myproject/wsgi.py'))
     is_active = models.BooleanField(verbose_name=_('Is active'), default=True)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = _('App')
-        verbose_name_plural = _('Apps')
+        abstract = True  # تحديد أن النموذج مجرد، لن ينشئ جدولًا في قاعدة البيانات
 
     def __str__(self):
         return self.name
@@ -86,6 +73,25 @@ class PythonApp(models.Model):
             last_id = (self.__class__.objects.aggregate(last_id=Max('id')).get('last_id', 0) or 0) + 1
             self.serial = f'{year % 100}{month:02d}{day:02d}{last_id:03d}'
         super().save(*args, **kwargs)
+
+
+class PythonApp(BaseApp):
+    entry_point = models.CharField(_('Entry Point'), default='application', max_length=500,
+                                   help_text=_('Entry point in startup file, e.g., application'))
+    venv_path = models.CharField(_('Environment Path'), max_length=5000)
+    uwsgi_config = models.CharField(_('Uwsgi config'), max_length=5000)
+    processes = models.IntegerField(_('Processes'), default=1)
+    threads = models.IntegerField(_('Threads'), default=1)
+    max_requests = models.IntegerField(_('Max requests'), default=1000)
+    chmod_socket = models.IntegerField(_('Chmod socket'), default=666)
+    plugin = models.CharField(_('Plugin'), default='python3', max_length=500, null=True, blank=True, choices=[('', 'None'), ('python3', 'python3')])
+    vacuum = models.BooleanField(_('Vacuum'), default=True)
+    master = models.BooleanField(_('Master'), default=True)
+
+    class Meta:
+        verbose_name = _('Python App')
+        verbose_name_plural = _('Python Apps')
+
 
 class MysqlUser(models.Model):
     serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
