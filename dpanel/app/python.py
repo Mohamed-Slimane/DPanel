@@ -12,7 +12,7 @@ from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 
-from dpanel.forms import AppForm, AppEditForm
+from dpanel.forms import PythonAppForm, PythonAppEditForm
 from dpanel.functions import create_venv, create_uwsgi_config, get_option, paginator, create_startup_file, \
     create_domain_server_block
 from dpanel.models import PythonApp
@@ -22,12 +22,12 @@ class apps(View):
     def get(self, request):
         apps = PythonApp.objects.all().order_by('-created')
         apps = paginator(request, apps, int(get_option('paginator', '20')))
-        return render(request, 'app/apps.html', {'apps': apps})
+        return render(request, 'app/python/apps.html', {'apps': apps})
 
 
 class app_new(View):
     def post(self, request):
-        form = AppForm(request.POST)
+        form = PythonAppForm(request.POST)
         if form.is_valid():
             from engine.settings import VENV_FOLDER
             app = form.save(commit=False)
@@ -52,16 +52,16 @@ class app_new(View):
             return redirect('apps')
         else:
             messages.add_message(request, messages.ERROR, _('Form validation error'))
-            return render(request, 'app/new.html', {'form': form})
+            return render(request, 'app/python/new.html', {'form': form})
 
     def get(self, request):
-        form = AppForm(request.POST or None)
-        return render(request, 'app/new.html', {'form': form})
+        form = PythonAppForm(request.POST or None)
+        return render(request, 'app/python/new.html', {'form': form})
 
 
 class edit(View):
     def post(self, request, serial):
-        form = AppEditForm(request.POST, instance=PythonApp.objects.get(serial=serial))
+        form = PythonAppEditForm(request.POST, instance=PythonApp.objects.get(serial=serial))
         if form.is_valid():
             app = form.save(commit=False)
             app.save()
@@ -72,8 +72,8 @@ class edit(View):
 
     def get(self, request, serial):
         app = PythonApp.objects.get(serial=serial)
-        form = AppEditForm(request.POST or None, instance=app)
-        return render(request, 'app/edit.html', {'app': app, 'form': form})
+        form = PythonAppEditForm(request.POST or None, instance=app)
+        return render(request, 'app/python/edit.html', {'app': app, 'form': form})
 
 
 class delete(View):

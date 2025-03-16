@@ -11,7 +11,7 @@ class DomainForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['name'].widget.attrs.update({'class': 'domain-validator'})
 
-class AppForm(forms.ModelForm):
+class PythonAppForm(forms.ModelForm):
     class Meta:
         model = PythonApp
         fields = ['name', 'www_path', 'domain', 'startup_file', 'entry_point']
@@ -22,7 +22,7 @@ class AppForm(forms.ModelForm):
         # self.fields['domain'].widget.attrs.update({'required': True})
 
 
-class AppEditForm(forms.ModelForm):
+class PythonAppEditForm(forms.ModelForm):
     class Meta:
         model = PythonApp
         fields = ['name', 'www_path', 'startup_file', 'entry_point', 'processes', 'threads', 'max_requests', 'chmod_socket', 'plugin', 'vacuum', 'master']

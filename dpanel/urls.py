@@ -3,7 +3,7 @@ from django.urls import path
 
 from dpanel import views
 from dpanel.domain import views as domain
-from dpanel.app import views as app
+from dpanel.app import python as app
 from dpanel.certificate import views as certificate
 from dpanel.file import views as file
 from dpanel.functions import super_required
@@ -34,15 +34,15 @@ urlpatterns = [
     path('domains/<str:serial>/certificates/new/', super_required(certificate.certificate_new.as_view()), name="certificate_new"),
 
     # Apps
-    path('apps', super_required(app.apps.as_view()), name="apps"),
-    path('apps/new/', super_required(app.app_new.as_view()), name="app_new"),
-    path('apps/<str:serial>/edit/', super_required(app.edit.as_view()), name="app_edit"),
-    path('apps/<str:serial>/delete/', super_required(app.delete.as_view()), name="app_delete"),
-    path('apps/<str:serial>/status/', super_required(app.status.as_view()), name="app_status"),
-    path('apps/<str:serial>/restart/', super_required(app.restart.as_view()), name="app_restart"),
-    path('apps/<str:serial>/log/', super_required(app.log.as_view()), name="app_log"),
-    path('apps/package/install/', super_required(app.package_install.as_view()), name="app_package_install"),
-    path('apps/<str:serial>/package/requirements/', super_required(app.requirements_install.as_view()), name="app_requirements_install"),
+    path('apps/python/', super_required(app.apps.as_view()), name="apps"),
+    path('apps/python/new/', super_required(app.app_new.as_view()), name="python_app_new"),
+    path('apps/python/<str:serial>/edit/', super_required(app.edit.as_view()), name="python_app_edit"),
+    path('apps/python/<str:serial>/delete/', super_required(app.delete.as_view()), name="python_app_delete"),
+    path('apps/python/<str:serial>/status/', super_required(app.status.as_view()), name="python_app_status"),
+    path('apps/python/<str:serial>/restart/', super_required(app.restart.as_view()), name="python_app_restart"),
+    path('apps/python/<str:serial>/log/', super_required(app.log.as_view()), name="python_app_log"),
+    path('apps/python/package/install/', super_required(app.package_install.as_view()), name="python_app_package_install"),
+    path('apps/python/<str:serial>/package/requirements/', super_required(app.requirements_install.as_view()), name="python_app_requirements_install"),
 
     # Manage
     path('restart/uwsgi/', super_required(views.uwsgi_restart.as_view()), name="uwsgi_restart"),

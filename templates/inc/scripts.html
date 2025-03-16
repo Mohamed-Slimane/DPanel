@@ -89,7 +89,7 @@
                 }else{
                     jQuery.ajax({
                         type: "GET",
-                        url: "{% url 'app_package_install' %}",
+                        url: "{% url 'python_app_package_install' %}",
                         dataType: "json",
                         data: {
                             'package': value,

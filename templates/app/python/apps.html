@@ -5,7 +5,7 @@
 {% block page_title %}{% trans 'All apps' %}{% endblock %}
 
 {% block title_button %}
-<a class="btn btn-primary btn-sm rounded-pill" href="{% url 'app_new' %}">
+<a class="btn btn-primary btn-sm rounded-pill" href="{% url 'python_app_new' %}">
     {% translate 'New app' %}
     <i class="bi bi-rocket-takeoff"></i>
 </a>
@@ -13,13 +13,13 @@
 {% block content %}
 <div class="bg-white shadow-sm rounded">
     {% if apps %}
-        {% include 'app/list.html' %}
+        {% include 'app/python/list.html' %}
     {% include 'inc/paginator.html' with query=apps %}
     {% else %}
     <div class="h5 text-center p-3">
         {% trans 'No apps found' %}
         <div class="">
-            <a href="{% url 'app_new' %}">
+            <a href="{% url 'python_app_new' %}">
                 <i class="bi bi-folder-plus fs-1"></i>
             </a>
         </div>
