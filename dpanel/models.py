@@ -57,7 +57,7 @@ class BaseApp(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        abstract = True  # تحديد أن النموذج مجرد، لن ينشئ جدولًا في قاعدة البيانات
+        abstract = True
 
     def __str__(self):
         return self.name

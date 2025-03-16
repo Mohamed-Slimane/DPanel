@@ -166,9 +166,13 @@ class package_install(View):
     def get(self, request):
         serial = request.GET.get('app')
         app = PythonApp.objects.get(serial=serial)
-        package = request.GET.get('package')
+        packages = request.GET.getlist('packages')
         try:
-            subprocess.call([app.venv_path + '/bin/pip', 'install', package])
-            return JsonResponse({'success': True, 'message': _('Successfully installed library <b>{}</b> to app <b>{}</b>.').format(package, app.name)})
+            command = f"{app.venv_path}/bin/pip install " + " ".join(packages)
+            result = subprocess.run(command, shell=True, capture_output=True, text=True, check=True)
+            return JsonResponse(
+                {'success': True, 'message': _('Successfully installed libraries: {}').format(", ".join(packages))})
         except subprocess.CalledProcessError as e:
-            return JsonResponse({'success': False, 'message': _('Error installing library: {}').format(e.stderr)})
+            return JsonResponse({'success': False, 'message': _('Error installing libraries: {}').format(e.stderr)})
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': _('Unexpected error: {}').format(str(e))})
