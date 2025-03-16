@@ -67,7 +67,8 @@ class edit(View):
 class delete(View):
     def get(self, request, serial):
         user = MysqlUser.objects.get(serial=serial)
-        subprocess.run(['mysql', '-e', f"DROP USER \'{user.username}\'@\'localhost\';"])
+        subprocess.run(['mysql', '-e', f"DROP USER '{user}'@'localhost';"])
+        subprocess.run(['mysql', '-e', "FLUSH PRIVILEGES;"])
         user.delete()
         messages.warning(request, _('User successfully deleted'))
         return redirect('mysql_users')

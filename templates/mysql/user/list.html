@@ -8,6 +8,7 @@
             <th style="width: 0">#</th>
             <th>{% translate 'Username' %}</th>
             <th>{% translate 'Password' %}</th>
+            <th>{% translate 'Databases' %}</th>
             <th></th>
         </tr>
         </thead>
@@ -19,13 +20,14 @@
                 </td>
                 <td>{{the_user.username}}</td>
                 <td>
-                    <div class="input-group password-group mw-100" style="width: 300px">
-                        <input type="password" class="form-control" value="{{the_user.password}}" readonly>
-                        <button type="button" class="btn btn-light border toggle-password">
+                    <div class="input-group input-group-sm password-group">
+                        <input type="password" class="form-control rounded-start-pill" value="{{the_user.password}}" readonly>
+                        <button type="button" class="btn btn-light border rounded-end-pill toggle-password">
                             <i class="bi bi-eye"></i>
                         </button>
                     </div>
                 </td>
+                <td>{{the_user.user_databases.all|join:', '|default:_('N/A')}}</td>
                 <td>
                     <div class="dropdown float-end">
                         <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">

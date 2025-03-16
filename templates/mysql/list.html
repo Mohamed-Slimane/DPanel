@@ -33,10 +33,17 @@
                             </li>
                             <li><div class="dropdown-divider"></div></li>
                             <li>
-                                <span class="dropdown-item pointer text-danger" onclick="open_link_confirm('{% url 'mysql_database_delete' database.serial %}', '{% trans 'Delete database' %}: {{database.name}}', '', true)">
+                                <a class="dropdown-item pointer" href="{% url 'mysql_database_edit' database.serial %}">
+                                    {% trans 'Edit' %}
+                                    <i class="bi bi-pencil float-end text-success"></i>
+                                </a>
+                            </li>
+                            <li><div class="dropdown-divider"></div></li>
+                            <li>
+                                <a href="javascript:void(0)" class="dropdown-item pointer" onclick="open_link_confirm('{% url 'mysql_database_delete' database.serial %}', '{% trans 'Delete database' %}: {{database.name}}', '', true)">
                                     {% trans 'Delete' %}
-                                    <i class="bi bi-trash float-end"></i>
-                                </span>
+                                    <i class="bi bi-trash float-end text-danger"></i>
+                                </a>
                             </li>
                         </ul>
                     </div>

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} {% translate 'Edit database' %} - {{form.instance.name}} {% endblock %}
+{% block page_title %} {% translate 'Edit database' %} - {{form.instance.name}} {% endblock %}
+{% block title_button %}
+{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow-sm rounded p-3">
+    <form class="row" method="post" enctype="multipart/form-data" >
+        {% csrf_token %}
+        {% include 'inc/form.html'%}
+        <div>
+            <button type="submit" class="btn btn-primary mt-3">
+                {% translate 'Submit' %}
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

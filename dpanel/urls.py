@@ -60,6 +60,7 @@ urlpatterns = [
     path('mysql/', super_required(mysql_views.databases.as_view()), name="mysql_databases"),
     path('mysql/new/', super_required(mysql_views.new.as_view()), name="mysql_database_new"),
     path('mysql/<str:serial>/', super_required(mysql_views.database.as_view()), name="mysql_database"),
+    path('mysql/<str:serial>/edit/', super_required(mysql_views.edit.as_view()), name="mysql_database_edit"),
     path('mysql/<str:serial>/delete/', super_required(mysql_views.delete.as_view()), name="mysql_database_delete"),
     path('mysql/<str:serial>/reset/', super_required(mysql_views.reset.as_view()), name="mysql_database_reset"),
 

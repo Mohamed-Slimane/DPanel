@@ -39,6 +39,10 @@ class new(View):
             try:
                 subprocess.run(['mysql', '-e', f'CREATE DATABASE {database.name};'])
                 database.save()
+                database.users.set(form.cleaned_data['users'])
+                for user in database.users.all():
+                    subprocess.run(['mysql', '-e', f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{user.username}'@'localhost';"])
+                subprocess.run(['mysql', '-e', "FLUSH PRIVILEGES;"]) if database.users.count() > 0 else None
                 messages.add_message(request, messages.SUCCESS, _('Database successfully created'))
             except Exception as e:
                 messages.add_message(request, messages.ERROR, str(e))
@@ -53,11 +57,39 @@ class new(View):
         form = MysqlDatabaseForm(request.POST or None)
         return render(request, 'mysql/new.html', {'form': form})
 
+class edit(View):
+    def post(self, request, serial):
+        database = MysqlDatabase.objects.get(serial=serial)
+        old_user = database.users.all()
+        form = MysqlDatabaseForm(request.POST, instance=database)
+        form.fields['name'].disabled = True
+        if form.is_valid():
+            database = form.save(commit=False)
+            database.save()
+            for user in old_user:
+                subprocess.run(['mysql', '-e', f"REVOKE ALL ON {database.name}.* FROM '{user.username}'@'localhost';"])
+            database.users.set(form.cleaned_data['users'])
+            for user in database.users.all():
+                subprocess.run(['mysql', '-e', f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{user.username}'@'localhost';"])
+            subprocess.run(['mysql', '-e', "FLUSH PRIVILEGES;"]) if database.users.count() > 0 else None
+            messages.add_message(request, messages.SUCCESS, _('Database successfully updated'))
+            return redirect('mysql_databases')
+        else:
+            messages.add_message(request, messages.ERROR, _('Form validation error'))
+            return self.get(request, serial)
+    def get(self, request, serial):
+        database = MysqlDatabase.objects.get(serial=serial)
+        form = MysqlDatabaseForm(instance=database)
+        form.fields['name'].disabled = True
+        return render(request, 'mysql/edit.html', {'form': form})
+
 
 class delete(View):
     def get(self, request, serial):
         database = MysqlDatabase.objects.get(serial=serial)
-        os.system(f'mysql -e "DROP DATABASE {database.name};"')
+        for user in database.users.all():
+            subprocess.run(['mysql', '-e', f"REVOKE ALL ON {database.name}.* FROM '{user.username}'@'localhost';"])
+        subprocess.run(['mysql', '-e', f"DROP DATABASE IF EXISTS {database.name};"])
         database.delete()
         messages.warning(request, _('Database successfully deleted'))
         return redirect('mysql_databases')
@@ -66,9 +98,12 @@ class delete(View):
 class reset(View):
     def get(self, request, serial):
         database = MysqlDatabase.objects.get(serial=serial)
-        os.system(f'mysql -e "DROP DATABASE IF EXISTS {database.name};"')
+        for user in database.users.all():
+            subprocess.run(['mysql', '-e', f"REVOKE ALL ON {database.name}.* FROM '{user.username}'@'localhost';"])
+        subprocess.run(['mysql', '-e', f"DROP DATABASE IF EXISTS {database.name};"])
         subprocess.run(['mysql', '-e', f'CREATE DATABASE {database.name};'])
-        # subprocess.run(['mysql', '-e', f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{database.username}'@'localhost';"])
+        for user in database.users.all():
+            subprocess.run(['mysql', '-e', f"GRANT ALL PRIVILEGES ON {database.name}.* TO '{user.username}'@'localhost';"])
         messages.warning(request, _('Database successfully reset'))
         return redirect('mysql_database', serial)
 
