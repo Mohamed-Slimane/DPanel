@@ -15,12 +15,12 @@ from django.views import View
 from dpanel.forms import AppForm, AppEditForm
 from dpanel.functions import create_venv, create_uwsgi_config, get_option, paginator, create_startup_file, \
     create_domain_server_block
-from dpanel.models import App
+from dpanel.models import PythonApp
 
 
 class apps(View):
     def get(self, request):
-        apps = App.objects.all().order_by('-created')
+        apps = PythonApp.objects.all().order_by('-created')
         apps = paginator(request, apps, int(get_option('paginator', '20')))
         return render(request, 'app/apps.html', {'apps': apps})
 
@@ -61,7 +61,7 @@ class app_new(View):
 
 class edit(View):
     def post(self, request, serial):
-        form = AppEditForm(request.POST, instance=App.objects.get(serial=serial))
+        form = AppEditForm(request.POST, instance=PythonApp.objects.get(serial=serial))
         if form.is_valid():
             app = form.save(commit=False)
             app.save()
@@ -71,14 +71,14 @@ class edit(View):
         return self.get(request, serial)
 
     def get(self, request, serial):
-        app = App.objects.get(serial=serial)
+        app = PythonApp.objects.get(serial=serial)
         form = AppEditForm(request.POST or None, instance=app)
         return render(request, 'app/edit.html', {'app': app, 'form': form})
 
 
 class delete(View):
     def get(self, request, serial):
-        app = App.objects.get(serial=serial)
+        app = PythonApp.objects.get(serial=serial)
         domain = app.domain
         try:
             subprocess.call(['unlink', app.uwsgi_config.replace('available', 'enabled')])
@@ -99,7 +99,7 @@ class delete(View):
 
 class restart(View):
     def get(self, request, serial):
-        app = App.objects.get(serial=serial)
+        app = PythonApp.objects.get(serial=serial)
         if not app.is_active:
             return redirect('app_status', serial)
         try:
@@ -112,7 +112,7 @@ class restart(View):
 
 class status(View):
     def get(self, request, serial):
-        app = App.objects.get(serial=serial)
+        app = PythonApp.objects.get(serial=serial)
         try:
             if app.is_active:
                 subprocess.call(['unlink', app.uwsgi_config.replace('available', 'enabled')])
@@ -132,7 +132,7 @@ class status(View):
 
 class log(View):
     def get(self, request, serial):
-        app = App.objects.get(serial=serial)
+        app = PythonApp.objects.get(serial=serial)
         file = app.full_www_path() + '/log.log'
         if not os.path.isfile(file):
             messages.error(request, _('File not found'))
@@ -145,7 +145,7 @@ class log(View):
 
 class requirements_install(View):
     def get(self, request, serial):
-        app = App.objects.get(serial=serial)
+        app = PythonApp.objects.get(serial=serial)
         requirements_file = app.full_www_path() + '/requirements.txt'
         try:
             with open(requirements_file, 'r', encoding='utf8') as f:
@@ -165,7 +165,7 @@ class requirements_install(View):
 class package_install(View):
     def get(self, request):
         serial = request.GET.get('app')
-        app = App.objects.get(serial=serial)
+        app = PythonApp.objects.get(serial=serial)
         package = request.GET.get('package')
         try:
             subprocess.call([app.venv_path + '/bin/pip', 'install', package])

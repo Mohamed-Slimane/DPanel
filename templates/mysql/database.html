@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %} MySql - {{database.name}} {% endblock %}
-{% block page_title %} <a href="{% url 'mysql_databases' %}">MySQL</a> - {{database.name}} {% endblock %}
+{% block title %} {% trans 'Databases' %} - {{database.name}} {% endblock %}
+{% block page_title %}{% trans 'Databases' %} - {{database.name}} {% endblock %}
 
 {% block title_button %}
 {% include 'mysql/action.html' %}
@@ -12,72 +12,83 @@
 <div class="bg-white shadow-sm p-3 rounded mb-3">
     <div class="h4">
         {% trans 'Connection details' %}
+        <a href="{% url 'mysql_database_manage' database.serial %}" class="btn btn-primary btn-sm rounded-pill float-end" target="_blank">
+            {% trans 'Preview' %}
+            <i class="bi bi-list-task"></i>
+        </a>
     </div>
     <div class="mb-2">
         <b>{% trans 'Name' %}:</b> {{database.name}}
     </div>
     <div class="mb-2">
-        <b>{% trans 'Users' %}:</b> {{database.user.all|join:', '|default:_('N/A')}}
+        <b>{% trans 'Size' %}:</b> {{database.get_size}}<small>KB</small>
+    </div>
+    <div class="mb-2">
+        <b>{% trans 'Tables' %}:</b> {{database.get_tables|length}}
+    </div>
+    <div class="mb-2">
+        <b>{% trans 'Users' %}:</b> {{database.users.all|join:', '|default:_('N/A')}}
     </div>
 </div>
-{% if database.backup_database.all %}
-<table class="table align-middle">
-    <thead>
-        <tr>
-            <th style="width: 0">#</th>
-            <th>{% trans 'Name' %}</th>
-            <th>{% trans 'Date' %}</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for backup in database.backup_database.all %}
-        <tr class="database-{{backup.serial}}">
-            <td>
-                {% if database.backup_database.all.start_index %}
-                {{database.backup_database.all.start_index|add:forloop.counter0}}
-                {% else %}
-                {{forloop.counter}}
-                {% endif %}
-            </td>
-            <td>{{backup.filename}}</td>
-            <td>{{backup.created_date|date:'d-m-Y H:i:s, l'}}</td>
-            <td>
-                <div class="dropdown">
-                    <i class="bi bi-three-dots-vertical float-end pointer" data-bs-toggle="dropdown"></i>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item pointer" href="{% url 'mysql_backup_download' backup.serial %}">
-                                <i class="bi bi-download float-end text-info"></i>
-                                {% trans 'Download' %}
-                            </a>
-                        </li>
-                        <li><div class="dropdown-divider"></div></li>
-                        <li>
-                            <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'mysql_backup_restore' backup.serial %}', '{% trans 'Backup' %}: {{backup.filename}}', '{% trans 'Do you want to restore this backup?' %}')">
-                                <i class="bi bi-arrow-counterclockwise float-end text-success"></i>
-                                {% trans 'Restore' %}
-                            </span>
-                        </li>
-                        <li><div class="dropdown-divider"></div></li>
-                        <li>
-                            <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'mysql_backup_delete' backup.serial %}', '{% trans 'Backup' %}: {{backup.filename}}', '{% trans 'Do you want to delete this backup?' %}')">
-                                <i class="bi bi-trash float-end text-danger"></i>
-                                {% trans 'Delete' %}
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{% else %}
-    <div class="bg-white shadow-sm p-3 rounded text-center">
-        <div class="fw-bold h5 m-0">
-            {% trans 'No backups yet' %}
-        </div>
+<div class="bg-white shadow-sm p-3 rounded mb-3">
+    <div class="h4">
+        {% trans 'Cloud backups' %}
     </div>
-{% endif %}
+    {% if database.backup_database.all %}
+    <table class="table align-middle">
+        <thead>
+            <tr>
+                <th style="width: 0">#</th>
+                <th>{% trans 'Name' %}</th>
+                <th>{% trans 'Date' %}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for backup in database.backup_database.all %}
+            <tr class="database-{{backup.serial}}">
+                <td>
+                    {% if database.backup_database.all.start_index %}
+                    {{database.backup_database.all.start_index|add:forloop.counter0}}
+                    {% else %}
+                    {{forloop.counter}}
+                    {% endif %}
+                </td>
+                <td>{{backup.filename}}</td>
+                <td>{{backup.created|date:'d-m-Y H:i:s, l'}}</td>
+                <td>
+                    <div class="dropdown">
+                        <i class="bi bi-three-dots-vertical float-end pointer" data-bs-toggle="dropdown"></i>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item pointer" href="{% url 'mysql_backup_download' backup.serial %}">
+                                    <i class="bi bi-download float-end text-info"></i>
+                                    {% trans 'Download' %}
+                                </a>
+                            </li>
+                            <li><div class="dropdown-divider"></div></li>
+                            <li>
+                                <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'mysql_backup_restore' backup.serial %}', '{% trans 'Backup' %}: {{backup.filename}}', '{% trans 'Do you want to restore this backup?' %}')">
+                                    <i class="bi bi-arrow-counterclockwise float-end text-success"></i>
+                                    {% trans 'Restore' %}
+                                </span>
+                            </li>
+                            <li><div class="dropdown-divider"></div></li>
+                            <li>
+                                <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'mysql_backup_delete' backup.serial %}', '{% trans 'Backup' %}: {{backup.filename}}', '{% trans 'Do you want to delete this backup?' %}')">
+                                    <i class="bi bi-trash float-end text-danger"></i>
+                                    {% trans 'Delete' %}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    {% trans 'No backups yet' %}
+    {% endif %}
+</div>
 {% endblock %}

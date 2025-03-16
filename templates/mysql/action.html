@@ -10,38 +10,31 @@
     </a>
     <ul class="dropdown-menu dropdown-menu-end mw-100" style="min-width: 250px">
         <li>
-            <a href="{% url 'mysql_database_manage' database.serial %}" class="dropdown-item">
-                {% trans 'Preview' %}
-                <i class="bi bi-eye float-end"></i>
+           <a href="javascript:void(0)" onclick="open_link_confirm('{% url 'mysql_backup_create' database.serial %}', '{% trans 'Database' %}: {{database.name}}', '{% trans 'This action will create a backup of the database directly in the server' %}')" class="dropdown-item pointer">
+               {% trans 'Cloud backup' %}
+               <i class="bi bi-cloud-check float-end"></i>
             </a>
         </li>
         <li><div class="dropdown-divider"></div></li>
         <li>
-           <span onclick="open_link_confirm('{% url 'mysql_backup_create' database.serial %}', '{% trans 'Database' %}: {{database.name}}', '{% trans 'Do you want to create backup for this database?' %}')" class="dropdown-item pointer">
-               {% trans 'Create backup' %}
-               <i class="bi bi-floppy float-end"></i>
-            </span>
-        </li>
-        <li><div class="dropdown-divider"></div></li>
-        <li>
-            <span class="dropdown-item pointer database-restore" onclick="document.getElementById('backup-import-{{database.serial}}').click()">
+            <a href="javascript:void(0)" class="dropdown-item pointer database-restore" onclick="document.getElementById('backup-import-{{database.serial}}').click()">
                 {% trans 'Import backup' %}
-                <i class="bi bi-pc-display float-end"></i>
-            </span>
+                <i class="bi bi-upload float-end"></i>
+            </a>
         </li>
         <li><div class="dropdown-divider"></div></li>
         <li>
-            <span class="dropdown-item pointer" onclick="open_link_confirm('{% url 'mysql_database_reset' database.serial %}', '{% trans 'Reset database' %}: {{database.name}}', '{% trans 'All data will be deleted. Do you want to continue?' %}', true)">
+            <a href="javascript:void(0)" class="dropdown-item" onclick="open_link_confirm('{% url 'mysql_database_reset' database.serial %}', '{% trans 'Reset database' %}: {{database.name}}', '{% trans 'All data in this database will be deleted. Do you want to continue ?' %}', true)">
                 {% trans 'Reset' %}
-                <i class="bi bi-recycle float-end"></i>
-            </span>
+                <i class="bi bi-recycle float-end text-warning"></i>
+            </a>
         </li>
         <li><div class="dropdown-divider"></div></li>
         <li>
-            <span class="dropdown-item pointer text-danger" onclick="open_link_confirm('{% url 'mysql_database_delete' database.serial %}', '{% trans 'Delete database' %}: {{database.name}}', '', true)">
+            <a href="javascript:void(0)" class="dropdown-item" onclick="open_link_confirm('{% url 'mysql_database_delete' database.serial %}', '{% trans 'Delete database' %}: {{database.name}}', '', true)">
                 {% trans 'Delete' %}
                 <i class="bi bi-trash float-end text-danger"></i>
-            </span>
+            </a>
         </li>
     </ul>
 </div>

@@ -46,7 +46,7 @@ class Domain(models.Model):
         super().save(*args, **kwargs)
 
 
-class App(models.Model):
+class PythonApp(models.Model):
     serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
     name = models.CharField(_('Name'), max_length=500)
     domain = models.OneToOneField(Domain, verbose_name=_('Domain'), related_name='domain_app', on_delete=models.SET_NULL, null=True, blank=True, limit_choices_to={'domain_app__isnull': True})
@@ -112,6 +112,22 @@ class MysqlDatabase(models.Model):
     def __str__(self):
         return self.name
 
+    def get_size(self):
+        try:
+            import subprocess
+            cmd = f"SELECT ROUND(SUM(data_length + index_length) / 1024, 2) FROM information_schema.TABLES WHERE table_schema = '{self.name}';"
+            result = subprocess.run(['mysql', '-N', '-e', cmd], capture_output=True, text=True)
+            return float(result.stdout.strip() or 0) if result.returncode == 0 else 0
+        except:
+            return 0
+    def get_tables(self):
+        try:
+            import subprocess
+            cmd = f"SELECT table_name FROM information_schema.TABLES WHERE table_schema = '{self.name}';"
+            result = subprocess.run(['mysql', '-N', '-e', cmd], capture_output=True, text=True)
+            return result.stdout.strip().split('\n') if result.returncode == 0 else []
+        except:
+            return []
     def save(self, *args, **kwargs):
         if not self.serial:
             year = timezone.now().year

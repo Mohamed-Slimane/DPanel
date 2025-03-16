@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %} MySql - {{database.name}}{% endblock %}
-{% block page_title %} <a href="{% url 'mysql_databases' %}">MySQL</a> - <a href="{% url 'mysql_database' database.serial %}">{{database.name}}</a> - {% trans 'manage' %} {% trans '(beta)' %}{% endblock %}
+{% block title %} {% trans 'Databases' %} - {{database.name}}{% endblock %}
+{% block page_title %}{% trans 'Databases' %} - {{database.name}}{% endblock %}
 
 
 {% block content %}

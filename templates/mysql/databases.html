@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %} {% translate 'Databases' %} {% endblock%}
-{% block page_title %}{% trans 'All databases' %} <small class="fs-6">(MySql)</small>{% endblock %}
+{% block title %}{% translate 'Databases' %}{% endblock%}
+{% block page_title %}{% trans 'Databases' %} <small class="fs-6">(MySql)</small>{% endblock %}
 
 {% block title_button %}
 <a class="btn btn-primary btn-sm rounded-pill" href="{% url 'mysql_database_new' %}">

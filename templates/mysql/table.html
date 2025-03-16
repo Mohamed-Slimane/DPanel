@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load i18n tags %}
 
-{% block title %} MySql - {{database.name}}{% endblock %}
-{% block page_title %}<a href="{% url 'mysql_databases' %}">MySQL</a> - <a href="{% url 'mysql_database' database.serial %}">{{database.name}}</a> - <a href="{% url 'mysql_database_manage' database.serial %}">{% trans 'manage' %} {% trans '(beta)' %}</a> - {{table_name}}{% endblock %}
+{% block title %} {% trans 'Databases' %} - {{database.name}}{% endblock %}
+{% block page_title %}{% trans 'Databases' %} - {{database.name}} - {{table_name}}{% endblock %}
 
 {% block content %}
 <div class="bg-white shadow-sm p-3 rounded mb-3">
