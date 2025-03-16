@@ -42,7 +42,33 @@ class new(View):
         form = DomainForm(request.POST or None)
         return render(request, 'domain/new.html', {'form': form})
 
-
+class edit(View):
+    def post(self, request, serial):
+        domain = Domain.objects.get(serial=serial)
+        old_www_path = domain.www_path
+        form = DomainForm(request.POST, instance=domain)
+        form.fields['name'].disabled = True
+        if form.is_valid():
+            if old_www_path == form.cleaned_data['www_path']:
+                messages.warning(request, _('Nothing changed'))
+                return redirect('domain_edit', serial)
+            domain = form.save(commit=False)
+            if not domain.www_path.startswith('/'):
+                domain.www_path = f'/{domain.www_path}'
+            domain.save()
+            create_domain_server_block(domain)
+            if request.POST.get('create_index') == 'on':
+                create_index_file(domain)
+            messages.add_message(request, messages.SUCCESS, _('Domain successfully updated'))
+            return redirect('domains')
+        else:
+            messages.add_message(request, messages.ERROR, _('Form validation error'))
+            return self.get(request, serial)
+    def get(self, request, serial):
+        domain = Domain.objects.get(serial=serial)
+        form = DomainForm(request.POST or None, instance=domain)
+        form.fields['name'].disabled = True
+        return render(request, 'domain/edit.html', {'form': form})
 
 class delete(View):
     def get(self, request, serial):

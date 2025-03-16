@@ -15,7 +15,7 @@ from django.views import View
 from dpanel.forms import PythonAppForm, PythonAppEditForm
 from dpanel.functions import create_venv, create_uwsgi_config, get_option, paginator, create_startup_file, \
     create_domain_server_block
-from dpanel.models import PythonApp
+from dpanel.models import PythonApp, Domain
 
 
 class apps(View):
@@ -25,7 +25,7 @@ class apps(View):
         return render(request, 'app/python/apps.html', {'apps': apps})
 
 
-class app_new(View):
+class new(View):
     def post(self, request):
         form = PythonAppForm(request.POST)
         if form.is_valid():
@@ -36,7 +36,8 @@ class app_new(View):
             sock = socket.socket()
             sock.bind(('', 0))
             app.port = sock.getsockname()[1]
-            app.venv_path = os.path.join(VENV_FOLDER, str(app.serial))
+            app.save()
+            app.venv_path = f'{VENV_FOLDER}/{app.serial}'
             app.save()
 
             pathlib.Path(app.full_www_path()).mkdir(parents=True, exist_ok=True)
@@ -61,11 +62,20 @@ class app_new(View):
 
 class edit(View):
     def post(self, request, serial):
-        form = PythonAppEditForm(request.POST, instance=PythonApp.objects.get(serial=serial))
+        app = PythonApp.objects.get(serial=serial)
+        old_domain = app.domain
+        form = PythonAppEditForm(request.POST, instance=app)
         if form.is_valid():
             app = form.save(commit=False)
             app.save()
             create_uwsgi_config(app)
+            if old_domain != app.domain:
+                if old_domain:
+                    create_domain_server_block(Domain.objects.get(serial=old_domain.serial))
+                if app.domain:
+                    create_domain_server_block(app.domain)
+
+            messages.success(request, _('App successfully updated'))
             return redirect('apps')
         messages.error(request, _('Form validation error'))
         return self.get(request, serial)
@@ -79,7 +89,6 @@ class edit(View):
 class delete(View):
     def get(self, request, serial):
         app = PythonApp.objects.get(serial=serial)
-        domain = app.domain
         try:
             subprocess.call(['unlink', app.uwsgi_config.replace('available', 'enabled')])
         except Exception as e: pass
@@ -90,9 +99,8 @@ class delete(View):
             shutil.rmtree(app.venv_path)
         except Exception as e: pass
         app.delete()
-        if domain:
-            domain.domain_app = None
-            create_domain_server_block(domain)
+        if app.domain:
+            create_domain_server_block(Domain.objects.get(serial=app.domain.serial))
         messages.success(request, _('App deleted successfully'))
         return redirect('apps')
 

@@ -6,7 +6,7 @@ from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from engine.settings import WWW_FOLDER
+from engine.settings import WWW_FOLDER, VENV_FOLDER
 
 
 class Domain(models.Model):
@@ -50,9 +50,9 @@ class BaseApp(models.Model):
     serial = models.CharField(_('Serial'), max_length=500, unique=True, editable=False)
     name = models.CharField(_('Name'), max_length=500)
     domain = models.OneToOneField(Domain, verbose_name=_('Domain'), related_name='domain_app', on_delete=models.SET_NULL, null=True, blank=True, limit_choices_to={'domain_app__isnull': True})
-    port = models.IntegerField(_('Port'), unique=True)
     www_path = models.CharField(_('Path'), max_length=5000, help_text=_('The folder that contains the project, dont write /var/www/'))
-    startup_file = models.CharField(_('Startup file'), max_length=500, help_text=_('The startup file, e.g., myproject/wsgi.py'))
+    venv_path = models.CharField(_('Environment Path'), max_length=5000)
+    port = models.IntegerField(_('Port'), unique=True)
     is_active = models.BooleanField(verbose_name=_('Is active'), default=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -76,9 +76,9 @@ class BaseApp(models.Model):
 
 
 class PythonApp(BaseApp):
+    startup_file = models.CharField(_('Startup file'), max_length=500, default='startup.py', help_text=_('The startup file, e.g., myproject/wsgi.py'))
     entry_point = models.CharField(_('Entry Point'), default='application', max_length=500,
                                    help_text=_('Entry point in startup file, e.g., application'))
-    venv_path = models.CharField(_('Environment Path'), max_length=5000)
     uwsgi_config = models.CharField(_('Uwsgi config'), max_length=5000)
     processes = models.IntegerField(_('Processes'), default=1)
     threads = models.IntegerField(_('Threads'), default=1)

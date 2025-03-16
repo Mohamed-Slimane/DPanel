@@ -2,12 +2,12 @@
 {% load i18n %}
 
 {% block title %} {% translate 'Domains' %} {% endblock%}
-{% block page_title %}{% trans 'All domains' %}{% endblock %}
+{% block page_title %}{% trans 'Domains' %}{% endblock %}
 
 {% block title_button %}
 <a class="btn btn-primary btn-sm rounded-pill" href="{% url 'domain_new' %}">
     {% translate 'New domain' %}
-    <i class="bi bi-rocket-takeoff"></i>
+    <i class="bi bi-link-45deg"></i>
 </a>
 {% endblock %}
 {% block content %}

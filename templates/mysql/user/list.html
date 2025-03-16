@@ -42,7 +42,7 @@
                             </li>
                             <li><div class="dropdown-divider"></div></li>
                             <li>
-                                <a href="javascript:void(0);" class="dropdown-item" onclick="open_link_confirm('{% url 'mysql_user_delete' the_user.serial %}', '{% trans 'Delete the_user' %}: {{the_user.name}}', '', true)">
+                                <a href="javascript:void(0);" class="dropdown-item" onclick="open_link_confirm('{% url 'mysql_user_delete' the_user.serial %}', '{% trans 'Delete user' %}: {{the_user.name}}', '', true)">
                                     {% trans 'Delete' %}
                                     <i class="bi bi-trash float-end text-danger"></i>
                                 </a>

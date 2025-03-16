@@ -26,6 +26,7 @@ urlpatterns = [
     # Domains
     path('domains/', super_required(domain.domains.as_view()), name="domains"),
     path('domains/new/', super_required(domain.new.as_view()), name="domain_new"),
+    path('domains/<str:serial>/edit/', super_required(domain.edit.as_view()), name="domain_edit"),
     path('domains/<str:serial>/delete/', super_required(domain.delete.as_view()), name="domain_delete"),
     path('domains/<str:serial>/config/', super_required(domain.config.as_view()), name="domain_config"),
 
@@ -35,7 +36,7 @@ urlpatterns = [
 
     # Apps
     path('apps/python/', super_required(app.apps.as_view()), name="apps"),
-    path('apps/python/new/', super_required(app.app_new.as_view()), name="python_app_new"),
+    path('apps/python/new/', super_required(app.new.as_view()), name="python_app_new"),
     path('apps/python/<str:serial>/edit/', super_required(app.edit.as_view()), name="python_app_edit"),
     path('apps/python/<str:serial>/delete/', super_required(app.delete.as_view()), name="python_app_delete"),
     path('apps/python/<str:serial>/status/', super_required(app.status.as_view()), name="python_app_status"),
