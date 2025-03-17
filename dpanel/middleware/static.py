@@ -1,7 +1,7 @@
 import os
 from django.http import FileResponse, Http404
 from django.utils.deprecation import MiddlewareMixin
-from django.conf import settings
+from engine import settings
 
 class StaticFilesMiddleware(MiddlewareMixin):
     def process_request(self, request):
