@@ -3,12 +3,14 @@ from django.conf.urls.static import static
 from django.urls import path, include
 
 from engine import settings
+from engine.settings import DEBUG
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
 ]
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += i18n_patterns(
     path('', include('dpanel.urls'))
