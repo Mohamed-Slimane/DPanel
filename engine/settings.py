@@ -127,6 +127,9 @@ LOCALE_PATHS = (
 )
 
 COOKIE_NAME = 'dpanel'
+LANGUAGE_COOKIE_NAME = 'dpanel_lang'
+LANGUAGE_COOKIE_SECURE = True
+
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'secondary',

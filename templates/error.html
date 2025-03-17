@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate 'Error' %} - {{error.message}}{% endblock%}
+{% block page_title %}{% trans 'Error' %} - {{error.message}}{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow-sm rounded p-3 text-center">
+    <div class="h1" style="font-family: nunito">
+        {{error.code}}
+    </div>
+    <h3>
+        {{error.message}}
+    </h3>
+</div>
+{% endblock %}
+

@@ -1,14 +1,24 @@
 import os
 import subprocess
+
 from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import redirect
-from django.shortcuts import render
+from django.utils.translation import activate
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from dpanel.functions import get_memory_usage, get_cpu_usage, get_dir_usage
 from dpanel.models import Domain, MysqlDatabase
+from engine.settings import LANGUAGE_COOKIE_NAME
+
+
+class set_language(View):
+    def get(self, request, code):
+        response = redirect(request.META.get('HTTP_REFERER', '/'))
+        response.set_cookie(LANGUAGE_COOKIE_NAME, code, max_age=60 * 60 * 24 * 365)
+        activate(code)
+        return response
 
 
 class dashboard(View):

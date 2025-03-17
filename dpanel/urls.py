@@ -2,9 +2,9 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 
 from dpanel import views
-from dpanel.domain import views as domain
 from dpanel.app import python as app
 from dpanel.certificate import views as certificate
+from dpanel.domain import views as domain
 from dpanel.file import views as file
 from dpanel.functions import super_required
 from dpanel.mysql import views as mysql_views, manage as mysql_manage, user as mysql_user
@@ -21,6 +21,7 @@ urlpatterns = [
     ), name="password_change_done"),
 
     # Dashboard
+    path('set-language/<code>/', views.set_language.as_view(), name='set_language'),
     path('', super_required(views.dashboard.as_view()), name="dashboard"),
 
     # Domains

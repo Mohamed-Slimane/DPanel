@@ -16,9 +16,7 @@
             <tr class="align-middle">
                 <td>{% include 'inc/loop.html' with query=domains %}</td>
                 <td>
-                    <a href="http://{{domain.name}}" target="_blank">
-                        {{domain.name}}
-                    </a>
+                    {{domain.name}}
                     {% if domain.domain_app %}
                     <i class="bi bi-app-indicator small text-{% if not domain.domain_app.is_active %}danger{% else %}success{% endif %}" data-bs-toggle="tooltip" title="{{domain.domain_app.name}}"></i>
                     {% endif %}

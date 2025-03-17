@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dever stoke\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-16 16:20+0100\n"
+"POT-Creation-Date: 2025-03-17 21:10+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -14,46 +14,51 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
 "X-Generator: Poedit 3.3.2\n"
 
-#: .\dpanel\app\python.py:51
+#: .\dpanel\app\python.py:52
 msgid "App successfully created"
 msgstr "تم إنشاء التطبيق بنجاح"
 
-#: .\dpanel\app\python.py:54 .\dpanel\app\python.py:70
-#: .\dpanel\domain\views.py:38 .\dpanel\mysql\user.py:33
-#: .\dpanel\mysql\user.py:57 .\dpanel\mysql\views.py:53
-#: .\dpanel\mysql\views.py:78
+#: .\dpanel\app\python.py:55 .\dpanel\app\python.py:80
+#: .\dpanel\domain\views.py:38 .\dpanel\domain\views.py:65
+#: .\dpanel\mysql\user.py:33 .\dpanel\mysql\user.py:57
+#: .\dpanel\mysql\views.py:53 .\dpanel\mysql\views.py:78
 msgid "Form validation error"
 msgstr "خطأ في التحقق من صحة النموذج"
 
-#: .\dpanel\app\python.py:96
+#: .\dpanel\app\python.py:78
+#| msgid "App successfully created"
+msgid "App successfully updated"
+msgstr "تم تحديث التطبيق بنجاح"
+
+#: .\dpanel\app\python.py:104
 msgid "App deleted successfully"
 msgstr "تم حذف التطبيق بنجاح"
 
-#: .\dpanel\app\python.py:138
+#: .\dpanel\app\python.py:146
 msgid "File not found"
 msgstr "لم يتم العثور على الملف"
 
-#: .\dpanel\app\python.py:155
+#: .\dpanel\app\python.py:163
 msgid "Successfully installed requirements for app <b>{}</b>."
 msgstr "تم تثبيت مكاتب التطبيق <b>{}</b> بنجاح."
 
-#: .\dpanel\app\python.py:157
+#: .\dpanel\app\python.py:165
 msgid "File <b>requirements.txt</b> not found."
 msgstr "لم يتم العثور على الملف <b>requirements.txt</b>."
 
-#: .\dpanel\app\python.py:159
+#: .\dpanel\app\python.py:167
 msgid "Error installing requirements: {}"
 msgstr "خطأ في تثبيت المكاتب: {}"
 
-#: .\dpanel\app\python.py:174
+#: .\dpanel\app\python.py:182
 msgid "Successfully installed libraries: {}"
 msgstr "نجح تثبيت المكاتب: {}"
 
-#: .\dpanel\app\python.py:176
+#: .\dpanel\app\python.py:184
 msgid "Error installing libraries: {}"
 msgstr "خطأ في تثبيت المكتبات: {}"
 
-#: .\dpanel\app\python.py:178
+#: .\dpanel\app\python.py:186
 msgid "Unexpected error: {}"
 msgstr "خطأ غير متوقع: {}"
 
@@ -69,19 +74,28 @@ msgstr "تم إنشاء الشهادة بنجاح"
 msgid "Domain successfully created"
 msgstr "تم إنشاء الدومين بنجاح"
 
-#: .\dpanel\domain\views.py:58
+#: .\dpanel\domain\views.py:53
+msgid "Nothing changed"
+msgstr "لا شيء تغير"
+
+#: .\dpanel\domain\views.py:62
+#| msgid "Domain successfully created"
+msgid "Domain successfully updated"
+msgstr "تم تحديث المجال بنجاح"
+
+#: .\dpanel\domain\views.py:84
 msgid "Domain deleted successfully"
 msgstr "تم حذف الدومين بنجاح"
 
-#: .\dpanel\domain\views.py:70
+#: .\dpanel\domain\views.py:96
 msgid "Domain configuration updated successfully"
 msgstr "تم تحديث تكوين الدومين بنجاح"
 
-#: .\dpanel\domain\views.py:72
+#: .\dpanel\domain\views.py:98
 msgid "Error in updating domain configuration"
 msgstr "خطأ في تحديث تكوين المجال"
 
-#: .\dpanel\domain\views.py:80
+#: .\dpanel\domain\views.py:106
 msgid "Error in reading domain configuration"
 msgstr "خطأ في قراءة تكوين مجال"
 
@@ -109,12 +123,12 @@ msgstr "الإسم"
 msgid "For example: mayproject.com, dpanel.top"
 msgstr "على سبيل المثال: mayproject.com، dpanel.top"
 
-#: .\dpanel\models.py:15 .\dpanel\models.py:54 .\dpanel\models.py:151
+#: .\dpanel\models.py:15 .\dpanel\models.py:53 .\dpanel\models.py:151
 #: .\templates\domain\list.html:8
 msgid "Path"
 msgstr "المسار"
 
-#: .\dpanel\models.py:15 .\dpanel\models.py:54
+#: .\dpanel\models.py:15 .\dpanel\models.py:53
 msgid "The folder that contains the project, dont write /var/www/"
 msgstr "المجلد الذي يحتوي على المشروع ، لا تكتب/var/www/"
 
@@ -137,37 +151,37 @@ msgid "Domain"
 msgstr "الدومين"
 
 #: .\dpanel\models.py:26 .\templates\domain\domains.html:4
-#: .\templates\inc\header.html:21
+#: .\templates\domain\domains.html:5 .\templates\inc\header.html:21
 msgid "Domains"
 msgstr "الدومينات"
 
-#: .\dpanel\models.py:53 .\templates\app\python\list.html:9
+#: .\dpanel\models.py:54
+msgid "Environment Path"
+msgstr "مسار البيئة الإفتراضية"
+
+#: .\dpanel\models.py:55 .\templates\app\python\list.html:9
 msgid "Port"
 msgstr "البوابة"
-
-#: .\dpanel\models.py:55
-msgid "Startup file"
-msgstr "ملف بدء التشغيل"
-
-#: .\dpanel\models.py:55
-msgid "The startup file, e.g., myproject/wsgi.py"
-msgstr "ملف بدء التشغيل ، على سبيل المثال ، myProject/wsgi.py"
 
 #: .\dpanel\models.py:56
 msgid "Is active"
 msgstr "نشط"
 
 #: .\dpanel\models.py:79
+msgid "Startup file"
+msgstr "ملف بدء التشغيل"
+
+#: .\dpanel\models.py:79
+msgid "The startup file, e.g., myproject/wsgi.py"
+msgstr "ملف بدء التشغيل ، على سبيل المثال ، myProject/wsgi.py"
+
+#: .\dpanel\models.py:80
 msgid "Entry Point"
 msgstr "نقطة الدخول"
 
-#: .\dpanel\models.py:80
+#: .\dpanel\models.py:81
 msgid "Entry point in startup file, e.g., application"
 msgstr "نقطة الدخول في ملف بدء التشغيل ، على سبيل المثال ، application"
-
-#: .\dpanel\models.py:81
-msgid "Environment Path"
-msgstr "مسار البيئة الإفتراضية"
 
 #: .\dpanel\models.py:82
 msgid "Uwsgi config"
@@ -216,12 +230,12 @@ msgstr "إسم المستخدم"
 #: .\dpanel\models.py:99 .\templates\account\password-change-done.html:4
 #: .\templates\account\password-change-done.html:5
 #: .\templates\account\password-change.html:4
-#: .\templates\account\password-change.html:5 .\templates\inc\header.html:88
+#: .\templates\account\password-change.html:5 .\templates\inc\header.html:96
 #: .\templates\mysql\user\list.html:10
 msgid "Password"
 msgstr "كلمة المرور"
 
-#: .\dpanel\models.py:116 .\templates\inc\header.html:43
+#: .\dpanel\models.py:116 .\templates\inc\header.html:51
 #: .\templates\mysql\database.html:30 .\templates\mysql\list.html:11
 msgid "Users"
 msgstr "المستخدمون"
@@ -263,8 +277,8 @@ msgid "User successfully updated"
 msgstr "تم تحديث المستخدم بنجاح"
 
 #: .\dpanel\mysql\user.py:64 .\templates\app\python\list.html:107
-#: .\templates\file\list.html:76 .\templates\mysql\list.html:39
-#: .\templates\mysql\user\list.html:39
+#: .\templates\domain\list.html:67 .\templates\file\list.html:76
+#: .\templates\mysql\list.html:39 .\templates\mysql\user\list.html:39
 msgid "Edit"
 msgstr "تعديل"
 
@@ -326,45 +340,64 @@ msgstr "تم حفظ الإعدادات"
 msgid "An error occurred while saving settings"
 msgstr "حدث خطأ أثناء حفظ الإعدادات"
 
-#: .\dpanel\views.py:41
+#: .\dpanel\views.py:51
 msgid "uwsgi restarted successfully"
 msgstr "تمت إعادة تشغيل uwsgi بنجاح"
 
-#: .\dpanel\views.py:43
+#: .\dpanel\views.py:53
 msgid "uwsgi restart failed"
 msgstr "فشل إعادة تشغيل uwsgi"
 
-#: .\dpanel\views.py:51
+#: .\dpanel\views.py:61
 msgid "nginx restarted successfully"
 msgstr "تمت إعادة تشغيل nginx بنجاح"
 
-#: .\dpanel\views.py:53
+#: .\dpanel\views.py:63
 msgid "nginx restart failed"
 msgstr "فشل إعادة تشغيل nginx"
 
-#: .\dpanel\views.py:61
+#: .\dpanel\views.py:71
 msgid "mysql restarted successfully"
 msgstr "تمت إعادة تشغيل mysql بنجاح"
 
-#: .\dpanel\views.py:63
+#: .\dpanel\views.py:73
 msgid "mysql restart failed"
 msgstr "فشل في إعادة تشغيل MySQL"
 
-#: .\dpanel\views.py:72
+#: .\dpanel\views.py:82
 msgid "Server restarted successfully, please wait the server rebooting"
 msgstr "تم إعادة تشغيل الخادم بنجاح، يرجى الانتظار حتى يتم إعادة تشغيل الخادم"
 
-#: .\dpanel\views.py:74
+#: .\dpanel\views.py:84
 msgid "Server restart failed"
 msgstr "فشلت إعادة تشغيل الخادم"
 
-#: .\engine\settings.py:122
+#: .\engine\settings.py:121
 msgid "Arabic"
 msgstr "العربية"
 
-#: .\engine\settings.py:123
+#: .\engine\settings.py:122
 msgid "English"
 msgstr "الإنجليزية"
+
+#: .\engine\urls.py:8
+#| msgid "File not found"
+msgid "Page Not Found"
+msgstr "لم يتم العثور على الصفحة"
+
+#: .\engine\urls.py:9
+#| msgid "Install MySQL server now"
+msgid "Internal Server Error"
+msgstr "خطأ في الخادم الداخلي"
+
+#: .\engine\urls.py:10
+msgid "Forbidden"
+msgstr "محظور"
+
+#: .\engine\urls.py:11
+#| msgid "Max requests"
+msgid "Bad Request"
+msgstr "طلب غير صحيح"
 
 #: .\templates\account\login.html:4 .\templates\account\login.html:5
 #: .\templates\account\login.html:14
@@ -379,17 +412,12 @@ msgstr "تم تغيير كلمة السر"
 msgid "Change"
 msgstr "تغيير"
 
-#: .\templates\app\python\apps.html:4 .\templates\dashboard.html:41
-#: .\templates\inc\header.html:26
-msgid "Apps"
-msgstr "التطبيقات"
+#: .\templates\app\python\apps.html:4 .\templates\app\python\apps.html:5
+#| msgid "Python Apps"
+msgid "Python apps"
+msgstr "تطبيقات Python"
 
-#: .\templates\app\python\apps.html:5
-msgid "All apps"
-msgstr "جميع التطبيقات"
-
-#: .\templates\app\python\apps.html:9 .\templates\app\python\new.html:4
-#: .\templates\app\python\new.html:5
+#: .\templates\app\python\apps.html:9
 msgid "New app"
 msgstr "تطبيق جديد"
 
@@ -398,10 +426,11 @@ msgid "No apps found"
 msgstr "لم يتم العثور على أي تطبيقات"
 
 #: .\templates\app\python\edit.html:4 .\templates\app\python\edit.html:5
-msgid "Edit app"
-msgstr "تعديل التطبيق"
+#| msgid "Edit app"
+msgid "Edit python app"
+msgstr "تعديل تطبيق Python"
 
-#: .\templates\app\python\edit.html:15
+#: .\templates\app\python\edit.html:15 .\templates\domain\edit.html:20
 msgid "Update"
 msgstr "تحديث"
 
@@ -410,9 +439,8 @@ msgid "Environment"
 msgstr "البيئة"
 
 #: .\templates\app\python\list.html:11 .\templates\domain\list.html:10
-#: .\templates\mysql\database.html:43
-msgid "Date"
-msgstr "التاريخ"
+msgid "Created"
+msgstr "الإنشاء"
 
 #: .\templates\app\python\list.html:24 .\templates\mysql\database.html:30
 #: .\templates\mysql\list.html:25 .\templates\mysql\user\list.html:30
@@ -429,11 +457,11 @@ msgid ""
 "app"
 msgstr "الصق الأمر في سطر الأوامر لتنشيط البيئة الافتراضية لهذا التطبيق"
 
-#: .\templates\app\python\list.html:34 .\templates\domain\list.html:29
+#: .\templates\app\python\list.html:34 .\templates\domain\list.html:27
 msgid "File manager"
 msgstr "مدير الملفات"
 
-#: .\templates\app\python\list.html:37 .\templates\inc\header.html:61
+#: .\templates\app\python\list.html:37 .\templates\inc\header.html:69
 #: .\templates\settings\more.html:5 .\templates\settings\more.html:6
 msgid "More"
 msgstr "المزيد "
@@ -446,11 +474,11 @@ msgstr "تثبيت"
 msgid "Package"
 msgstr "حزمة"
 
-#: .\templates\app\python\list.html:50
+#: .\templates\app\python\list.html:51
 msgid "Install requirements"
 msgstr "تثبيت المكاتب"
 
-#: .\templates\app\python\list.html:50
+#: .\templates\app\python\list.html:51
 msgid "All libraries in requirements.txt will be installed"
 msgstr "سيتم تثبيت جميع المكتبات الموجودة في الملف requirements.txt"
 
@@ -508,9 +536,8 @@ msgstr "هل تريد تشغيل هذا التطبيق؟"
 msgid "Start"
 msgstr "تشغيل"
 
-#: .\templates\app\python\list.html:93 .\templates\domain\list.html:50
-#: .\templates\inc\header.html:56 .\templates\settings\settings.html:5
-#: .\templates\settings\settings.html:6
+#: .\templates\app\python\list.html:93 .\templates\inc\header.html:64
+#: .\templates\settings\settings.html:5 .\templates\settings\settings.html:6
 msgid "Settings"
 msgstr "الإعدادات"
 
@@ -527,12 +554,17 @@ msgid "Do you want to delete this app ?"
 msgstr "هل تريد حذف هذا التطبيق؟"
 
 #: .\templates\app\python\list.html:114 .\templates\certificate\list.html:40
-#: .\templates\domain\list.html:62 .\templates\file\list.html:29
+#: .\templates\domain\list.html:74 .\templates\file\list.html:29
 #: .\templates\file\list.html:100 .\templates\mysql\action.html:35
 #: .\templates\mysql\database.html:80 .\templates\mysql\list.html:46
 #: .\templates\mysql\user\list.html:46
 msgid "Delete"
 msgstr "حذف"
+
+#: .\templates\app\python\new.html:4 .\templates\app\python\new.html:5
+#| msgid "Python App"
+msgid "New python app"
+msgstr "تطبيق Python جديد"
 
 #: .\templates\app\python\new.html:15 .\templates\domain\new.html:20
 msgid "Create"
@@ -579,8 +611,12 @@ msgstr "المعالج"
 msgid "RAM"
 msgstr "الرام"
 
-#: .\templates\dashboard.html:48 .\templates\inc\header.html:31
-#: .\templates\inc\header.html:36 .\templates\mysql\database.html:4
+#: .\templates\dashboard.html:41 .\templates\inc\header.html:26
+msgid "Apps"
+msgstr "التطبيقات"
+
+#: .\templates\dashboard.html:48 .\templates\inc\header.html:39
+#: .\templates\inc\header.html:44 .\templates\mysql\database.html:4
 #: .\templates\mysql\database.html:5 .\templates\mysql\databases.html:4
 #: .\templates\mysql\databases.html:5 .\templates\mysql\manage.html:4
 #: .\templates\mysql\manage.html:5 .\templates\mysql\table.html:4
@@ -592,10 +628,6 @@ msgstr "قواعد بيانات"
 msgid "Space"
 msgstr "المساحة"
 
-#: .\templates\domain\domains.html:5
-msgid "All domains"
-msgstr "جميع الدومينات"
-
 #: .\templates\domain\domains.html:9 .\templates\domain\new.html:4
 #: .\templates\domain\new.html:5
 msgid "New domain"
@@ -605,38 +637,52 @@ msgstr "دومين جديد"
 msgid "No domains found"
 msgstr "لم يتم العثور على دومينات"
 
+#: .\templates\domain\edit.html:4 .\templates\domain\edit.html:5
+#| msgid "New domain"
+msgid "Edit domain"
+msgstr "تعديل المجال"
+
+#: .\templates\domain\edit.html:16 .\templates\domain\new.html:16
+msgid "Create index file"
+msgstr "إنشاء ملف الإندكس"
+
 #: .\templates\domain\list.html:9
 msgid "SSL"
 msgstr "SSL"
 
-#: .\templates\domain\list.html:37
+#: .\templates\domain\list.html:35
 msgid "Installed"
 msgstr "مثبت"
 
-#: .\templates\domain\list.html:40
+#: .\templates\domain\list.html:38
 msgid "Not installed"
 msgstr "غير مثبت"
 
-#: .\templates\domain\list.html:54 .\templates\domain\list.html:55
-#: .\templates\file\config.html:5 .\templates\file\config.html:6
-msgid "Confing"
+#: .\templates\domain\list.html:50
+msgid "Visit"
+msgstr "زيارة"
+
+#: .\templates\domain\list.html:54 .\templates\mysql\action.html:9
+msgid "Manage"
+msgstr "إدارة"
+
+#: .\templates\domain\list.html:59
+msgid "Config"
 msgstr "تكوين"
 
-#: .\templates\domain\list.html:54
-msgid "Be careful with this action, edit only if you know what you are doing"
-msgstr "كن حذرًا مع هذا الإجراء، قم بالتعديل فقط إذا كنت تعرف ما تفعله"
-
-#: .\templates\domain\list.html:61
+#: .\templates\domain\list.html:72
 msgid "Delete domain"
 msgstr "حذف الدومين"
 
-#: .\templates\domain\list.html:61
-msgid "Do you want to delete this domain ?"
-msgstr "هل تريد حذف هذا الدومين؟"
+#: .\templates\error.html:4 .\templates\error.html:5
+#: .\templates\file\upload.html:41 .\templates\file\upload.html:67
+#: .\templates\file\upload.html:79
+msgid "Error"
+msgstr "خطأ"
 
-#: .\templates\domain\new.html:16
-msgid "Create index file"
-msgstr "إنشاء ملف الإندكس"
+#: .\templates\file\config.html:5 .\templates\file\config.html:6
+msgid "Confing"
+msgstr "تكوين"
 
 #: .\templates\file\config.html:15 .\templates\mysql\edit.html:16
 #: .\templates\mysql\new.html:16 .\templates\mysql\user\edit.html:15
@@ -644,12 +690,12 @@ msgstr "إنشاء ملف الإندكس"
 msgid "Submit"
 msgstr "تقديم"
 
-#: .\templates\file\edit.html:8 .\templates\settings\settings.html:21
+#: .\templates\file\edit.html:8 .\templates\settings\settings.html:16
 msgid "Save"
 msgstr "حفظ"
 
 #: .\templates\file\files.html:4 .\templates\file\files.html:5
-#: .\templates\inc\header.html:51
+#: .\templates\inc\header.html:59
 msgid "Files"
 msgstr "الملفات"
 
@@ -690,11 +736,6 @@ msgstr "الحصول على الملف من رابط"
 msgid "Get"
 msgstr "تحميل"
 
-#: .\templates\file\upload.html:41 .\templates\file\upload.html:67
-#: .\templates\file\upload.html:79
-msgid "Error"
-msgstr "خطأ"
-
 #: .\templates\file\upload.html:42
 msgid "Please add file url to get it"
 msgstr "يرجى ادخال رابط الملف لتحميله"
@@ -709,37 +750,42 @@ msgstr "نعم"
 msgid "Processing"
 msgstr "معالجة"
 
-#: .\templates\inc\header.html:66
+#: .\templates\inc\header.html:31
+#| msgid "Python App"
+msgid "Python"
+msgstr "Python"
+
+#: .\templates\inc\header.html:74
 msgid "Updates"
 msgstr "التحديثات"
 
-#: .\templates\inc\header.html:74
+#: .\templates\inc\header.html:82
 msgid "Profile"
 msgstr "الملف التعريفي"
 
-#: .\templates\inc\header.html:97
+#: .\templates\inc\header.html:105
 msgid "Logout"
 msgstr "تسجيل خروج"
 
-#: .\templates\inc\header.html:107
+#: .\templates\inc\header.html:114
 msgid "Language"
 msgstr "لغة"
 
-#: .\templates\inc\header.html:127
+#: .\templates\inc\header.html:133
 msgid "Support"
 msgstr "دعم"
 
-#: .\templates\inc\header.html:139
+#: .\templates\inc\header.html:145
 msgid "Support the developer"
 msgstr "دعم المطور"
 
-#: .\templates\inc\header.html:145
+#: .\templates\inc\header.html:151
 msgid ""
 "The developer is very grateful for your support to make this project up to "
 "date"
 msgstr "المطور ممتن جدًا لدعمكم لتحديث هذا المشروع"
 
-#: .\templates\inc\header.html:168
+#: .\templates\inc\header.html:174
 msgid "Close"
 msgstr "اغلاق"
 
@@ -885,10 +931,6 @@ msgstr "لا"
 msgid "Are you sure?"
 msgstr "هل أنت متأكد؟"
 
-#: .\templates\mysql\action.html:9
-msgid "Manage"
-msgstr "إدارة"
-
 #: .\templates\mysql\action.html:13
 msgid ""
 "This action will create a backup of the database directly in the server"
@@ -935,6 +977,10 @@ msgstr "الجداول"
 #: .\templates\mysql\database.html:35
 msgid "Cloud backups"
 msgstr "النسخ الاحتياطية السحابية"
+
+#: .\templates\mysql\database.html:43
+msgid "Date"
+msgstr "التاريخ"
 
 #: .\templates\mysql\database.html:71 .\templates\mysql\database.html:78
 msgid "Backup"
@@ -1015,9 +1061,21 @@ msgstr "لا يوجد مستخدمين"
 msgid "Failed to load"
 msgstr "فشل في التحميل"
 
-#: .\templates\settings\settings.html:14
+#: .\templates\settings\settings.html:12
 msgid "Number of items in lists"
 msgstr "عدد العناصر في القوائم"
+
+#~ msgid "All apps"
+#~ msgstr "جميع التطبيقات"
+
+#~ msgid "All domains"
+#~ msgstr "جميع الدومينات"
+
+#~ msgid "Be careful with this action, edit only if you know what you are doing"
+#~ msgstr "كن حذرًا مع هذا الإجراء، قم بالتعديل فقط إذا كنت تعرف ما تفعله"
+
+#~ msgid "Do you want to delete this domain ?"
+#~ msgstr "هل تريد حذف هذا الدومين؟"
 
 #~ msgid "Power"
 #~ msgstr "الطاقة"
@@ -1101,9 +1159,6 @@ msgstr "عدد العناصر في القوائم"
 #~ msgid "Install uwsgi"
 #~ msgstr "قم بتثبيت uwsgi"
 
-#~ msgid "Created"
-#~ msgstr "الإنشاء"
-
 #~ msgid "Certbot not installed"
 #~ msgstr "لم يتم تثبيت Certbot"
 
@@ -1146,17 +1201,11 @@ msgstr "عدد العناصر في القوائم"
 #~ msgid "MySQL server not installed"
 #~ msgstr "خادم MySQL غير مثبت"
 
-#~ msgid "Install MySQL server now"
-#~ msgstr "قم بتثبيت خادم MySQL الآن"
-
 #~ msgid "manage"
 #~ msgstr "إدارة"
 
 #~ msgid "There is no tables in this database"
 #~ msgstr "لا توجد جداول في قاعدة البيانات هذه"
-
-#~ msgid "Config"
-#~ msgstr "تكوين"
 
 #~ msgid "Server config"
 #~ msgstr "تكوين الخادم"

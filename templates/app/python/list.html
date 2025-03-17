@@ -19,7 +19,7 @@
                 <td>{{app.name}}</td>
                 <td>
                     {% if app.domain %}
-                    <a href="http://{{app.domain.name}}" target="_blank">{{app.domain.name}}</a>
+                    {{app.domain.name}}
                     {% else %}
                     {% translate 'N/A' %}
                     {% endif %}
