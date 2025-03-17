@@ -415,7 +415,7 @@ msgstr "تغيير"
 #: .\templates\app\python\apps.html:4 .\templates\app\python\apps.html:5
 #| msgid "Python Apps"
 msgid "Python apps"
-msgstr "تطبيقات Python"
+msgstr "تطبيقات بايثون"
 
 #: .\templates\app\python\apps.html:9
 msgid "New app"
@@ -428,7 +428,7 @@ msgstr "لم يتم العثور على أي تطبيقات"
 #: .\templates\app\python\edit.html:4 .\templates\app\python\edit.html:5
 #| msgid "Edit app"
 msgid "Edit python app"
-msgstr "تعديل تطبيق Python"
+msgstr "تعديل تطبيق بايثون"
 
 #: .\templates\app\python\edit.html:15 .\templates\domain\edit.html:20
 msgid "Update"
@@ -564,7 +564,7 @@ msgstr "حذف"
 #: .\templates\app\python\new.html:4 .\templates\app\python\new.html:5
 #| msgid "Python App"
 msgid "New python app"
-msgstr "تطبيق Python جديد"
+msgstr "تطبيق بايثون جديد"
 
 #: .\templates\app\python\new.html:15 .\templates\domain\new.html:20
 msgid "Create"
@@ -753,7 +753,7 @@ msgstr "معالجة"
 #: .\templates\inc\header.html:31
 #| msgid "Python App"
 msgid "Python"
-msgstr "Python"
+msgstr "بايثون"
 
 #: .\templates\inc\header.html:74
 msgid "Updates"
@@ -769,7 +769,7 @@ msgstr "تسجيل خروج"
 
 #: .\templates\inc\header.html:114
 msgid "Language"
-msgstr "لغة"
+msgstr "اللغة"
 
 #: .\templates\inc\header.html:133
 msgid "Support"
@@ -893,7 +893,7 @@ msgstr "حدث خطأ أثناء إرسال النموذج"
 
 #: .\templates\inc\scripts.html:141
 msgid "New version available"
-msgstr "الإصدار الجديد متاح"
+msgstr "إصدار جديد متاح"
 
 #: .\templates\inc\scripts.html:143
 msgid "Please go to "

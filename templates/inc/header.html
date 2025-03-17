@@ -78,40 +78,38 @@
                     </ul>
                     <ul class="navbar-nav me-lg-2">
                         {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <div class="nav-link dropdown" title="{% trans 'Profile' %}">
-                                <div class="pointer" id="dropdownProfile" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-person fs-5 float-lg-end"></i>
-                                </div>
-                                <ul class="dropdown-menu end-0 dropdown-menu-end" aria-labelledby="dropdownProfile">
-                                    <li>
-                                        <a class="dropdown-item disabled">
-                                            {{request.user}}
-                                            <i class="bi bi-person float-end"></i>
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-divider"></li>
-                                    <li>
-                                        <a class="dropdown-item" href="{% url 'password_change' %}">
-                                            {% translate 'Password' %}
-                                            <i class="bi bi-shield-lock float-end"></i>
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-divider"></li>
-                                    <li>
-                                        <form method="post" action="{% url 'logout' %}">
-                                            {% csrf_token %}
-                                            <button type="submit" class="dropdown-item">
-                                                {% translate 'Logout' %}
-                                                <i class="bi bi-box-arrow-right float-end"></i>
-                                            </button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
+                        <li class="nav-item dropdown">
+                            <a href="javascript:void(0)" class="nav-link" id="dropdownProfile" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person fs-5 float-lg-end"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownProfile">
+                                <li>
+                                    <a class="dropdown-item disabled">
+                                        {{request.user}}
+                                        <i class="bi bi-person float-end"></i>
+                                    </a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'password_change' %}">
+                                        {% translate 'Password' %}
+                                        <i class="bi bi-shield-lock float-end"></i>
+                                    </a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <form method="post" action="{% url 'logout' %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="dropdown-item">
+                                            {% translate 'Logout' %}
+                                            <i class="bi bi-box-arrow-right float-end"></i>
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
                         </li>
                         {% endif %}
-                        <li class="nav-item dropdown" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans 'Language' %}">
+                        <li class="nav-item dropdown">
                             <a href="javascript:void(0)" class="nav-link" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-translate fs-5"></i>
                             </a>
